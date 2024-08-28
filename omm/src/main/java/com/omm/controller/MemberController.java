@@ -10,5 +10,6 @@ public class MemberController {
 		System.out.println("바이222");
         System.out.println("origin");
         System.out.println("origin2");
+        System.out.println("origin3");
 	}
 }
