@@ -6,7 +6,6 @@ public class MemberController {
         System.out.println("안녕");
         System.out.println("바이");
         System.out.println("바이2");
-        
         System.out.println("안녕");
 		System.out.println("바이222");
         System.out.println("origin");
