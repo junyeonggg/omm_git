@@ -18,19 +18,42 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//파일 업로드  다운로드
+	implementation 'commons-fileupload:commons-fileupload:1.4'
+	implementation 'commons-io:commons-io:2.11.0'
+
+	//타임리프 
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' //레이아웃을 위한 코드
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	//메일
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	
+	//시큐리티 
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	
+	//Web ( MVC )
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	//마이바티스
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	//롬북
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+	
+	//개발자 툴
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	//데이터베이스 서버
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	//테스트
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
-	testImplementation 'org.springframework.security:spring-security-test'
+//	testImplementation 'org.springframework.security:spring-security-test' //시큐리티 테스트
+	
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

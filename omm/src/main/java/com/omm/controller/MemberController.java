@@ -1,7 +1,12 @@
 package com.omm.controller;
 
-public class MemberController {
-	void method() {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
+public class MemberController {
+	@GetMapping("/test")
+	public String get() {
+		return "test";
 	}
 }
