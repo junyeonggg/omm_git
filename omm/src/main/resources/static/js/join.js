@@ -230,7 +230,7 @@ function sendVerificationEmail() {
         fetch('/sendVerificationEmail', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email: email })
         })
@@ -261,7 +261,7 @@ function verifyEmailCode() {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: JSON.stringify({ email: email, code: code })
+            body: JSON.stringify({ user_email: email, code: code }).toString()
         })
         .then(response => response.json())
         .then(data => {

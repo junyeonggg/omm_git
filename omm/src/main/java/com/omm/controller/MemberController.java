@@ -8,12 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -54,14 +52,20 @@ public class MemberController {
     }
     @PostMapping("/sendVerificationEmail")
     @ResponseBody
-    public String sendVerificationEmail(@RequestParam(value = "user_email") String user_email) {
+    public String sendVerificationEmail(@RequestBody Map<String, String> requestBody) {
+        // 'email' 키를 사용하여 값 추출
+        String userEmail = requestBody.get("email");
+
         try {
-            user_service.registerUser(user_email);
+            // 이메일 주소로 사용자 등록 로직 호출
+            user_service.registerUser(userEmail);
             return "{\"success\": true}";
         } catch (Exception e) {
+            // 예외가 발생한 경우 오류 메시지 반환
             return "{\"success\": false, \"message\": \"" + e.getMessage() + "\"}";
         }
     }
+
     @PostMapping("/verifyEmailCode")
     @ResponseBody
     public String verifyEmailCode(@RequestParam(value = "user_email") String user_email, @RequestParam(value = "code") String code) {
