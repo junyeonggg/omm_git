@@ -1,20 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <header>
-        <div>
-            <a href="/login" class="login">로그인</a>
-            <a href="/join" class="join">회원가입</a>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title th:text="'Full Width Pics - Start Bootstrap Template'">Full Width Pics - Start Bootstrap Template</title>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+</head>
+<body>
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- 브랜드명이나 로고 -->
+        <a class="navbar-brand" href="#">Your Brand</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
+            <ul class="navbar-nav me-auto">
+                <!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
+            </ul>
+            <!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/login}">로그인</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
+            </ul>
         </div>
-    </header>
-    <body>
-        <div>
-            <a href="/shop" class="shop">쇼핑하기</a>
-            <a href="/recipe_list" class="recipe_list">레시피 보기</a>
-            <a href="#" class="recommend">식재료 추천받기</a>
+    </div>
+</nav>
+<!-- Header - set the background image for the header in the line below-->
+<header class="py-5 bg-image-full" style="position: relative;">
+    <!-- 비디오 배경 -->
+    <video autoplay muted loop style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+        <source th:src="@{/img/background.mp4}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <!-- 텍스트 콘텐츠 -->
+    <div class="text-center my-5" style="position: relative; z-index: 1;">
+        <img class="img-fluid rounded-circle mb-4" th:src="@{'https://dummyimage.com/150x150/6c757d/dee2e6.jpg'}" alt="..." />
+        <h1 class="text-white fs-3 fw-bolder">Full Width Pics</h1>
+        <p class="text-white-50 mb-0">Landing Page Template</p>
+    </div>
+</header>
+<!-- Content section-->
+<section class="py-5">
+    <div class="container my-5">
+        <div class="row">
+            <!-- 쇼핑하기 -->
+            <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+                <h2>쇼핑하기</h2>
+                <p class="lead">필요한 식재료를 편리하게 쇼핑하세요.</p>
+                <a th:href="@{/shop}" class="btn btn-primary">쇼핑하기</a>
+            </div>
+            <!-- 레시피 보러가기 -->
+            <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+                <h2>레시피 보러가기</h2>
+                <p class="lead">다양한 레시피를 탐색해보세요.</p>
+                <a th:href="@{#!}" class="btn btn-primary">레시피 보러가기</a>
+            </div>
         </div>
-    </body>
+    </div>
+</section>
+
+<!-- Image element - set the background image for the header in the line below-->
+<div class="py-5 bg-image-full" th:style="'background-image: url(' + @{https://source.unsplash.com/4ulffa6qoKA/1200x800} + ')'">
+    <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
+    <div style="height: 20rem"></div>
+</div>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">&copy; Your Website 2023</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+</body>
 </html>
