@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<title>Title</title>
+<style>
+.recipe_list_flex {
+	display: flex;
+	flex-direction: row;
+}
+</style>
+<script src="/recipe.js"></script>
 </head>
 <body>
+	<!-- 레시피 리스트 -->
+	<div class="recipe_list_flex">
+		<!-- 레시피 -->
+		<div class="recipe_list_flex_item" th:each="recipe : ${recipe_list}"> 
+			<div th:text="${recipe.recipe_food_name}">음식이름</div> <!-- 레시피 음식 이름 -->
+			<div>
+				<img th:data-recipe-id="${recipe.recipe_id}" onclick="recipe_detail(this)" alt="img" src="">
+			</div>
+			<div th:text="${recipe.recipe_title}"></div> <!-- 레시피 타이틀 -->
+			<div th:text="${recipe.user_id}">작성자</div> <!-- 작성자(id 또는 닉네임) -->
+			<div>
+				<span th:text="'조회수 '+${recipe.recipe_view}"></span> <!-- 조회수 -->
+				<span th:text="'추천수'+${recipe.recipe_recommend_cnt}"></span> <!-- 추천수  -->
+			</div>
+		</div>
 
+		<div class="recipe_list_flex_item">
+			<div>음식이름</div>
+			<div>이미지</div>
+			<div>짧은 설명</div>
+			<div>작성자</div>
+			<div>조회수, 추천수</div>
+		</div>
+
+		<div class="recipe_list_flex_item">
+			<div>음식이름</div>
+			<div>이미지</div>
+			<div>짧은 설명</div>
+			<div>작성자</div>
+			<div>조회수, 추천수</div>
+		</div>
+
+		<div class="recipe_list_flex_item">
+			<div>음식이름</div>
+			<div>이미지</div>
+			<div>짧은 설명</div>
+			<div>작성자</div>
+			<div>조회수, 추천수</div>
+		</div>
+	</div>
+	<!-- 레시피 리스트 끝 -->
+	
+<script>
+
+
+</script>
 </body>
 </html>
