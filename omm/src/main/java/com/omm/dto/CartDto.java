@@ -12,5 +12,9 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 public class CartDto {
-
+    private int cart_id;
+    private String user_id;
+    private int food_id;
+    private int food_quantity;
+    private int food_item;
 }
