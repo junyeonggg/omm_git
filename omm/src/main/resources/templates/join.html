@@ -3,8 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/js/join.js}"></script>
+    <!--    <link th:href="@{/css/join.css}" rel="stylesheet">-->
 </head>
-<body>
-
-</body>
+<h1>회원 가입</h1>
+<form name="joinForm" id="joinForm" action="join" th:object="${memberDto}" method="post" >
+    <table>
+        <tr>
+            <td>
+                <label for="user_id">아이디</label>
+            </td>
+            <td>
+                <input type="text" name="user_id" id="user_id" th:field="*{user_id}" placeholder="아이디를 4~12자로 입력.">
+                <input type="button" id="checkIdBtn" onclick="checkId()" value="중복확인">
+                <div th:if="${#fields.hasErrors('user_id')}" th:errors="*{user_id}"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="id-area"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_pw">비밀번호</label>
+            </td>
+            <td>
+                <input type="password" name="user_pw" id="user_pw" th:field="*{user_pw}" placeholder="8~16자로 입력.">
+                <div th:if="${#fields.hasErrors('user_pw')}" th:errors="*{user_pw}"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_name">이름</label>
+            </td>
+            <td>
+                <input type="text" name="user_name" id="user_name">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_nickname">닉네임</label>
+            </td>
+            <td>
+                <input type="text" name="user_nickname" id="user_nickname">
+                <input type="button" id="check_nickname_btn" onclick="checkNickname()" value="중복확인">
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="nickname-area"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_email">이메일</label>
+            </td>
+            <td>
+                <!-- 이메일 아이디 부분을 입력할 필드 -->
+                <input type="text" name="user_email_id" id="user_email_id" placeholder="이메일 아이디" oninput="update_email()">
+                @
+                <!-- 도메인 선택과 직접 입력을 위한 필드 -->
+                <input type="text" name="user_email_domain" id="user_email_domain" placeholder="이메일 도메인" oninput="update_email()" style="display:none;">
+                <select id="domain_list" onchange="handle_domain_change()">
+                    <option value="">도메인 선택</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="google.com">google.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="hanmail.net">hanmail.net</option>
+                    <option value="nate.com">nate.com</option>
+                    <option value="kakao.com">kakao.com</option>
+                    <option value="custom">직접 입력</option>
+                </select>
+                <input type="text" id="custom_domain" placeholder="직접 입력" style="display:none;" oninput="update_email()">
+                <!-- 결합된 이메일을 저장할 필드 (hidden) -->
+                <input type="hidden" name="user_email" id="user_email">
+                <input type="button" id=check_email_btn onclick="checkEmail()" value="중복확인">
+                <input type="button" onclick="sendVerificationEmail()" value="인증 이메일 전송">
+                <input type="text" id="verification_code" placeholder="인증 번호 입력">
+                <input type="button" onclick="verifyEmailCode()" value="인증 확인">
+                <div id="verification_message"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="email-area"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_addr">주소</label>
+            </td>
+            <td>
+                <!-- 우편번호 -->
+                <input type="hidden" name="user_addr_zip" id="user_addr_zip" readonly>
+                <!-- 전체 주소 -->
+                <input type="hidden" name="user_addr" id="user_addr" readonly>
+                <!-- 상세 주소 -->
+                <input type="hidden" name="user_addr_detail" id="user_addr_detail">
+                <input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
+                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="text" id="sample6_address" placeholder="주소" readonly><br>
+                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                <input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_tel">전화번호</label>
+            </td>
+            <td>
+                <select id="tel_list" onchange="handle_tel_change()">
+                    <option value="">국번 선택</option>
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="012">012</option>
+                    <option value="013">013</option>
+                    <option value="014">014</option>
+                    <option value="015">015</option>
+                    <option value="016">016</option>
+                    <option value="017">017</option>
+                    <option value="018">018</option>
+                    <option value="019">019</option>
+                </select>
+                <!-- 중간번호 -->
+                <input type="text" name="tel_mid" id="tel_mid" maxlength="4" placeholder="중간번호" oninput="handle_tel_change()">
+                -
+                <!-- 뒷번호 -->
+                <input type="text" name="tel_end" id="tel_end" maxlength="4" placeholder="뒷번호" oninput="handle_tel_change()">
+                <!-- 결합된 전화번호를 저장할 필드 (hidden) -->
+                <input type="hidden" name="user_tel" id="user_tel">
+            </td>
+        </tr>
+        </tr>
+        <td>
+            <label for="user_gender">성별</label>
+        </td>
+        <td>
+            <input type="radio" name="user_gender" id="user_gender_M" value="M">남자
+            <input type="radio" name="user_gender" id="user_gender_F" value="F">여자
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_birth">생년월일</label>
+            </td>
+            <td>
+                <input type="date" name="user_birth" id="user_birth">
+            </td>
+        </tr>
+    </table>
+    <button type="button" id="submitBtn" onclick="submitForm()">회원가입</button>
+    <input type="button" value="다시 입력" onclick="resetButton()">
+    <input type="button" value="홈으로" onclick="location.href='/'">
+</form>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>
