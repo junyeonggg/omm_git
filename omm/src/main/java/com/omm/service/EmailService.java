@@ -1,16 +1,20 @@
 package com.omm.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.omm.dao.MemberDao;
+
+import lombok.RequiredArgsConstructor;
+
 @RequiredArgsConstructor
 @Service
 public class EmailService {
     private final JavaMailSender email_sender;
-
+    private final MemberDao member_dao;
+    
     @Async
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -20,30 +24,19 @@ public class EmailService {
         message.setText(text);
         email_sender.send(message);
     }
+    public void email_code_save(String user_email, String code){
+        member_dao.emailCodeSave(user_email,code);
+    }
+
+    public String email_code_check(String code) {
+        return member_dao.emailCodeCheck(code);
+    }
+
+    public void delete_code(String user_email) {
+        int cnt = member_dao.delete_check(user_email);
+        if(cnt > 0){
+            member_dao.delete_code(user_email);
+        }
+    }
 }
 
-
-
-@Service
-public class EmailServiceImpl implements EmailService {
-	@Autowired
-	private JavaMailSender javaMailSender;
-
-	@Override
-	public boolean sendMail(EmailDto dto) {
-		boolean flag = true;
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setSubject(dto.getSubject());
-		message.setTo(dto.getTo());
-		message.setText(dto.getText());
-		System.out.println(message.toString());
-		try {
-			javaMailSender.send(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-			flag=false;
-		}
-		return flag;
-	}
-
-}

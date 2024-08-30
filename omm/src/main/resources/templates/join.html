@@ -76,7 +76,7 @@
                 <!-- 결합된 이메일을 저장할 필드 (hidden) -->
                 <input type="hidden" name="user_email" id="user_email">
                 <input type="button" id=check_email_btn onclick="checkEmail()" value="중복확인">
-                <input type="button" onclick="sendVerificationEmail()" value="인증 이메일 전송">
+                <input type="button" onclick="sendmail()" value="인증 이메일 전송">
                 <input type="text" id="verification_code" placeholder="인증 번호 입력">
                 <input type="button" onclick="verifyEmailCode()" value="인증 확인">
                 <div id="verification_message"></div>
