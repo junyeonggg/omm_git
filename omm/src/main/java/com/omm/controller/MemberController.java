@@ -76,5 +76,16 @@ public class MemberController {
             return "{\"success\": false, \"message\": \"인증 코드가 유효하지 않습니다.\"}";
         }
     }
+    @GetMapping("/verify")
+    public String verifyEmail(@RequestParam("email") String email, @RequestParam("token") String token, Model model) {
+        boolean isTokenValid = user_service.validateToken(email, token); // 토큰 유효성 검증
+        if (isTokenValid) {
+            model.addAttribute("email", email); // 이메일을 모델에 추가
+            return "verifyEmailPage"; // 인증 번호 입력 페이지로 리디렉션
+        } else {
+            model.addAttribute("message", "인증 링크가 유효하지 않거나 만료되었습니다.");
+            return "verificationFailure"; // 인증 실패 페이지
+        }
+    }
 
 }
