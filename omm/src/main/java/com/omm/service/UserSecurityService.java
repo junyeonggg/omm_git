@@ -48,26 +48,4 @@ public class UserSecurityService implements UserDetailsService {
 		return new User(member.getUser_id(), member.getUser_pw(), authorities);
 	}
 
-
-	public void registerUser(String user_email) {
-		// 인증 이메일 전송
-		String subject = "이메일 인증";
-		String verificationLink = generateVerificationLink(user_email);
-		String text = "회원가입을 완료하려면 다음 링크를 클릭해 주세요: " + verificationLink;
-		email_service.sendEmail(user_email, subject, text);
-	}
-	private String generateVerificationLink(String user_email) {
-		// 인증 링크 생성 로직
-
-		// UUID 생성
-		String uuid = UUID.randomUUID().toString();
-
-		return "http://example.com/verify?email=" + user_email + "&token=" + uuid;
-	}
-	public boolean verifyEmailCode(String user_email, String code) {
-		return true;
-	}
-	public boolean validateToken(String email, String token) {
-		return true;
-	}
 }
