@@ -260,19 +260,6 @@ function verifyEmailCode(){
     })
 }
 
-
-function check_id() {
-    // 아이디 중복 확인 로직 구현
-}
-
-function check_nickname() {
-    // 닉네임 중복 확인 로직 구현
-}
-
-function check_email() {
-    // 이메일 중복 확인 로직 구현
-}
-
 function resetButton() {
     document.getElementById('joinForm').reset();
 }
