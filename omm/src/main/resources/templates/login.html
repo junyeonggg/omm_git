@@ -5,6 +5,21 @@
     <title>로그인</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script th:src="@{/js/login.js}"></script>
+    <style>
+.social_login_flex{
+    display : flex;
+    flex-decoration : row;
+}
+.social_login_flex img{
+    width : 50px;
+    height : 50px;
+}
+.social_login_flex img:hover{
+    border : solid 1px;
+    box-shadow : 2px 2px 3px 3px black;
+    border-radius:5px;
+}
+    </style>
 </head>
 <body>
 <form name="loginForm" id="loginForm" action="login" method="post">
@@ -30,7 +45,21 @@
 <input type="button" value="다시 입력" onclick="resetButton()">
 <input type="button" value="홈으로" onclick="location.href='/'">
 <input type="button" value="회원가입" onclick="location.href='/join'">
-    <input type="button" value="인가코드 테스트" onclick="codeTest()">
+    <!-- 소셜 로그인 div-->
+    <div class="social_login_flex">
+        <!--구글-->
+        <div>
+            <img src="img/login_google.png" onclick="social_login('google')" alt="">
+        </div>
+        <!--카카오-->
+        <div>
+            <img src="img/login_kakao.png" onclick="social_login('kakao')" alt="">
+
+        </div>
+
+    </div>
+    <input id="id_google_token" type="text" th:value="${code}">
+    <input type="button" value="인가코드 테스트" onclick="google_token()">
 </form>
 </body>
 </html>

@@ -24,7 +24,8 @@ dependencies {
 
 	// @Pattern 애노테이션을 사용하여 아이디의 길이와 형식을 검증
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
+	// JSON
+	implementation 'org.json:json:20210307'
 	//타임리프 
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' //레이아웃을 위한 코드
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
