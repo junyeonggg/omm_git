@@ -67,10 +67,9 @@ public class UserSecurityService implements UserDetailsService {
 		return "http://example.com/verify?email=" + user_email + "&token=" + uuid;
 	}
 	public boolean verifyEmailCode(String user_email, String code) {
-		// 인증 코드 검증 로직 추가
-		// 예: 코드와 이메일을 비교하여 유효성을 확인
-		// 코드 저장 및 관리 로직은 별도의 서비스나 DB에 저장할 수 있습니다.
-		return true; // 실제 검증 로직에 맞게 반환값을 수정
+		return true;
 	}
-
+	public boolean validateToken(String email, String token) {
+		return true;
+	}
 }
