@@ -111,7 +111,7 @@ public class MemberController {
             body.add("code", code);
             body.add("client_id", "931563116169-26l7rc649fjpeoaf7jo1p8bjvqloco45.apps.googleusercontent.com");
             body.add("client_secret", "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");
-            body.add("redirect_uri", "http://localhost:8080/google_login2");
+            body.add("redirect_uri", "http://localhost:8080/login/oauth2/code/google");
             body.add("grant_type", "authorization_code");
 
             HttpHeaders headers = new HttpHeaders();
@@ -169,77 +169,6 @@ public class MemberController {
         }else if(social.equals("naver")){
             tokenUrl = "";
         }
-
-        return "index";
-    }
-
-    @GetMapping("/google_login2")
-    public String googleLogin(@RequestParam("code") String code) {
-        System.out.println("Received code: " + code);
-
-        // 액세스 토큰을 얻기 위해 요청
-        String tokenUrl = "https://oauth2.googleapis.com/token";
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        // 요청 데이터 설정
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("code", code);
-        body.add("client_id", "931563116169-26l7rc649fjpeoaf7jo1p8bjvqloco45.apps.googleusercontent.com");
-        body.add("client_secret", "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");
-        body.add("redirect_uri", "http://localhost:8080/google_login2");
-        body.add("grant_type", "authorization_code");
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
-
-        // 액세스 토큰 요청
-        ResponseEntity<String> response = restTemplate.exchange(
-                tokenUrl,
-                HttpMethod.POST,
-                entity,
-                String.class
-        );
-
-        // 액세스 토큰 추출
-        JSONObject jsonResponse = new JSONObject(response.getBody());
-        String accessToken = jsonResponse.getString("access_token");
-
-        // 사용자 정보 요청
-        String userInfoUrl = "https://www.googleapis.com/oauth2/v3/userinfo";
-        HttpHeaders userInfoHeaders = new HttpHeaders();
-        userInfoHeaders.set("Authorization", "Bearer " + accessToken);
-
-        HttpEntity<String> userInfoEntity = new HttpEntity<>(userInfoHeaders);
-        ResponseEntity<String> userInfoResponse = restTemplate.exchange(
-                userInfoUrl,
-                HttpMethod.GET,
-                userInfoEntity,
-                String.class
-        );
-
-        // 사용자 정보 추출
-        JSONObject userInfo = new JSONObject(userInfoResponse.getBody());
-        String userId = userInfo.optString("sub");
-        String name = userInfo.optString("name");
-        String givenName = userInfo.optString("given_name");
-        String familyName = userInfo.optString("family_name");
-        String email = userInfo.optString("email");
-        Boolean emailVerified = userInfo.optBoolean("email_verified");
-        String picture = userInfo.optString("picture");
-        String locale = userInfo.optString("locale");
-
-        // 데이터 출력
-        System.out.println("User ID: " + userId);
-        System.out.println("Name: " + name);
-        System.out.println("Given Name: " + givenName);
-        System.out.println("Family Name: " + familyName);
-        System.out.println("Email: " + email);
-        System.out.println("Email Verified: " + emailVerified);
-        System.out.println("Picture: " + picture);
-        System.out.println("Locale: " + locale);
 
         return "index";
     }
