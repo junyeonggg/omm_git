@@ -8,15 +8,15 @@
 	<table>
 		<tr>
 			<th>작성자 : </th>
-			<td><input type="text" th:value="${user_id}"></td>
+			<td th:text="${inquire.user_id}"></td>
 		</tr>
 		<tr>
 			<th>제목 : </th>
-			<td><input type="text" placeholder="제목"></td>
+			<td th:text="${inquire.inquire_title}"></td>
 		</tr>
 		<tr>
 			<th>내용 : </th>
-			<td><textarea placeholder="내용"></textarea> </td>
+			<td th:text="${inquire.inquire_content}"></td>
 		</tr>
 	</table>
 
