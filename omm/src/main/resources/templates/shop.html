@@ -21,7 +21,7 @@
         </div>
         <div class="carousel-inner">
             <div th:each="banner, stat : ${bannerImages}" th:classappend="${stat.index == 0} ? 'carousel-item active' : 'carousel-item'">
-                <img th:src="@{${banner}}" class="d-block w-100" th:alt="'Banner Image ' + ${stat.index + 1}" />
+                <img th:src="${banner}" class="d-block w-100" th:alt="'Banner Image ' + ${stat.index + 1}" />
                 <div class="carousel-caption d-none d-md-block">
                     <h5>프로모션 제목</h5>
                     <p>프로모션 설명</p>
@@ -47,7 +47,7 @@
         <div class="d-flex flex-wrap">
             <button type="submit" name="searchCategory" value="" class="btn btn-outline-secondary category-btn">전체 카테고리</button>
             <button type="submit" th:each="food : ${foods}"
-                    th:if="${food != null and food.searchCategory != null}"
+                    th:if="${food.searchCategory != null}"
                     th:name="searchCategory"
                     th:value="${food.searchCategory}"
                     th:text="${food.searchCategory}"
@@ -65,15 +65,13 @@
                 <div class="col-md-3 mb-4" th:each="food : ${categoryRecommendations[category.category_id]}">
                     <div class="card">
                         <!-- 이미지가 있을 경우 -->
-                        <img th:if="${food != null and food.foodImg != null}" th:src="${food.foodImg}" class="card-img-top" th:alt="${food.foodName}" />
-                        <!-- 이미지가 없을 경우 기본 이미지로 대체 -->
-                        <img th:if="${food == null or food.foodImg == null}" th:src="@{/images/default-image.jpg}" class="card-img-top" th:alt="'No Image Available'" />
+                        <img th:src="${food.foodImg != null ? food.foodImg : '/images/default-image.jpg'}" class="card-img-top" th:alt="${food.foodName != null ? food.foodName : 'No Image Available'}" />
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${food != null ? food.foodName : '상품 이름 없음'}"></h5>
-                            <p class="card-text" th:text="${food != null ? (food.foodLprice != null ? food.foodLprice + '원' : '가격 정보 없음') : '정보 없음'}"></p>
-                            <a th:href="${food != null ? food.foodLink : '#'}"
+                            <h5 class="card-title" th:text="${food.foodName != null ? food.foodName : '상품 이름 없음'}"></h5>
+                            <p class="card-text" th:text="${food.foodLprice != null ? food.foodLprice + '원' : '가격 정보 없음'}"></p>
+                            <a th:href="${food.foodLink != null ? food.foodLink : '#'}"
                                class="btn btn-primary"
-                               th:if="${food != null and food.foodLink != null}"
+                               th:if="${food.foodLink != null}"
                                target="_blank">구매하기</a>
                         </div>
                     </div>
@@ -88,18 +86,16 @@
         <div class="col-md-4 mb-4" th:each="food : ${foods}">
             <div class="card">
                 <!-- 이미지가 있을 경우 -->
-                <img th:if="${food != null and food.foodImg != null}" th:src="${food.foodImg}" class="card-img-top" th:alt="${food.foodName}" />
-                <!-- 이미지가 없을 경우 기본 이미지로 대체 -->
-                <img th:if="${food == null or food.foodImg == null}" th:src="@{/images/default-image.jpg}" class="card-img-top" th:alt="'No Image Available'" />
+                <img th:src="'${food.foodImg != null ? food.foodImg : '/images/default-image.jpg'}'" class="card-img-top" th:alt="${food.foodName != null ? food.foodName : 'No Image Available'}" />
                 <div class="card-body">
                     <!-- 제목이 없을 경우 기본 값 설정 -->
-                    <h5 class="card-title" th:text="${food != null ? food.foodName : '상품 이름 없음'}"></h5>
+                    <h5 class="card-title" th:text="${food.foodName != null ? food.foodName : '상품 이름 없음'}"></h5>
                     <!-- 가격이 없을 경우 기본 값 설정 -->
-                    <p class="card-text" th:text="${food != null ? (food.foodLprice != null ? food.foodLprice + '원' : '가격 정보 없음') : '정보 없음'}"></p>
+                    <p class="card-text" th:text="${food.foodLprice != null ? food.foodLprice + '원' : '가격 정보 없음'}"></p>
                     <!-- 링크가 없을 경우 버튼 비활성화 -->
-                    <a th:href="${food != null ? food.foodLink : '#'}"
+                    <a th:href="${food.foodLink != null ? food.foodLink : '#'}"
                        class="btn btn-primary"
-                       th:if="${food != null and food.foodLink != null}"
+                       th:if="${food.foodLink != null}"
                        target="_blank">구매하기</a>
                 </div>
             </div>

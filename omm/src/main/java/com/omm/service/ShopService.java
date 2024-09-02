@@ -4,6 +4,7 @@ import com.omm.dao.ShopDao;
 import com.omm.dto.FoodDto;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -27,5 +28,14 @@ public class ShopService {
         } else {
             return shopDao.searchFoods(query);
         }
+    }
+
+    public List<FoodDto> findAllFoods() {
+        List<FoodDto> foods = shopDao.findAllFoods();
+        return foods != null ? foods : Collections.emptyList();
+    }
+
+    public List<FoodDto> findFoodsByCategory(int categoryId) {
+        return shopDao.findFoodsByCategory(categoryId);
     }
 }

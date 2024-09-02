@@ -21,4 +21,10 @@ public interface ShopDao {
 
     @Select("SELECT * FROM tbl_food WHERE food_name LIKE CONCAT('%', #{query}, '%')")
     List<FoodDto> searchFoods(@Param("query") String query);
+
+    @Select("SELECT * FROM tbl_food")
+    List<FoodDto> findAllFoods();
+
+    @Select("SELECT * FROM tbl_food WHERE category_id = #{categoryId}")
+    List<FoodDto> findFoodsByCategory(@Param("categoryId") int categoryId);
 }
