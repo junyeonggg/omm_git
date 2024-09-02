@@ -4,13 +4,13 @@ import com.omm.dao.CategoryDao;
 import com.omm.dto.CategoryDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CategoryService {
 
     private final CategoryDao categoryDao;
-
 
     public CategoryService(CategoryDao categoryDao) {
         this.categoryDao = categoryDao;
@@ -31,5 +31,9 @@ public class CategoryService {
 
     public Optional<CategoryDto> findCategoryByName(String category_name) {
         return categoryDao.findCategoryByName(category_name);
+    }
+
+    public List<CategoryDto> findAllCategories() {
+        return categoryDao.findAllCategories();
     }
 }
