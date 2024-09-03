@@ -28,15 +28,15 @@ function social_login(social){
      var redirectUri = ""
      // OAuth 2.0 인증 URL
      if(social == "google"){
-         clientId = '931563116169-26l7rc649fjpeoaf7jo1p8bjvqloco45'; // 구글 애플리케이션의 클라이언트 ID
+         clientId = '클라이언트아이디'; // 구글 애플리케이션의 클라이언트 ID
          redirectUri = encodeURIComponent('http://localhost:8080/login/oauth2/code/google');
          authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
      }else if(social == "kakao"){
-         clientId = "6379a78e09703b800a317f97af0045c0"; // 카카오 애플리케이션의 클라이언트 ID
+         clientId = "클라이언트아이디"; // 카카오 애플리케이션의 클라이언트 ID
          redirectUri = encodeURIComponent('http://localhost:8080/login/oauth2/code/kakao');
          authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
      }else if(social == "naver"){
-         clientId = "2qwNxrPteLgOO7496Fet"; // 네이버 애플리케이션의 클라이언트 ID
+         clientId = "클라이언트아이디"; // 네이버 애플리케이션의 클라이언트 ID
          redirectUri = encodeURIComponent('http://localhost:8080/login/oauth2/code/naver');
          authUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
      }
