@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.PagingSearch;
 import com.omm.dto.RecipeDto;
 import com.omm.dto.Recipe_ingre;
@@ -38,12 +39,12 @@ public class RecipeController {
 //				line = line.replace(",", "-,-");
 //				String[] data_list = line.split(",");
 //				if (data_list.length != 13) {
-//					System.out.println("length : " + data_list.length);
+////					System.out.println("length : " + data_list.length);
 //					for(String d : data_list) {
-//						System.out.print(d+" ");
-//						System.out.println("line : "+line);
+////						System.out.print(d+" ");
+////						System.out.println("line : "+line);
 //					}
-//					System.out.println();
+////					System.out.println();
 //
 //				}
 //				recipe.setMange_id(data_list[1]);
@@ -74,51 +75,67 @@ public class RecipeController {
 //	}
 
 	// 레시피 재료를 넣기위한 메서드
-	@GetMapping("/insert_ingre")
-	public String insert_ingre() {
+//	@GetMapping("/insert_ingre2")
+//	public String insert_ingre() {
+//		try {
+//			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
+//			File recipe_csv = new File(path);
+//			// 입력 스트림
+//			FileReader recipe_list = new FileReader(recipe_csv);
+//			BufferedReader bfReader = new BufferedReader(recipe_list);
+//			String line = "";
+//			int count = 0;
+//			while ((line = bfReader.readLine()) != null) {
+//				RecipeDto recipe = new RecipeDto();
+//				if (line.startsWith(",")) {
+//					continue;
+//				}
+//				System.out.println(line);
+//				String[] data_list = line.split(",");
+//				String[] ingre_list = data_list[2].replace("|",",").split(",");
+//				String temp_type = ""; 
+//				
+//
+//				// 첫번째 행을 가져오지 않기 위한 코드
+//			}
+//		} catch (Exception e) {
+//			System.out.println();
+//			e.printStackTrace();
+//		}
+//
+//		return "recipe_list";
+//	}
+
+	// 레시피 step db에 넣기
+	@GetMapping("/insert_step")
+	public String insert_step() {
 		try {
-			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
-			File recipe_csv = new File(path);
-			// 입력 스트림
-			FileReader recipe_list = new FileReader(recipe_csv);
-			BufferedReader bfReader = new BufferedReader(recipe_list);
-			String line = "";
-			int count = 0;
-			while ((line = bfReader.readLine()) != null) {
-				RecipeDto recipe = new RecipeDto();
-				if (line.startsWith(",")) {
-					continue;
-				}
-				System.out.println(line);
-				String[] data_list = line.split(",");
-				Recipe_ingre ingre = new Recipe_ingre();
-				ingre.setMange_id(data_list[1]);
-				String[] ingre_list = data_list[2].split("");
-				String ingre_type = "";
-				boolean swch = false;
-				for (String s : ingre_list) {
-					System.out.println(s);
-					if (s.equals("[")) {
-						swch = true;
-					}
-					if (swch) {
-						ingre_type += s;
-					}
-					if (s.equals("]")) {
-						ingre.setIngre_type(ingre_type);
-						swch = false;
-					}
-				}
-				System.out.println(ingre.toString());
-				break;
-
-				// 첫번째 행을 가져오지 않기 위한 코드
+		String path = "C:\\Users\\admin\\Desktop\\recipe_sequence.csv";
+		File recipe_csv = new File(path);
+		// 입력 스트림
+		FileReader recipe_list = new FileReader(recipe_csv);
+		BufferedReader bfReader = new BufferedReader(recipe_list);
+		String line = "";
+		int count = 0;
+		while ((line = bfReader.readLine()) != null) {
+			if (line.startsWith(",")) {
+				continue;
 			}
-		} catch (Exception e) {
-			System.out.println();
-			e.printStackTrace();
+			String[] line_list = line.split(",");
+			CookingSequenceDto sequence = new CookingSequenceDto();
+			
+			// 레시피 id는 mange_id를 이용해서 가져온다.
+			System.out.println(line);
+			int recipe_id = recipeService.findRecipeByMangeId(line_list[1]); 
+			sequence.setRecipe_id(recipe_id);
+			sequence.setSequence_text(line_list[2]);
+			sequence.setSequence_step_no(Integer.valueOf(line_list[3]));
+			recipeService.insertRecipeSequence(sequence);
 		}
-
+	} catch (Exception e) {
+		System.out.println();
+		e.printStackTrace();
+	}
 		return "recipe_list";
 	}
 
