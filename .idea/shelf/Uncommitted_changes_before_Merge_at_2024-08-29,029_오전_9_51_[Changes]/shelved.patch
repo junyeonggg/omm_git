@@ -1,0 +1,116 @@
+Index: omm/src/main/resources/templates/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html xmlns:th=\"http://www.thymeleaf.org\">\r\n    <head>\r\n        <meta charset=\"UTF-8\">\r\n        <title>Title</title>\r\n    </head>\r\n    <header>\r\n        <div>\r\n            <a href=\"/login\" class=\"login\">로그인</a>\r\n            <a href=\"/join\" class=\"join\">회원가입</a>\r\n        </div>\r\n    </header>\r\n    <body>\r\n        <div>\r\n            <a href=\"/shop\" class=\"shop\">쇼핑하기</a>\r\n            <a href=\"/recipe_list\" class=\"recipe_list\">레시피 보기</a>\r\n            <a href=\"#\" class=\"recommend\">식재료 추천받기</a>\r\n        </div>\r\n    </body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/omm/src/main/resources/templates/index.html b/omm/src/main/resources/templates/index.html
+--- a/omm/src/main/resources/templates/index.html	(revision a77a800963a53a6e9f6f74345c98f1ac88a66a23)
++++ b/omm/src/main/resources/templates/index.html	(date 1724892711792)
+@@ -1,20 +1,66 @@
+ <!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+-    <head>
+-        <meta charset="UTF-8">
+-        <title>Title</title>
+-    </head>
+-    <header>
+-        <div>
+-            <a href="/login" class="login">로그인</a>
+-            <a href="/join" class="join">회원가입</a>
++<head>
++    <meta charset="utf-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
++    <meta name="description" content="" />
++    <meta name="author" content="" />
++    <title>Full Width Pics - Start Bootstrap Template</title>
++    <!-- Core theme CSS (includes Bootstrap)-->
++    <link href="css/index.css" rel="stylesheet" />
++</head>
++<body>
++<!-- Responsive navbar-->
++<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
++    <div class="container">
++        <a class="navbar-brand" href="#!">Start Bootstrap</a>
++        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
++        <div class="collapse navbar-collapse" id="navbarSupportedContent">
++            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
++                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">로그인</a></li>
++                <li class="nav-item"><a class="nav-link" href="#!">회원가입</a></li>
++            </ul>
+         </div>
+-    </header>
+-    <body>
+-        <div>
+-            <a href="/shop" class="shop">쇼핑하기</a>
+-            <a href="/recipe_list" class="recipe_list">레시피 보기</a>
+-            <a href="#" class="recommend">식재료 추천받기</a>
++    </div>
++</nav>
++<!-- Header - set the background image for the header in the line below-->
++<header class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/wfh8dDlNFOk/1600x900')">
++    <div class="text-center my-5">
++        <p class="text-white-50 mb-0">Landing Page Template</p>
++    </div>
++</header>
++<!-- Content section-->
++<section class="py-5">
++    <div class="container my-5">
++        <div class="row justify-content-center">
++            <div class="col-lg-6">
++
++            </div>
+         </div>
+-    </body>
++    </div>
++</section>
++<!-- Image element - set the background image for the header in the line below-->
++<div class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
++    <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
++    <div style="height: 20rem"></div>
++</div>
++<!-- Content section-->
++<section class="py-5">
++    <div class="container my-5">
++        <div class="row justify-content-center">
++            <div class="col-lg-6">
++
++            </div>
++        </div>
++    </div>
++</section>
++<!-- Footer-->
++<footer class="py-5 bg-dark">
++    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
++</footer>
++<!-- Bootstrap core JS-->
++<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
++<!-- Core theme JS-->
++<script src="js/scripts.js"></script>
++</body>
+ </html>
+\ No newline at end of file
+Index: omm/src/main/resources/static/css/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/omm/src/main/resources/static/css/style.css b/omm/src/main/resources/static/css/index.css
+rename from omm/src/main/resources/static/css/style.css
+rename to omm/src/main/resources/static/css/index.css
+--- a/omm/src/main/resources/static/css/style.css	(revision a77a800963a53a6e9f6f74345c98f1ac88a66a23)
++++ b/omm/src/main/resources/static/css/index.css	(date 1724892711792)
+@@ -1,1 +1,9 @@
+-@charset "EUC-KR";
+\ No newline at end of file
++// Import Bootstrap
++@import "bootstrap/scss/bootstrap.scss";
++
++.bg-image-full {
++    background-repeat: no-repeat;
++    background-attachment: scroll;
++    background-position: center;
++    background-size: cover;
++}
+\ No newline at end of file
