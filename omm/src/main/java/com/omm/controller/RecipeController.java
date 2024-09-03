@@ -151,5 +151,6 @@ public class RecipeController {
 		model.addAttribute("recipe_list", recipe_list);
 		return "recipe_list";
 	}
+	// 가장 최근 수정
 
 }
