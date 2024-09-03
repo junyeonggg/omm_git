@@ -160,6 +160,11 @@ public class MemberController {
 
             // 요청 데이터 설정
             MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+            body.add("code", code);
+            body.add("client_id", "클라이언트아이디");
+            body.add("client_secret", "클라이언트비밀번호");
+            body.add("redirect_uri", "http://localhost:8080/login/oauth2/code/google");
+            body.add("grant_type", "authorization_code");
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -212,6 +217,10 @@ public class MemberController {
 
             // 요청 데이터 설정
             MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+            body.add("grant_type", "authorization_code");
+            body.add("client_id", "클라이언트아이디");
+            body.add("redirect_uri", "http://localhost:8080/login/oauth2/code/kakao");
+            body.add("code", code);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -258,6 +267,11 @@ public class MemberController {
 
             // 요청 데이터 설정
             MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+            body.add("grant_type", "authorization_code");
+            body.add("client_id", "클라이언트아이디");
+            body.add("client_secret", "클라이언트비밀번호");
+            body.add("redirect_uri", "http://localhost:8080/login/oauth2/code/naver");
+            body.add("code", code);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
