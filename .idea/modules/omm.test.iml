@@ -102,5 +102,4 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.objenesis:objenesis:3.3" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.javassist:javassist:3.29.0-GA" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="omm.main" />
 </module>
