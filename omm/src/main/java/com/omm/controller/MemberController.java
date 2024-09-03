@@ -61,7 +61,7 @@ public class MemberController {
     @PostMapping("/sendmail")
     public boolean sendmail(@RequestParam("user_email")String user_email){
         boolean flag = true;
-        String subject = "이메일 인증 번호 입니다.";
+        String subject = "오늘 뭐먹지 회원가입 이메일 인증 번호 입니다.";
         String code = UUID.randomUUID().toString().substring(0,8);
         String text = code;
         try{
