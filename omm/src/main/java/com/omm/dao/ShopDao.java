@@ -8,23 +8,22 @@ import java.util.List;
 @Mapper
 public interface ShopDao {
 
-    @Select("SELECT * FROM tbl_food WHERE category_id = #{categoryId} ORDER BY food_lprice LIMIT #{limit}")
-    List<FoodDto> findTopNByCategoryId(@Param("categoryId") int categoryId, @Param("limit") int limit);
+    @Select("SELECT food_id AS foodId, food_name AS foodName, food_img AS foodImg, food_lprice AS foodLprice, food_mall_name AS foodMallName, food_product_id AS foodProductId, search_category AS searchCategory, category_id AS categoryId FROM tbl_food WHERE category_id = #{categoryId}")
+    List<FoodDto> findFoodsByCategory(@Param("categoryId") int categoryId);
 
     @Select("<script>" +
-            "SELECT * FROM tbl_food WHERE food_name LIKE CONCAT('%', #{query}, '%')" +
-            "<if test='searchCategory != null'>" +
-            " AND search_category = #{searchCategory}" +
-            "</if>" +
+            "SELECT food_id AS foodId, food_name AS foodName, food_img AS foodImg, food_lprice AS foodLprice, food_mall_name AS foodMallName, food_product_id AS foodProductId, search_category AS searchCategory, category_id AS categoryId " +
+            "FROM tbl_food " +
+            "WHERE category_id IN (" +
+            "SELECT category_id FROM tbl_category " +
+            "WHERE category_id = #{categoryId} OR parent_category_id = #{categoryId}" +
+            ")" +
             "</script>")
-    List<FoodDto> searchFoodsByCategory(@Param("query") String query, @Param("searchCategory") String searchCategory);
+    List<FoodDto> findFoodsByCategoryWithSubCategories(@Param("categoryId") int categoryId);
 
-    @Select("SELECT * FROM tbl_food WHERE food_name LIKE CONCAT('%', #{query}, '%')")
+    @Select("SELECT food_id AS foodId, food_name AS foodName, food_img AS foodImg, food_lprice AS foodLprice, food_mall_name AS foodMallName, food_product_id AS foodProductId, search_category AS searchCategory, category_id AS categoryId FROM tbl_food WHERE food_name LIKE CONCAT('%', #{query}, '%')")
     List<FoodDto> searchFoods(@Param("query") String query);
 
-    @Select("SELECT * FROM tbl_food")
-    List<FoodDto> findAllFoods();
-
-    @Select("SELECT * FROM tbl_food WHERE category_id = #{categoryId}")
-    List<FoodDto> findFoodsByCategory(@Param("categoryId") int categoryId);
+    @Select("SELECT * FROM tbl_food WHERE food_product_id = #{foodProductId}")
+    FoodDto getFoodById(@Param("foodProductId") String foodProductId);
 }

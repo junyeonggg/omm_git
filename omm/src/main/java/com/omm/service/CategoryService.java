@@ -2,38 +2,40 @@ package com.omm.service;
 
 import com.omm.dao.CategoryDao;
 import com.omm.dto.CategoryDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CategoryService {
 
-    private final CategoryDao categoryDao;
+    @Autowired
+    private CategoryDao categoryDao;
 
-    public CategoryService(CategoryDao categoryDao) {
-        this.categoryDao = categoryDao;
-    }
-
-    public CategoryDto saveCategory(String category_name, Integer parent_category_id) {
-        Optional<CategoryDto> existingCategory = categoryDao.findCategoryByName(category_name);
-        if (existingCategory.isPresent()) {
-            return existingCategory.get();
-        } else {
-            CategoryDto category = new CategoryDto();
-            category.setCategory_name(category_name);
-            category.setParent_category_id(parent_category_id);
-            categoryDao.insertCategory(category);
-            return category;
-        }
-    }
-
-    public Optional<CategoryDto> findCategoryByName(String category_name) {
-        return categoryDao.findCategoryByName(category_name);
-    }
-
+    // 모든 카테고리를 계층 구조로 조회하는 메서드
     public List<CategoryDto> findAllCategories() {
-        return categoryDao.findAllCategories();
+        List<CategoryDto> categories = categoryDao.findAllCategories();
+
+        // 계층 구조를 위한 맵
+        Map<Integer, CategoryDto> categoryMap = new HashMap<>();
+        List<CategoryDto> rootCategories = new ArrayList<>();
+
+        for (CategoryDto category : categories) {
+            categoryMap.put(category.getCategoryId(), category);
+            if (category.getParentCategoryId() == null) {
+                rootCategories.add(category);
+            } else {
+                CategoryDto parentCategory = categoryMap.get(category.getParentCategoryId());
+                if (parentCategory != null) {
+                    if (parentCategory.getChildren() == null) {
+                        parentCategory.setChildren(new ArrayList<>());
+                    }
+                    parentCategory.getChildren().add(category);
+                }
+            }
+        }
+
+        return rootCategories;
     }
 }

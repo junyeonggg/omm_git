@@ -15,13 +15,7 @@ public interface CategoryDao {
 
 
 
-    @Select("SELECT category_id, category_name, parent_category_id FROM tbl_category WHERE category_name = #{category_name}")
-    Optional<CategoryDto> findCategoryByName(@Param("category_name") String category_name);
-
-    @Insert("INSERT INTO tbl_category (category_name, parent_category_id) VALUES (#{category_name}, #{parent_category_id})")
-    void insertCategory(CategoryDto category);
-
-    @Select("SELECT category_id, category_name, parent_category_id FROM tbl_category")
+    @Select("SELECT category_id AS categoryId, category_name AS categoryName, parent_category_id AS parentCategoryId FROM tbl_category")
     List<CategoryDto> findAllCategories();
 
 }

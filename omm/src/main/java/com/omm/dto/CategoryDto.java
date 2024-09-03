@@ -2,6 +2,9 @@ package com.omm.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ToString
 @AllArgsConstructor
 @Getter
@@ -9,7 +12,8 @@ import lombok.*;
 @NoArgsConstructor
 public class CategoryDto {
 
-    private Integer category_id;
-    private String category_name;
-    private Integer parent_category_id;
+    private Integer categoryId;
+    private String categoryName;
+    private Integer parentCategoryId;
+    private List<CategoryDto> children = new ArrayList<>();;
 }
