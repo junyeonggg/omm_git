@@ -8,7 +8,7 @@
     <!--    <link th:href="@{/css/join.css}" rel="stylesheet">-->
 </head>
 <h1>회원 가입</h1>
-<form name="joinForm" id="joinForm" action="join" th:object="${memberDto}" method="post" >
+<form name="joinForm" id="joinForm" action="/join" th:object="${memberDto}" method="post" >
     <table>
         <tr>
             <td>
@@ -108,7 +108,7 @@
                 <label for="user_tel">전화번호</label>
             </td>
             <td>
-                <select id="tel_list" onchange="handle_tel_change()">
+                <select id="tel_list">
                     <option value="">국번 선택</option>
                     <option value="010">010</option>
                     <option value="011">011</option>
@@ -122,12 +122,10 @@
                     <option value="019">019</option>
                 </select>
                 <!-- 중간번호 -->
-                <input type="text" name="tel_mid" id="tel_mid" maxlength="4" placeholder="중간번호" oninput="handle_tel_change()">
-                -
-                <!-- 뒷번호 -->
-                <input type="text" name="tel_end" id="tel_end" maxlength="4" placeholder="뒷번호" oninput="handle_tel_change()">
-                <!-- 결합된 전화번호를 저장할 필드 (hidden) -->
-                <input type="hidden" name="user_tel" id="user_tel">
+                <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호">
+
+
+
             </td>
         </tr>
         </tr>
@@ -148,7 +146,7 @@
             </td>
         </tr>
     </table>
-    <button type="button" id="submitBtn" onclick="submitForm()">회원가입</button>
+    <button type="button" id="submitBtn" onclick="submitForm(this)">회원가입</button>
     <input type="button" value="로그인" onclick="location.href='/login'">
     <input type="button" value="다시 입력" onclick="resetButton()">
     <input type="button" value="홈으로" onclick="location.href='/'">

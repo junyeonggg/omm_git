@@ -1,4 +1,6 @@
-function recipe_detail(self){
-	recipe_id = self.getAttribute("data-recipe-id")
-	window.location.replace(`/recipe/${recipe_id}`)
+/* 키워드 검색시 실행*/
+function searchKeyword(){
+	const keyword = document.querySelector("#keyword").value
+	window.location.href=`http://localhost:8080/recipe_list?keyword=${keyword}`;
+	
 }
