@@ -21,8 +21,8 @@ public class RecipeService {
 	}
 
 
-	public int selectAll() {
-		return recipeDao.selectAll();
+	public int selectAll(String keyword) {
+		return recipeDao.selectAll(keyword);
 	}
 
 

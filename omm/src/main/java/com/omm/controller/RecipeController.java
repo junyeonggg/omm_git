@@ -140,14 +140,15 @@ public class RecipeController {
 	}
 
 	@GetMapping("/recipe_list")
-	public String recipe_list_page(@RequestParam(value = "keword", defaultValue = "") String keword,
+	public String recipe_list_page(@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int page_no, Model model) {
-		int recipe_list_size = recipeService.selectAll();
+		int recipe_list_size = recipeService.selectAll(keyword);
 		PagingSearch pagingSearch = new PagingSearch(recipe_list_size, page_no);
-		pagingSearch.setKeyword(keword);
+		pagingSearch.setKeyword(keyword);
 		List<RecipeDto> recipe_list = recipeService.selectRecipeByPagingSearch(pagingSearch.getStartRecord(),
 				pagingSearch.getRecordSize(), pagingSearch.getKeyword());
-		System.out.println(pagingSearch.toString());
+//		System.out.println(pagingSearch.toString());
+		model.addAttribute("paging", pagingSearch);
 		model.addAttribute("recipe_list", recipe_list);
 		return "recipe_list";
 	}
