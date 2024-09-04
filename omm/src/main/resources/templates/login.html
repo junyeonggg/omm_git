@@ -49,19 +49,19 @@
     <div class="social_login_flex">
         <!--구글-->
         <div>
-            <img src="img/login_google.png" onclick="social_login('google')" alt="">
+            <img src="img/login_google.png" onclick="location.href='/login/google'" alt="">
         </div>
         <!--카카오-->
         <div>
-            <img src="img/login_kakao.png" onclick="social_login('kakao')" alt="">
+            <img src="img/login_kakao.png" onclick="location.href='/login/kakao'" alt="">
         </div>
         <!--네이버-->
         <div>
-            <img src="img/login_naver.png" onclick="social_login('naver')" alt="">
+            <img src="img/login_naver.png" onclick="location.href='/login/naver'" alt="">
         </div>
 
     </div>
-    <input id="id_google_token" type="text" th:value="${code}">
+    <input id="id_google_token" type="text" th:value="${googleClientId}">
     <input type="button" value="인가코드 테스트" onclick="google_token()">
 
 </form>

@@ -20,6 +20,7 @@ function loginButton() {
 	form.submit();
     return true;
 }
-//구글 로그인 인증 토큰 받기
 
+
+// 구굴 로그인 인증 토큰 받기
 

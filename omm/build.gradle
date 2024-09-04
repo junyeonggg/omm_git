@@ -18,6 +18,9 @@ repositories {
 }
 
 dependencies {
+	// oauth
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 	//파일 업로드  다운로드
 	implementation 'commons-fileupload:commons-fileupload:1.4'
 	implementation 'commons-io:commons-io:2.11.0'

@@ -26,6 +26,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.UUID;
@@ -33,15 +34,46 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
+    // 구글
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String googleClientId;
+    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
+    private String googleClientSecret;
+    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
+    private String googleRedirectUri;
+    @Value("${spring.security.oauth2.client.registration.google.authorization-grant-type}")
+    private String googleAuthorizationGrantType;
+    @Value("${spring.security.oauth2.client.registration.google.authorization-uri}")
+    private String googleAuthorizationUri;
+
+
+    // 네이버
+    @Value("${spring.security.oauth2.client.registration.naver.client-id}")
+    private String naverClientId;
+    @Value("${spring.security.oauth2.client.registration.naver.client-secret}")
+    private String naverClientSecret;
+    @Value("${spring.security.oauth2.client.registration.naver.redirect-uri}")
+    private String naverRedirectUri;
+    @Value("${spring.security.oauth2.client.registration.naver.authorization-grant-type}")
+    private String naverAuthorizationGrantType;
+    @Value("${spring.security.oauth2.client.provider.naver.authorization-uri}")
+    private String naverAuthorizationUri;
+
+    // 카카오
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
+    private String kakaoClientId;
+    // @Value("${spring.security.oauth2.client.registration.kakao.client-secret}")
+    // private String kakaoClientSecret;
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
+    private String kakaoRedirectUri;
+    @Value("${spring.security.oauth2.client.registration.kakao.authorization-grant-type}")
+    private String kakaoAuthorizationGrantType;
+    @Value("${spring.security.oauth2.client.provider.kakao.authorization-uri}")
+    private String kakaoAuthorizationUri;
+
     private final MemberService member_service;
     private final UserSecurityService user_service;
-    private final PasswordEncoder passwordEncoder;
     private final EmailService email_service;
-    private final HttpServletRequest request;
-    private AuthenticationManager authenticationManager;
-    private final RestTemplate restTemplate;
-
-    private final String userInfoUrl = "https://www.googleapis.com/oauth2/v3/userinfo";
     @GetMapping("/join")
     public String JoinPage(Model model) {
         model.addAttribute("memberDto", new MemberDto());
@@ -72,22 +104,6 @@ public class MemberController {
         // 홈 페이지로 리디렉션
         return "true";
     }
-
-
-//    @PostMapping("/socialjoin")
-//    public String socialJoinPost(@Valid MemberDto dto, Errors errors, Model model, HttpSession session) {
-//        dto.setUser_pw("1234");
-//        if (dto.getUser_id().contains("_")) {
-//            user_service.create(dto);
-//            session.setAttribute("user_id", dto.getUser_id());
-//            session.setAttribute("user_name", dto.getUser_name());
-//            session.setAttribute("user_email", dto.getUser_email());
-//            return "redirect:/";
-//        }
-//        user_service.create(dto);
-//        return "redirect:/";
-//    }
-
     @GetMapping("/checkId")
     @ResponseBody
     public String checkId(@RequestParam(value = "data") String user_id) {
@@ -137,8 +153,22 @@ public class MemberController {
         }
     }
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(Model model) {
         return "login";
+    }
+    @GetMapping("/login/{social}")
+    public RedirectView loginPage(Model model,@PathVariable("social") String social) {
+
+        if(social.equals("google")){
+            return new RedirectView(googleAuthorizationUri+"?client_id="+googleClientId+"&redirect_uri="+googleRedirectUri+"&response_type=code&scope=email profile");
+        } else if(social.equals("kakao")){
+            return new RedirectView(kakaoAuthorizationUri+"?client_id="+kakaoClientId+"&redirect_uri="+kakaoRedirectUri+"&response_type=code");
+
+        } else if(social.equals("naver")){
+            return new RedirectView(naverAuthorizationUri+"?client_id="+naverClientId+"&redirect_uri="+naverRedirectUri+"&response_type=code");
+        }else{
+            return new RedirectView("http://localhost:8080/login");
+        }
     }
     @GetMapping("/socialjoin")
     public String socialPage(){
@@ -147,24 +177,23 @@ public class MemberController {
 
     @GetMapping("/login/oauth2/code/{social}")
     public String social_login(@RequestParam("code") String code,@PathVariable("social") String social, Model model){
-        System.out.println("code : "+code);
-        System.out.println("social : " +social);
-        // 인가코드 -> 엑세스 토큰
-        String tokenUrl = "";
+        String tokenUrl;
         String user_id = "";
         String user_name = "";
         String user_email = "";
+        // 인가코드 -> 엑세스 토큰
         if(social.equals("google")){
+            tokenUrl = "";
             tokenUrl = "https://oauth2.googleapis.com/token";
             RestTemplate restTemplate = new RestTemplate();
 
             // 요청 데이터 설정
             MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
             body.add("code", code);
-            body.add("client_id", "클라이언트아이디");
-            body.add("client_secret", "클라이언트비밀번호");
-            body.add("redirect_uri", "http://localhost:8080/login/oauth2/code/google");
-            body.add("grant_type", "authorization_code");
+            body.add("client_id", googleClientId);
+            body.add("client_secret", googleClientSecret);
+            body.add("redirect_uri", googleRedirectUri);
+            body.add("grant_type", googleAuthorizationGrantType);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -217,9 +246,9 @@ public class MemberController {
 
             // 요청 데이터 설정
             MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-            body.add("grant_type", "authorization_code");
-            body.add("client_id", "클라이언트아이디");
-            body.add("redirect_uri", "http://localhost:8080/login/oauth2/code/kakao");
+            body.add("grant_type", kakaoAuthorizationGrantType);
+            body.add("client_id", kakaoClientId);
+            body.add("redirect_uri", kakaoRedirectUri);
             body.add("code", code);
 
             HttpHeaders headers = new HttpHeaders();
@@ -267,10 +296,10 @@ public class MemberController {
 
             // 요청 데이터 설정
             MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-            body.add("grant_type", "authorization_code");
-            body.add("client_id", "클라이언트아이디");
-            body.add("client_secret", "클라이언트비밀번호");
-            body.add("redirect_uri", "http://localhost:8080/login/oauth2/code/naver");
+            body.add("grant_type", naverAuthorizationGrantType);
+            body.add("client_id", naverClientId);
+            body.add("client_secret", naverClientSecret);
+            body.add("redirect_uri", naverRedirectUri);
             body.add("code", code);
 
             HttpHeaders headers = new HttpHeaders();
