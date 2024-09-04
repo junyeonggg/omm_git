@@ -1,10 +1,17 @@
 package com.omm.controller;
 
 
+import com.omm.dto.MemberDto;
+import com.omm.service.EmailService;
+import com.omm.service.MemberService;
+import com.omm.service.UserSecurityService;
+import jakarta.validation.Valid;
+import org.json.JSONObject;
+import java.util.UUID;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -41,10 +48,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.view.RedirectView;
-
-
-
-
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
