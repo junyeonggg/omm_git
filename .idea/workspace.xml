@@ -32,6 +32,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_web_6_3_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_thymeleaf_extras_thymeleaf_extras_springsecurity6_3_1_2_RELEASE.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +47,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -270,7 +274,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="html추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="html추가" />
+    <MESSAGE value="상품 상세페이지 댓글창, 별점 추가 &#10;기능 미구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="상품 상세페이지 댓글창, 별점 추가 &#10;기능 미구현" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
