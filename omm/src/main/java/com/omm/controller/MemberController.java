@@ -128,7 +128,7 @@ public class MemberController {
         boolean flag = true;
         String subject = "오늘 뭐먹지 회원가입 이메일 인증 번호 입니다.";
         String code = UUID.randomUUID().toString().substring(0, 8);
-        String text = code;
+        String text = "인증번호 : "+code;
         try {
             email_service.sendEmail(user_email, subject, text);
         } catch (Exception e) {
@@ -186,7 +186,7 @@ public class MemberController {
             tokenUrl = "";
             tokenUrl = "https://oauth2.googleapis.com/token";
             RestTemplate restTemplate = new RestTemplate();
-
+            //hi
             // 요청 데이터 설정
             MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
             body.add("code", code);
