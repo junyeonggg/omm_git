@@ -45,4 +45,10 @@ public class RecipeService {
 		recipeDao.insertRecipeSequence(sequence);
 	}
 
+
+	public RecipeDto findRecipeByRecipe_id(int recipe_id) {
+		
+		return recipeDao.findRecipeByRecipe_id(recipe_id);
+	}
+
 }
