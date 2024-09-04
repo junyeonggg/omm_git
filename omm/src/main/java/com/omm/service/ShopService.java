@@ -19,18 +19,37 @@ public class ShopService {
     @Autowired
     private CategoryService categoryService;
 
-    public List<FoodDto> searchFoods(String query, String searchCategory) {
-        if (query != null && !query.isEmpty()) {
-            return shopDao.searchFoods(query);
-        } else if (searchCategory != null && !searchCategory.isEmpty()) {
+    public List<FoodDto> getFoods(int pageSize, int offset) {
+        return shopDao.findAll(pageSize, offset);
+    }
+
+    public List<FoodDto> searchFoods(String query, String searchCategory, int pageSize, int offset) {
+        if (query != null && !query.trim().isEmpty()) {
+            return shopDao.searchFoods(query, pageSize, offset);
+        } else if (searchCategory != null && !searchCategory.trim().isEmpty()) {
             try {
                 int categoryId = Integer.parseInt(searchCategory);  // searchCategory를 정수형으로 변환
-                return shopDao.findFoodsByCategoryWithSubCategories(categoryId);  // 하위 카테고리 포함 검색
+                return shopDao.findFoodsByCategoryWithSubCategories(categoryId, pageSize, offset);
             } catch (NumberFormatException e) {
-                return Collections.emptyList();
+                return List.of();  // 잘못된 카테고리 ID일 경우 빈 리스트 반환
             }
         } else {
-            return Collections.emptyList();  // 기본값으로 빈 리스트 반환
+            return List.of();  // 검색어와 카테고리 모두 없는 경우 빈 리스트 반환
+        }
+    }
+
+    public int getTotalItems(String query, String searchCategory) {
+        if (query != null && !query.trim().isEmpty()) {
+            return shopDao.countFoodsByQuery(query);
+        } else if (searchCategory != null && !searchCategory.trim().isEmpty()) {
+            try {
+                int categoryId = Integer.parseInt(searchCategory);
+                return shopDao.countFoodsByCategory(categoryId);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        } else {
+            return shopDao.countAllFoods();
         }
     }
 

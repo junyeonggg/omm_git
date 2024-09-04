@@ -29,30 +29,71 @@ public class ShopController {
     @GetMapping("/shop")
     public String shop(@RequestParam(value = "query", required = false) String query,
                        @RequestParam(value = "searchCategory", required = false) String searchCategory,
+                       @RequestParam(value = "page", defaultValue = "1") String pageParam,  // 기본값을 1로 설정
                        Model model) {
 
-        List<FoodDto> foods;
+        int pageSize = 20; // 한 페이지에 표시할 상품 수
+        int page = 1; // 기본 페이지 번호를 1로 설정
 
-        if (query != null && !query.trim().isEmpty()) {
-            foods = shopService.searchFoods(query, null);
-        } else if (searchCategory != null && !searchCategory.trim().isEmpty()) {
-            foods = shopService.searchFoods(null, searchCategory);
-        } else {
-            foods = Collections.emptyList();  // 기본값으로 빈 리스트 반환
+        // pageParam을 정수로 변환하는 로직 추가
+        try {
+            page = Integer.parseInt(pageParam);
+            if (page < 1) {
+                page = 1; // 페이지 번호가 1보다 작으면 1로 설정
+            }
+        } catch (NumberFormatException e) {
+            // 예외 발생 시 페이지 번호를 1로 설정
+            page = 1;
         }
 
-        // 계층 구조로 된 카테고리 데이터 로드
-        List<CategoryDto> categories = categoryService.findAllCategories();
+        int offset = (page - 1) * pageSize;  // 1-based page를 0-based offset으로 변환
 
+        // 데이터 로드
+        List<FoodDto> foods;
+        if (query != null && !query.trim().isEmpty()) {
+            foods = shopService.searchFoods(query, null, pageSize, offset);
+        } else if (searchCategory != null && !searchCategory.trim().isEmpty()) {
+            foods = shopService.searchFoods(null, searchCategory, pageSize, offset);
+        } else {
+            foods = shopService.getFoods(pageSize, offset);
+        }
+
+        int totalItems = shopService.getTotalItems(query, searchCategory);
+        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+
+        List<CategoryDto> categories = shopService.findAllCategories();
+
+        // 네비게이션 범위 설정
+        int startPage = ((page - 1) / 10) * 10 + 1;  // 현재 페이지를 기준으로 시작 페이지 계산
+        int endPage = Math.min(startPage + 9, totalPages); // 10개씩 페이지 버튼 표시
+
+        // 모델에 값 추가
         model.addAttribute("foods", foods);
         model.addAttribute("categories", categories);
+        model.addAttribute("currentPage", page);  // 현재 페이지 번호 (1부터 시작)
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("query", query);
+        model.addAttribute("searchCategory", searchCategory);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "shop";
     }
 
+
+
     @GetMapping("/product/{foodProductId}")
     public String productDetail(@PathVariable("foodProductId") String foodProductId, Model model) {
         FoodDto food = shopService.getFoodById(foodProductId);
+        if (food == null) {
+            model.addAttribute("errorMessage", "해당 상품을 찾을 수 없습니다.");
+            return "error"; // 오류 페이지로 리다이렉트
+        }
+        // Debug 로그 추가
+        System.out.println("Food Name: " + food.getFoodName());
+        System.out.println("Food Price: " + food.getFoodLprice());
+        System.out.println("Food Image: " + food.getFoodImg());
+
         model.addAttribute("food", food);
         return "product";
     }
