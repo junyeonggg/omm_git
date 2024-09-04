@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.PagingSearch;
 import com.omm.dto.RecipeDto;
-import com.omm.dto.Recipe_ingre;
 import com.omm.service.RecipeService;
 
 @Controller
