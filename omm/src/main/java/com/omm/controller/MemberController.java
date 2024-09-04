@@ -168,7 +168,7 @@ public class MemberController {
         }else{
             return new RedirectView("http://localhost:8080/login");
         }
-    }
+    } //마지막 수정
     @GetMapping("/socialjoin")
     public String socialPage(){
         return "socialjoin";
