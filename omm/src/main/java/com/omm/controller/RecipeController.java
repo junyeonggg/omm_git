@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.PagingSearch;
 import com.omm.dto.RecipeDto;
-import com.omm.dto.Recipe_ingre;
 import com.omm.service.RecipeService;
 
 @Controller
@@ -121,7 +121,8 @@ public class RecipeController {
 			if (line.startsWith(",")) {
 				continue;
 			}
-			String[] line_list = line.split(",");
+//			String[] line_list = line.split(",");
+			String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)",-1);
 			CookingSequenceDto sequence = new CookingSequenceDto();
 			
 			// 레시피 id는 mange_id를 이용해서 가져온다.
@@ -136,21 +137,29 @@ public class RecipeController {
 		System.out.println();
 		e.printStackTrace();
 	}
-		return "recipe_list";
+		return "redirect:/";
 	}
 
 	@GetMapping("/recipe_list")
-	public String recipe_list_page(@RequestParam(value = "keword", defaultValue = "") String keword,
+	public String recipe_list_page(@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int page_no, Model model) {
-		int recipe_list_size = recipeService.selectAll();
+		int recipe_list_size = recipeService.selectAll(keyword);
 		PagingSearch pagingSearch = new PagingSearch(recipe_list_size, page_no);
-		pagingSearch.setKeyword(keword);
+		pagingSearch.setKeyword(keyword);
 		List<RecipeDto> recipe_list = recipeService.selectRecipeByPagingSearch(pagingSearch.getStartRecord(),
 				pagingSearch.getRecordSize(), pagingSearch.getKeyword());
-		System.out.println(pagingSearch.toString());
+//		System.out.println(pagingSearch.toString());
+		model.addAttribute("paging", pagingSearch);
 		model.addAttribute("recipe_list", recipe_list);
 		return "recipe_list";
 	}
-	// 가장 최근 수정
+	// 가장 최근 수정 2024-09-04
 
+	@GetMapping("/recipe_list/{recipe_id}")
+	public String recipe_detail(@PathVariable("recipe_id") int recipe_id,Model model) {
+		RecipeDto recipe = recipeService.findRecipeByRecipe_id(recipe_id);
+		model.addAttribute("recipe", recipe);
+		return "recipe";
+	}
+	
 }

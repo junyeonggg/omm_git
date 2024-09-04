@@ -21,8 +21,8 @@ public class RecipeService {
 	}
 
 
-	public int selectAll() {
-		return recipeDao.selectAll();
+	public int selectAll(String keyword) {
+		return recipeDao.selectAll(keyword);
 	}
 
 
@@ -43,6 +43,12 @@ public class RecipeService {
 
 	public void insertRecipeSequence(CookingSequenceDto sequence) {
 		recipeDao.insertRecipeSequence(sequence);
+	}
+
+
+	public RecipeDto findRecipeByRecipe_id(int recipe_id) {
+		
+		return recipeDao.findRecipeByRecipe_id(recipe_id);
 	}
 
 }

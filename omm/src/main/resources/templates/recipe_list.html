@@ -14,23 +14,51 @@
 .recipe_tbl {
 	text-align: center;
 }
-.recipe_tbl th{
+
+.recipe_tbl th {
 	background-color: lightblue;
 }
+
 .recipe_tbl tr {
 	border-radius: 2px;
 }
-.recipe_tbl tr:hover{
-	box-shadow: 2px,2px,2px,2px;
+
+.recipe_tbl a {
+	text-decoration: none;
+	color: black;
 }
-.recipe_section{
+
+.recipe_tbl a:hover {
+	color: blue;
+}
+
+.recipe_tbl tr:hover {
+	box-shadow: 2px 2px 3px 3px gray;
+}
+
+.recipe_section {
 	text-align: center;
 	display: flex;
-	flex-direction : column;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.tbl_paging td:hover {
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px 2px gray;
+	font-weight: bolder;
+}
+
+.tbl_paging td {
+	width: 50px;
+}
+
+.paging_list {
+	display: flex;
 	justify-content: center;
 }
 </style>
-<script src="/recipe.js"></script>
+
 </head>
 <body>
 	<!-- Responsive navbar-->
@@ -54,30 +82,56 @@
 	</nav>
 
 
+
+
 	<!-- 레시피 리스트 -->
-	
 	<div class="recipe_section">
 		<h1>레시피</h1>
+		<div class="search_div">
+			<span><strong>제목 검색 : </strong></span> <input type="text"
+				id="keyword"> <input type="button" value="검색"
+				onclick="searchKeyword()">
+		</div>
 		<table class="recipe_tbl">
 			<tr>
 				<th>번호</th>
 				<th>음식이름</th>
-				<th>짧은 설명</th>
+				<th>레시피 이름</th>
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>추천수</th>
 			</tr>
 			<tr th:each="recipe,info : ${recipe_list}">
-				<td th:text="${info.count}"></td>
+				<td th:text="${recipe.recipe_id}"></td>
 				<!-- 번호 -->
 				<td th:text="${recipe.recipe_food_name}"></td>
-				<td th:text="${recipe.recipe_title}"></td>
+				<td><a th:text="${recipe.recipe_title}"
+					th:href="@{'http://localhost:8080/recipe_list/'+${recipe.recipe_id}}"></a></td>
 				<td th:text="${recipe.user_id}"></td>
 				<td th:text="'조회수 '+${recipe.recipe_view}"></td>
 				<td th:text="'추천수'+${recipe.recipe_recommend_cnt}"></td>
 			</tr>
 		</table>
 		<!-- 레시피 리스트 끝 -->
+		<!-- 페이징 -->
+		<div class="paging_list">
+			<table class="tbl_paging">
+				<tr>
+					<td th:if="${paging.prevPage}"
+						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.startPage-1},keyword=${paging.keyword})}'|"
+						th:text="${'<'}"></td>
+					<td
+						th:style="${number == paging.current_page ? 'border-radius: 5px;box-shadow: 1px 1px 2px 2px gray;font-weight: bolder' : ''}"
+						th:each="number : ${#numbers.sequence(paging.startPage,paging.endPage)}"
+						th:text="${number}"
+						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${number},keyword=${paging.keyword})}'|"></td>
+					<td th:if="${paging.nextPage}"
+						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.endPage+1},keyword=${paging.keyword})}'|"
+						th:text="${'>'}"></td>
+				</tr>
+			</table>
+
+		</div>
 	</div>
 
 	<footer class="py-5 bg-dark">
@@ -85,8 +139,6 @@
 			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>
 		</div>
 	</footer>
-	<script>
-		
-	</script>
+	<script src="js/recipe.js"></script>
 </body>
 </html>
