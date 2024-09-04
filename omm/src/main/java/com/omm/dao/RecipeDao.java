@@ -32,4 +32,7 @@ public interface RecipeDao {
 	@Insert("insert into tbl_cooking_sequence values(null,#{recipe_id},#{sequence_text},null,#{sequence_step_no})")
 	void insertRecipeSequence(CookingSequenceDto sequence);
 
+	@Select("select * from tbl_recipe where recipe_id = #{recipe_id}")
+	RecipeDto findRecipeByRecipe_id(int recipe_id);
+
 }
