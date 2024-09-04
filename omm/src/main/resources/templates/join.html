@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="www.thyemleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -76,7 +76,7 @@
                 <!-- 결합된 이메일을 저장할 필드 (hidden) -->
                 <input type="hidden" name="user_email" id="user_email">
                 <input type="button" id=check_email_btn onclick="checkEmail()" value="중복확인">
-                <input type="button" onclick="sendVerificationEmail()" value="인증 이메일 전송">
+                <input type="button" onclick="sendmail()" value="인증 이메일 전송">
                 <input type="text" id="verification_code" placeholder="인증 번호 입력">
                 <input type="button" onclick="verifyEmailCode()" value="인증 확인">
                 <div id="verification_message"></div>
@@ -149,6 +149,7 @@
         </tr>
     </table>
     <button type="button" id="submitBtn" onclick="submitForm()">회원가입</button>
+    <input type="button" value="로그인" onclick="location.href='/login'">
     <input type="button" value="다시 입력" onclick="resetButton()">
     <input type="button" value="홈으로" onclick="location.href='/'">
 </form>

@@ -222,75 +222,42 @@ function sample6_execDaumPostcode() {
             }
         }).open();
 }
-// 인증 이메일을 전송하는 함수
-function sendVerificationEmail() {
-    var email = document.getElementById('user_email').value;
-
-    if (email) {
-        fetch('/sendVerificationEmail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: email })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('verification_message').innerText = '인증 이메일이 전송되었습니다.';
+function sendmail(){
+    user_email_id = document.querySelector("#user_email_id").value
+    domain_list = document.querySelector("#domain_list").value
+    user_email = user_email_id+"@"+domain_list;
+    const url = "/sendmail"
+    $.ajax({
+        type:"post",
+        url : url,
+        data : {user_email:user_email},
+        success : data=>{
+            if(data){
+                window.alert("이메일이 발송되었습니다.")
             } else {
-                document.getElementById('verification_message').innerText = '인증 이메일 전송 실패: ' + data.message;
+                window.alert("이메일 발송에 실패했습니다.")
             }
-        })
-        .catch(error => {
-            document.getElementById('verification_message').innerText = '인증 이메일 전송 실패: ' + error;
-        });
-    } else {
-        document.getElementById('verification_message').innerText = '이메일을 입력해 주세요.';
-    }
+        }
+    })
 }
-
-// 인증 코드 확인 함수
-function verifyEmailCode() {
-    var email = document.getElementById('user_email').value;
-    var code = document.getElementById('verification_code').value;
-
-    if (email && code) {
-        fetch('verifyEmailCode', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: JSON.stringify({ user_email: email, code: code }).toString()
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('verification_message').innerText = '인증이 완료되었습니다.';
-                document.getElementById('submitBtn').disabled = false; // 인증이 완료되면 회원가입 버튼 활성화
-            } else {
-                document.getElementById('verification_message').innerText = '인증 코드 확인 실패: ' + data.message;
+function verifyEmailCode(){
+    const code = document.querySelector("#verification_code").value
+    const url = "/checkEmailCode";
+    user_email_id = document.querySelector("#user_email_id").value
+    domain_list = document.querySelector("#domain_list").value
+    user_email = user_email_id+"@"+domain_list;
+    $.ajax({
+        type:"post",
+        url : url,
+        data : {user_email:user_email,code:code},
+        success : data=>{
+            if(data){
+                window.alert("이메일 인증이 확인되었습니다.")
+            }else{
+                window.alert("인증번호를 확인해 주세요.")
             }
-        })
-        .catch(error => {
-            document.getElementById('verification_message').innerText = '인증 코드 확인 실패: ' + error;
-        });
-    } else {
-        document.getElementById('verification_message').innerText = '이메일과 인증 코드를 입력해 주세요.';
-    }
-}
-
-
-function check_id() {
-    // 아이디 중복 확인 로직 구현
-}
-
-function check_nickname() {
-    // 닉네임 중복 확인 로직 구현
-}
-
-function check_email() {
-    // 이메일 중복 확인 로직 구현
+        }
+    })
 }
 
 function resetButton() {
@@ -301,11 +268,6 @@ function submitForm(){
     // 상세주소를 user_addr_detail 필드에 저장
     var detailAddress = document.getElementById("sample6_detailAddress").value;
     var submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        document.getElementById('joinForm').submit();
-    } else {
-        document.getElementById('verification_message').innerText = '이메일 인증을 완료해 주세요.';
-    }
 
     document.getElementById('user_addr_detail').value = detailAddress;
     document.getElementById('user_addr_detail').value = detailAddress;

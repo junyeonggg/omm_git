@@ -1,10 +1,10 @@
 package com.omm.service;
 
 
-import com.omm.dao.MemberDao;
-import com.omm.dto.MemberDto;
-import com.omm.role.UserRole;
-import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,9 +14,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.omm.dao.MemberDao;
+import com.omm.dto.MemberDto;
+import com.omm.role.UserRole;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
@@ -46,29 +48,6 @@ public class UserSecurityService implements UserDetailsService {
 			authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
 		}
 		return new User(member.getUser_id(), member.getUser_pw(), authorities);
-	}
-
-
-	public void registerUser(String user_email) {
-		// 인증 이메일 전송
-		String subject = "이메일 인증";
-		String verificationLink = generateVerificationLink(user_email);
-		String text = "회원가입을 완료하려면 다음 링크를 클릭해 주세요: " + verificationLink;
-		email_service.sendEmail(user_email, subject, text);
-	}
-	private String generateVerificationLink(String user_email) {
-		// 인증 링크 생성 로직
-
-		// UUID 생성
-		String uuid = UUID.randomUUID().toString();
-
-		return "http://example.com/verify?email=" + user_email + "&token=" + uuid;
-	}
-	public boolean verifyEmailCode(String user_email, String code) {
-		// 인증 코드 검증 로직 추가
-		// 예: 코드와 이메일을 비교하여 유효성을 확인
-		// 코드 저장 및 관리 로직은 별도의 서비스나 DB에 저장할 수 있습니다.
-		return true; // 실제 검증 로직에 맞게 반환값을 수정
 	}
 
 }
