@@ -268,11 +268,6 @@ function submitForm(){
     // 상세주소를 user_addr_detail 필드에 저장
     var detailAddress = document.getElementById("sample6_detailAddress").value;
     var submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        document.getElementById('joinForm').submit();
-    } else {
-        document.getElementById('verification_message').innerText = '이메일 인증을 완료해 주세요.';
-    }
 
     document.getElementById('user_addr_detail').value = detailAddress;
     document.getElementById('user_addr_detail').value = detailAddress;

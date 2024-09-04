@@ -16,7 +16,7 @@ public interface MemberDao {
             "#{user_addr_zip}, #{user_addr}, #{user_addr_detail}, #{user_tel}, #{user_gender}, #{user_birth}, 0)")
     public boolean insert_member(MemberDto dto) throws DataAccessException;
     @Select("select * from tbl_member where user_id=#{user_id}")
-    public MemberDto get_by_user_id(@Param("user_id") String user_id);
+    public MemberDto get_by_user_id(@Param("user_id") String user_id) throws DataAccessException;
 
     @Insert("insert into email_check values(#{user_email},#{code},null)")
     void emailCodeSave(String user_email, String code);
