@@ -3,12 +3,14 @@ package com.omm.service;
 import com.omm.dao.MemberDao;
 import com.omm.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 public class MemberService {
-    private final MemberDao member_dao;
+	@Autowired
+    private MemberDao member_dao;
 
     public boolean check_id(String user_id) {
         boolean result = false;

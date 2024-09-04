@@ -1,5 +1,6 @@
 package com.omm.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
@@ -9,11 +10,12 @@ import com.omm.dao.MemberDao;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Service
 public class EmailService {
-    private final JavaMailSender email_sender;
-    private final MemberDao member_dao;
+	@Autowired
+    private JavaMailSender email_sender;
+	@Autowired
+    private MemberDao member_dao;
     
     @Async
     public void sendEmail(String to, String subject, String text) {

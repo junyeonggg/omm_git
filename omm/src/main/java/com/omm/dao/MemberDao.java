@@ -29,4 +29,5 @@ public interface MemberDao {
 
     @Delete("delete from email_check where user_email=#{user_email}")
     void delete_code(String user_email);
+
 }

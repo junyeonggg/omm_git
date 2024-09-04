@@ -5,9 +5,14 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+<<<<<<< HEAD
 # 깃 properties
 src/main/resources/application.properties
 
+=======
+# 깃 application.properties
+src/main/resources/application.properties
+>>>>>>> branch 'moon' of https://github.com/junyeonggg/omm_git.git
 
 ### STS ###
 .apt_generated
