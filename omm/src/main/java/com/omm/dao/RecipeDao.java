@@ -35,4 +35,7 @@ public interface RecipeDao {
 	@Select("select * from tbl_recipe where recipe_id = #{recipe_id}")
 	RecipeDto findRecipeByRecipe_id(int recipe_id);
 
+	@Select("select * from tbl_cooking_sequence where recipe_id = #{recipe_id} order by sequence_step_no")
+	List<CookingSequenceDto> selectRecipeSequenceByRecipeId(int recipe_id);
+
 }

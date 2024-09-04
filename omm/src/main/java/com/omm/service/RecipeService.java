@@ -51,4 +51,9 @@ public class RecipeService {
 		return recipeDao.findRecipeByRecipe_id(recipe_id);
 	}
 
+
+	public List<CookingSequenceDto> selectRecipeSequenceByRecipeId(int recipe_id) {
+		return recipeDao.selectRecipeSequenceByRecipeId(recipe_id);
+	}
+
 }

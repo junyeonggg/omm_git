@@ -123,15 +123,25 @@ public class RecipeController {
 			}
 //			String[] line_list = line.split(",");
 			String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)",-1);
+			int cnt = 0;
+//			for(String i : line_list) {
+//				
+//				System.out.println("cnt "+cnt+" : "+i);
+//				cnt++;
+//			}
 			CookingSequenceDto sequence = new CookingSequenceDto();
 			
 			// 레시피 id는 mange_id를 이용해서 가져온다.
-			System.out.println(line);
+//			System.out.println(line);
 			int recipe_id = recipeService.findRecipeByMangeId(line_list[1]); 
 			sequence.setRecipe_id(recipe_id);
 			sequence.setSequence_text(line_list[2]);
 			sequence.setSequence_step_no(Integer.valueOf(line_list[3]));
 			recipeService.insertRecipeSequence(sequence);
+			if(line.equals("30206,1751398,버터를 바른틀에 반죽을 80~90%정도 채워지게 붓습니다. 아몬드 슬라이스를 넣은후 180도씨 예열오븐에 25~30분간 굽습니다.오븐,4")) {
+				System.out.println("끝");
+				break;
+			}
 		}
 	} catch (Exception e) {
 		System.out.println();
@@ -159,6 +169,10 @@ public class RecipeController {
 	public String recipe_detail(@PathVariable("recipe_id") int recipe_id,Model model) {
 		RecipeDto recipe = recipeService.findRecipeByRecipe_id(recipe_id);
 		model.addAttribute("recipe", recipe);
+		List<CookingSequenceDto> recipe_sequence = recipeService.selectRecipeSequenceByRecipeId(recipe_id);
+		recipe_sequence.forEach(d->System.out.println(d));
+		
+		model.addAttribute("recipe_sequence", recipe_sequence);
 		return "recipe";
 	}
 	

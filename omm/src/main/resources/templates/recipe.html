@@ -42,17 +42,18 @@
 		<!-- 레시피 순서 -->
 		<div>
 			<div th:each="s : ${recipe_sequence}">
-				
+				<span th:text="${s.sequence_text}"></span>
 			</div>
 		</div>
 	</div>
-
+	<!-- 댓글 --> <!-- 최근수정 -->
+	<div>
+	</div>
 
 	<footer class="py-5 bg-dark">
 		<div class="container">
 			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>
 		</div>
 	</footer>
-	<script src="js/recipe.js"></script>
 </body>
 </html>
