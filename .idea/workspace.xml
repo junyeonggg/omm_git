@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="html추가">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_2024-08-29_029__9_51__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_2024-08-29_029__9_51__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-09-03_003__5_23__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-09-03_003__5_23__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/InquireController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/InquireController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/ShopDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/ShopDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/ShopService.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/ShopService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/shop.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725353103462</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="html추가">
+      <created>1725424632911</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1725424632911</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
