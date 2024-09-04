@@ -30,4 +30,6 @@ public interface MemberDao {
     @Delete("delete from email_check where user_email=#{user_email}")
     void delete_code(String user_email);
 
+    @Select("select * from tbl_member where user_name=#{user_name} and user_email=#{user_email}")
+    public MemberDto getByUserNameAndEmail(@Param("user_name") String user_name, @Param("user_email") String user_email) throws DataAccessException;
 }

@@ -45,6 +45,10 @@
 <input type="button" value="다시 입력" onclick="resetButton()">
 <input type="button" value="홈으로" onclick="location.href='/'">
 <input type="button" value="회원가입" onclick="location.href='/join'">
+    <div>
+        <a href="javascript:void(0);" onclick="findid()">아이디 찾기</a>
+        <a href="javascript:void(0);" onclick="findpw()">비밀번호 찾기</a>
+    </div>
     <!-- 소셜 로그인 div-->
     <div class="social_login_flex">
         <!--구글-->
@@ -59,10 +63,7 @@
         <div>
             <img src="img/login_naver.png" onclick="location.href='/login/naver'" alt="">
         </div>
-
     </div>
-    <input type="button" value="인가코드 테스트" onclick="google_token()">
-
 </form>
 <div th:if="${param.error}" class="error-message">
     로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.

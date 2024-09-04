@@ -26,6 +26,9 @@ public class MemberService {
         return result;
     }
 
+    public MemberDto getMemberByName(MemberDto dto) {
+       return member_dao.getByUserNameAndEmail(dto.getUser_name(), dto.getUser_email());
+    }
 }
 
 

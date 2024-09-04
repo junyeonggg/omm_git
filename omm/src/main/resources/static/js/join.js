@@ -298,6 +298,7 @@ function submitForm(self){
     }else{
          user_email = `${user_email_id}@${user_email_domain}`;
     }
+    formJoin.append('user_email',user_email)
     console.log("user_email : ",user_email)
     // 주소 부분
     const user_addr_zip = document.querySelector("#user_addr_zip").value;
@@ -347,9 +348,10 @@ function submitForm(self){
                             window.location.replace("http://localhost:8080/")
                             }
                 })
+            }else {
+                window.alert("회원가입에 실패하였습니다.")
             }
-        },
-        error : window.alert("회원가입이 실패 하였습니다..")
+        }
     })
 
     // 폼 제출

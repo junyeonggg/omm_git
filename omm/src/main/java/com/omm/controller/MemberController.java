@@ -1,6 +1,8 @@
 package com.omm.controller;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
@@ -86,6 +88,7 @@ public class MemberController {
     private final MemberService member_service;
     private final UserSecurityService user_service;
     private final EmailService email_service;
+
     @GetMapping("/join")
     public String JoinPage(Model model) {
         model.addAttribute("memberDto", new MemberDto());
@@ -104,6 +107,7 @@ public class MemberController {
         return "true";
         //return "redirect:/";
     }
+
     @ResponseBody
     @PostMapping("/socialjoin")
     public String socialJoinPost(@Valid MemberDto dto, Errors errors, Model model, HttpSession session) {
@@ -116,11 +120,13 @@ public class MemberController {
         // 홈 페이지로 리디렉션
         return "true";
     }
+
     @GetMapping("/checkId")
     @ResponseBody
     public String checkId(@RequestParam(value = "data") String user_id) {
         return String.valueOf(member_service.check_id(user_id));
     }
+
     @GetMapping("/checkNickname")
     @ResponseBody
     public String checkNickname(@RequestParam(value = "data") String user_nickname) {
@@ -139,7 +145,7 @@ public class MemberController {
         boolean flag = true;
         String subject = "오늘 뭐먹지 회원가입 이메일 인증 번호 입니다.";
         String code = UUID.randomUUID().toString().substring(0, 8);
-        String text = "인증번호 : "+code;
+        String text = "인증번호 : " + code;
         try {
             email_service.sendEmail(user_email, subject, text);
         } catch (Exception e) {
@@ -163,37 +169,40 @@ public class MemberController {
             return false;
         }
     }
+
     @GetMapping("/login")
     public String loginPage(Model model) {
         return "login";
     }
+
     @GetMapping("/login/{social}")
-    public RedirectView loginPage(Model model,@PathVariable("social") String social) {
+    public RedirectView loginPage(Model model, @PathVariable("social") String social) {
 
-        if(social.equals("google")){
-            return new RedirectView(googleAuthorizationUri+"?client_id="+googleClientId+"&redirect_uri="+googleRedirectUri+"&response_type=code&scope=email profile");
-        } else if(social.equals("kakao")){
-            return new RedirectView(kakaoAuthorizationUri+"?client_id="+kakaoClientId+"&redirect_uri="+kakaoRedirectUri+"&response_type=code");
+        if (social.equals("google")) {
+            return new RedirectView(googleAuthorizationUri + "?client_id=" + googleClientId + "&redirect_uri=" + googleRedirectUri + "&response_type=code&scope=email profile");
+        } else if (social.equals("kakao")) {
+            return new RedirectView(kakaoAuthorizationUri + "?client_id=" + kakaoClientId + "&redirect_uri=" + kakaoRedirectUri + "&response_type=code");
 
-        } else if(social.equals("naver")){
-            return new RedirectView(naverAuthorizationUri+"?client_id="+naverClientId+"&redirect_uri="+naverRedirectUri+"&response_type=code");
-        }else{
+        } else if (social.equals("naver")) {
+            return new RedirectView(naverAuthorizationUri + "?client_id=" + naverClientId + "&redirect_uri=" + naverRedirectUri + "&response_type=code");
+        } else {
             return new RedirectView("http://localhost:8080/login");
         }
     }
+
     @GetMapping("/socialjoin")
-    public String socialPage(){
+    public String socialPage() {
         return "socialjoin";
     }
 
     @GetMapping("/login/oauth2/code/{social}")
-    public String social_login(@RequestParam("code") String code,@PathVariable("social") String social, Model model){
+    public String social_login(@RequestParam("code") String code, @PathVariable("social") String social, Model model) {
         String tokenUrl;
         String user_id = "";
         String user_name = "";
         String user_email = "";
         // 인가코드 -> 엑세스 토큰
-        if(social.equals("google")){
+        if (social.equals("google")) {
             tokenUrl = "";
             tokenUrl = "https://oauth2.googleapis.com/token";
             RestTemplate restTemplate = new RestTemplate();
@@ -251,7 +260,7 @@ public class MemberController {
             System.out.println("User ID: " + user_id);
             System.out.println("Name: " + user_name);
             System.out.println("Email: " + user_email);
-        }else if(social.equals("kakao")){
+        } else if (social.equals("kakao")) {
             tokenUrl = "https://kauth.kakao.com/oauth/token";
             RestTemplate restTemplate = new RestTemplate();
 
@@ -301,7 +310,7 @@ public class MemberController {
 
             // 데이터 출력
             System.out.println("User ID: " + user_id);
-        }else if(social.equals("naver")){
+        } else if (social.equals("naver")) {
             tokenUrl = "https://nid.naver.com/oauth2.0/token";
             RestTemplate restTemplate = new RestTemplate();
 
@@ -356,8 +365,51 @@ public class MemberController {
         model.addAttribute("user_email", user_email);
 
         boolean user = !(member_service.check_id(user_id));
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "socialjoin";
     }
+
+    @GetMapping("/find_id")
+    public String findId() {
+        return "find_id";
+    }
+
+    @GetMapping("/find_pw")
+    public String findPw() {
+        return "find_pw";
+    }
+
+    @PostMapping("/find_id")
+    public String findIdPost(MemberDto dto, Model model) {
+        System.out.println(dto.getUser_name());
+        System.out.println(dto.getUser_email());
+        String msg = "";
+        MemberDto user_id = member_service.getMemberByName(dto);
+
+        if (user_id == null) {
+            msg = "해당하는 아이디가 존재하지 않습니다.!!!";
+        } else {
+            msg = "당신의 아이디는 " + user_id.getUser_id() + "입니다.";
+        }
+        model.addAttribute("msg", msg);
+        return "find_id";
+    }
+
+    @PostMapping("/find_pw")
+    @ResponseBody
+    public boolean findPwPost(@RequestParam(value = "user_email") String user_email) {
+        boolean flag = true;
+        String subject = "오늘 뭐먹지 임시비밀번호입니다.";
+        String code = UUID.randomUUID().toString().substring(0, 8);
+        String text = "인증번호 : " + code;
+        try {
+            email_service.sendEmail(user_email, subject, text);
+        } catch (Exception e) {
+            e.printStackTrace();
+            flag = false;
+        }
+        return flag;
+    }
 }
+
 

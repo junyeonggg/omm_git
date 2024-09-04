@@ -6,6 +6,21 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script th:src="@{/js/join.js}"></script>
     <!--    <link th:href="@{/css/join.css}" rel="stylesheet">-->
+    <style>
+        .social_login_flex{
+    display : flex;
+    flex-decoration : row;
+}
+.social_login_flex img{
+    width : 50px;
+    height : 50px;
+}
+.social_login_flex img:hover{
+    border : solid 1px;
+    box-shadow : 2px 2px 3px 3px black;
+    border-radius:5px;
+}
+    </style>
 </head>
 <h1>회원 가입</h1>
 <form name="joinForm" id="joinForm" action="/join" th:object="${memberDto}" method="post" >
@@ -123,9 +138,6 @@
                 </select>
                 <!-- 중간번호 -->
                 <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호">
-
-
-
             </td>
         </tr>
         </tr>
@@ -150,6 +162,21 @@
     <input type="button" value="로그인" onclick="location.href='/login'">
     <input type="button" value="다시 입력" onclick="resetButton()">
     <input type="button" value="홈으로" onclick="location.href='/'">
+    <!-- 소셜 로그인 div-->
+    <div class="social_login_flex">
+        <!--구글-->
+        <div>
+            <img src="img/login_google.png" onclick="location.href='/login/google'" alt="">
+        </div>
+        <!--카카오-->
+        <div>
+            <img src="img/login_kakao.png" onclick="location.href='/login/kakao'" alt="">
+        </div>
+        <!--네이버-->
+        <div>
+            <img src="img/login_naver.png" onclick="location.href='/login/naver'" alt="">
+        </div>
+    </div>
 </form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>
