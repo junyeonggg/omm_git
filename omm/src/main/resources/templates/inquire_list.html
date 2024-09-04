@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<title>문의게시판</title>
+<style>
+.inquire_tbl{
+	text-align: center;	
+} 
+.inquire_tbl_tr:hover{
+	background-color: lightblue;
+	border : solid 1px;
+	border-color: blue;
+}
+</style>
 </head>
 <body>
+	<div sec:authorize="isAuthenticated()">
+		<button><a href="/inquire/write">작성하기</a></button>
+	</div>
+
+	<table class="inquire_tbl">
+		<tr>
+			<th>번호</th>
+			<th>문의 제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+		</tr>
+		<tr class="inquire_tbl_tr" th:each="inquire,info : ${inquire_list}" th:data-inquire-id="${inquire.inquire_id}" onclick="inquire_detail(this)">
+			<td th:text="${info.count}"></td>
+			<td th:text="${inquire.inquire_title}"></td>
+			<td th:text="${inquire.user_id}"></td>
+			<td th:text="${inquire.inquire_create_date}"></td>
+		</tr>
+	</table>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="js/inquire.js"></script>
+
 
 </body>
 </html>

@@ -1,0 +1,70 @@
+/* styles.css */
+
+/* 전역 스타일 설정 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* 배너 이미지 스타일 */
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+}
+
+/* 카테고리 버튼 스타일 */
+.category-btn {
+    margin: 5px;
+    flex: 1 0 auto;
+}
+
+/* 버튼 그룹 스타일 */
+.category-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+/* 검색어 입력 필드 스타일 */
+.form-control {
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+
+/* 상품 카드 스타일 */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    text-align: center;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}

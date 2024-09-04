@@ -1,6 +1,9 @@
 package com.omm.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
+import java.util.List;
 
 @ToString
 @AllArgsConstructor
@@ -8,14 +11,13 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class FoodDto {
-    private int food_id;
-    private String food_name;
-    private String food_link;
-    private String food_img;
-    private int food_lprice;
-    private int food_hprice;
-    private String food_mall_name;
-    private String food_product_id;
-    private String food_brand_name;
-    private int category_id;
+
+    private int foodId;
+    private String foodName;
+    private String foodImg;
+    private String foodLprice;
+    private String foodMallName;
+    private String foodProductId;
+    private String searchCategory;
+    private int categoryId;
 }
