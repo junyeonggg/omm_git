@@ -5,8 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-# 깃 application.properties
-src/main/resources/application.properties
+
 
 ### STS ###
 .apt_generated
@@ -21,6 +20,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+application.properties
 .idea
 *.iws
 *.iml
