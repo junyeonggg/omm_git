@@ -1,17 +1,12 @@
 package com.omm.service;
 
 
-import com.omm.dao.MemberDao;
-import com.omm.dto.MemberDto;
-import com.omm.role.UserRole;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,28 +14,28 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.omm.dao.MemberDao;
+import com.omm.dto.MemberDto;
+import com.omm.role.UserRole;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class UserSecurityService implements UserDetailsService {
 	private final MemberDao member_dao;
 	private final PasswordEncoder passwordEncoder;
-
-
-
+	private final EmailService email_service;
+	
 	public MemberDto create(MemberDto dto) {
 		dto.setUser_pw(passwordEncoder.encode(dto.getUser_pw()));
 		this.member_dao.insert_member(dto);
 		return dto;
 	}
-
-
-	@Override			// 세큐리티내에서 name 은 id를 의미한다 또한 view 에서 name 을  username/password 로 고정해야한다(세큐리티에서 id=username/pw=password)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-		MemberDto member = this.member_dao.get_by_user_id(username);
+	
+	@Override			// 세큐리티내에서 name은 id를 의미한다 또한 view에서 name을  userid/password로 고정해야한다(세큐리티에서 id=userid/pw=password)
+	public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException{
+		MemberDto member = this.member_dao.get_by_user_id(user_id);
 		if(member == null) {
 			throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
 		}
@@ -54,4 +49,5 @@ public class UserSecurityService implements UserDetailsService {
 		}
 		return new User(member.getUser_id(), member.getUser_pw(), authorities);
 	}
+
 }
