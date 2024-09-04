@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.mysql.cj.Session;
+
 import com.omm.dto.InquireDto;
 import com.omm.service.InquireService;
 

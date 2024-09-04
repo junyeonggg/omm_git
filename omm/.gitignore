@@ -5,8 +5,16 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+<<<<<<<<< Temporary merge branch 1
+# 깃 application.properties
+src/main/resources/application.properties
+
+=========
+# 깃 properties
+src/main/resources/application.properties
 
 
+>>>>>>>>> Temporary merge branch 2
 ### STS ###
 .apt_generated
 .classpath
@@ -20,7 +28,6 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-application.properties
 .idea
 *.iws
 *.iml

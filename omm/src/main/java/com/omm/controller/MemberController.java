@@ -1,5 +1,16 @@
 package com.omm.controller;
 
+
+import java.util.UUID;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.omm.dto.MemberDto;
 import com.omm.service.EmailService;
 import com.omm.service.MemberService;
@@ -29,7 +40,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.UUID;
+
+
 
 @RequiredArgsConstructor
 @Controller
@@ -168,7 +180,7 @@ public class MemberController {
         }else{
             return new RedirectView("http://localhost:8080/login");
         }
-    } //마지막 수정
+    }
     @GetMapping("/socialjoin")
     public String socialPage(){
         return "socialjoin";
@@ -348,6 +360,4 @@ public class MemberController {
         return "socialjoin";
     }
 }
-
-
 
