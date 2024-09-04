@@ -109,7 +109,6 @@ public class MemberController {
     public String checkId(@RequestParam(value = "data") String user_id) {
         return String.valueOf(member_service.check_id(user_id));
     }
-    //여기가 112다 뭐가 있냐
     @GetMapping("/checkNickname")
     @ResponseBody
     public String checkNickname(@RequestParam(value = "data") String user_nickname) {
