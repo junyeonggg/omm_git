@@ -80,7 +80,7 @@ public class RecipeController {
 //			e.printStackTrace();
 //		}
 //
-//		return "recipe_list";
+//		return "redirect:/";
 //	}
 
 	// 레시피 재료를 넣기위한 메서드
@@ -107,7 +107,10 @@ public class RecipeController {
 				ingre.setRecipe_id(recipeService.findRecipeIdByMangeId(data_list[1]));
 				recipeService.insertIngre(ingre); 
 				
-
+				if(data_list[0].equals("45767")) {
+					break;
+				}
+				
 				// 첫번째 행을 가져오지 않기 위한 코드
 			}
 		} catch (Exception e) {
@@ -144,7 +147,7 @@ public class RecipeController {
 //			
 //			// 레시피 id는 mange_id를 이용해서 가져온다.
 ////			System.out.println(line);
-//			int recipe_id = recipeService.findRecipeByMangeId(line_list[1]); 
+//			int recipe_id = recipeService.findRecipeIdByMangeId(line_list[1]); 
 //			sequence.setRecipe_id(recipe_id);
 //			sequence.setSequence_text(line_list[2]);
 //			sequence.setSequence_step_no(Integer.valueOf(line_list[3]));

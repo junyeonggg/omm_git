@@ -25,7 +25,7 @@ public interface RecipeDao {
 	@Select("select * from tbl_recipe where recipe_food_name like concat('%',#{keyword},'%') order by recipe_id desc limit #{start_record},#{record_size};")
 	List<RecipeDto> selectRecipeByPagingSearch(@Param("start_record") int start_record, @Param("record_size") int record_size,@Param("keyword") String keyword);
 
-	@Insert("insert into tbl_ingre values(null,#{ingre_type},#{ingre_name},#{ingre_info},#{mange_id})")
+	@Insert("insert into tbl_ingre values(null,#{ingre_type},#{ingre_name},#{ingre_info},#{recipe_id})")
 	void insertIngre(Recipe_ingre ingre);
 
 	@Select("select recipe_id from tbl_recipe where mange_id=#{mange_id}")
