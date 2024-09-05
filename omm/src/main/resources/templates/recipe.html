@@ -61,6 +61,7 @@
 
 .c_comment {
 	background-color: lightblue;
+	margin-bottom: 2px;
 }
 </style>
 
@@ -126,8 +127,9 @@
 					<br>
 					<div class="c_comment" th:each="c_comment : ${comment_list}"
 						th:if="${c_comment.parent_comment_id == comment.comment_id}">
-						<span th:text="'답글 작성자 :'+ ${c_comment.user_id}"></span>
-						<p th:text="${c_comment.comment_content}"></p>
+						<b th:text="'답글 작성자 :'+ ${c_comment.user_id}"></b><br>
+						<span th:text="${c_comment.comment_content}"></span><br>
+						<small th:text="${c_comment.comment_create_date}"></small>
 					</div>
 
 
