@@ -1,21 +1,21 @@
 package com.omm.controller;
 
-import com.omm.dto.FoodDto;
-import com.omm.dto.CategoryDto;
-import com.omm.service.ShopService;
-import com.omm.service.CategoryService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.omm.dto.CategoryDto;
+import com.omm.dto.CommentDto;
+import com.omm.dto.FoodDto;
+import com.omm.service.CategoryService;
+import com.omm.service.ShopService;
 
 @Controller
 public class ShopController {
@@ -97,5 +97,25 @@ public class ShopController {
         model.addAttribute("food", food);
         return "product";
     }
+
+    
+    // 댓글등록 메서드
+    @ResponseBody
+    @PostMapping("/addreply")
+    public String addReply(CommentDto comment) {
+        // user_id
+        // comment_content
+        // comment_create_date
+        // target_id
+        // parent_comment_id
+        // comment_rating
+        // reference_type
+    	System.out.println(comment.toString());
+    	
+    	shopService.insertReply(comment);
+    	
+    	return "";
+    }
+    
 }
 

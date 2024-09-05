@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import com.omm.dto.CommentDto;
 import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.RecipeDto;
 import com.omm.dto.Recipe_ingre;
@@ -37,5 +39,14 @@ public interface RecipeDao {
 
 	@Select("select * from tbl_cooking_sequence where recipe_id = #{recipe_id} order by sequence_step_no")
 	List<CookingSequenceDto> selectRecipeSequenceByRecipeId(int recipe_id);
+
+	@Select("select user_nickname from tbl_member where user_id = #{user_id}")
+	String getUserNicknameByUserId(String user_id);
+
+	@Select("select comment_id,user_nickname as user_id, comment_content, comment_create_date, target_id, parent_comment_id, comment_rating, reference_type from tbl_comment,tbl_member where tbl_comment.user_id = tbl_member.user_id and target_id=#{recipe_id} and reference_type = #{type_no}")
+	List<CommentDto> getCommentsByTargetIdAndRefType(@Param("recipe_id") int recipe_id,@Param("type_no") int type_no);
+
+//	@Update("update tbl_member set user_pw=#{encode} where user_id='admin'")
+//	void asdf(String encode);
 
 }

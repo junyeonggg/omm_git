@@ -9,8 +9,55 @@
 <meta name="author" content="" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link th:href="@{/css/index.css}" rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <title>레시피</title>
 <style>
+.rate {
+	display: inline-block;
+	border: 0;
+	margin-right: 15px;
+}
+
+.rate>input {
+	display: none;
+}
+
+.rate>label {
+	float: right;
+	color: #ddd;
+	font-size: 1.5rem;
+}
+
+.rate>label:before {
+	display: inline-block;
+	font-size: 1.5rem;
+	padding: .3rem .2rem;
+	margin: 0;
+	cursor: pointer;
+	font-family: FontAwesome;
+	content: "\f005"; /* 별 모양 */
+}
+
+.rate .half:before {
+	content: "\f089"; /* 반개 별 모양 */
+	position: absolute;
+	padding-right: 0;
+}
+
+.rate input:checked ~ label, .rate label:hover, .rate label:hover ~
+	label {
+	color: #f73c32 !important; /* 클릭되었거나 호버 상태의 별 색상 */
+}
+
+.rate input:checked+label:hover, .rate input input:checked ~ label:hover,
+	.rate input:checked ~ label:hover ~ label, .rate label:hover ~ input:checked 
+	 ~ label {
+	color: #f73c32 !important; /* 호버 상태의 별 색상 */
+}
 </style>
 
 </head>
@@ -27,9 +74,10 @@
 				</ul>
 				<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/login}">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link active" aria-current="page" th:href="@{/login}">로그인</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" aria-current="page" th:href="@{/logout}">로그아웃</a></li>
 				</ul>
 			</div>
 		</div>
@@ -46,14 +94,86 @@
 			</div>
 		</div>
 	</div>
-	<!-- 댓글 --> <!-- 최근수정 -->
-	<div>
+	<!-- 댓글 -->
+	<!-- 최근수정 -->
+	<div></div>
+
+	<div class="mt-5">
+		<h3>리뷰</h3>
+		<!-- 리뷰 리스트 -->
+		<div th:each="comment : ${comment_list}">
+			<div class="card my-3">
+				<div class="card-body">
+					<!-- 리뷰 작성자와 별점 표시 -->
+					<div class="d-flex justify-content-between">
+						<h5 class="card-title" th:text="${comment.user_id}"></h5>
+						<div class="rating">
+							<span th:each="i : ${#numbers.sequence(1, comment.comment_rating)}"
+								class="fa fa-star checked" style="color: gold;"></span> <span
+								th:each="i : ${#numbers.sequence(comment.comment_rating + 1, 5)}"
+								class="fa fa-star"></span>
+						</div>
+					</div>
+					<p class="card-text" th:text="${comment.comment_content}"></p>
+					<!-- 답글 폼 -->
+					<form class="mt-3" th:action="@{/reply}" method="post">
+						<div class="mb-3">
+							<label for="replyContent" class="form-label">답글</label>
+							<textarea class="form-control" id="replyContent"
+								name="replyContent" rows="2"></textarea>
+						</div>
+						<button type="submit" class="btn btn-secondary">답글 달기</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- 리뷰 작성 폼 -->
+		<div th:if="${user_nickname != 'Null'}">
+			<h4>리뷰 작성</h4>
+			<div class="mb-3">
+				<span th:text="${user_nickname}">작성자 : </span>
+				<textarea class="form-control" id="comment_content"
+					name="reviewContent" rows="3" required></textarea>
+			</div>
+			<!-- 별점 -->
+			<div class="rate">
+				<input type="radio" id="star5" name="rating" value="5"> <label
+					for="star5" title="5 stars"> </label> <input type="radio"
+					id="star4half" name="rating" value="4.5"> <label
+					for="star4half" class="half" title="4.5 stars"></label> <input
+					type="radio" id="star4" name="rating" value="4"> <label
+					for="star4" title="4 stars"></label> <input type="radio"
+					id="star3half" name="rating" value="3.5"> <label
+					for="star3half" class="half" title="3.5 stars"></label> <input
+					type="radio" id="star3" name="rating" value="3"> <label
+					for="star3" title="3 stars"></label> <input type="radio"
+					id="star2half" name="rating" value="2.5"> <label
+					for="star2half" class="half" title="2.5 stars"></label> <input
+					type="radio" id="star2" name="rating" value="2"> <label
+					for="star2" title="2 stars"></label> <input type="radio"
+					id="star1half" name="rating" value="1.5"> <label
+					for="star1half" class="half" title="1.5 stars"></label> <input
+					type="radio" id="star1" name="rating" value="1"> <label
+					for="star1" title="1 star"></label> <input type="radio"
+					id="starhalf" name="rating" value="0.5"> <label
+					for="starhalf" class="half" title="0.5 stars"></label>
+			</div>
+			<button type="button"
+				onclick="insertReplyBtn(this,1)" th:data-user-id="${user_id}"
+				th:data-target-id="${recipe.recipe_id}"
+				th:data-user-nickname="${user_nickname}"
+				class="btn btn-primary mt-3">리뷰 작성</button>
+		</div>
 	</div>
+
 
 	<footer class="py-5 bg-dark">
 		<div class="container">
 			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>
 		</div>
 	</footer>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script th:src="@{/js/recipe.js}"></script>
 </body>
 </html>
