@@ -58,6 +58,11 @@
 	 ~ label {
 	color: #f73c32 !important; /* 호버 상태의 별 색상 */
 }
+
+.c_comment {
+	background-color: lightblue;
+	margin-bottom: 2px;
+}
 </style>
 
 </head>
@@ -102,10 +107,10 @@
 		<h3>리뷰</h3>
 		<!-- 리뷰 리스트 -->
 		<div th:each="comment : ${comment_list}">
-			<div class="card my-3">
+			<div class="card my-3" th:if="${comment.parent_comment_id == 0}">
 				<div class="card-body">
 					<!-- 리뷰 작성자와 별점 표시 -->
-					<div th:if="${comment.parent_comment_id == 0}">
+					<div>
 						<div class="d-flex justify-content-between">
 							<h5 class="card-title" th:text="${comment.user_id}"></h5>
 							<div class="rating">
@@ -119,8 +124,13 @@
 						<p class="card-text" th:text="${comment.comment_content}"></p>
 					</div>
 					<!-- 답글 출력 -->
-					<p th:if="${comment.parent_comment_id != 0}"
-						th:text="${comment.comment_content}"></p>
+					<br>
+					<div class="c_comment" th:each="c_comment : ${comment_list}"
+						th:if="${c_comment.parent_comment_id == comment.comment_id}">
+						<b th:text="'답글 작성자 :'+ ${c_comment.user_id}"></b><br>
+						<span th:text="${c_comment.comment_content}"></span><br>
+						<small th:text="${c_comment.comment_create_date}"></small>
+					</div>
 
 
 
