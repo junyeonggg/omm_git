@@ -1,5 +1,6 @@
 package com.omm.controller;
 
+import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
 import com.omm.dto.CategoryDto;
 import com.omm.service.ShopService;
@@ -7,9 +8,7 @@ import com.omm.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -96,6 +95,23 @@ public class ShopController {
 
         model.addAttribute("food", food);
         return "product";
+    }
+
+    @ResponseBody
+    @PostMapping("/addreply")
+    public String addReply(CommentDto comment) {
+        // user_id
+        // comment_content
+        // comment_create_date
+        // target_id
+        // parent_comment_id
+        // comment_rating
+        // reference_type
+        System.out.println(comment.toString());
+
+        shopService.insertReply(comment);
+
+        return "";
     }
 }
 
