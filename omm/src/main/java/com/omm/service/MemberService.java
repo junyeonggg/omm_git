@@ -48,7 +48,11 @@ public class MemberService {
     public void updatePassword(String user_id, String encryptedPassword) {
         member_dao.updatePassword(user_id, encryptedPassword);
     }
-
+    public MemberDto getMemberInfo(String user_id) {
+        MemberDto dto = new MemberDto();
+        dto = member_dao.get_by_user_id(user_id);
+        return dto;
+    }
 
 }
 

@@ -223,7 +223,7 @@ function sendmail(){
     $.ajax({
         type:"post",
         url : url,
-        data : {user_email:user_email},
+        data : {'user_email':user_email},
         success : data=>{
             if(data){
                 window.alert("이메일이 발송되었습니다.")
@@ -242,7 +242,7 @@ function verifyEmailCode(){
     $.ajax({
         type:"post",
         url : url,
-        data : {user_email:user_email,code:code},
+        data : {'user_email':user_email,'code':code},
         success : data=>{
             if(data){
                 window.alert("이메일 인증이 확인되었습니다.")

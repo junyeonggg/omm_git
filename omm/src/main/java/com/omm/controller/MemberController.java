@@ -8,11 +8,16 @@ import com.omm.service.MemberService;
 import com.omm.service.UserSecurityService;
 import jakarta.validation.Valid;
 import org.json.JSONObject;
+import java.security.Principal;
+
+import java.security.Principal;
 import java.util.UUID;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -171,7 +176,9 @@ public class MemberController {
     @PostMapping("/checkEmailCode")
     @ResponseBody
     public boolean checkEmail(@RequestParam(value = "user_email") String user_email, @RequestParam("code") String code) {
+
         String email_by_code = email_service.email_code_check(code);
+
         if (user_email.equals(email_by_code)) {
             return true;
         } else {
@@ -435,10 +442,15 @@ public class MemberController {
         }
         return emailSent;
     }
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile")
-    public String profilePage(){
+    public String profilePage(Model model, Principal principal){
+        String user_name = principal.getName();
+        MemberDto dto = member_service.getMemberInfo(principal.getName());
+        model.addAttribute("member", dto);
         return "profile";
     }
+
 }
 
 

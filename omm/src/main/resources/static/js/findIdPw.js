@@ -30,8 +30,8 @@ function validatePwForm(){
         type:"post",
         url : url,
         data: {
-        user_id:user_id,
-        user_email:user_email
+        'user_id':user_id,
+        'user_email':user_email
         },
       success : data=>{
             if(data){

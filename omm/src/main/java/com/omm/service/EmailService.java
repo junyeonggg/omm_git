@@ -9,6 +9,8 @@ import com.omm.dao.MemberDao;
 
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+
 @RequiredArgsConstructor
 @Service
 public class EmailService {
@@ -25,7 +27,8 @@ public class EmailService {
         email_sender.send(message);
     }
     public void email_code_save(String user_email, String code){
-        member_dao.emailCodeSave(user_email,code);
+        LocalDate now = LocalDate.now();
+        member_dao.emailCodeSave(user_email,code,now.toString());
     }
 
     public String email_code_check(String code) {
