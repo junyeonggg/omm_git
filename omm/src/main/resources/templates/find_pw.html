@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>비빌번호 찾기</title>
-    <link th:href="@{/css/findpw.css}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script th:src="@{/js/findIdPw.js}"></script>
 </head>
 <body>
-<form name="findPwForm" onsubmit="return validatePwForm()">
+<form name="findPwForm">
     <br>
     <h1>비밀번호 찾기</h1>
     <br>
@@ -26,7 +26,7 @@
         </tr>
     </table>
     <br>
-    <input type="submit" value="비밀번호 찾기"> <input type="button" value="창닫기" onclick="window.close()">
+    <input type="button" value="비밀번호 찾기" onclick="validatePwForm()"> <input type="button" value="창닫기" onclick="window.close()">
     <br>
 </form>
 </body>

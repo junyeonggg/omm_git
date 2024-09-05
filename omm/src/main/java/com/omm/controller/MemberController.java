@@ -1,6 +1,7 @@
 package com.omm.controller;
 
 
+import com.omm.dao.MemberDao;
 import com.omm.dto.MemberDto;
 import com.omm.service.EmailService;
 import com.omm.service.MemberService;
@@ -91,7 +92,7 @@ public class MemberController {
     private final MemberService member_service;
     private final UserSecurityService user_service;
     private final EmailService email_service;
-
+    private final PasswordEncoder passwordEncoder;
     @GetMapping("/join")
     public String JoinPage(Model model) {
         model.addAttribute("memberDto", new MemberDto());
@@ -141,6 +142,11 @@ public class MemberController {
     public String checkEmail(@RequestParam(value = "data") String user_email) {
         return String.valueOf(member_service.check_email(user_email));
     }
+    @GetMapping("/checkTel")
+    @ResponseBody
+    public String checkTel(@RequestParam(value = "data") String user_tel) {
+        return String.valueOf(member_service.checkTel(user_tel));
+    }
 
     @ResponseBody
     @PostMapping("/sendmail")
@@ -172,6 +178,7 @@ public class MemberController {
             return false;
         }
     }
+
 
     @GetMapping("/login")
     public String loginPage(Model model) {
@@ -400,18 +407,37 @@ public class MemberController {
 
     @PostMapping("/find_pw")
     @ResponseBody
-    public boolean findPwPost(@RequestParam(value = "user_email") String user_email) {
-        boolean flag = true;
-        String subject = "오늘 뭐먹지 임시비밀번호입니다.";
+    public boolean findPwPost(@RequestParam(value = "user_id") String user_id,
+                              @RequestParam(value = "user_email") String user_email,
+                              MemberDto dto) {
+        // 사용자 정보를 데이터베이스에서 조회
+        boolean isValidUser = member_service.isValidUser(user_id, user_email);
+
+        if (!isValidUser) {
+            return false; // 아이디와 이메일이 일치하지 않으면 false 반환
+        }
+
         String code = UUID.randomUUID().toString().substring(0, 8);
-        String text = "인증번호 : " + code;
+        String encryptedCode = passwordEncoder.encode(code);
+        member_service.updatePassword(user_id, encryptedCode);
+
+        String subject = "오늘 뭐먹지 임시비밀번호입니다.";
+        String text = "임시비밀번호 : " + code + "\n" + "임시비밀번호 유효시간은 1시간입니다. 유효시간 내에 비밀번호 변경 부탁드립니다.";
+
+        boolean emailSent = true;
+
         try {
+            member_service.saveTemporaryPassword(user_email, encryptedCode);
             email_service.sendEmail(user_email, subject, text);
         } catch (Exception e) {
             e.printStackTrace();
-            flag = false;
+            emailSent = false;
         }
-        return flag;
+        return emailSent;
+    }
+    @GetMapping("/profile")
+    public String profilePage(){
+        return "profile";
     }
 }
 

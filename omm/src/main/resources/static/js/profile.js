@@ -4,51 +4,7 @@ var isNicknameChecked = false; // 닉네임 중복 체크 상태
 var isEmailChecked = false; // 이메일 중복 체크 상태
 var isIdAvailable = false; // 기본값: 사용 불가로 설정
 var isEmailAvailable = false; // 이메일 사용 가능 여부
-
-// 아이디 중복 체크 함수
-async function checkId() {
-    var snd_data = $("#user_id").val().trim();
-    if (snd_data === "") {
-        $("#id-area").html("<p>아이디를 입력해 주세요.</p>");
-        isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 확인이 필요함
-        return;
-    }
-    if (snd_data.length < 4 || snd_data.length > 12) {
-        $("#id-area").html("<p>아이디는 4~12자로 입력해주세요.</p>");
-        isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 확인이 필요함
-        return;
-    }
-    try {
-        const data = await $.ajax({
-            type: "get",
-            dataType: "text",
-            url: "http://localhost:8080/checkId",
-            data: { data: snd_data }
-        });
-    // 유효성 검사 추가
-        if (!/^[a-z0-9]+$/.test(snd_data)) {
-        $("#id-area").html("<p>아이디는 소문자와 숫자만 포함해야 합니다.</p>");
-        isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 확인이 필요함
-        return;
-        }
-        if (data === "true") {
-            $("#id-area").html("<p>사용 가능한 아이디입니다.</p>");
-            isIdChecked = true; // 중복 체크 완료, 아이디 사용 가능
-            isIdAvailable = true; // 아이디가 사용 가능함
-        } else {
-            $("#id-area").html("<p>사용할 수 없는 아이디입니다.</p>");
-            isIdChecked = true; // 중복 체크 완료, 아이디 사용 불가
-            isIdAvailable = false; // 아이디가 사용 불가함
-        }
-    } catch (error) {
-        window.alert("에러가 발생했습니다.");
-        isIdChecked = false; // 에러 발생 시 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 상태 확인 불가
-    }
-}
+var isTelAvailable = false; // 전화번호 사용 가능 여부
 
 // 닉네임 중복 체크 함수
 async function checkNickname() {
@@ -60,7 +16,7 @@ async function checkNickname() {
         return;
     }
     if (snd_data.length < 2 || snd_data.length > 6) {
-        $("#nickname-area").html("<p>닉네임는 2~6자로 입력해주세요.</p>");
+        $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
         isIdChecked = false;
         isIdAvailable = false;
         return;
@@ -72,7 +28,7 @@ async function checkNickname() {
             url: "http://localhost:8080/checkNickname",
             data: { data: snd_data }
         });
-        if (data === "true") {
+        if (data.trim() === "true") {
             $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
             isIdChecked = true;
             isIdAvailable = true;
@@ -94,7 +50,7 @@ async function checkEmail() {
     if (snd_data === "") {
         $("#email-area").html("<p>이메일을 입력해 주세요.</p>");
         isIdChecked = false;
-        isIdAvailable = false;
+        isEmailAvailable = false;
         return;
     }
     try {
@@ -104,19 +60,57 @@ async function checkEmail() {
             url: "http://localhost:8080/checkEmail",
             data: { data: snd_data }
         });
-        if (data === "true") {
+        if (data.trim() === "true") {
             $("#email-area").html("<p>사용 가능한 이메일입니다.</p>");
             isIdChecked = true;
-            isIdAvailable = true;
+            isEmailAvailable = true;
         } else {
             $("#email-area").html("<p>사용할 수 없는 이메일입니다.</p>");
             isIdChecked = true;
-            isIdAvailable = false;
+            isEmailAvailable = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
         isIdChecked = false;
-        isIdAvailable = false;
+        isEmailAvailable = false;
+    }
+}
+
+// 전화번호 중복 체크 함수
+async function checkTel() {
+    var tel_prefix = $("#tel_list").val().trim(); // 국번
+    var tel_number = $("#user_tel").val().trim(); // 중간번호
+
+    if (tel_prefix === "" || tel_number === "") {
+        $("#tel-area").html("<p>전화번호를 입력해 주세요.</p>");
+        isIdChecked = false;
+        isTelAvailable = false;
+        return;
+    }
+    // 전체 전화번호를 생성합니다.
+    var full_tel = tel_prefix + tel_number;
+
+    try {
+        const data = await $.ajax({
+            type: "get",
+            dataType: "text",
+            url: "http://localhost:8080/checkTel",
+            data: { data: full_tel }
+        });
+
+        if (data.trim() === "true") {
+            $("#tel-area").html("<p>사용 가능한 전화번호입니다.</p>");
+            isIdChecked = true;
+            isTelAvailable = true;
+        } else {
+            $("#tel-area").html("<p>사용할 수 없는 전화번호입니다.</p>");
+            isIdChecked = true;
+            isTelAvailable = false;
+        }
+    } catch (error) {
+        window.alert("에러가 발생했습니다.");
+        isIdChecked = false;
+        isTelAvailable = false;
     }
 }
 function update_email() {
@@ -260,103 +254,5 @@ function verifyEmailCode(){
 }
 
 function resetButton() {
-    document.getElementById('joinForm').reset();
+    document.getElementById('profileForm').reset();
 }
-
-function submitForm(self){
-    // 상세주소를 user_addr_detail 필드에 저장
-    var detailAddress = document.getElementById("sample6_detailAddress").value;
-    var submitBtn = document.getElementById('submitBtn');
-    const form = document.forms.joinForm
-    // 회원가입 폼
-    var formJoin = new FormData();
-    // 아이디
-    const user_id = document.querySelector("#user_id").value;
-    formJoin.append('user_id',user_id)
-    console.log("user_id : ",user_id)
-
-    //비밀번호
-    const user_pw = document.querySelector("#user_pw").value;
-    formJoin.append('user_pw',user_pw)
-    console.log("user_pw : ",user_pw)
-    // 이름
-    const user_name = document.querySelector("#user_name").value;
-    formJoin.append('user_name',user_name)
-    console.log("user_name : ",user_name)
-    // 닉네임
-    const user_nickname = document.querySelector("#user_nickname").value;
-    formJoin.append('user_nickname',user_nickname)
-    console.log("user_nickname : ",user_nickname)
-    // 이메일
-    const user_email_id = document.querySelector("#user_email_id").value;
-    const user_email_domain = document.querySelector("#user_email_domain").value;
-    const user_custom_email = document.querySelector("#custom_domain").value;
-    var user_email = ""; // 변수 선언과 초기화
-    if(document.querySelector("#domain_list").value == 'custom'){
-         user_email = `${user_email_id}@${user_custom_email}`;
-    }else{
-         user_email = `${user_email_id}@${user_email_domain}`;
-    }
-    formJoin.append('user_email',user_email)
-    console.log("user_email : ",user_email)
-    // 주소 부분
-    const user_addr_zip = document.querySelector("#user_addr_zip").value;
-    const user_addr = document.querySelector("#user_addr").value;
-    const user_addr_detail = document.querySelector("#sample6_detailAddress").value;
-    formJoin.append('user_addr_zip',user_addr_zip);
-    formJoin.append('user_addr',user_addr);
-    formJoin.append('user_addr_detail',user_addr_detail);
-    console.log("user_addr_zip : ",user_addr_zip)
-    console.log("user_addr : ",user_addr)
-    console.log("user_addr_detail : ",user_addr_detail)
-    //전화번호
-    const user_tel_front = document.querySelector("#tel_list").value;
-    const user_tel_back = document.querySelector("#user_tel").value;
-    const user_tel = user_tel_front+user_tel_back;
-    formJoin.append('user_tel',user_tel);
-    console.log("user_tel : ",user_tel)
-    // 성별
-    const gender_radio_list = document.getElementsByName("user_gender");
-    var user_gender = "";
-    for(const radio of gender_radio_list){
-        if(radio.checked){
-            user_gender = radio.value;
-            break;
-        }
-    }
-    formJoin.append('user_gender',user_gender)
-    console.log("user_gender : ",user_gender)
-    // 생년월일
-    const user_birth = document.querySelector("#user_birth").value;
-    formJoin.append('user_birth',user_birth);
-    console.log("user_birth : ",user_birth)
-    $.ajax({
-        type : "post",
-        url : "http://localhost:8080/join",
-        contentType: false,
-        processData: false,
-        data: formJoin,
-        success : data=>{
-            window.alert("회원가입이 완료되었습니다.")
-            if(data=='true'){
-                $.ajax({
-                    type : "post",
-                    url : "http://localhost:8080/login",
-                    data: {'username':user_id,'password':user_pw},
-                    success : data=>{
-                            window.location.replace("http://localhost:8080/")
-                            }
-                })
-            }else {
-                window.alert("회원가입에 실패하였습니다.")
-            }
-        }
-    })
-
-    // 폼 제출
-    // document.getElementById('joinForm').submit()
-    //const form = document.forms.joinForm
-    //form.submit()
-}
-
-

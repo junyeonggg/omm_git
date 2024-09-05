@@ -30,19 +30,15 @@ function validatePwForm(){
         type:"post",
         url : url,
         data: {
-             user_id: user_id,
-             user_email: user_email
-         },
-            success: function(data) {
-            if (success) {
-                window.alert("이메일이 발송되었습니다.");
-            } else {
-                window.alert("이메일 발송에 실패했습니다.");
-            }
+        user_id:user_id,
+        user_email:user_email
         },
-        error: function() {
-            window.alert("서버와의 통신에 실패했습니다.");
-       }
-    });
-    return false; // 폼 제출 방지
+      success : data=>{
+            if(data){
+                window.alert("이메일이 발송되었습니다.")
+            } else {
+                window.alert("이메일 발송에 실패했습니다.")
+            }
+        }
+    })
 }
