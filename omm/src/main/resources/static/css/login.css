@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7e9; /* Light green background */
+    color: #333; /* Dark gray text for readability */
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    background-color: #ffffff; /* White background for form */
+    border: 1px solid #d2e2d3; /* Light green border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    width: 300px;
+    margin: 200px auto; /* Center the form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* 기본 테이블 스타일 설정 */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+}
+
+/* 입력 필드 스타일 설정 */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 버튼 스타일 설정 */
+button, input[type="button"] {
+    background-color: #4CAF50; /* 녹색 */
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover, input[type="button"]:hover {
+    background-color: #45a049; /* 다크 그린 */
+}
+
+/* 링크 스타일 설정 */
+a {
+    color: #0275d8; /* 파란색 */
+    text-decoration: none;
+    padding: 0 5px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 소셜 로그인 스타일 설정 */
+.social_login_flex {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.social_login_flex img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social_login_flex img:hover {
+    border: solid 1px;
+    box-shadow: 2px 2px 3px 3px black;
+    border-radius: 5px;
+}
+
+/* 에러 메시지 스타일 설정 */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}

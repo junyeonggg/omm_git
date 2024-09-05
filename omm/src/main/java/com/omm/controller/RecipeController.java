@@ -67,10 +67,10 @@ public class RecipeController {
 //				recipe.setRecipe_time(data_list[11]);
 //				recipe.setRecipe_describe(data_list[12]);
 //				recipe = recipe.reRe(recipe);
-//				
+//
 //				recipeService.insertRecipe(recipe);
 //				System.out.println(recipe.toString());
-//				
+//
 //
 //				// 첫번째 행을 가져오지 않기 위한 코드
 //			}
@@ -101,8 +101,8 @@ public class RecipeController {
 //				System.out.println(line);
 //				String[] data_list = line.split(",");
 //				String[] ingre_list = data_list[2].replace("|",",").split(",");
-//				String temp_type = ""; 
-//				
+//				String temp_type = "";
+//
 //
 //				// 첫번째 행을 가져오지 않기 위한 코드
 //			}
@@ -111,7 +111,7 @@ public class RecipeController {
 //			e.printStackTrace();
 //		}
 //
-//		return "recipe_list";
+//		return "redirect:/";
 //	}
 
 //	 레시피 step db에 넣기
@@ -132,15 +132,15 @@ public class RecipeController {
 //			String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)",-1);
 //			int cnt = 0;
 ////			for(String i : line_list) {
-////				
+////
 ////				System.out.println("cnt "+cnt+" : "+i);
 ////				cnt++;
 ////			}
 //			CookingSequenceDto sequence = new CookingSequenceDto();
-//			
+//
 //			// 레시피 id는 mange_id를 이용해서 가져온다.
 ////			System.out.println(line);
-//			int recipe_id = recipeService.findRecipeByMangeId(line_list[1]); 
+//			int recipe_id = recipeService.findRecipeByMangeId(line_list[1]);
 //			sequence.setRecipe_id(recipe_id);
 //			sequence.setSequence_text(line_list[2]);
 //			sequence.setSequence_step_no(Integer.valueOf(line_list[3]));

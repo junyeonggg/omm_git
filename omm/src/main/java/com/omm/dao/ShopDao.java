@@ -51,7 +51,7 @@ public interface ShopDao {
 
     @Select("SELECT * FROM tbl_food WHERE food_product_id = #{foodProductId}")
     @Results({
-            @Result(property = "foodProductId", column = "food_product_id"),
+            @Result(property = "foodId", column = "food_id"),
             @Result(property = "foodName", column = "food_name"),
             @Result(property = "foodLprice", column = "food_lprice"),
             @Result(property = "foodImg", column = "food_img")
