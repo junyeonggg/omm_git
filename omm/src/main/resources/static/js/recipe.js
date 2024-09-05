@@ -15,9 +15,14 @@ function searchKeyword(){
 // reference_type
 function insertReplyBtn(self,reference_type){
 	const user_id = self.getAttribute("data-user-id")
-	const comment_content = document.querySelector("#comment_content").value;
+	
+	// 댓글인지 대댓글인지 판별 (댓글이면 댓글textarea, 대댓글이면 대댓글textarea의 값을 가져옴)
+	const type = self.getAttribute("data-type")
+	const comment_content = document.querySelector(`#${type}`).value;
 	const user_nickname = self.getAttribute("data-user-nickname");
+	const comment_parent_id = self.getAttribute("data-parent-comment-id")
 	const target_id = self.getAttribute("data-target-id");
+	
 	var rating = 0;
 	const rating_radio_list = document.getElementsByName("rating")
 	for(radio of rating_radio_list){
@@ -31,6 +36,7 @@ function insertReplyBtn(self,reference_type){
 		data : {'user_id' : user_id,
 				'comment_content':comment_content,
 				'target_id':target_id,
+				'parent_comment_id' : comment_parent_id,
 				'reference_type':reference_type,
 				'comment_rating':rating
 				},
