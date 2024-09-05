@@ -37,8 +37,8 @@ public class RecipeService {
 	}
 
 
-	public int findRecipeByMangeId(String mange_id) {
-		return recipeDao.findRecipeByMangeId(mange_id);
+	public int findRecipeIdByMangeId(String mange_id) {
+		return recipeDao.findRecipeIdByMangeId(mange_id);
 	}
 
 
@@ -65,6 +65,11 @@ public class RecipeService {
 
 	public List<CommentDto> getCommentsByTargetIdAndRefType(int recipe_id, int type_no) {
 		return recipeDao.getCommentsByTargetIdAndRefType(recipe_id,type_no);
+	}
+
+
+	public List<Recipe_ingre> selectRecipeIngreByRecipeId(int recipe_id) {
+		return recipeDao.selectRecipeIngreByRecipeId(recipe_id);
 	}
 
 }

@@ -19,6 +19,7 @@ import com.omm.dto.CommentDto;
 import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.PagingSearch;
 import com.omm.dto.RecipeDto;
+import com.omm.dto.Recipe_ingre;
 import com.omm.service.RecipeService;
 import com.omm.service.ShopService;
 
@@ -83,36 +84,39 @@ public class RecipeController {
 //	}
 
 	// 레시피 재료를 넣기위한 메서드
-//	@GetMapping("/insert_ingre2")
-//	public String insert_ingre() {
-//		try {
-//			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
-//			File recipe_csv = new File(path);
-//			// 입력 스트림
-//			FileReader recipe_list = new FileReader(recipe_csv);
-//			BufferedReader bfReader = new BufferedReader(recipe_list);
-//			String line = "";
-//			int count = 0;
-//			while ((line = bfReader.readLine()) != null) {
-//				RecipeDto recipe = new RecipeDto();
-//				if (line.startsWith(",")) {
-//					continue;
-//				}
+	@GetMapping("/insert_ingre2")
+	public String insert_ingre() {
+		try {
+			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
+			File recipe_csv = new File(path);
+			// 입력 스트림
+			FileReader recipe_list = new FileReader(recipe_csv);
+			BufferedReader bfReader = new BufferedReader(recipe_list);
+			String line = "";
+			int count = 0;
+			while ((line = bfReader.readLine()) != null) {
+				Recipe_ingre ingre = new Recipe_ingre();
+				if (line.startsWith(",")) {
+					continue;
+				}
 //				System.out.println(line);
-//				String[] data_list = line.split(",");
-//				String[] ingre_list = data_list[2].replace("|",",").split(",");
-//				String temp_type = ""; 
-//				
-//
-//				// 첫번째 행을 가져오지 않기 위한 코드
-//			}
-//		} catch (Exception e) {
-//			System.out.println();
-//			e.printStackTrace();
-//		}
-//
-//		return "recipe_list";
-//	}
+				String[] data_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)",-1);
+				ingre.setIngre_type(data_list[2]);
+				ingre.setIngre_name(data_list[3]);
+				ingre.setIngre_info(data_list[4]);
+				ingre.setRecipe_id(recipeService.findRecipeIdByMangeId(data_list[1]));
+				recipeService.insertIngre(ingre); 
+				
+
+				// 첫번째 행을 가져오지 않기 위한 코드
+			}
+		} catch (Exception e) {
+			System.out.println();
+			e.printStackTrace();
+		}
+
+		return "redirect:/";
+	}
 
 //	 레시피 step db에 넣기
 //	@GetMapping("/insert_step")
@@ -184,6 +188,10 @@ public class RecipeController {
 		List<CookingSequenceDto> recipe_sequence = recipeService.selectRecipeSequenceByRecipeId(recipe_id);
 		model.addAttribute("recipe_sequence", recipe_sequence);
 		
+		// 해당 레시피의 재료
+		List<Recipe_ingre> ingre_list = recipeService.selectRecipeIngreByRecipeId(recipe_id);
+		model.addAttribute("ingre_list", ingre_list);
+		
 		// 현재 로그인한 사람 닉네임 가져오기
 
 		String user_nickname = "";
@@ -205,11 +213,11 @@ public class RecipeController {
 	}
 	
 	// 임시로 비번 업데이트
-	@GetMapping("/encode_admin")
-	public String asdf() {
-		String encode = passwordEncoder.encode("123123123");
-		dao.asdf(encode);
-		return "redirect:/";
-	}
+//	@GetMapping("/encode_admin")
+//	public String asdf() {
+//		String encode = passwordEncoder.encode("123123123");
+//		dao.asdf(encode);
+//		return "redirect:/";
+//	}
 	
 }

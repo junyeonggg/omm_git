@@ -92,6 +92,22 @@
 		<!-- 레시피 타이틀 -->
 		<h2 th:text="${recipe.recipe_title}"></h2>
 		<span th:text="${recipe.recipe_describe}"></span>
+
+		<!-- 레시피 재료 -->
+		<div>
+			<table>
+				<tr th:each="ingre : ${ingre_list}">
+					<th th:text="${ingre}"></th>
+				</tr>
+				<tr>
+					<td>Row 1: Col 2</td>
+				</tr>
+			</table>
+
+
+		</div>
+
+
 		<!-- 레시피 순서 -->
 		<div>
 			<div th:each="s : ${recipe_sequence}">
@@ -99,8 +115,9 @@
 			</div>
 		</div>
 	</div>
+
+
 	<!-- 댓글 -->
-	<!-- 최근수정 -->
 	<div></div>
 
 	<div class="mt-5">
@@ -127,9 +144,9 @@
 					<br>
 					<div class="c_comment" th:each="c_comment : ${comment_list}"
 						th:if="${c_comment.parent_comment_id == comment.comment_id}">
-						<b th:text="'답글 작성자 :'+ ${c_comment.user_id}"></b><br>
-						<span th:text="${c_comment.comment_content}"></span><br>
-						<small th:text="${c_comment.comment_create_date}"></small>
+						<b th:text="'답글 작성자 :'+ ${c_comment.user_id}"></b><br> <span
+							th:text="${c_comment.comment_content}"></span><br> <small
+							th:text="${c_comment.comment_create_date}"></small>
 					</div>
 
 
@@ -146,7 +163,8 @@
 						th:data-user-nickname="${user_nickname}"
 						th:data-parent-comment-id="${comment.comment_id}"
 						th:data-type="replyContent" class="btn btn-secondary">답글
-						달기</button> <!-- 2024-0905 12:33 업데이트  -->
+						달기</button>
+					<!-- 2024-0905 12:33 업데이트  -->
 				</div>
 			</div>
 		</div>

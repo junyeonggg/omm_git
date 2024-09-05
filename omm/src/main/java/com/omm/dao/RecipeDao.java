@@ -29,7 +29,7 @@ public interface RecipeDao {
 	void insertIngre(Recipe_ingre ingre);
 
 	@Select("select recipe_id from tbl_recipe where mange_id=#{mange_id}")
-	int findRecipeByMangeId(String mange_id);
+	int findRecipeIdByMangeId(String mange_id);
 
 	@Insert("insert into tbl_cooking_sequence values(null,#{recipe_id},#{sequence_text},null,#{sequence_step_no})")
 	void insertRecipeSequence(CookingSequenceDto sequence);
@@ -50,5 +50,9 @@ public interface RecipeDao {
 
 	@Update("update tbl_member set user_pw=#{encode} where user_id='admin'")
 	void asdf(String encode);
+
+	
+	@Select("select * from tbl_ingre where recipe_id=#{recipe_id}")
+	List<Recipe_ingre> selectRecipeIngreByRecipeId(int recipe_id);
 
 }
