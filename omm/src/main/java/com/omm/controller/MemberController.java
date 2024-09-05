@@ -451,6 +451,19 @@ public class MemberController {
         return "profile";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile")
+    public String editMemberInfo(Model model, MemberDto dto,Principal principal,@RequestParam("tel_front") String telfront) {
+        System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+        dto.setUser_tel(telfront+dto.getUser_tel());
+        System.out.println(dto.toString());
+        System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+        // 회원정보 수정 저장
+        dto.setUser_id(principal.getName());
+        dto = member_service.editUserInPo(dto);
+        model.addAttribute("member", dto);
+        return "redirect:/profile";
+    }
 }
 
 

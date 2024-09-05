@@ -120,7 +120,7 @@
 		<div class="paging_list">
 			<table class="tbl_paging">
 				<tr>
-					<td th:if="${paging.prevPage}"
+		 			<td th:if="${paging.prevPage}"
 						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.startPage-1},keyword=${paging.keyword})}'|"
 						th:text="${'<'}"></td>
 					<td

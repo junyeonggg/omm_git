@@ -45,6 +45,25 @@ public interface MemberDao {
     @Update("update email_check set temp_password = #{encryptedPassword}, expiry_time = #{expiryTime} where user_email = #{user_email}")
     void saveTemporaryPassword(@Param("user_email") String user_email,
                                @Param("encryptedPassword") String encryptedPassword,
-                               @Param("expiryTime") Timestamp expiryTime);
+                               @Param("expiryTime") Timestamp expiryTime) throws DataAccessException;
 
+    @Update("update tbl_member set user_pw=#{user_pw} where user_id=#{user_id}")
+    void updateUserpw(@Param("user_id") String user_id, @Param("user_pw") String chngPw) throws DataAccessException;
+
+    @Update("update tbl_member set user_email=#{user_email} where user_id=#{user_id}")
+    void updateUserEmail(@Param("user_id") String user_id, @Param("user_email") String user_email) throws DataAccessException;
+
+    @Update("update tbl_member set user_addr = #{user_addr}, user_addr_zip = #{user_addr_zip}, user_addr_detail = #{user_addr_detail} where user_id = #{user_id}")
+    void updateUserAddress(@Param("user_id") String user_id,
+                           @Param("user_addr") String user_addr,
+                           @Param("user_addr_zip") String user_addr_zip,
+                           @Param("user_addr_detail") String user_addr_detail) throws DataAccessException;
+
+    @Update("update tbl_member set user_tel=#{user_tel} where user_id=#{user_id}")
+    void updateUserTel(@Param("user_id") String user_id, @Param("user_tel") String user_tel) throws DataAccessException;
+
+    @Update("update tbl_member set user_nickname=#{user_nickname} where user_id=#{user_id}")
+    void updateUserNickname(@Param("user_id") String user_id, @Param("user_nickname") String user_nickname) throws DataAccessException;
 }
+
+

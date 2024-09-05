@@ -199,19 +199,11 @@ function sample6_execDaumPostcode() {
                 document.getElementById("sample6_address").value = addr;
                 document.getElementById("sample6_extraAddress").value = extraAddr;
 
-                // 전체 주소를 user_addr 필드에 저장
-                var postcode = data.zonecode;
-                var fullAddress = addr + extraAddr;
 
-                // 우편번호를 user_addr_zip 필드에 저장
-                document.getElementById('user_addr_zip').value = postcode;
-
-                // 전체 주소를 user_addr 필드에 저장
-                document.getElementById('user_addr').value = fullAddress;
 
                 // 커서를 상세주소 필드로 이동
                 document.getElementById("sample6_detailAddress").focus();
-
+                document.querySelector("#sample6_detailAddress").value="";
             }
         }).open();
 }
@@ -252,6 +244,68 @@ function verifyEmailCode(){
         }
     })
 }
+
+// 닉네임 입력 필드의 값이 변경될 때 중복 체크 상태 초기화 및 강제 중복 체크 실행
+$(document).ready(function() {
+    $("#user_nickname").on('keydown', function(event) {
+        if(!isNicknameChecked) {
+            isNicknameChecked = false; // 새로운 값을 입력할 때 중복 체크 상태 초기화
+            isIdAvailable = false; // 닉네임 사용 가능 여부 초기화
+            $("#nickname-area").html(""); // 메시지 영역 초기화
+        }
+    });
+});
+
+// 이메일 입력 필드의 값이 변경될 때 중복 체크 상태 초기화 및 강제 중복 체크 실행
+$(document).ready(function() {
+    $("#user_email").on('keydown', function(event) {
+        if(isNicknameChecked) {
+            isEmailChecked = false; // 새로운 값을 입력할 때 중복 체크 상태 초기화
+            isIdAvailable = false; // 이메일 사용 가능 여부 초기화
+            $("#email-area").html(""); // 메시지 영역 초기화
+        }
+    });
+});
+
+// 전화번호 입력 필드의 값이 변경될 때 중복 체크 상태 초기화 및 강제 중복 체크 실행
+$(document).ready(function() {
+    $("#user_tel").on('keydown', function(event) {
+        if(isNicknameChecked) {
+            isTelAvailable = false; // 새로운 값을 입력할 때 중복 체크 상태 초기화
+            isIdAvailable = false; // 전화번호 사용 가능 여부 초기화
+            $("#tel-area").html(""); // 메시지 영역 초기화
+        }
+    });
+});
+// 수정 버튼 클릭 시 폼 제출 함수
+function updateButton() {
+    if (!isNicknameChecked) {
+        window.alert("닉네임 중복 체크를 먼저 해주세요.");
+        return false;
+ }
+   if (!isEmailChecked) {
+         window.alert("이메일 중복 체크를 먼저 해주세요.");
+         return false;
+  }
+    if (!isTelAvailable) {
+          window.alert("전화번호 중복 체크를 먼저 해주세요.");
+          return false;
+   }
+    var form = $('#profileForm');
+    const a = document.querySelector("#user_email_id").value
+    var c = ""
+    if(document.querySelector("#domain_list").value == 'custom'){
+        c = document.querySelector("#custom_domain").value
+    }else{
+        c = document.querySelector("#domain_list").value
+    }
+    var user_email = a+"@"+c;
+    document.querySelector("#user_email").value = user_email;
+    form.submit();
+    window.alert("회원 정보가 성공적으로 업데이트되었습니다.")
+}
+
+
 
 function resetButton() {
     document.getElementById('profileForm').reset();
