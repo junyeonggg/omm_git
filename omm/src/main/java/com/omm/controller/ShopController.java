@@ -97,5 +97,11 @@ public class ShopController {
         model.addAttribute("food", food);
         return "product";
     }
+
+    // 댓글영역
+
+
+
+
 }
 

@@ -18,6 +18,5 @@ public class FoodDto {
     private String foodLprice;
     private String foodMallName;
     private String foodProductId;
-    private String searchCategory;
     private int categoryId;
 }
