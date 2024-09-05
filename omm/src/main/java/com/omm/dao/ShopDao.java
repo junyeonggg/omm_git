@@ -1,5 +1,6 @@
 package com.omm.dao;
 
+import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
 import org.apache.ibatis.annotations.*;
 
@@ -56,4 +57,8 @@ public interface ShopDao {
             @Result(property = "foodImg", column = "food_img")
     })
     FoodDto getFoodById(@Param("foodProductId") String foodProductId);
+
+    @Insert("INSERT INTO tbl_comment VALUES (null, #{user_id}, #{comment_content}, #{comment_create_date}, #{target_id}, #{parent_comment_id}, #{comment_rating}, #{reference_type});")
+	void insertReply(CommentDto comment);
+
 }

@@ -3,6 +3,7 @@ package com.omm.service;
 import com.omm.dao.CategoryDao;
 import com.omm.dao.ShopDao;
 import com.omm.dto.CategoryDto;
+import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,4 +60,10 @@ public class ShopService {
     public FoodDto getFoodById(String foodProductId) {
         return shopDao.getFoodById(foodProductId);
     }
+
+	public void insertReply(CommentDto comment) {
+		shopDao.insertReply(comment);
+	}
+
+
 }

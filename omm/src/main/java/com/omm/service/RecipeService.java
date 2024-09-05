@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.omm.dao.RecipeDao;
+import com.omm.dto.CommentDto;
 import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.RecipeDto;
 import com.omm.dto.Recipe_ingre;
@@ -49,6 +50,21 @@ public class RecipeService {
 	public RecipeDto findRecipeByRecipe_id(int recipe_id) {
 		
 		return recipeDao.findRecipeByRecipe_id(recipe_id);
+	}
+
+
+	public List<CookingSequenceDto> selectRecipeSequenceByRecipeId(int recipe_id) {
+		return recipeDao.selectRecipeSequenceByRecipeId(recipe_id);
+	}
+
+
+	public String getUserNicknameByUserId(String user_id) {
+		return recipeDao.getUserNicknameByUserId(user_id);
+	}
+
+
+	public List<CommentDto> getCommentsByTargetIdAndRefType(int recipe_id, int type_no) {
+		return recipeDao.getCommentsByTargetIdAndRefType(recipe_id,type_no);
 	}
 
 }
