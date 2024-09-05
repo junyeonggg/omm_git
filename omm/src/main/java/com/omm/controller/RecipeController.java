@@ -200,6 +200,7 @@ public class RecipeController {
 		// 해당 레시피의 댓글
 		List<CommentDto> comment_list = recipeService.getCommentsByTargetIdAndRefType(recipe.getRecipe_id(),1);
 		model.addAttribute("comment_list", comment_list);
+		
 		return "recipe";
 	}
 	
