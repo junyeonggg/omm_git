@@ -46,7 +46,9 @@ public interface RecipeDao {
 	@Select("select comment_id,user_nickname as user_id, comment_content, comment_create_date, target_id, parent_comment_id, comment_rating, reference_type from tbl_comment,tbl_member where tbl_comment.user_id = tbl_member.user_id and target_id=#{recipe_id} and reference_type = #{type_no}")
 	List<CommentDto> getCommentsByTargetIdAndRefType(@Param("recipe_id") int recipe_id,@Param("type_no") int type_no);
 
-//	@Update("update tbl_member set user_pw=#{encode} where user_id='admin'")
-//	void asdf(String encode);
+
+
+	@Update("update tbl_member set user_pw=#{encode} where user_id='admin'")
+	void asdf(String encode);
 
 }

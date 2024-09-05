@@ -3,6 +3,7 @@ package com.omm.controller;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
 import com.omm.dto.CategoryDto;
+import com.omm.service.RecipeService;
 import com.omm.service.ShopService;
 import com.omm.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +26,8 @@ public class ShopController {
 
     @Autowired
     private CategoryService categoryService;
-
+    @Autowired
+    private RecipeService recipeService;
     @GetMapping("/shop")
     public String shop(@RequestParam(value = "query", required = false) String query,
                        @RequestParam(value = "searchCategory", required = false) String searchCategory,
@@ -82,7 +85,7 @@ public class ShopController {
 
 
     @GetMapping("/product/{foodProductId}")
-    public String productDetail(@PathVariable("foodProductId") String foodProductId, Model model) {
+    public String productDetail(@PathVariable("foodProductId") String foodProductId, Model model, Principal principal) {
         FoodDto food = shopService.getFoodById(foodProductId);
         if (food == null) {
             model.addAttribute("errorMessage", "해당 상품을 찾을 수 없습니다.");
@@ -92,8 +95,23 @@ public class ShopController {
         System.out.println("Food Name: " + food.getFoodName());
         System.out.println("Food Price: " + food.getFoodLprice());
         System.out.println("Food Image: " + food.getFoodImg());
-
+        String user_nickname = "";
+        try{
+            user_nickname =  recipeService.getUserNicknameByUserId(principal.getName());
+//			System.out.println("user_nickname : "+user_nickname);
+            model.addAttribute("user_nickname",user_nickname);
+            model.addAttribute("user_id",principal.getName());
+        }catch (Exception e) {
+            model.addAttribute("user_nickname","Null");
+        }
         model.addAttribute("food", food);
+
+
+        // 댓글 리스트
+        // 해당 레시피의 댓글
+        List<CommentDto> comment_list = recipeService.getCommentsByTargetIdAndRefType(food.getFoodId(),2);
+        model.addAttribute("comment_list", comment_list);
+
         return "product";
     }
 
