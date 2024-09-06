@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="마이 페이지 완료">
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/join1.js" afterDir="false" />
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="login.html css 완&#10;09-06 12:06">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/MemberDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/join.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/join.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,45 +74,29 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/omm/build.gradle" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/OmmApplication.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/service/MemberService.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/application.properties" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/static/js/login.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/join.html" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/login.html" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2lH3bY8sDDSeqS1JJBu76qz2vyr" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "E:/koreait/workout(수정본)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "terminal"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/koreait/searchmusic-master&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.omm.client" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\TeamProject\omm\omm_git\omm\src\main\resources\static\js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\TeamProject\omm_git\omm\src\main\resources\static\img" />
@@ -172,8 +152,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.OmmApplication" />
         <item itemvalue="Gradle.C:/TeamProject/omm_git [build]" />
+        <item itemvalue="Application.OmmApplication" />
         <item itemvalue="Application.NaverShoppingCrawler" />
         <item itemvalue="Gradle.C:/TeamProject/omm_git [build]" />
         <item itemvalue="Application.OmmApplication" />
@@ -252,35 +232,42 @@
       <option name="project" value="LOCAL" />
       <updated>1725350714165</updated>
     </task>
-    <task id="LOCAL-00010" summary="아이디 찾기 비밀번호찾기&#10;2024 0905 12:37">
-      <created>1725507470499</created>
+    <task id="LOCAL-00010" summary="login.html css 진행중">
+      <created>1725524522767</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1725507470499</updated>
+      <updated>1725524522767</updated>
     </task>
-    <task id="LOCAL-00011" summary="마이 페이지 수정 중">
-      <created>1725525838739</created>
+    <task id="LOCAL-00011" summary="login.html css 진행중">
+      <created>1725524647175</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1725525838739</updated>
+      <updated>1725524647175</updated>
     </task>
-    <task id="LOCAL-00012" summary="마이 페이지 수정 중">
-      <created>1725525867355</created>
+    <task id="LOCAL-00012" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592009943</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1725525867355</updated>
+      <updated>1725592009943</updated>
     </task>
-    <task id="LOCAL-00013" summary="마이 페이지 완료">
-      <created>1725597695872</created>
+    <task id="LOCAL-00013" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592068866</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1725597695872</updated>
+      <updated>1725592068866</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592110856</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725592110856</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,9 +283,19 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="html추가" />
-    <MESSAGE value="아이디 찾기 비밀번호찾기&#10;2024 0905 12:37" />
-    <MESSAGE value="마이 페이지 수정 중" />
-    <MESSAGE value="마이 페이지 완료" />
-    <option name="LAST_COMMIT_MESSAGE" value="마이 페이지 완료" />
+    <MESSAGE value="login.html css 진행중" />
+    <MESSAGE value="login.html css 완&#10;09-06 12:06" />
+    <option name="LAST_COMMIT_MESSAGE" value="login.html css 완&#10;09-06 12:06" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/omm/build.gradle</url>
+          <line>31</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
