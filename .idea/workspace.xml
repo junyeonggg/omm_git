@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="login.html css 진행중">
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/img/네이버로그인.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/img/카카오로그인.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="login.html css 완&#10;09-06 12:06">
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/shop.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +242,21 @@
       <option name="project" value="LOCAL" />
       <updated>1725524647175</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592009943</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725592009943</updated>
+    </task>
+    <task id="LOCAL-00013" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592068866</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725592068866</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -267,7 +273,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="html추가" />
     <MESSAGE value="login.html css 진행중" />
-    <option name="LAST_COMMIT_MESSAGE" value="login.html css 진행중" />
+    <MESSAGE value="login.html css 완&#10;09-06 12:06" />
+    <option name="LAST_COMMIT_MESSAGE" value="login.html css 완&#10;09-06 12:06" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
