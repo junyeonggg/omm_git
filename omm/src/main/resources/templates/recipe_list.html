@@ -53,6 +53,7 @@
 
 .tbl_paging td {
 	width: 50px;
+	user-select : none;
 }
 
 .paging_list {
@@ -64,19 +65,18 @@
 </head>
 <body>
 	<!-- Responsive navbar-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar">
 		<div class="container">
 			<!-- 브랜드명이나 로고 -->
-			<a class="navbar-brand" href="#">Your Brand</a>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
-				<ul class="navbar-nav me-auto">
-					<!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
-				</ul>
-				<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+			<a class="navbar-brand" href="/">Your Brand</a>
+			<div class="navbar-collapse">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/login}">로그인</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link active" th:href="@{/login}">로그인</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
 				</ul>
 			</div>
@@ -112,7 +112,7 @@
 					th:onclick="increView('tbl_recipe','recipe_view','recipe_id',[[${recipe.recipe_id}]])"></a></td>
 				<td th:text="${recipe.user_id}"></td>
 				<td th:text="'조회수 '+${recipe.recipe_view}"></td>
-				<td th:text="'추천수'+${recipe.recipe_recommend_cnt}"></td>
+				<td th:text="'♥'+${recipe.recipe_recommend_cnt}"></td>
 			</tr>
 		</table>
 		<!-- 레시피 리스트 끝 -->
@@ -137,9 +137,9 @@
 		</div>
 	</div>
 
-	<footer class="py-5 bg-dark">
+	<footer class="footer">
 		<div class="container">
-			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>
+			<p class="footer-text">&copy; Your Website 2023</p>
 		</div>
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

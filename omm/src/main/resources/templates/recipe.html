@@ -9,9 +9,6 @@
 <meta name="author" content="" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link th:href="@{/css/index.css}" rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <title>레시피</title>
@@ -104,6 +101,44 @@
 	width: 800px;
 	margin-top: 50px;
 }
+
+#like_checkbox {
+	display: none;
+}
+
+#like_checkbox+label {
+	display: inline-block;
+	cursor: pointer;
+	font-size: 25px;
+	color: gray;
+	user-select: none;
+}
+
+#like_checkbox:checked+label {
+	color: red;
+}
+
+.recipe_title {
+	display: flex;
+	width: 80%;
+	align-items: center;
+	justify-content: space-between;
+	align-items: center;
+}
+#backBtn{
+	display: none;	
+}
+#backBtn+label{
+	font-size: 50px;
+	color : blue;
+	cursor: pointer;
+	user-select: none;
+	box-shadow: 1px 1px 2px 1px gray;
+}
+#backBtn+label:hover{
+	font-weight: bold;
+	box-shadow: 2px 2px 3px 3px gray;
+}
 </style>
 
 
@@ -112,21 +147,19 @@
 <body>
 
 	<!-- Responsive navbar-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar">
 		<div class="container">
 			<!-- 브랜드명이나 로고 -->
 			<a class="navbar-brand" href="#">Your Brand</a>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
-				<ul class="navbar-nav me-auto">
-					<!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
-				</ul>
-				<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+			<div class="navbar-collapse">
 				<ul class="navbar-nav">
-					<li sec:authorize="isAnonymous()" class="nav-item"><a
-						class="nav-link active" aria-current="page" th:href="@{/login}">로그인</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-						class="nav-link active" aria-current="page" th:href="@{/logout}">로그아웃</a></li>
+						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link active" th:href="@{/login}">로그인</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
 				</ul>
 			</div>
 		</div>
@@ -134,10 +167,24 @@
 	<!-- 레시피 -->
 	<div class="flex_container">
 		<!-- 레시피 타이틀 -->
-		<h2 th:text="${recipe.recipe_title}"></h2>
-		<div sec:authorize="isAuthenticated()">
-			<label for="like_checkbox"></label>찜
-			<input id="like_checkbox" th:checked="${like_checked}" class="like_checkbox" type="checkbox" th:onclick="likeSet(this,1,[[${recipe.recipe_id}]])">
+		<div class="flex_item recipe_title">
+			<!-- 돌아가기  -->
+			<div>
+				<button th:onclick="history.back()" 
+				 id="backBtn"></button>
+				<label for="backBtn">↩</label>
+			</div>
+			<!-- 레시피 title -->
+			<div>
+				<h2 th:text="${recipe.recipe_title}"></h2>
+			</div>
+			<!-- 찜 -->
+			<div sec:authorize="isAuthenticated()">
+				<input id="like_checkbox" th:checked="${like_checked}"
+					class="like_checkbox" type="checkbox"
+					th:onclick="likeSet(this,1,[[${recipe.recipe_id}]])">찜하기 <label
+					for="like_checkbox">♥</label>
+			</div>
 		</div>
 		<span class="recipe_describe" th:text="${recipe.recipe_describe}"></span>
 
@@ -208,18 +255,20 @@
 
 
 					<!-- 답글 폼 -->
-					<div class="mb-3">
-						<label for="replyContent" class="form-label">답글</label>
-						<textarea class="form-control" id="replyContent"
-							name="replyContent" rows="2"></textarea>
+					<div th:if="${user_nickname != 'Null'}">
+						<div class="mb-3">
+							<label for="replyContent" class="form-label">답글</label>
+							<textarea class="form-control" id="replyContent"
+								name="replyContent" rows="2"></textarea>
+						</div>
+						<button type="button" onclick="insertReplyBtn(this,1)"
+							th:data-user-id="${user_id}"
+							th:data-target-id="${recipe.recipe_id}"
+							th:data-user-nickname="${user_nickname}"
+							th:data-parent-comment-id="${comment.comment_id}"
+							th:data-type="replyContent" class="btn btn-secondary">답글
+							달기</button>
 					</div>
-					<button type="button" onclick="insertReplyBtn(this,1)"
-						th:data-user-id="${user_id}"
-						th:data-target-id="${recipe.recipe_id}"
-						th:data-user-nickname="${user_nickname}"
-						th:data-parent-comment-id="${comment.comment_id}"
-						th:data-type="replyContent" class="btn btn-secondary">답글
-						달기</button>
 					<!-- 2024-0905 12:33 업데이트  -->
 				</div>
 			</div>
@@ -265,9 +314,9 @@
 	</div>
 
 
-	<footer class="py-5 bg-dark">
+	<footer class="footer">
 		<div class="container">
-			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>
+			<p class="footer-text">&copy; Your Website 2023</p>
 		</div>
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

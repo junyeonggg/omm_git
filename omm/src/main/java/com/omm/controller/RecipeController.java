@@ -70,10 +70,10 @@ public class RecipeController {
 //				recipe.setRecipe_time(data_list[11]);
 //				recipe.setRecipe_describe(data_list[12]);
 //				recipe = recipe.reRe(recipe);
-//				
+//
 //				recipeService.insertRecipe(recipe);
 //				System.out.println(recipe.toString());
-//				
+//
 //
 //				// 첫번째 행을 가져오지 않기 위한 코드
 //			}
@@ -86,45 +86,46 @@ public class RecipeController {
 //	}
 
 	// 레시피 재료를 넣기위한 메서드
-	@GetMapping("/insert_ingre2")
-	public String insert_ingre() {
-		try {
-			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
-			File recipe_csv = new File(path);
-			// 입력 스트림
-			FileReader recipe_list = new FileReader(recipe_csv);
-			BufferedReader bfReader = new BufferedReader(recipe_list);
-			String line = "";
-			int count = 0;
-			while ((line = bfReader.readLine()) != null) {
-				Recipe_ingre ingre = new Recipe_ingre();
-				if (line.startsWith(",")) {
-					continue;
-				}
-//				System.out.println(line);
-				String[] data_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-				ingre.setIngre_type(data_list[2]);
-				ingre.setIngre_name(data_list[3]);
-				ingre.setIngre_info(data_list[4]);
-				ingre.setRecipe_id(recipeService.findRecipeIdByMangeId(data_list[1]));
-				recipeService.insertIngre(ingre);
+//	@GetMapping("/insert_ingre2")
+//	public String insert_ingre() {
+//		try {
+//			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
+//			File recipe_csv = new File(path);
+//			// 입력 스트림
+//			FileReader recipe_list = new FileReader(recipe_csv);
+//			BufferedReader bfReader = new BufferedReader(recipe_list);
+//			String line = "";
+//			int count = 0;
+//			while ((line = bfReader.readLine()) != null) {
+//				Recipe_ingre ingre = new Recipe_ingre();
+//				if (line.startsWith(",")) {
+//					continue;
+//				}
+////				System.out.println(line);
+//				String[] data_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+//				ingre.setIngre_type(data_list[2]);
+//				ingre.setIngre_name(data_list[3]);
+//				ingre.setIngre_info(data_list[4]);
+//				ingre.setRecipe_id(recipeService.findRecipeIdByMangeId(data_list[1]));
+//				recipeService.insertIngre(ingre);
+//
+//				if (data_list[0].equals("45767")) {
+//					System.out.println(data_list[0]);
+//					break;
+//				} else if (line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술")) {
+//					System.out.println(line);
+//					break;
+//				}
+//				// 첫번째 행을 가져오지 않기 위한 코드
+//			}
+//		} catch (Exception e) {
+//			System.out.println();
+//			e.printStackTrace();
+//		}
+//
+//		return "redirect:/";
+//	} // 마지막 수정 2024-09-06
 
-				if (data_list[0].equals("45767")) {
-					System.out.println(data_list[0]);
-					break;
-				} else if (line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술")) {
-					System.out.println(line);
-					break;
-				}
-				// 첫번째 행을 가져오지 않기 위한 코드
-			}
-		} catch (Exception e) {
-			System.out.println();
-			e.printStackTrace();
-		}
-
-		return "redirect:/";
-	}
 
 //	 레시피 step db에 넣기
 //	@GetMapping("/insert_step")
@@ -144,15 +145,16 @@ public class RecipeController {
 //			String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)",-1);
 //			int cnt = 0;
 ////			for(String i : line_list) {
-////				
+////
 ////				System.out.println("cnt "+cnt+" : "+i);
 ////				cnt++;
 ////			}
 //			CookingSequenceDto sequence = new CookingSequenceDto();
-//			
+//
 //			// 레시피 id는 mange_id를 이용해서 가져온다.
 ////			System.out.println(line);
 //			int recipe_id = recipeService.findRecipeIdByMangeId(line_list[1]); 
+//			int recipe_id = recipeService.findRecipeByMangeId(line_list[1]);
 //			sequence.setRecipe_id(recipe_id);
 //			sequence.setSequence_text(line_list[2]);
 //			sequence.setSequence_step_no(Integer.valueOf(line_list[3]));
@@ -187,6 +189,7 @@ public class RecipeController {
 	// 레시피 detail
 	@GetMapping("/recipe_list/{recipe_id}")
 	public String recipe_detail(@PathVariable("recipe_id") int recipe_id, Model model, Principal principal) {
+		
 		// 해당 레시피 정보
 		RecipeDto recipe = recipeService.findRecipeByRecipe_id(recipe_id);
 		model.addAttribute("recipe", recipe);
@@ -223,7 +226,6 @@ public class RecipeController {
 			model.addAttribute("like_checked", checked);
 		} catch (Exception e) {
 			model.addAttribute("like_checked", false);
-			e.printStackTrace();
 		}
 
 		return "recipe";
@@ -257,6 +259,11 @@ public class RecipeController {
 	public boolean likeSet(@RequestParam("reference_type") int reference_type,
 			@RequestParam("target_id") String target_id, @RequestParam("checked") boolean checked,
 			Principal principal) {
+		String user_id = "";
+		try{
+			user_id = principal.getName();
+		}catch (Exception e) {
+		}
 		String table_name = "";
 		String column_name = "";
 		String target_column = "";
@@ -270,13 +277,13 @@ public class RecipeController {
 			target_column = "recipe_id";
 		}
 		boolean flag = false;
-		if (checked) {
+		if (checked & user_id != "") {
 			// 체크되어있으면 찜 추가하고 추천수를 증가시킴
-			recipeService.likeSet(principal.getName(), reference_type, target_id); // 찜 추가
+			recipeService.likeSet(user_id, reference_type, target_id); // 찜 추가
 			recipeService.increView(table_name, column_name, target_column, target_id); // 추천 수 증가
 		} else {
 			// 체크x 이면 찜 tbl에서 삭제하고 추천수를 감소시킴
-			recipeService.likeUnSet(principal.getName(), reference_type, target_id);
+			recipeService.likeUnSet(user_id, reference_type, target_id);
 			recipeService.decreView(table_name, column_name, target_column, target_id); // 추천 수 감소
 		}
 
@@ -292,4 +299,13 @@ public class RecipeController {
 //		return "redirect:/";
 //	}
 
+	
+	// 임시로 비번 업데이트
+//	@GetMapping("/encode_admin")
+//	public String asdf() {
+//		String encode = passwordEncoder.encode("123123123");
+//		dao.asdf(encode);
+//		return "redirect:/";
+//	}
+	
 }
