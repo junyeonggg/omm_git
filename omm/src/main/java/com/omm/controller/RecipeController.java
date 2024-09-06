@@ -205,11 +205,11 @@ public class RecipeController {
 	}
 	
 	// 임시로 비번 업데이트
-	@GetMapping("/encode_admin")
-	public String asdf() {
-		String encode = passwordEncoder.encode("123123123");
-		dao.asdf(encode);
-		return "redirect:/";
-	}
+//	@GetMapping("/encode_admin")
+//	public String asdf() {
+//		String encode = passwordEncoder.encode("123123123");
+//		dao.asdf(encode);
+//		return "redirect:/";
+//	}
 	
 }
