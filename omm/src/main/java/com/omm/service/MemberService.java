@@ -1,6 +1,7 @@
 package com.omm.service;
 
 import com.omm.dao.MemberDao;
+import com.omm.dto.InquireDto;
 import com.omm.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,10 @@ public class MemberService {
         dto = member_dao.get_by_user_id(user_id);
         return dto;
     }
+    // 닉네임으로 유저정보 가져오기
+	public InquireDto getUserByNickName(String user_nickname) {
+		return member_dao.getUserByNickName(user_nickname);
+	}
 
 }
 
