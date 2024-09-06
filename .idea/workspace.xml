@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="아이디 찾기 비밀번호찾기&#10;2024 0905 12:37">
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="마이 페이지 수정 중">
+      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/MemberDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/MemberDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/MemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +111,9 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.omm.client" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\TeamProject\omm\omm_git\omm\src\main\resources\static\js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\TeamProject\omm_git\omm\src\main\resources\static\img" />
     </key>
@@ -169,8 +168,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.C:/TeamProject/omm_git [build]" />
         <item itemvalue="Application.OmmApplication" />
+        <item itemvalue="Gradle.C:/TeamProject/omm_git [build]" />
         <item itemvalue="Application.NaverShoppingCrawler" />
         <item itemvalue="Gradle.C:/TeamProject/omm_git [build]" />
         <item itemvalue="Application.OmmApplication" />
@@ -256,7 +255,21 @@
       <option name="project" value="LOCAL" />
       <updated>1725507470499</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="마이 페이지 수정 중">
+      <created>1725525838739</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1725525838739</updated>
+    </task>
+    <task id="LOCAL-00012" summary="마이 페이지 수정 중">
+      <created>1725525867355</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725525867355</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -273,7 +286,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="html추가" />
     <MESSAGE value="아이디 찾기 비밀번호찾기&#10;2024 0905 12:37" />
-    <option name="LAST_COMMIT_MESSAGE" value="아이디 찾기 비밀번호찾기&#10;2024 0905 12:37" />
+    <MESSAGE value="마이 페이지 수정 중" />
+    <option name="LAST_COMMIT_MESSAGE" value="마이 페이지 수정 중" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

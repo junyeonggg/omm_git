@@ -5,19 +5,20 @@ var isEmailChecked = false; // 이메일 중복 체크 상태
 var isIdAvailable = false; // 기본값: 사용 불가로 설정
 var isEmailAvailable = false; // 이메일 사용 가능 여부
 var isTelAvailable = false; // 전화번호 사용 가능 여부
+var isTelChecked = false;
 
 // 닉네임 중복 체크 함수
 async function checkNickname() {
     var snd_data = $("#user_nickname").val().trim();
     if (snd_data === "") {
         $("#nickname-area").html("<p>닉네임을 입력해 주세요.</p>");
-        isIdChecked = false;
+        isNicknameChecked = false;
         isIdAvailable = false;
         return;
     }
     if (snd_data.length < 2 || snd_data.length > 6) {
         $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
-        isIdChecked = false;
+        isNicknameChecked = false;
         isIdAvailable = false;
         return;
     }
@@ -30,16 +31,16 @@ async function checkNickname() {
         });
         if (data.trim() === "true") {
             $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
-            isIdChecked = true;
+            isNicknameChecked = true;
             isIdAvailable = true;
         } else {
             $("#nickname-area").html("<p>사용할 수 없는 닉네임입니다.</p>");
-            isIdChecked = true;
+            isNicknameChecked = true;
             isIdAvailable = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
-        isIdChecked = false;
+        isNicknameChecked = false;
         isIdAvailable = false;
     }
 }
@@ -49,7 +50,7 @@ async function checkEmail() {
     var snd_data = $("#user_email").val().trim();
     if (snd_data === "") {
         $("#email-area").html("<p>이메일을 입력해 주세요.</p>");
-        isIdChecked = false;
+        isEmailChecked = false;
         isEmailAvailable = false;
         return;
     }
@@ -62,16 +63,16 @@ async function checkEmail() {
         });
         if (data.trim() === "true") {
             $("#email-area").html("<p>사용 가능한 이메일입니다.</p>");
-            isIdChecked = true;
+            isEmailChecked = true;
             isEmailAvailable = true;
         } else {
             $("#email-area").html("<p>사용할 수 없는 이메일입니다.</p>");
-            isIdChecked = true;
+            isEmailChecked = true;
             isEmailAvailable = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
-        isIdChecked = false;
+        isEmailChecked = false;
         isEmailAvailable = false;
     }
 }
@@ -259,7 +260,7 @@ $(document).ready(function() {
 // 이메일 입력 필드의 값이 변경될 때 중복 체크 상태 초기화 및 강제 중복 체크 실행
 $(document).ready(function() {
     $("#user_email").on('keydown', function(event) {
-        if(isNicknameChecked) {
+        if(isEmailChecked) {
             isEmailChecked = false; // 새로운 값을 입력할 때 중복 체크 상태 초기화
             isIdAvailable = false; // 이메일 사용 가능 여부 초기화
             $("#email-area").html(""); // 메시지 영역 초기화
@@ -270,7 +271,7 @@ $(document).ready(function() {
 // 전화번호 입력 필드의 값이 변경될 때 중복 체크 상태 초기화 및 강제 중복 체크 실행
 $(document).ready(function() {
     $("#user_tel").on('keydown', function(event) {
-        if(isNicknameChecked) {
+        if(isTelChecked) {
             isTelAvailable = false; // 새로운 값을 입력할 때 중복 체크 상태 초기화
             isIdAvailable = false; // 전화번호 사용 가능 여부 초기화
             $("#tel-area").html(""); // 메시지 영역 초기화
@@ -279,18 +280,52 @@ $(document).ready(function() {
 });
 // 수정 버튼 클릭 시 폼 제출 함수
 function updateButton() {
-    if (!isNicknameChecked) {
+    const originalNickname = document.querySelector("#original_nickname").value;
+    const originalEmail = document.querySelector("#original_email").value;
+    const originalTel = document.querySelector("#original_tel").value;
+    const currentNickname = document.querySelector("#user_nickname").value.trim();
+    const currentEmailId = document.querySelector("#user_email_id").value.trim();
+    const currentUserDomain = document.querySelector("#user_email_domain").value.trim();
+    const currentDomain = document.querySelector("#domain_list").value;
+    const customDomain = document.querySelector("#custom_domain").value.trim();
+    const currentTel = document.querySelector("#user_tel").value.trim();
+
+    var currentEmail = "";
+    if (currentDomain == 'custom') {
+        currentEmail = currentEmailId + "@" + customDomain;
+    } else {
+        currentEmail = currentEmailId + "@" + currentUserDomain;
+    }
+
+    // 이메일이 변경되었을 때
+    if (currentEmail !== originalEmail && isEmailChecked) {
+        window.alert("이메일 중복 체크를 먼저 해주세요.");
+        return false;
+    }
+    // 닉네임이 변경되었을 때
+    if (currentNickname !== originalNickname && isNicknameChecked) {
         window.alert("닉네임 중복 체크를 먼저 해주세요.");
         return false;
- }
-   if (!isEmailChecked) {
-         window.alert("이메일 중복 체크를 먼저 해주세요.");
-         return false;
-  }
-    if (!isTelAvailable) {
-          window.alert("전화번호 중복 체크를 먼저 해주세요.");
-          return false;
-   }
+    }
+    // 전화번호가 변경되었을 때
+    if (currentTel !== originalTel && isTelAvailable) {
+        window.alert("전화번호 중복 체크를 먼저 해주세요.");
+        return false;
+    }
+    if (isNicknameChecked) {
+        window.alert("현재 사용중인 닉네임입니다.");
+        return false;
+    }
+    if (isEmailChecked) {
+        window.alert("현재 사용중인 이메일입니다.");
+        return false;
+    }
+    if (isTelChecked) {
+        window.alert("현재 사용중인 전화번호입니다.");
+        return false;
+    }
+    // 이메일을 hidden 필드에 설정
+    document.querySelector("#user_email").value = currentEmail;
     var form = $('#profileForm');
     const a = document.querySelector("#user_email_id").value
     var c = ""
@@ -301,12 +336,10 @@ function updateButton() {
     }
     var user_email = a+"@"+c;
     document.querySelector("#user_email").value = user_email;
-    form.submit();
-    window.alert("회원 정보가 성공적으로 업데이트되었습니다.")
+
+       form.submit();
+        window.alert("회원 정보가 성공적으로 업데이트되었습니다.")
 }
-
-
-
 function resetButton() {
     document.getElementById('profileForm').reset();
 }
