@@ -2,6 +2,7 @@ package com.omm.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -47,12 +48,36 @@ public interface RecipeDao {
 	List<CommentDto> getCommentsByTargetIdAndRefType(@Param("recipe_id") int recipe_id,@Param("type_no") int type_no);
 
 
-
-	@Update("update tbl_member set user_pw=#{encode} where user_id='admin'")
-	void asdf(String encode);
+	
+//	@Update("update tbl_member set user_pw=#{encode} where user_id='admin'")
+//	void asdf(String encode);
 
 	
 	@Select("select * from tbl_ingre where recipe_id=#{recipe_id}")
 	List<Recipe_ingre> selectRecipeIngreByRecipeId(int recipe_id);
 
+	@Select("select distinct ingre_type from tbl_ingre where recipe_id = #{recipe_id}")
+	List<String> selectRecipeIngreTypeByRecipeId(int recipe_id);
+
+	// 조회수, 추천수 증가
+	@Update("update ${table_name} set ${column_name} = ${column_name}+1 where ${target_column}=${target_id};")
+	boolean increView(@Param("table_name") String table_name,@Param("column_name") String column_name, @Param("target_column") String target_column, @Param("target_id") String target_id);
+
+	// 조회수, 추천수 감소
+	@Update("update ${table_name} set ${column_name} = ${column_name}-1 where ${target_column}=${target_id};")
+	boolean decreView(@Param("table_name") String table_name,@Param("column_name") String column_name, @Param("target_column") String target_column, @Param("target_id") String target_id);
+	
+	//찜 추가
+	@Insert("insert into tbl_like values(null,#{user_id},#{reference_type},#{target_id})")
+	void likeSet(@Param("user_id") String user_id,@Param("reference_type") int reference_type,@Param("target_id") String target_id);
+
+	// 찜 삭제
+	@Delete("delete from tbl_like where user_id=#{user_id} and reference_type=#{reference_type} and target_id=#{target_id}")
+	void likeUnSet(@Param("user_id")String user_id,@Param("reference_type") int reference_type,@Param("target_id") String target_id);
+
+	@Select("select count(*) from tbl_like where user_id=#{user_id} and reference_type=#{reference_type} and target_id=#{target_id}")
+	int getLikeStatus(@Param("user_id")String user_id,@Param("reference_type") int reference_type,@Param("target_id") int target_id);
+
+	
+	
 }

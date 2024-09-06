@@ -63,10 +63,54 @@
 	background-color: lightblue;
 	margin-bottom: 2px;
 }
+
+.flex_container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.flex_item {
+	margin: 50px;
+}
+
+.ingre_tbl_div {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: center;
+	text-align: center;
+	align-items: flex-start;
+}
+
+.ingre_tbl {
+	margin: 50px;
+}
+
+.sequence_step_div {
+	margin-bottom: 100px;
+}
+
+.step_no_td {
+	width: 100px;
+}
+
+.step_text_td {
+	width: 1000px;
+}
+
+.recipe_describe {
+	width: 800px;
+	margin-top: 50px;
+}
 </style>
+
+
 
 </head>
 <body>
+
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
@@ -88,30 +132,42 @@
 		</div>
 	</nav>
 	<!-- 레시피 -->
-	<div>
+	<div class="flex_container">
 		<!-- 레시피 타이틀 -->
 		<h2 th:text="${recipe.recipe_title}"></h2>
-		<span th:text="${recipe.recipe_describe}"></span>
+		<div sec:authorize="isAuthenticated()">
+			<label for="like_checkbox"></label>찜
+			<input id="like_checkbox" th:checked="${like_checked}" class="like_checkbox" type="checkbox" th:onclick="likeSet(this,1,[[${recipe.recipe_id}]])">
+		</div>
+		<span class="recipe_describe" th:text="${recipe.recipe_describe}"></span>
+
 
 		<!-- 레시피 재료 -->
-		<div>
-			<table>
-				<tr th:each="ingre : ${ingre_list}">
-					<th th:text="${ingre}"></th>
-				</tr>
+		<div class="flex_item ingre_tbl_div">
+			<table class="ingre_tbl" th:each="ingre_type : ${ingre_type_list}">
 				<tr>
-					<td>Row 1: Col 2</td>
+					<th th:text="${ingre_type}"></th>
+				</tr>
+				<tr th:each="ingre : ${ingre_list}"
+					th:if="${ingre.ingre_type==ingre_type}">
+					<td th:text="${ingre.ingre_name}"></td>
+					<td th:text="${ingre.ingre_info}"></td>
 				</tr>
 			</table>
-
-
 		</div>
 
 
 		<!-- 레시피 순서 -->
-		<div>
-			<div th:each="s : ${recipe_sequence}">
-				<span th:text="${s.sequence_text}"></span>
+		<div class="flex_item">
+			<div class="sequence_step_div" th:each="s : ${recipe_sequence}">
+				<table>
+					<tr>
+						<td class="step_no_td" th:text="${s.sequence_step_no+1}"></td>
+						<td class="step_text_td" th:text="${s.sequence_text}"></td>
+					</tr>
+				</table>
+
+				<span></span>
 			</div>
 		</div>
 	</div>

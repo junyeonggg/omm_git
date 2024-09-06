@@ -59,7 +59,6 @@
 	display: flex;
 	justify-content: center;
 }
-
 </style>
 
 </head>
@@ -91,7 +90,7 @@
 	<div class="recipe_section">
 		<h1>레시피</h1>
 		<div class="search_div">
-			<span><strong>제목 검색 : </strong></span> <input type="text" 
+			<span><strong>제목 검색 : </strong></span> <input type="text"
 				id="keyword"> <input id="searchBtn" type="button" value="검색"
 				onclick="searchKeyword()">
 		</div>
@@ -109,7 +108,8 @@
 				<!-- 번호 -->
 				<td th:text="${recipe.recipe_food_name}"></td>
 				<td><a th:text="${recipe.recipe_title}"
-					th:href="@{'http://localhost:8080/recipe_list/'+${recipe.recipe_id}}"></a></td>
+					th:href="@{'http://localhost:8080/recipe_list/'+${recipe.recipe_id}}"
+					th:onclick="increView('tbl_recipe','recipe_view','recipe_id',[[${recipe.recipe_id}]])"></a></td>
 				<td th:text="${recipe.user_id}"></td>
 				<td th:text="'조회수 '+${recipe.recipe_view}"></td>
 				<td th:text="'추천수'+${recipe.recipe_recommend_cnt}"></td>
@@ -142,6 +142,7 @@
 			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>
 		</div>
 	</footer>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="js/recipe.js"></script>
 </body>
 </html>
