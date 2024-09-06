@@ -1,22 +1,60 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0f7e9; /* Light green background */
-    color: #333; /* Dark gray text for readability */
+    background: #E6E9EE;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
-form {
-    background-color: #ffffff; /* White background for form */
-    border: 1px solid #d2e2d3; /* Light green border */
-    border-radius: 10px; /* Rounded corners */
+header {
+    background: #3CB371;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
-    width: 300px;
-    margin: 200px auto; /* Center the form */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
 }
 
-/* 기본 테이블 스타일 설정 */
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button-group {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+/* 헤더 버튼 스타일 설정 */
+.header-btn {
+    background-color: #ffffff; /* 헤더 버튼의 녹색 */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.header-btn:hover {
+    background-color: #0C964A; /* hover 시 어두운 녹색 */
+}
+
+form {
+    background-color: #ffffff;
+    border: 1px solid #d2e2d3;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: 200px auto;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
 table {
     margin: 20px auto;
     border-collapse: collapse;
@@ -24,6 +62,36 @@ table {
 
 td {
     padding: 10px;
+}
+
+/* 로그인 폼 버튼 스타일 설정 */
+.login-btn {
+    background-color: #3CB371;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* 버튼 너비를 100%로 설정 */
+    margin-bottom: 10px; /* 아래쪽에 여유 공간 추가 */
+}
+
+.login-btn:hover {
+    background-color: #0C964A; /* hover 시 더 진한 주황색 */
+}
+
+.reset-btn {
+    background-color: #B3413C;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* 버튼 너비를 100%로 설정 */
+}
+
+.reset-btn:hover {
+    background-color: #96120C; /* hover 시 더 진한 파란색 */
 }
 
 /* 입력 필드 스타일 설정 */
@@ -35,29 +103,20 @@ input[type="text"], input[type="password"] {
     border-radius: 4px;
 }
 
-/* 버튼 스타일 설정 */
-button, input[type="button"] {
-    background-color: #4CAF50; /* 녹색 */
-    color: white;
-    padding: 10px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+/* 아이디 찾기와 비밀번호 찾기 링크를 양끝으로 배치 */
+.find-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
 }
 
-button:hover, input[type="button"]:hover {
-    background-color: #45a049; /* 다크 그린 */
-}
-
-/* 링크 스타일 설정 */
-a {
-    color: #0275d8; /* 파란색 */
+.find-links a {
+    color: #0275d8;
     text-decoration: none;
-    padding: 0 5px;
 }
 
-a:hover {
+.find-links a:hover {
     text-decoration: underline;
 }
 
@@ -88,4 +147,48 @@ a:hover {
     text-align: center;
     margin-top: 10px;
     font-weight: bold;
+}
+
+footer {
+    background: #3CB371;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #ffffff;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+/* 로그인 폼 스타일 적용 */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 100px auto 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: #4CAF50;
 }
