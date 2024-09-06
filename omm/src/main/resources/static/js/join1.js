@@ -3,8 +3,59 @@ var isNicknameChecked = false; // 닉네임 중복 체크 상태
 var isEmailChecked = false; // 이메일 중복 체크 상태
 var isTelChecked = false; // 전화번호 중복 체크 상태
 var isEmailVerified = false; // 이메일 인증 상태
-var isValidated = false; // 기본 사용 불가
+var isIdChecked = false;
+var isIdValidated = false; // 기본 사용 불가
+var isNickValidated = false; // 기본 사용 불가
+var isEmailValidated = false; // 기본 사용 불가
+var isTelValidated = false; // 기본 사용 불가
 
+
+
+
+// 아이디 중복 체크 함수
+async function checkId() {
+    var snd_data = $("#user_id").val().trim();
+    if (snd_data === "") {
+        $("#id-area").html("<p>아이디를 입력해 주세요.</p>");
+        isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
+        isIdValidated = true; // 아이디 확인이 필요함
+        return;
+    }
+    if (snd_data.length < 4 || snd_data.length > 12) {
+        $("#id-area").html("<p>아이디는 4~12자로 입력해주세요.</p>");
+        isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
+        isIdValidated = false; // 아이디 확인이 필요함
+        return;
+    }
+    try {
+        const data = await $.ajax({
+            type: "get",
+            dataType: "text",
+            url: "http://localhost:8080/checkId",
+            data: { data: snd_data }
+        });
+    // 유효성 검사 추가
+        if (!/^[a-z0-9]+$/.test(snd_data)) {
+        $("#id-area").html("<p>아이디는 소문자와 숫자만 포함해야 합니다.</p>");
+        isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
+        isIdValidated = false; // 아이디 확인이 필요함
+        return;
+        }
+        if (data === "true") {
+            $("#id-area").html("<p>사용 가능한 아이디입니다.</p>");
+            isIdChecked = true; // 중복 체크 완료, 아이디 사용 가능
+            isIdValidated = true; // 아이디가 사용 가능함
+        } else {
+            $("#id-area").html("<p>사용할 수 없는 아이디입니다.</p>");
+            isIdChecked = true; // 중복 체크 완료, 아이디 사용 불가
+            isIdValidated = false; // 아이디가 사용 불가함
+        }
+    } catch (error) {
+        window.alert("에러가 발생했습니다.");
+        isIdChecked = false; // 에러 발생 시 중복 체크 미완료 상태
+        isIdValidated = false; // 아이디 상태 확인 불가
+    }
+}
 
 // 닉네임 중복 체크 함수
 async function checkNickname() {
@@ -12,13 +63,13 @@ async function checkNickname() {
     if (nickname === "") {
         $("#nickname-area").html("<p>닉네임을 입력해 주세요.</p>");
         isNicknameChecked = false;
-        isValidated = true;
+        isNickValidated = true;
         return;
     }
     if (nickname.length < 2 || nickname.length > 6) {
         $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
         isNicknameChecked = false;
-        isValidated = false;
+        isNickValidated = false;
         return;
     }
     try {
@@ -31,11 +82,11 @@ async function checkNickname() {
         if (response.trim() === "true") {
             $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
             isNicknameChecked = true;
-            isValidated = true;
+            isNickValidated = true;
         } else {
             $("#nickname-area").html("<p>사용할 수 없는 닉네임입니다.</p>");
             isNicknameChecked = true;
-            isValidated = false;
+            isNickValidated = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
@@ -65,11 +116,11 @@ update_email()
         if (response.trim() === "true") {
             $("#email-area").html("<p>사용 가능한 이메일입니다.</p>");
             isEmailChecked = true;
-            isValidated = true;
+            isEmailValidated = true;
         } else {
             $("#email-area").html("<p>사용할 수 없는 이메일입니다.</p>");
             isEmailChecked = true;
-            isValidated = false;
+            isEmailValidated = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
@@ -85,7 +136,7 @@ async function checkTel() {
     if (telPrefix === "" || telNumber === "") {
         $("#tel-area").html("<p>전화번호를 입력해 주세요.</p>");
         isTelChecked = false;
-        isValidated = true;
+        isTelValidated = true;
         return;
     }
     var fullTel = telPrefix + telNumber;
@@ -101,18 +152,18 @@ async function checkTel() {
         if (response.trim() === "true") {
             $("#tel-area").html("<p>사용 가능한 전화번호입니다.</p>");
             isTelChecked = true;
-            isValidated = true;
+            isTelValidated = true;
+
         } else {
             $("#tel-area").html("<p>사용할 수 없는 전화번호입니다.</p>");
             isTelChecked = true;
-            isValidated = false;
+            isTelValidated = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
         isTelChecked = false;
     }
 }
-
 // 이메일 업데이트 함수
 function update_email() {
     var emailId = $("#user_email_id").val().trim();
@@ -173,8 +224,8 @@ function handle_tel_change() {
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-            var addr = ''; 
-            var extraAddr = ''; 
+            var addr = '';
+            var extraAddr = '';
 
             if (data.userSelectedType === 'R') {
                 addr = data.roadAddress;
@@ -290,6 +341,11 @@ function verifyEmailCode() {
 
 // 입력 필드 변경 시 중복 체크 상태 초기화
 $(document).ready(function() {
+    $("#user_id").on('input', function() {
+        isIdChecked = false;
+        $("#id-area").html("");
+    });
+
     $("#user_nickname").on('input', function() {
         isNicknameChecked = false;
         $("#nickname-area").html("");
@@ -327,107 +383,244 @@ $(document).ready(function() {
     });
 });
 
-// 수정 버튼 클릭 시 폼 제출 함수
-function updateButton() {
-    update_email();
-    // 기존 정보
-    var originalNickname = $("#original_nickname").val();
-    var originalEmail = $("#original_email").val();
-    var originalTel = $("#original_tel").val();
-    var originalUserDomain = $("#original_user_domain").val().trim();
-    var originalAddressZip = $("#original_user_addr_zip").val().trim();
-    var originalAddress = $("#original_user_addr").val().trim();
-    var originalAddressDetail = $("#original_user_addr_detail").val().trim();
-    var originalPassword = $("#original_pw").val().trim();
+// 아이디 유효성 검사 함수
+function validateId(id) {
+    const idRegex = /^[a-z0-9]{4,12}$/;
+    return idRegex.test(id);
+}
 
-    // 현재 정보 입력 부분
-    var currentEmail = $("#user_email").val().trim();
+// 비밀번호 유효성 검사 함수
+function validatePassword(password) {
+    const passwordRegex = /^(?=.*[!@#$%^&+=])[a-z0-9!@#$%^&+=]{8,16}$/;
+    return passwordRegex.test(password);
+}
+
+// 페이지 로드 시 유효성 검사
+document.addEventListener('DOMContentLoaded', function() {
+    validateFields(); // 페이지 로드 시 초기 검사
+});
+
+// 입력 필드 변경 시 유효성 검사
+document.getElementById('user_id').addEventListener('input', function() {
+    validateFields();
+});
+
+document.getElementById('user_pw').addEventListener('input', function() {
+    validateFields();
+});
+
+// 유효성 검사 및 피드백 표시
+function validateFields() {
+    const userId = document.getElementById('user_id').value.trim();
+    const userPw = document.getElementById('user_pw').value.trim();
+
+    const idFeedback = document.getElementById('id-area');
+    const pwFeedback = document.getElementById('pw-area');
+
+    if (!validateId(userId)) {
+        idFeedback.textContent = "아이디는 소문자와 숫자만 포함하며, 4~12자 사이여야 합니다.";
+    } else {
+        idFeedback.textContent = "";
+    }
+
+    if (!validatePassword(userPw)) {
+        pwFeedback.textContent = "비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.";
+    } else {
+        pwFeedback.textContent = "";
+    }
+}
+function submitForm(self){
+// 중복 체크 함수들 호출
+    checkId();
+    checkNickname();
+    checkEmail();
+    checkTel();
+
+   //   각 필드에 대한 피드백 표시
+    var feedbackMessages = [];
+    if (!isIdChecked) feedbackMessages.push("아이디 중복 체크를 먼저 해주세요.");
+    if (!isNicknameChecked) feedbackMessages.push("닉네임 중복 체크를 먼저 해주세요.");
+    if (!isEmailChecked) feedbackMessages.push("이메일 중복 체크를 먼저 해주세요.");
+    if (!isTelChecked) feedbackMessages.push("전화번호 중복 체크를 먼저 해주세요.");
+
+    if (feedbackMessages.length > 0) {
+        window.alert(feedbackMessages.join("\n"));
+        return false; // 중복 체크가 완료되지 않았으므로 폼 제출 중지
+    }
+    update_email()
+
+     이메일 인증 상태 확인
+    if (isEmailChecked && !isEmailVerified) {
+        window.alert("이메일 인증을 먼저 완료해 주세요.");
+        return false;
+    }
+    var currentUserId = $("#user_id").val().trim();
+    var currentPassword = $("#user_pw").val().trim();
+    var currentUserName = $("#user_name").val().trim();
     var currentNickname = $("#user_nickname").val().trim();
     var currentEmailId = $("#user_email_id").val().trim();
-    var currentUserDomain = $("#user_email_domain").val().trim();
     var currentDomain = $("#domain_list").val();
+    var currentUserDomain = $("#user_email_domain").val().trim();
     var customDomain = $("#custom_domain").val().trim();
-    var currentTelPrefix = $("#tel_list").val();
-    var currentTelNumber = $("#user_tel").val().trim();
-    var currentTel = currentTelPrefix + currentTelNumber; // 전체 전화번호 조합
-    var currentAddressZip = $("#sample6_postcode").val().trim();
+    var currentEmail = $("#user_email").val().trim();
     var currentAddress = $("#sample6_address").val().trim();
-    var currentAddressDetail = $("#sample6_detailAddress").val().trim();
-    var currentPassword = $("#user_pw").val().trim();
+    var currentBirth = $("#user_birth").val().trim();
 
-    // 도메인 결정
-    var domainToUse = currentUserDomain || (currentDomain === 'custom' ? customDomain : currentDomain);
-    var newEmail = currentEmailId + '@' + domainToUse;
+    var password = 'examplepass1!';
+    var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
 
-    var originalEmailId = originalEmail.split('@')[0];
-    var originalEmailDomain = originalEmail.split('@')[1];
+    if (!passwordRegex.test(password)) {
+    console.log("비밀번호는 유효하지 않습니다.");
+    } else {
+    console.log("비밀번호는 유효합니다.");
+}
 
-    var domainChanged = domainToUse !== originalUserDomain;
 
+    // 아이디 유효성 검사
+    var idRegex = /^[a-z0-9]{4,12}$/;
+    if (!idRegex.test(currentUserId)) {
+        window.alert("아이디는 소문자와 숫자만 포함하며, 4~12자 사이여야 합니다.");
+        $("#user_id").focus();
+        return false;
+    }
 
-    // 값 변경 여부 확인
-    var emailIdChanged = originalEmailId != currentEmailId;
-    var nicknameChanged = originalNickname !== currentNickname;
-    var emailChanged = originalEmail !== currentEmail;
-    var telChanged = originalTel !== currentTel;
-    var addressZipChanged = originalAddressZip !== currentAddressZip;
-    var addressChanged = originalAddress !== currentAddress;
-    var addressDetailChanged = originalAddressDetail !== currentAddressDetail;
-    var passwordChanged = originalPassword !== currentPassword && currentPassword !== ""; // 비밀번호가 변경되었거나 새로 입력된 경우
+    // 비밀번호 유효성 검사
+    var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
+    if (!passwordRegex.test(currentPassword)) {
+        window.alert("비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.");
+        $("#user_pw").focus();
+        return false;
+    }
 
-    if(isNicknameChecked && !isValidated){
+   if(currentPassword === ""){
+        window.alert("비밀번호 값을 입력해주세요.")
+        $("#user_pw").focus()
+        return false;
+   }
+   if(currentUserName === ""){
+         window.alert("이름을 입력해주세요.")
+         $("#user_name").focus()
+         return false;
+   }
+   if(currentAddress === ""){
+         window.alert("주소를 입력해주세요.")
+         $("#user_addr").focus()
+         return false;
+   }
+   var gender = $("input[name='user_gender']:checked").val();
+      if (!gender) {
+          window.alert("성별을 선택해주세요.");
+          return false;
+   }
+   if(currentBirth === ""){
+         window.alert("생년월일을 입력해주세요.")
+         $("#user_birth").focus()
+         return false;
+   }
+
+   if(isIdChecked && !isIdValidated){
+        window.alert("현재 사용중인 아이디입니다.");
+        return false;
+    }
+    if(isNicknameChecked && !isNickValidated){
         window.alert("현재 사용중인 닉네임입니다.");
         return false;
     }
-     if(isEmailChecked && !isValidated){
+     if(isEmailChecked && !isEmailValidated){
         window.alert("현재 사용중인 이메일입니다.");
         return false;
      }
-     if(isTelChecked && !isValidated){
+     if(isTelChecked && !isTelValidated){
         window.alert("현재 사용중인 전화번호입니다.");
         return false;
      }
 
-    // 변경된 값이 없는 경우
-    if (!nicknameChanged && !emailChanged && !telChanged && !addressZipChanged && !addressChanged && !addressDetailChanged && !passwordChanged && !domainChanged) {
-        window.alert("수정값이 없습니다!");
-        return false;
-    }
-    // 이메일이 변경된 경우에만 중복 체크 및 인증을 요구
-    if (emailChanged && domainChanged || emailIdChanged) {
-        if (!isEmailChecked) {
-            window.alert("이메일 중복 체크를 먼저 해주세요.");
-            return false;
-        }
-        if (!isEmailVerified) {
-            window.alert("이메일 인증을 먼저 완료해 주세요.");
-            return false;
-        }
-    }
+    // 상세주소를 user_addr_detail 필드에 저장
+    var detailAddress = document.getElementById("sample6_detailAddress").value;
+    var submitBtn = document.getElementById('submitBtn');
+    const form = document.forms.joinForm
+    // 회원가입 폼
+    var formJoin = new FormData();
+    // 아이디
+    const user_id = document.querySelector("#user_id").value;
+    formJoin.append('user_id',user_id)
 
-    if (currentNickname !== originalNickname && !isNicknameChecked) {
-        window.alert("닉네임 중복 체크를 먼저 해주세요.");
-        return false;
-    }
-    if (currentTel !== originalTel && !isTelChecked) {
-        window.alert("전화번호 중복 체크를 먼저 해주세요.");
-        return false;
-    }
+    //비밀번호
+    const user_pw = document.querySelector("#user_pw").value;
+    formJoin.append('user_pw',user_pw)
 
-    document.querySelector("#user_email").value = currentEmail;
-    var form = $('#profileForm');
-    const a = document.querySelector("#user_email_id").value
-    var c = ""
+    // 이름
+    const user_name = document.querySelector("#user_name").value;
+    formJoin.append('user_name',user_name)
+
+    // 닉네임
+    const user_nickname = document.querySelector("#user_nickname").value;
+    formJoin.append('user_nickname',user_nickname)
+
+    // 이메일
+    const user_email_id = document.querySelector("#user_email_id").value;
+    const user_email_domain = document.querySelector("#user_email_domain").value;
+    const user_custom_email = document.querySelector("#custom_domain").value;
+    var user_email = ""; // 변수 선언과 초기화
     if(document.querySelector("#domain_list").value == 'custom'){
-        c = document.querySelector("#custom_domain").value
+         user_email = `${user_email_id}@${user_custom_email}`;
     }else{
-        c = document.querySelector("#domain_list").value
+         user_email = `${user_email_id}@${user_email_domain}`;
     }
-    var user_email = a+"@"+c;
-    document.querySelector("#user_email").value = user_email;
+    formJoin.append('user_email',user_email)
 
-       form.submit();
-        window.alert("회원 정보가 성공적으로 업데이트되었습니다.")
+    // 주소 부분
+    const user_addr_zip = document.querySelector("#sample6_postcode").value;
+    const user_addr = document.querySelector("#sample6_address").value;
+    const user_addr_detail = document.querySelector("#sample6_detailAddress").value;
+    formJoin.append('user_addr_zip',user_addr_zip);
+    formJoin.append('user_addr',user_addr);
+    formJoin.append('user_addr_detail',user_addr_detail);
+
+    //전화번호
+    const user_tel_front = document.querySelector("#tel_list").value;
+    const user_tel_back = document.querySelector("#user_tel").value;
+    const user_tel = user_tel_front+user_tel_back;
+    formJoin.append('user_tel',user_tel);
+
+    // 성별
+    const gender_radio_list = document.getElementsByName("user_gender");
+    var user_gender = "";
+    for(const radio of gender_radio_list){
+        if(radio.checked){
+            user_gender = radio.value;
+            break;
+        }
+    }
+    formJoin.append('user_gender',user_gender)
+
+    // 생년월일
+    const user_birth = document.querySelector("#user_birth").value;
+    formJoin.append('user_birth',user_birth);
+
+    $.ajax({
+        type : "post",
+        url : "http://localhost:8080/join",
+        contentType: false,
+        processData: false,
+        data: formJoin,
+        success : data=>{
+            window.alert("회원가입이 완료되었습니다.")
+            if(data=='true'){
+                $.ajax({
+                    type : "post",
+                    url : "http://localhost:8080/login",
+                    data: {'username':user_id,'password':user_pw},
+                    success : data=>{
+                            window.location.replace("http://localhost:8080/")
+                            }
+                })
+            }else {
+                window.alert("회원가입에 실패하였습니다.")
+            }
+        }
+    })
 }
+
 
 

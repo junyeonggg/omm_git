@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script th:src="@{/js/join.js}"></script>
+    <script th:src="@{/js/join1.js}"></script>
     <!--    <link th:href="@{/css/join.css}" rel="stylesheet">-->
     <style>
         .social_login_flex{
@@ -23,7 +23,7 @@
     </style>
 </head>
 <h1>회원 가입</h1>
-<form name="joinForm" id="joinForm" action="/join" th:object="${memberDto}" method="post" >
+<form name="joinForm" id="joinForm" action="/join" th:object="${memberDto}" method="post" onsubmit="return submitForm()">
     <table>
         <tr>
             <td>
@@ -43,8 +43,9 @@
                 <label for="user_pw">비밀번호</label>
             </td>
             <td>
-                <input type="password" name="user_pw" id="user_pw" th:field="*{user_pw}" placeholder="8~16자로 입력.">
+                <input type="text" name="user_pw" id="user_pw" th:field="*{user_pw}" placeholder="8~16자로 입력.">
                 <div th:if="${#fields.hasErrors('user_pw')}" th:errors="*{user_pw}"></div>
+                <div id="pw-area" class="feedback"></div>
             </td>
         </tr>
         <tr>
@@ -52,7 +53,7 @@
                 <label for="user_name">이름</label>
             </td>
             <td>
-                <input type="text" name="user_name" id="user_name">
+                <input type="text" name="user_name" id="user_name" class="">
             </td>
         </tr>
         <tr>
@@ -138,7 +139,11 @@
                 </select>
                 <!-- 중간번호 -->
                 <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호">
+                <input type="button" id=check_tel_btn onclick="checkTel()" value="중복확인">
             </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="tel-area"></td>
         </tr>
         </tr>
         <td>

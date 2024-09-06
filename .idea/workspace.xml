@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="마이 페이지 수정 중">
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile1.js" afterDir="false" />
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="마이 페이지 완료">
+      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/join1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/join.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/join.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -269,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725525867355</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="마이 페이지 완료">
+      <created>1725597695872</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725597695872</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -287,17 +298,7 @@
     <MESSAGE value="html추가" />
     <MESSAGE value="아이디 찾기 비밀번호찾기&#10;2024 0905 12:37" />
     <MESSAGE value="마이 페이지 수정 중" />
-    <option name="LAST_COMMIT_MESSAGE" value="마이 페이지 수정 중" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/omm/build.gradle</url>
-          <line>31</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="마이 페이지 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="마이 페이지 완료" />
   </component>
 </project>
