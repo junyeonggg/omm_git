@@ -148,5 +148,21 @@ public class ShopController {
     public String orderPage(){
         return "order";
     }
+    @GetMapping("/order2")
+    public String order2Page(){
+        return "order2";
+    }
+    @GetMapping("/success")
+    public String paySuccess(@RequestParam(value = "orderId") String orderid,
+                             @RequestParam(value = "paymentKey") String paymentKey,
+                             @RequestParam(value = "amount") String amount){
+        return "";
+    }
+    @GetMapping("/fail")
+    public String payFail(@RequestParam(value = "code") String ERROR_CODE,
+                             @RequestParam(value = "message") String ERROR_MESSAGE,
+                             @RequestParam(value = "orderId") String ORDER_ID){
+        return "";
+    }
 }
 
