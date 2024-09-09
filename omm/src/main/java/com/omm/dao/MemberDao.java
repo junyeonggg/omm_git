@@ -1,6 +1,5 @@
 package com.omm.dao;
 
-import com.omm.dto.InquireDto;
 import com.omm.dto.MemberDto;
 import org.apache.ibatis.annotations.*;
 import org.springframework.dao.DataAccessException;
@@ -47,8 +46,5 @@ public interface MemberDao {
     void saveTemporaryPassword(@Param("user_email") String user_email,
                                @Param("encryptedPassword") String encryptedPassword,
                                @Param("expiryTime") Timestamp expiryTime);
-    
-    @Select("select * from tbl_member where user_nickname=#{user_nickname}")
-	public InquireDto getUserByNickName(String user_nickname);
 
 }

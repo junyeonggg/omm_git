@@ -451,6 +451,22 @@ public class MemberController {
         return "profile";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile")
+    public String editMemberInfo(Model model, MemberDto dto,Principal principal,@RequestParam("tel_front") String telfront) {
+        dto.setUser_tel(telfront+dto.getUser_tel());
+        // 회원정보 수정 저장
+        dto.setUser_id(principal.getName());
+        dto = member_service.editUserInPo(dto);
+        model.addAttribute("member", dto);
+        return "redirect:/profile";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/unregist")
+    public String unregistUser(@RequestParam("user_id") String user_id) {
+        member_service.unregistUser(user_id);
+        return "redirect:/logout"; // 홈 페이지로 리다이렉트
+    }
 }
 
 
