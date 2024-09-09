@@ -1,9 +1,9 @@
 package com.omm.service;
 
 import com.omm.dao.MemberDao;
+import com.omm.dto.InquireDto;
 import com.omm.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
@@ -14,9 +14,7 @@ import java.sql.Timestamp;
 
 public class MemberService {
     private final MemberDao member_dao;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
+    private final PasswordEncoder passwordEncoder;
     public boolean check_id(String user_id) {
         boolean result = false;
         if (member_dao.checkId(user_id) == 0) result = true;
@@ -57,7 +55,6 @@ public class MemberService {
         dto = member_dao.get_by_user_id(user_id);
         return dto;
     }
-
     public MemberDto editUserInPo(MemberDto dto) {
         MemberDto org = member_dao.get_by_user_id(dto.getUser_id());
 
@@ -90,8 +87,8 @@ public class MemberService {
     }
     public void unregistUser(String user_id){
         member_dao.delteUser(user_id);
-
     }
+
 }
 
 
