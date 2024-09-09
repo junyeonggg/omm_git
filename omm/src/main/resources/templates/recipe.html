@@ -150,18 +150,14 @@
 	<nav class="navbar">
 		<div class="container">
 			<!-- 브랜드명이나 로고 -->
-<<<<<<< HEAD
 			<a class="navbar-brand" href="#">Your Brand</a>
 			<div class="navbar-collapse">
-=======
-			<a class="navbar-brand" href="/">Your Brand</a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
 				<ul class="navbar-nav me-auto">
 					<!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
 				</ul>
 				<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
->>>>>>> refs/remotes/origin/master
 				<ul class="navbar-nav">
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a
 						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
@@ -172,6 +168,7 @@
 					<li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
 				</ul>
 			</div>
+		</div>
 		</div>
 	</nav>
 	<!-- 레시피 -->

@@ -186,6 +186,14 @@ public class RecipeController {
 	}
 	// 가장 최근 수정 2024-09-04
 
+	//레시피 작성
+	@GetMapping("/recipe/write")
+	public String recipe_write() {
+		
+		return "recipe_write";
+	}
+	
+	
 	// 레시피 detail
 	@GetMapping("/recipe_list/{recipe_id}")
 	public String recipe_detail(@PathVariable("recipe_id") int recipe_id, Model model, Principal principal) {
