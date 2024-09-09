@@ -190,7 +190,11 @@ html, body {
     background-color: #5a6268;
     transform: translateY(-2px);
 }
-
+textarea#comment_content {
+    width: 500px; /* 너비 고정 */
+    height: 50px; /* 높이 고정 */
+    resize: none; /* 사용자가 크기 조정 못하게 설정 */
+}
 /* 푸터 스타일 */
 footer {
     background-color: #333;

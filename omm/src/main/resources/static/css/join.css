@@ -54,33 +54,53 @@ form {
     border: 1px solid #d2e2d3;
     border-radius: 10px;
     padding: 20px;
-    width: 300px;
-    margin: 200px auto;
+    width: 500px;
+    margin: 50px auto;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 table {
     margin: 20px auto;
     border-collapse: collapse;
+    width: 100%;
 }
 
 td {
     padding: 10px;
+    text-align: left;
 }
 
-/* 로그인 버튼 스타일 */
-.login-btn {
-    background-color: #3CB371; /* 로그인 버튼 기본 색상 */
+label {
+    font-weight: bold;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], input[type="password"], input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 폼 버튼 스타일 */
+.form-btn {
+    background-color: #3CB371; /* 폼 버튼 기본 색상 */
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%; /* 버튼 너비 100% 설정 */
+    width: 100%;
     margin-bottom: 10px; /* 아래 여백 추가 */
 }
 
-.login-btn:hover {
+.form-btn:hover {
     background-color: #0C964A; /* 호버 시 더 진한 녹색 */
 }
 
@@ -99,16 +119,7 @@ td {
     background-color: #96120C; /* 호버 시 더 진한 빨간색 */
 }
 
-/* 입력 필드 스타일 */
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* 소셜 로그인 버튼 스타일 */
+/* 소셜 로그인 스타일 */
 .social_login_flex {
     display: flex;
     justify-content: center;
@@ -152,7 +163,7 @@ footer {
 }
 
 /* 입력 필드 포커스 시 스타일 */
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus {
     outline: none;
     border-color: #4CAF50;
 }

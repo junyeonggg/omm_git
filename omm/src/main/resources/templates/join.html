@@ -6,21 +6,6 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="/css/join.css" rel="stylesheet">
     <script th:src="@{/js/join1.js}"></script>
-    <style>
-           .social_login_flex{
-            display : flex;
-            flex-decoration : row;
-        }
-        .social_login_flex img{
-            width : 50px;
-            height : 50px;
-        }
-        .social_login_flex img:hover{
-            border : solid 1px;
-            box-shadow : 2px 2px 3px 3px black;
-            border-radius:5px;
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -166,8 +151,8 @@
             </td>
         </tr>
     </table>
-    <button type="button" id="submitBtn" onclick="submitForm(this)">회원가입</button>
-    <input type="button" value="다시 입력" onclick="resetButton()">
+    <button type="button" id="submitBtn" class="form-btn" onclick="submitForm(this)">회원가입</button>
+    <input type="button" value="다시 입력" class="reset-btn" onclick="resetButton()">
     <!-- 소셜 로그인 div-->
     <div class="social_login_flex">
         <!--구글-->
@@ -178,7 +163,6 @@
         <div>
             <img src="img/login_kakao.png" onclick="location.href='/login/kakao'" alt="">
         </div>
-        <!--네이버-->
         <div>
             <img src="img/login_naver.png" onclick="location.href='/login/naver'" alt="">
         </div>

@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="회원가입 유효성 완료&#10;정규식(비밀번호) 체크해야함">
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/product.css" afterDir="false" />
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="product.html css 진행중&#10;shop.html css 진행중&#10; join.html css 진행중&#10; 09-09 16:37">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/join.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/join.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/product.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/product.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725612253624</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="product.html css 진행중&#10;shop.html css 진행중&#10; join.html css 진행중&#10; 09-09 16:37">
+      <created>1725868207392</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1725868207392</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -313,6 +323,7 @@
     <MESSAGE value="login.html css 진행중" />
     <MESSAGE value="login.html css 완&#10;09-06 12:06" />
     <MESSAGE value="회원가입 유효성 완료&#10;정규식(비밀번호) 체크해야함" />
-    <option name="LAST_COMMIT_MESSAGE" value="회원가입 유효성 완료&#10;정규식(비밀번호) 체크해야함" />
+    <MESSAGE value="product.html css 진행중&#10;shop.html css 진행중&#10; join.html css 진행중&#10; 09-09 16:37" />
+    <option name="LAST_COMMIT_MESSAGE" value="product.html css 진행중&#10;shop.html css 진행중&#10; join.html css 진행중&#10; 09-09 16:37" />
   </component>
 </project>
