@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.omm.dto.InquireDto;
 import com.omm.dto.PagingSearch;
@@ -23,5 +24,8 @@ public interface InquireDao {
 
 	@Insert("insert into tbl_inquire values(null,#{user_id},#{inquire_title},#{inquire_content},#{inquire_create_date})")
 	void insertInquire(InquireDto inquireDto);
+
+	@Update("update tbl_inquire set inquire_title=#{inquire_title}, inquire_content=#{inquire_content}, inquire_create_date = #{inquire_create_date} where inquire_id=#{inquire_id}")
+	public void updateForm(InquireDto inquireDto);
 
 }

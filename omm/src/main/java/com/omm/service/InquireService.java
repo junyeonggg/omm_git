@@ -26,5 +26,8 @@ public class InquireService {
 	public int getTotCnt() {
 		return inquireDao.getTotCnt();
 	}
+	public void updateForm(InquireDto inquireDto) {
+		inquireDao.updateForm(inquireDto);
+	}
 
 }

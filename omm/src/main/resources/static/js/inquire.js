@@ -6,6 +6,7 @@ function inquire_detail(self) {
 }
 
 function check_user(user_id) {
+	console.log("user_id : "+user_id)
 	if (user_id != null) {
 		location.href = "/inquire/write";
 

@@ -88,7 +88,8 @@ public class InquireController {
 	@PostMapping("/inquire/update")
 	public String inquire_update(InquireDto inquireDto, Principal principal) {
 		System.out.println(inquireDto.toString());
-		
+		inquireDto.setUser_id(principal.getName());
+		inquireService.updateForm(inquireDto);
 		return "redirect:/inquire/"+inquireDto.getInquire_id();
 	}
 	
