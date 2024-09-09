@@ -87,6 +87,7 @@ public class ShopController {
     @GetMapping("/product/{foodProductId}")
     public String productDetail(@PathVariable("foodProductId") String foodProductId, Model model, Principal principal) {
         FoodDto food = shopService.getFoodById(foodProductId);
+        System.out.println(food.toString());
         if (food == null) {
             model.addAttribute("errorMessage", "해당 상품을 찾을 수 없습니다.");
             return "error"; // 오류 페이지로 리다이렉트

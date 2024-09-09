@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script th:src="@{/js/join1.js}"></script>
-    <!--    <link th:href="@{/css/join.css}" rel="stylesheet">-->
+    <script th:src="@{/js/join.js}"></script>
     <style>
         .social_login_flex{
     display : flex;
@@ -22,8 +21,9 @@
 }
     </style>
 </head>
+<body>
 <h1>회원 가입</h1>
-<form name="joinForm" id="joinForm" action="/join" th:object="${memberDto}" method="post" onsubmit="return submitForm()">
+<form name="joinForm" id="joinForm" action="/join" th:object="${memberDto}" method="post" >
     <table>
         <tr>
             <td>
@@ -43,9 +43,8 @@
                 <label for="user_pw">비밀번호</label>
             </td>
             <td>
-                <input type="text" name="user_pw" id="user_pw" th:field="*{user_pw}" placeholder="8~16자로 입력.">
+                <input type="password" name="user_pw" id="user_pw" th:field="*{user_pw}" placeholder="8~16자로 입력.">
                 <div th:if="${#fields.hasErrors('user_pw')}" th:errors="*{user_pw}"></div>
-                <div id="pw-area" class="feedback"></div>
             </td>
         </tr>
         <tr>
@@ -53,7 +52,7 @@
                 <label for="user_name">이름</label>
             </td>
             <td>
-                <input type="text" name="user_name" id="user_name" class="">
+                <input type="text" name="user_name" id="user_name">
             </td>
         </tr>
         <tr>
@@ -139,11 +138,7 @@
                 </select>
                 <!-- 중간번호 -->
                 <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호">
-                <input type="button" id=check_tel_btn onclick="checkTel()" value="중복확인">
             </td>
-        </tr>
-        <tr>
-            <td colspan="2" id="tel-area"></td>
         </tr>
         </tr>
         <td>
@@ -184,4 +179,5 @@
     </div>
 </form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</body>
 </html>

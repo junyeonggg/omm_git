@@ -3,79 +3,75 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="description" content="Full Width Pics Landing Page Template" />
+    <meta name="author" content="Start Bootstrap" />
     <title th:text="'Full Width Pics - Start Bootstrap Template'">Full Width Pics - Start Bootstrap Template</title>
-    <!-- Core theme CSS (includes Bootstrap)-->
+    <!-- Custom CSS -->
     <link th:href="@{/css/index.css}" rel="stylesheet" />
 </head>
 <body>
 <!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar">
     <div class="container">
         <!-- 브랜드명이나 로고 -->
         <a class="navbar-brand" href="#">Your Brand</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
-            <ul class="navbar-nav me-auto">
-                <!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
-            </ul>
-            <!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+        <div class="navbar-collapse">
             <ul class="navbar-nav">
-                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/profile}">마이페이지</a></li>
-                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/login}">로그인</a></li>
-                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/logout}">로그아웃</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link active" th:href="@{/login}">로그인</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<!-- Header - set the background image for the header in the line below-->
-<header class="py-5 bg-image-full" style="position: relative;">
-    <!-- 비디오 배경 -->
-    <video autoplay muted loop style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+
+<!-- Header with Video Background -->
+<header class="header">
+    <video autoplay muted loop class="header-video">
         <source th:src="@{/img/background.mp4}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    <!-- 텍스트 콘텐츠 -->
-    <div class="text-center my-5" style="position: relative; z-index: 1;">
-        <img class="img-fluid rounded-circle mb-4" th:src="@{'https://dummyimage.com/150x150/6c757d/dee2e6.jpg'}" alt="..." />
-        <h1 class="text-white fs-3 fw-bolder">Full Width Pics</h1>
-        <p class="text-white-50 mb-0">Landing Page Template</p>
+    <div class="header-content">
+        <img class="rounded-circle mb-4" th:src="@{'https://dummyimage.com/150x150/6c757d/dee2e6.jpg'}" alt="..." />
+        <h1 class="header-title">Full Width Pics</h1>
+        <p class="header-subtitle">Landing Page Template</p>
     </div>
 </header>
-<!-- Content section-->
-<section class="py-5">
-    <div class="container my-5">
+
+<!-- Content Section -->
+<section class="content-section">
+    <div class="container">
         <div class="row">
             <!-- 쇼핑하기 -->
-            <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+            <div class="col text-center">
                 <h2>쇼핑하기</h2>
                 <p class="lead">필요한 식재료를 편리하게 쇼핑하세요.</p>
-                <a th:href="@{/shop}" class="btn btn-primary">쇼핑하기</a>
+                <a th:href="@{/shop}" class="btn">쇼핑하기</a>
             </div>
             <!-- 레시피 보러가기 -->
-            <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+            <div class="col text-center">
                 <h2>레시피 보러가기</h2>
                 <p class="lead">다양한 레시피를 탐색해보세요.</p>
-                <a th:href="@{'/recipe_list'}" class="btn btn-primary">레시피 보러가기</a>
+                <a th:href="@{'/recipe_list'}" class="btn">레시피 보러가기</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Image element - set the background image for the header in the line below-->
-<div class="py-5 bg-image-full" th:style="'background-image: url(' + @{https://source.unsplash.com/4ulffa6qoKA/1200x800} + ')'">
-    <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
-    <div style="height: 20rem"></div>
+<!-- Image Section with Background -->
+<div class="image-section">
+    <div style="height: 20rem;"></div>
 </div>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">&copy; Your Website 2023</p></div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p class="footer-text">&copy; Your Website 2023</p>
+    </div>
 </footer>
-<!-- Bootstrap core JS-->
-<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js}"></script>
-<!-- Core theme JS-->
+
+<!-- Custom JS -->
 <script src="js/script.js"></script>
 </body>
 </html>
