@@ -1,0 +1,158 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background: #E6E9EE;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+header {
+    background: #3CB371;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 헤더 버튼 그룹 스타일 */
+.button-group {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+/* 헤더 버튼 스타일 */
+.header-btn {
+    background-color: #ffffff; /* 헤더 버튼의 기본 색상 */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.header-btn:hover {
+    background-color: #0C964A; /* 호버 시 더 어두운 녹색 */
+}
+
+/* 폼 스타일 */
+form {
+    background-color: #ffffff;
+    border: 1px solid #d2e2d3;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: 200px auto;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+}
+
+/* 로그인 버튼 스타일 */
+.login-btn {
+    background-color: #3CB371; /* 로그인 버튼 기본 색상 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* 버튼 너비 100% 설정 */
+    margin-bottom: 10px; /* 아래 여백 추가 */
+}
+
+.login-btn:hover {
+    background-color: #0C964A; /* 호버 시 더 진한 녹색 */
+}
+
+/* 다시 입력 버튼 스타일 */
+.reset-btn {
+    background-color: #B3413C; /* 다시 입력 버튼 기본 색상 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.reset-btn:hover {
+    background-color: #96120C; /* 호버 시 더 진한 빨간색 */
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 소셜 로그인 버튼 스타일 */
+.social_login_flex {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.social_login_flex img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social_login_flex img:hover {
+    border: solid 1px;
+    box-shadow: 2px 2px 3px 3px black;
+    border-radius: 5px;
+}
+
+/* 에러 메시지 스타일 */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* 푸터 스타일 */
+footer {
+    background: #3CB371;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #ffffff;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+/* 입력 필드 포커스 시 스타일 */
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+}

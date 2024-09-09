@@ -449,7 +449,7 @@ function submitForm(self){
     }
     update_email()
 
-     이메일 인증 상태 확인
+    // 이메일 인증 상태 확인
     if (isEmailChecked && !isEmailVerified) {
         window.alert("이메일 인증을 먼저 완료해 주세요.");
         return false;
