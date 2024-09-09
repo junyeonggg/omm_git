@@ -7,10 +7,9 @@
     <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="login.html css 완&#10;09-06 12:06">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/shop.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,14 +267,7 @@
       <option name="project" value="LOCAL" />
       <updated>1725592110856</updated>
     </task>
-    <task id="LOCAL-00015" summary="login.html css 완&#10;09-06 12:06">
-      <created>1725594124116</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1725594124116</updated>
-    </task>
-    <option name="localTasksCounter" value="16" />
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
