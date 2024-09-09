@@ -3,6 +3,8 @@ package com.omm.service;
 import com.omm.dao.MemberDao;
 import com.omm.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 
@@ -12,6 +14,8 @@ import java.sql.Timestamp;
 
 public class MemberService {
     private final MemberDao member_dao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public boolean check_id(String user_id) {
         boolean result = false;
@@ -54,6 +58,40 @@ public class MemberService {
         return dto;
     }
 
+    public MemberDto editUserInPo(MemberDto dto) {
+        MemberDto org = member_dao.get_by_user_id(dto.getUser_id());
+
+        // 비밀번호 업데이트
+        if (!dto.getUser_pw().isEmpty() && !dto.getUser_pw().equals(org.getUser_pw())) {
+            String chngPw = passwordEncoder.encode(dto.getUser_pw());
+            member_dao.updateUserpw(dto.getUser_id(), chngPw);
+        }
+
+        // 이메일 업데이트
+        if (!dto.getUser_email().equals(org.getUser_email())) {
+            member_dao.updateUserEmail(dto.getUser_id(), dto.getUser_email());
+        }
+
+        // 주소 업데이트
+        if (!dto.getUser_addr().equals(org.getUser_addr())) {
+            member_dao.updateUserAddress(dto.getUser_id(), dto.getUser_addr(), dto.getUser_addr_zip(), dto.getUser_addr_detail());
+        }
+
+        // 전화번호 업데이트
+        if (!dto.getUser_tel().equals(org.getUser_tel())) {
+            member_dao.updateUserTel(dto.getUser_id(), dto.getUser_tel());
+        }
+
+        // 닉네임 업데이트
+        if (!dto.getUser_nickname().equals(org.getUser_nickname())) {
+            member_dao.updateUserNickname(dto.getUser_id(), dto.getUser_nickname());
+        }
+        return org;
+    }
+    public void unregistUser(String user_id){
+        member_dao.delteUser(user_id);
+
+    }
 }
 
 
