@@ -1,65 +1,85 @@
 // 전역 변수 선언
 var isNicknameChecked = false; // 닉네임 중복 체크 상태
-var isEmailChecked = false; // 이메일 중복 체크 상태
-var isIdAvailable = false; // 기본값: 사용 불가로 설정
-var isEmailAvailable = false; // 이메일 사용 가능 여부
-var pastId = "";
+var isNickValidated = false; // 기본 사용 불가
+var isTelChecked = false; // 전화번호 중복 체크 상태
+var isTelValidated = false; // 기본 사용 불가
 
 // 닉네임 중복 체크 함수
 async function checkNickname() {
-    var snd_data = $("#user_nickname").val().trim();
-    if (snd_data === "") {
-        $("#nickname").html("<p>닉네임을 입력해 주세요.</p>");
-        isIdAvailable = false;
+    var nickname = $("#user_nickname").val().trim();
+    if (nickname === "") {
+        $("#nickname-area").html("<p>닉네임을 입력해 주세요.</p>");
+        isNicknameChecked = false;
+        isNickValidated = true;
         return;
     }
-    if (snd_data.length < 2 || snd_data.length > 6) {
-        $("#nickname-area").html("<p>닉네임는 2~6자로 입력해주세요.</p>");
-        isIdAvailable = false;
+    if (nickname.length < 2 || nickname.length > 6) {
+        $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
+        isNicknameChecked = false;
+        isNickValidated = false;
         return;
     }
     try {
-        console.log("보냄")
-        const data = await $.ajax({
+        const response = await $.ajax({
             type: "get",
             dataType: "text",
             url: "http://localhost:8080/checkNickname",
-            data: { data: snd_data },
-            success : data => {
-                console.log(data)
-                if (data === "true") {
-                    $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
-                    isIdAvailable = true;
-                } else {
-                    $("#nickname-area").html("<p>사용할 수 없는 닉네임입니다.</p>");
-                    isIdAvailable = false;
-                }
-            }
+            data: { data: nickname }
         });
-        if (data === "true") {
+        if (response.trim() === "true") {
             $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
-            isIdAvailable = true;
+            isNicknameChecked = true;
+            isNickValidated = true;
         } else {
             $("#nickname-area").html("<p>사용할 수 없는 닉네임입니다.</p>");
-            isIdAvailable = false;
+            isNicknameChecked = true;
+            isNickValidated = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
-        isIdAvailable = false;
+        isNicknameChecked = false;
+    }
+}
+// 전화번호 중복 체크 함수
+async function checkTel() {
+    var telPrefix = $("#tel_list").val().trim(); // 국번
+    var telNumber = $("#user_tel").val().trim(); // 중간번호
+
+    if (telPrefix === "" || telNumber === "") {
+        $("#tel-area").html("<p>전화번호를 입력해 주세요.</p>");
+        isTelChecked = false;
+        isTelValidated = true;
+        return;
+    }
+    var fullTel = telPrefix + telNumber;
+
+    try {
+        const response = await $.ajax({
+            type: "get",
+            dataType: "text",
+            url: "http://localhost:8080/checkTel",
+            data: { data: fullTel }
+        });
+
+        if (response.trim() === "true") {
+            $("#tel-area").html("<p>사용 가능한 전화번호입니다.</p>");
+            isTelChecked = true;
+            isTelValidated = true;
+
+        } else {
+            $("#tel-area").html("<p>사용할 수 없는 전화번호입니다.</p>");
+            isTelChecked = true;
+            isTelValidated = false;
+        }
+    } catch (error) {
+        window.alert("에러가 발생했습니다.");
+        isTelChecked = false;
     }
 }
  function handle_tel_change() {
     var tel_list = document.getElementById('tel_list').value;
-    var tel_mid = document.getElementById('tel_mid').value.trim();
-    var tel_end = document.getElementById('tel_end').value.trim();
     var fullPhoneNumber = '';
-
-        // 전화번호가 완성된 경우
-        if (tel_list && tel_mid && tel_end) {
-            fullPhoneNumber = tel_list + '-' + tel_mid + '-' + tel_end;
-        }
-        // 숨겨진 필드에 전화번호 업데이트
-        document.getElementById('user_tel').value = fullPhoneNumber;
+        fullPhoneNumber = tel_list + $("#user_tel").val(fullPhoneNumber);
     }
 function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -116,55 +136,102 @@ function sample6_execDaumPostcode() {
 function resetButton() {
     document.getElementById('joinForm').reset();
 }
+$(document).ready(function(){
+$("#user_nickname").on('input', function() {
+        isNicknameChecked = false;
+        $("#nickname-area").html("");
+    });
 
+$("#user_tel").on('input', function() {
+        isTelChecked = false;
+        $("#tel-area").html("");
+    });
+});
 function socialsubmitForm(){
+    var currentNickname = $("#user_nickname").val().trim();
+    var currentAddress = $("#sample6_address").val().trim();
+    var currentTelList = $("#tel_list").val().trim();
+    var currentUserTel = $("#user_tel").val().trim();
+    var gender = $("input[name='user_gender']:checked").val();
+    var currentBirth = $("#user_birth").val().trim();
+    var detailAddress = document.getElementById("sample6_detailAddress").value;
+    var submitBtn = document.getElementById('submitBtn');
 
     // 회원가입 폼
     var formJoin = new FormData();
-    // 아이디
-    const user_id = document.querySelector("#user_id").value;
-    formJoin.append('user_id',user_id)
-    console.log("user_id : ",user_id)
 
-    //비밀번호
-    formJoin.append('user_pw',user_id)
-    console.log("user_pw : ",user_id)
+    if(currentNickname === ""){
+            window.alert("닉네임을 입력해주세요.")
+            $("#user_nickname").focus()
+            return false;
+      }
+    if(currentAddress === ""){
+         window.alert("주소를 입력해주세요.")
+         $("#user_addr").focus()
+         return false;
+   }
+    if(currentTelList == ""){
+          window.alert("전화번호를 입력해주세요.")
+          $("#tel_list").focus()
+          return false;
+   }
+    if(currentUserTel == ""){
+          window.alert("전화번호를 입력해주세요.")
+          $("#user_tel").focus()
+          return false;
+    }
+    if (!gender) {
+          window.alert("성별을 선택해주세요.");
+          return false;
+   }
+    if(currentBirth === ""){
+         window.alert("생년월일을 입력해주세요.")
+         $("#user_birth").focus()
+         return false;
+   }
+   if(!isNicknameChecked) {
+         window.alert("닉네임 중복 체크를 해주세요.");
+         $("#user_nickname").focus();
+         return false;
+   }
+   if(!isTelChecked) {
+         window.alert("전화번호 중복 체크를 해주세요.");
+         $("#user_tel").focus();
+         return false;
+   }
+    if(isNicknameChecked && !isNickValidated){
+        window.alert("현재 사용중인 닉네임입니다.");
+        return false;
+    }
+     if(isTelChecked && !isTelValidated){
+        window.alert("현재 사용중인 전화번호입니다.");
+        return false;
+     }
+//     const user_id = document.querySelector("#user_id").value;
+//     const user_email = document.querySelector("#user_email").value;
+//     const user_name = document.querySelector("#user_name").value;
+//     formJoin.append('user_id', user_id);
+//     formJoin.append('user_email', user_email);
+//     formJoin.append('user_name', user_name);
 
-/*    // 이름
-    const user_name = document.querySelector("#user_name").value;
-    formJoin.append('user_name',user_name)
-    console.log("user_name : ",user_name)
     // 닉네임
     const user_nickname = document.querySelector("#user_nickname").value;
     formJoin.append('user_nickname',user_nickname)
-    console.log("user_nickname : ",user_nickname)
-    // 이메일
-    const user_email_id = document.querySelector("#user_email_id").value;
-    const user_email_domain = document.querySelector("#user_email_domain").value;
-    const user_custom_email = document.querySelector("#custom_domain").value;
-    var user_email = ""; // 변수 선언과 초기화
-    if(document.querySelector("#domain_list").value == 'custom'){
-         user_email = `${user_email_id}@${user_custom_email}`;
-    }else{
-         user_email = `${user_email_id}@${user_email_domain}`;
-    }
-    console.log("user_email : ",user_email)
+
     // 주소 부분
-    const user_addr_zip = document.querySelector("#user_addr_zip").value;
-    const user_addr = document.querySelector("#user_addr").value;
+    const user_addr_zip = document.querySelector("#sample6_postcode").value;
+    const user_addr = document.querySelector("#sample6_address").value;
     const user_addr_detail = document.querySelector("#sample6_detailAddress").value;
     formJoin.append('user_addr_zip',user_addr_zip);
     formJoin.append('user_addr',user_addr);
     formJoin.append('user_addr_detail',user_addr_detail);
-    console.log("user_addr_zip : ",user_addr_zip)
-    console.log("user_addr : ",user_addr)
-    console.log("user_addr_detail : ",user_addr_detail)
+
     //전화번호
     const user_tel_front = document.querySelector("#tel_list").value;
     const user_tel_back = document.querySelector("#user_tel").value;
     const user_tel = user_tel_front+user_tel_back;
     formJoin.append('user_tel',user_tel);
-    console.log("user_tel : ",user_tel)
+
     // 성별
     const gender_radio_list = document.getElementsByName("user_gender");
     var user_gender = "";
@@ -175,11 +242,11 @@ function socialsubmitForm(){
         }
     }
     formJoin.append('user_gender',user_gender)
-    console.log("user_gender : ",user_gender)
+
     // 생년월일
     const user_birth = document.querySelector("#user_birth").value;
     formJoin.append('user_birth',user_birth);
-    console.log("user_birth : ",user_birth)*/
+
     $.ajax({
         type : "post",
         url : "http://localhost:8080/socialjoin",
@@ -188,8 +255,6 @@ function socialsubmitForm(){
         data: formJoin,
         success : data=>{
             window.alert("회원가입이 완료되었습니다.")
-            console.log("data : "+data)
-            console.log("user_id : "+user_id)
             if(data=='true'){
                 $.ajax({
                     type : "post",
@@ -202,14 +267,6 @@ function socialsubmitForm(){
             }
         }
     })
-
-
-
-
-
-
-    // 폼 제출
-    // document.getElementById('joinForm').submit();
 }
 
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.security.Principal;
 import java.util.Arrays;
@@ -21,6 +22,16 @@ import java.util.stream.Collectors;
 @Controller
 public class ShopController {
 
+    @Value("${payment.toss.test_client_api_key}")
+    private String testClientApiKey;
+    @Value("${payment.toss.test_secrete_api_key}")
+    private String testSecretKey;
+    @Value("${payment.toss.success_url}")
+    private String successUrl;
+    @Value("${payment.toss.fail_url}")
+    private String failUrl;
+
+    public static final String URL = "https://api.tosspayments.com/v1/payments/";
     @Autowired
     private ShopService shopService;
 
@@ -131,6 +142,11 @@ public class ShopController {
         shopService.insertReply(comment);
 
         return "";
+    }
+
+    @GetMapping("/order")
+    public String orderPage(){
+        return "order";
     }
 }
 

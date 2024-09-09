@@ -11,13 +11,12 @@ import org.json.JSONObject;
 import java.security.Principal;
 
 import java.security.Principal;
-import java.util.UUID;
+import java.util.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -53,6 +52,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 @RequiredArgsConstructor
 @Controller
@@ -97,6 +97,7 @@ public class MemberController {
     private final MemberService member_service;
     private final UserSecurityService user_service;
     private final EmailService email_service;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
     @GetMapping("/join")
     public String JoinPage(Model model) {
@@ -122,10 +123,15 @@ public class MemberController {
     public String socialJoinPost(@Valid MemberDto dto, Errors errors, Model model, HttpSession session) {
         System.out.println("소셜회원가입 들어옴");
         System.out.println(dto.toString());
+        // 비밀번호가 null일 경우, 소셜 로그인 ID를 비밀번호로 설정
+        if (dto.getUser_pw() == null || dto.getUser_pw().isEmpty()) {
+            dto.setUser_pw(dto.getUser_id());
+        }
         // 회원가입 처리
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(dto.getUser_id());
+        dto.setUser_pw(encodedPassword);
         user_service.create(dto);
-
-
         // 홈 페이지로 리디렉션
         return "true";
     }
@@ -451,22 +457,36 @@ public class MemberController {
         return "profile";
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/profile")
-//    public String editMemberInfo(Model model, MemberDto dto,Principal principal,@RequestParam("tel_front") String telfront) {
-//        dto.setUser_tel(telfront+dto.getUser_tel());
-//        // 회원정보 수정 저장
-//        dto.setUser_id(principal.getName());
-//        dto = member_service.editUserInPo(dto);
-//        model.addAttribute("member", dto);
-//        return "redirect:/profile";
-//    }
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/unregist")
-//    public String unregistUser(@RequestParam("user_id") String user_id) {
-//        member_service.unregistUser(user_id);
-//        return "redirect:/logout"; // 홈 페이지로 리다이렉트
-//    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile")
+    public String editMemberInfo(Model model, MemberDto dto,Principal principal,@RequestParam("tel_front") String telfront) {
+        dto.setUser_tel(telfront+dto.getUser_tel());
+        // 회원정보 수정 저장
+        dto.setUser_id(principal.getName());
+        dto = member_service.editUserInPo(dto);
+        model.addAttribute("member", dto);
+        return "redirect:/profile";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/unregist")
+    public String unregistUser(@RequestParam("user_nickname") String user_nickname) {
+        member_service.unregistUser(user_nickname);
+        return "redirect:/logout"; // 홈 페이지로 리다이렉트
+    }
+    // 회원관리 요청
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/admin")
+    public String getMemberList(Model model) {
+       List<MemberDto> memberList = member_service.getMemberList();
+       model.addAttribute("memberList", memberList);
+       return "admin";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/deleteUser/{user_nickname}")
+    public String memberDelete(@PathVariable("user_nickname") String user_nickname) {
+        member_service.unregistUser(user_nickname);
+        return "redirect:/admin";
+    }
 }
 
 
