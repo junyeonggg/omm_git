@@ -20,6 +20,7 @@
                 <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
                 <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link active" th:href="@{/login}">로그인</a></li>
                 <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/inquire}">문의하기</a></li>
             </ul>
