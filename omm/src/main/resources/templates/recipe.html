@@ -216,8 +216,9 @@
 			<div class="sequence_step_div" th:each="s : ${recipe_sequence}">
 				<table>
 					<tr>
-						<td class="step_no_td" th:text="${s.sequence_step_no+1}"></td>
-						<td class="step_text_td" th:text="${s.sequence_text}"></td>
+						<td class="step_no_td" th:text="${s.sequence_step_no}"></td>
+						<td style="width: auto" class="step_text_td" th:text="${s.sequence_text}"></td>
+						<td th:if="${s.img_id != null}"><img width="500px" alt="" th:src="@{'/img?img_id='+${s.img_id}}"></td>
 					</tr>
 				</table>
 

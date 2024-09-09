@@ -1,5 +1,6 @@
 package com.omm.dao;
 
+import com.omm.dto.CartDto;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
 import org.apache.ibatis.annotations.*;
@@ -60,5 +61,11 @@ public interface ShopDao {
 
     @Insert("INSERT INTO tbl_comment VALUES (null, #{user_id}, #{comment_content}, #{comment_create_date}, #{target_id}, #{parent_comment_id}, #{comment_rating}, #{reference_type});")
 	void insertReply(CommentDto comment);
+
+    @Insert("insert into tbl_cart values(null,#{user_id},#{food_id},#{food_quantity})")
+	void insertCart(CartDto cartDto);
+
+    @Select("select * from tbl_cart join tbl_food on tbl_cart.food_id = tbl_food.food_id where user_id =#{user_id}")
+	List<CartDto> getCartByUserId(String user_id);
 
 }

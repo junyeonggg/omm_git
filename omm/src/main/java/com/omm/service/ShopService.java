@@ -2,6 +2,7 @@ package com.omm.service;
 
 import com.omm.dao.CategoryDao;
 import com.omm.dao.ShopDao;
+import com.omm.dto.CartDto;
 import com.omm.dto.CategoryDto;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
@@ -63,6 +64,14 @@ public class ShopService {
 
 	public void insertReply(CommentDto comment) {
 		shopDao.insertReply(comment);
+	}
+
+	public void insertCart(CartDto cartDto) {
+		shopDao.insertCart(cartDto);
+		}
+
+	public List<CartDto> getCartByUserId(String user_id) {
+		return shopDao.getCartByUserId(user_id);
 	}
 
 
