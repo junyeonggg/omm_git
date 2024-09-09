@@ -430,4 +430,44 @@ function updateButton() {
         window.alert("회원 정보가 성공적으로 업데이트되었습니다.")
 }
 
+function memberDrop() {
+    // 탈퇴 확인 메시지
+    var confirmation = confirm("정말로 회원을 탈퇴하시겠습니까?");
+
+    if (confirmation) {
+        const url = '/unregist';
+
+        const data = new URLSearchParams();
+        data.append('user_id', document.getElementById('user_id').value);
+
+        // 서버에 POST 요청을 보내기
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' // 폼 URL 인코딩
+            },
+            body: data.toString()
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`서버 응답 오류 (${response.status}): ${text}`);
+                });
+            }
+
+            alert("정상적으로 회원 탈퇴가 완료되었습니다.");
+
+            location.href = '/logout';
+        })
+        .catch(error => {
+
+            alert("회원 탈퇴에 실패했습니다. 다시 시도해 주세요.");
+            console.error('Error:', error);
+        });
+    } else {
+
+        alert("회원 탈퇴가 취소되었습니다.");
+    }
+}
+
 

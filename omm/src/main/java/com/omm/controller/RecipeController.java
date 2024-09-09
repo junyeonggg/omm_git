@@ -178,12 +178,12 @@ public class RecipeController {
 		// 해당 레시피 정보
 		RecipeDto recipe = recipeService.findRecipeByRecipe_id(recipe_id);
 		model.addAttribute("recipe", recipe);
-		
-		
-		// 해당 레시피의 순서 
+
+
+		// 해당 레시피의 순서
 		List<CookingSequenceDto> recipe_sequence = recipeService.selectRecipeSequenceByRecipeId(recipe_id);
 		model.addAttribute("recipe_sequence", recipe_sequence);
-		
+
 		// 현재 로그인한 사람 닉네임 가져오기
 
 		String user_nickname = "";
@@ -195,15 +195,15 @@ public class RecipeController {
 		}catch (Exception e) {
 			model.addAttribute("user_nickname","Null");
 		}
-		
+
 
 		// 해당 레시피의 댓글
 		List<CommentDto> comment_list = recipeService.getCommentsByTargetIdAndRefType(recipe.getRecipe_id(),1);
 		model.addAttribute("comment_list", comment_list);
-		
+
 		return "recipe";
 	}
-	
+
 	// 임시로 비번 업데이트
 //	@GetMapping("/encode_admin")
 //	public String asdf() {
@@ -211,5 +211,5 @@ public class RecipeController {
 //		dao.asdf(encode);
 //		return "redirect:/";
 //	}
-	
+
 }

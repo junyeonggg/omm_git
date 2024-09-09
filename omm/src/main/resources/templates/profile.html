@@ -9,6 +9,7 @@
 <h1>마이 페이지</h1>
 <form name="profileForm" id="profileForm" action="/profile" th:object="${member}" method="post">
     <table>
+        <input type="hidden" id="user_id">
         <tr>
             <td>
                 <label for="user_nickname">닉네임</label>
@@ -127,6 +128,7 @@
     <input type="button" value="수정하기" onclick="updateButton()">
     <input type="button" value="다시 입력" onclick="resetButton()">
     <input type="button" value="홈으로" onclick="location.href='/'">
+    <input type="button" value="회원탈퇴" onclick="memberDrop()">
 </form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>

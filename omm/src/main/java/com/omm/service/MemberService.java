@@ -86,6 +86,10 @@ public class MemberService {
         return org;
     }
 
+    public void unregistUser(String user_id){
+        member_dao.deleteUser(user_id);
+    }
+
 }
 
 
