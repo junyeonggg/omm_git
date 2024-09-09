@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script th:src="@{/js/join.js}"></script>
+    <script th:src="@{/js/join1.js}"></script>
     <style>
         .social_login_flex{
     display : flex;
@@ -39,6 +39,9 @@
             <td colspan=2 id="id-area"></td>
         </tr>
         <tr>
+            <td colspan=2 id="id-area2"></td>
+        </tr>
+        <tr>
             <td>
                 <label for="user_pw">비밀번호</label>
             </td>
@@ -46,6 +49,9 @@
                 <input type="password" name="user_pw" id="user_pw" th:field="*{user_pw}" placeholder="8~16자로 입력.">
                 <div th:if="${#fields.hasErrors('user_pw')}" th:errors="*{user_pw}"></div>
             </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="pw-area"></td>
         </tr>
         <tr>
             <td>
@@ -138,7 +144,11 @@
                 </select>
                 <!-- 중간번호 -->
                 <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호">
+                <input type="button" onclick="checkTel()" value="중복확인">
             </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="tel-area"></td>
         </tr>
         </tr>
         <td>

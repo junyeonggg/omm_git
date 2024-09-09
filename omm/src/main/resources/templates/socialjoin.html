@@ -62,13 +62,12 @@
                     <option value="019">019</option>
                 </select>
                 <!-- 중간번호 -->
-                <input type="text" name="tel_mid" id="tel_mid" maxlength="4" placeholder="중간번호" oninput="handle_tel_change()">
-                -
-                <!-- 뒷번호 -->
-                <input type="text" name="tel_end" id="tel_end" maxlength="4" placeholder="뒷번호" oninput="handle_tel_change()">
-                <!-- 결합된 전화번호를 저장할 필드 (hidden) -->
-                <input type="hidden" name="user_tel" id="user_tel">
+                <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호">
+                <input type="button" id=check_tel_btn onclick="checkTel()" value="중복확인">
             </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="tel-area"></td>
         </tr>
         </tr>
         <td>
