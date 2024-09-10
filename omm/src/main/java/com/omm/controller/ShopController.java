@@ -152,17 +152,7 @@ public class ShopController {
         return "";
     }
     @GetMapping("/order")
-    public String order(@RequestParam("quantity") int quantity,
-                        @RequestParam("price") int price,
-                        @RequestParam("totalPrice") int totalPrice,
-                        Model model){
-
-        totalPrice = price * quantity;
-
-        model.addAttribute("quantity", quantity);
-        model.addAttribute("price", price);
-        model.addAttribute("totalPrice", totalPrice);
-
+    public String order(){
         return "order";
     }
 
@@ -174,7 +164,6 @@ public class ShopController {
 
         return "success";
     }
-
     @PostMapping("/sandbox-dev/api/v1/payments/confirm")
     public ResponseEntity<String> confirmPayment(@RequestBody PaymentRequest paymentRequest) {
         boolean isPaymentSuccessful = processPayment(paymentRequest);
@@ -185,12 +174,9 @@ public class ShopController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("결제 승인 실패");
         }
     }
-
     private boolean processPayment(PaymentRequest paymentRequest) {
         return true;
     }
-
-
     @GetMapping("/fail")
     public String payFail(@RequestParam(value = "code") String ERROR_CODE,
                           @RequestParam(value = "message") String ERROR_MESSAGE,

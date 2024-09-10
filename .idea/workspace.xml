@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/PaymentRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/fail.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/success.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/fail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/success.html" afterDir="false" />
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="09 09(월) 16:35">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/admin.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/order2.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +98,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2lH3bY8sDDSeqS1JJBu76qz2vyr" />
   <component name="ProjectLevelVcsManager">
@@ -313,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725612253624</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="09 09(월) 16:35">
+      <created>1725937420884</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1725937420884</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -332,6 +333,7 @@
     <MESSAGE value="login.html css 진행중" />
     <MESSAGE value="login.html css 완&#10;09-06 12:06" />
     <MESSAGE value="회원가입 유효성 완료&#10;정규식(비밀번호) 체크해야함" />
-    <option name="LAST_COMMIT_MESSAGE" value="회원가입 유효성 완료&#10;정규식(비밀번호) 체크해야함" />
+    <MESSAGE value="09 09(월) 16:35" />
+    <option name="LAST_COMMIT_MESSAGE" value="09 09(월) 16:35" />
   </component>
 </project>
