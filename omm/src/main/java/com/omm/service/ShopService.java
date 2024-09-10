@@ -111,4 +111,8 @@ public class ShopService {
 		});
 	}
 
+	public List<HashMap<String, Object>> getFoodOrder(int food_id) {
+		return shopDao.getFoodOrder(food_id);
+	}
+
 }

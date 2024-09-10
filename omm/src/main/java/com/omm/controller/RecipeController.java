@@ -206,7 +206,7 @@ public class RecipeController {
 
 	@ResponseBody
 	@PostMapping("/recipe/insert")
-	public String recipeInsert(RecipeDto recipeDto, @RequestParam("recipe_ingre") String recipeIng,
+	public int recipeInsert(RecipeDto recipeDto, @RequestParam("recipe_ingre") String recipeIng,
 			@RequestParam("cookingSequenceDto") String cookingSequence,
 			@RequestParam Map<String, MultipartFile> sequence_img, Principal principal)
 			throws IllegalStateException, IOException {
@@ -277,13 +277,13 @@ public class RecipeController {
 			}
 			System.out.println(sequence_img.get("sequence_img_" + i));
 		}
-		// Handle images
-		return "Files processed successfully";
+		return recipe_id;
 	}
 
 	// 레시피 detail
 	@GetMapping("/recipe_list/{recipe_id}")
 	public String recipe_detail(@PathVariable("recipe_id") int recipe_id, Model model, Principal principal) {
+
 		// 해당 레시피 정보
 		RecipeDto recipe = recipeService.findRecipeByRecipe_id(recipe_id);
 		model.addAttribute("recipe", recipe);
@@ -292,8 +292,14 @@ public class RecipeController {
 		List<CookingSequenceDto> recipe_sequence = recipeService.selectRecipeSequenceByRecipeId(recipe_id);
 		model.addAttribute("recipe_sequence", recipe_sequence);
 
-		// 현재 로그인한 사람 닉네임 가져오기
+		// 해당 레시피의 재료
+		List<Recipe_ingre> ingre_list = recipeService.selectRecipeIngreByRecipeId(recipe_id);
+		// 재료 type_list
+		List<String> ingre_type_list = recipeService.selectRecipeIngreTypeByRecipeId(recipe_id);
+		model.addAttribute("ingre_type_list", ingre_type_list);
+		model.addAttribute("ingre_list", ingre_list);
 
+		// 현재 로그인한 사람 닉네임 가져오기
 		String user_nickname = "";
 		try {
 			user_nickname = recipeService.getUserNicknameByUserId(principal.getName());
@@ -307,6 +313,14 @@ public class RecipeController {
 		// 해당 레시피의 댓글
 		List<CommentDto> comment_list = recipeService.getCommentsByTargetIdAndRefType(recipe.getRecipe_id(), 1);
 		model.addAttribute("comment_list", comment_list);
+
+		// 해당 레시피의 찜 상태
+		try {
+			boolean checked = recipeService.getLikeStatus(principal.getName(), 1, recipe_id);
+			model.addAttribute("like_checked", checked);
+		} catch (Exception e) {
+			model.addAttribute("like_checked", false);
+		}
 
 		return "recipe";
 	}
@@ -329,6 +343,66 @@ public class RecipeController {
 		} catch (Exception e) {
 		}
 		return null;
+	}
+
+	// 조회수를 증가시킬때 매핑되는 메서드
+	// 1. table_name 조회수 변경할 테이블 이름 ex) tbl_recipe
+	// 2. column_name 조회수 컬럼 명 ex) recipe_view
+	// 3. target_column where조건 컬럼 명 ex) recipe_id
+	// 4. target_id where 조건 값 ex) 168471
+	@ResponseBody
+	@PostMapping("/increView")
+	public boolean increView(@RequestParam("table_name") String table_name,
+			@RequestParam("column_name") String column_name, @RequestParam("target_column") String target_column,
+			@RequestParam("target_id") String target_id) {
+		boolean flag = false;
+		try {
+			flag = recipeService.increView(table_name, column_name, target_column, target_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	// 추천 수를 증가, 또는 감소시키는 메서드
+	// 1. reference_type ex) 1(recipe) 2(food) 3(inquire)
+	// 2. target_id ex) 16874
+	// 3. checked 추천 체크박스가 체크 되어 있는지 여부 ex) true, false
+	@ResponseBody
+	@PostMapping("/likeSet")
+	public boolean likeSet(@RequestParam("reference_type") int reference_type,
+			@RequestParam("target_id") String target_id, @RequestParam("checked") boolean checked,
+			Principal principal) {
+		String user_id = "";
+		try {
+			user_id = principal.getName();
+		} catch (Exception e) {
+		}
+		String table_name = "";
+		String column_name = "";
+		String target_column = "";
+		if (reference_type == 1) {
+			table_name = "tbl_recipe";
+			column_name = "recipe_recommend_cnt";
+			target_column = "recipe_id";
+		} else if (reference_type == 2) {
+			table_name = "";
+			column_name = "";
+			target_column = "recipe_id";
+		}
+		boolean flag = false;
+		if (checked & user_id != "") {
+			// 체크되어있으면 찜 추가하고 추천수를 증가시킴
+			recipeService.likeSet(user_id, reference_type, target_id); // 찜 추가
+			recipeService.increView(table_name, column_name, target_column, target_id); // 추천 수 증가
+		} else {
+			// 체크x 이면 찜 tbl에서 삭제하고 추천수를 감소시킴
+			recipeService.likeUnSet(user_id, reference_type, target_id);
+			recipeService.decreView(table_name, column_name, target_column, target_id); // 추천 수 감소
+		}
+
+		return flag;
+
 	}
 
 	// 임시로 비번 업데이트

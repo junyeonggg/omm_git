@@ -133,7 +133,7 @@
 						th:href="@{#}"
 						th:onclick="insertCart([[${user_id}]],[[${food.foodId}]])"
 						class="btn btn-primary">장바구니 담기</a> <a th:if="${food != null}"
-						th:href="@{/order}" class="btn btn-primary">바로구매</a>
+						th:onclick="orderOne()" class="btn btn-primary">바로구매</a>
 				</div>
 			</div>
 			<!-- 리뷰 섹션 -->
@@ -300,6 +300,14 @@ function insertCart(user_id,food_id){
 			}
 		}
 	})
+	
+}
+
+function orderOne(){
+	const quantity = document.querySelector("#quantity").value;
+	const food_id = `[[${food.foodId}]]`;
+	window.location.href=`/order?food_id=${food_id}`+"&"+"food_quantity="+quantity;
+	
 	
 }
 </script>

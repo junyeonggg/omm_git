@@ -53,7 +53,7 @@
 
 .tbl_paging td {
 	width: 50px;
-	user-select : none;
+	user-select: none;
 }
 
 .paging_list {
@@ -69,27 +69,24 @@
 		<div class="container">
 			<!-- 브랜드명이나 로고 -->
 			<a class="navbar-brand" href="/">Your Brand</a>
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/junyeonggg/omm_git.git
 			<div class="navbar-collapse">
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
-				<ul class="navbar-nav me-auto">
-					<!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
-				</ul>
-				<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
-				<ul class="navbar-nav">
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
-					<li sec:authorize="isAnonymous()" class="nav-item"><a
-						class="nav-link active" th:href="@{/login}">로그인</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
-					<li sec:authorize="isAnonymous()" class="nav-item"><a
-						class="nav-link" th:href="@{/join}">회원가입</a></li>
-				</ul>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
+					<ul class="navbar-nav me-auto">
+						<!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
+					</ul>
+					<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+					<ul class="navbar-nav">
+						<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+						<li sec:authorize="isAnonymous()" class="nav-item"><a
+							class="nav-link active" th:href="@{/login}">로그인</a></li>
+						<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+						<li sec:authorize="isAnonymous()" class="nav-item"><a
+							class="nav-link" th:href="@{/join}">회원가입</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -106,7 +103,8 @@
 				onclick="searchKeyword()">
 		</div>
 		<div>
-			<input type="button" onclick="location.href='/recipe/write'" value="레시피 만들기">
+			<input type="button" onclick="location.href='/recipe/write'"
+				value="레시피 만들기">
 		</div>
 		<table class="recipe_tbl">
 			<tr>
@@ -134,7 +132,7 @@
 		<div class="paging_list">
 			<table class="tbl_paging">
 				<tr>
-		 			<td th:if="${paging.prevPage}"
+					<td th:if="${paging.prevPage}"
 						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.startPage-1},keyword=${paging.keyword})}'|"
 						th:text="${'<'}"></td>
 					<td
