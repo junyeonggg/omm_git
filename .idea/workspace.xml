@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="09 09(월) 16:35">
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/PaymentRequest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/fail.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/success.js" afterDir="false" />
@@ -15,7 +15,6 @@
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/order2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/product.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
