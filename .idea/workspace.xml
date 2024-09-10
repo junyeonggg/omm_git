@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="09 09(월) 16:35">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" afterDir="false" />
-    </list>
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="09 09(월) 16:35" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
