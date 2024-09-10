@@ -88,6 +88,9 @@ public class MemberService {
     public void unregistUser(String user_id){
         member_dao.delteUser(user_id);
     }
+	public MemberDto getMemberByUserId(String name) {
+		return member_dao.getMemberByUserId(name);
+	}
 
 }
 

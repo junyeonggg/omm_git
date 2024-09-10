@@ -1,6 +1,7 @@
 package com.omm.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import com.omm.dto.CartDto;
 import com.omm.dto.CategoryDto;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
+import com.omm.dto.MemberDto;
 import com.omm.service.CategoryService;
+import com.omm.service.MemberService;
 import com.omm.service.RecipeService;
 import com.omm.service.ShopService;
 
@@ -30,6 +33,8 @@ public class ShopController {
 	private CategoryService categoryService;
 	@Autowired
 	private RecipeService recipeService;
+	@Autowired
+	private MemberService memberService;
 
 	@GetMapping("/shop")
 	public String shop(@RequestParam(value = "query", required = false) String query,
@@ -134,17 +139,57 @@ public class ShopController {
 	}
 
 	@GetMapping("/cart")
-	public String cartPage(Principal principal,Model model) {
-		List<CartDto> cart_list = shopService.getCartByUserId(principal.getName());
+	public String cartPage(Principal principal, Model model) {
+		List<HashMap<String, Object>> cart_list = shopService.getCartByUserId(principal.getName());
+		cart_list.forEach((cart) -> {
+			cart.replace("food_lprice", Integer.valueOf((String) cart.get("food_lprice")));
+		});
+
 		model.addAttribute("cart_list", cart_list);
 		return "cart";
 	}
+
 	@ResponseBody
 	@PostMapping("/cart/insert")
-	public String insertCart(CartDto cartDto) {
+	public boolean insertCart(CartDto cartDto) {
 		System.out.println(cartDto.toString());
-		shopService.insertCart(cartDto);
+		boolean check = shopService.checkCartByUserIdAndFoodId(cartDto);
+		if (check) {
+			// 이미 있으면
+			return check;
+		} else {
+			// 없으면 넣고
+			shopService.insertCart(cartDto);
+			return check;
+		}
+	}
+
+	@ResponseBody
+	@PostMapping("/delete/cart")
+	public String deleteFromCart(@RequestParam("cart_id") int cart_id) {
+		shopService.deleteCartByCartId(cart_id);
+
 		return "";
+	}
+
+	@ResponseBody
+	@PostMapping("/changeCheck")
+	public String changeCheck(@RequestParam("check") boolean check, @RequestParam("food_id") int food_id,
+			Principal principal) {
+		shopService.changeCheck(check, food_id, principal.getName());
+		return "";
+	}
+
+	@GetMapping("/order")
+	public String orderPage(Model model, Principal principal) {
+		List<HashMap<String, Object>> cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
+		cart_list.forEach((cart) -> {
+			cart.replace("food_lprice", Integer.valueOf((String) cart.get("food_lprice")));
+		});
+		MemberDto member = memberService.getMemberByUserId(principal.getName());
+		model.addAttribute("member", member);
+		model.addAttribute("cart_list", cart_list);
+		return "order";
 	}
 
 }

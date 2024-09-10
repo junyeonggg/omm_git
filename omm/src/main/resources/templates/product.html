@@ -269,7 +269,14 @@ function insertCart(user_id,food_id){
 	$.ajax({
 		type:"post",
 		url : "/cart/insert",
-		data : {user_id:user_id,food_id:food_id,food_quantity:quantity}
+		data : {user_id:user_id,food_id:food_id,food_quantity:quantity},
+		success: data => {
+			if(data){
+				window.alert("이미 담긴 상품입니다.")
+			}else{
+				window.alert("장바구니에 담았습니다.")
+			}
+		}
 	})
 	
 }
