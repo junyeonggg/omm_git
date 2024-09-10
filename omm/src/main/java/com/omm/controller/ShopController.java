@@ -1,17 +1,25 @@
 package com.omm.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
 import com.omm.dto.CategoryDto;
+import com.omm.dto.PaymentRequest;
 import com.omm.service.RecipeService;
 import com.omm.service.ShopService;
 import com.omm.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,6 +47,7 @@ public class ShopController {
     private CategoryService categoryService;
     @Autowired
     private RecipeService recipeService;
+
     @GetMapping("/shop")
     public String shop(@RequestParam(value = "query", required = false) String query,
                        @RequestParam(value = "searchCategory", required = false) String searchCategory,
@@ -94,7 +103,6 @@ public class ShopController {
     }
 
 
-
     @GetMapping("/product/{foodProductId}")
     public String productDetail(@PathVariable("foodProductId") String foodProductId, Model model, Principal principal) {
         FoodDto food = shopService.getFoodById(foodProductId);
@@ -108,20 +116,20 @@ public class ShopController {
         System.out.println("Food Price: " + food.getFoodLprice());
         System.out.println("Food Image: " + food.getFoodImg());
         String user_nickname = "";
-        try{
-            user_nickname =  recipeService.getUserNicknameByUserId(principal.getName());
+        try {
+            user_nickname = recipeService.getUserNicknameByUserId(principal.getName());
 //			System.out.println("user_nickname : "+user_nickname);
-            model.addAttribute("user_nickname",user_nickname);
-            model.addAttribute("user_id",principal.getName());
-        }catch (Exception e) {
-            model.addAttribute("user_nickname","Null");
+            model.addAttribute("user_nickname", user_nickname);
+            model.addAttribute("user_id", principal.getName());
+        } catch (Exception e) {
+            model.addAttribute("user_nickname", "Null");
         }
         model.addAttribute("food", food);
 
 
         // 댓글 리스트
         // 해당 레시피의 댓글
-        List<CommentDto> comment_list = recipeService.getCommentsByTargetIdAndRefType(food.getFoodId(),2);
+        List<CommentDto> comment_list = recipeService.getCommentsByTargetIdAndRefType(food.getFoodId(), 2);
         model.addAttribute("comment_list", comment_list);
 
         return "product";
@@ -143,26 +151,52 @@ public class ShopController {
 
         return "";
     }
-
     @GetMapping("/order")
-    public String orderPage(){
+    public String order(@RequestParam("quantity") int quantity,
+                        @RequestParam("price") int price,
+                        @RequestParam("totalPrice") int totalPrice,
+                        Model model){
+
+        totalPrice = price * quantity;
+
+        model.addAttribute("quantity", quantity);
+        model.addAttribute("price", price);
+        model.addAttribute("totalPrice", totalPrice);
+
         return "order";
     }
-    @GetMapping("/order2")
-    public String order2Page(){
-        return "order2";
-    }
+
     @GetMapping("/success")
     public String paySuccess(@RequestParam(value = "orderId") String orderid,
                              @RequestParam(value = "paymentKey") String paymentKey,
-                             @RequestParam(value = "amount") String amount){
-        return "";
+                             @RequestParam(value = "amount") String amount,
+                             Model model) {
+
+        return "success";
     }
+
+    @PostMapping("/sandbox-dev/api/v1/payments/confirm")
+    public ResponseEntity<String> confirmPayment(@RequestBody PaymentRequest paymentRequest) {
+        boolean isPaymentSuccessful = processPayment(paymentRequest);
+
+        if (isPaymentSuccessful) {
+            return ResponseEntity.ok("결제 승인 성공");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("결제 승인 실패");
+        }
+    }
+
+    private boolean processPayment(PaymentRequest paymentRequest) {
+        return true;
+    }
+
+
     @GetMapping("/fail")
     public String payFail(@RequestParam(value = "code") String ERROR_CODE,
-                             @RequestParam(value = "message") String ERROR_MESSAGE,
-                             @RequestParam(value = "orderId") String ORDER_ID){
-        return "";
+                          @RequestParam(value = "message") String ERROR_MESSAGE,
+                          @RequestParam(value = "orderId") String ORDER_ID){
+        return "fail";
     }
 }
+
 

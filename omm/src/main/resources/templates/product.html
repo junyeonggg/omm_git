@@ -96,7 +96,10 @@
             </div>
             <!-- food 객체가 null이 아닌 경우에만 구매하기 버튼 표시 -->
             <a th:if="${food != null}" th:href="@{/cart}" class="btn btn-primary">장바구니</a>
-            <a th:if="${food != null}" th:href="@{/order}" class="btn btn-primary">바로구매</a>
+<!--            <a th:if="${food != null}" th:href="@{/order}" class="btn btn-primary">바로구매</a>-->
+            <a th:if="${food != null}"
+               th:href="@{/order(quantity=${quantity}, price=${food.foodLprice}, totalPrice=${totalPriceValue})}"
+               class="btn btn-primary">바로구매</a>
         </div>
     </div>
     <!-- 리뷰 섹션 -->
@@ -247,8 +250,6 @@
 			window.alert("댓글 등록에 실패하였습니다.")}
 
 	})
-
-
 }
 </script>
 </body>
