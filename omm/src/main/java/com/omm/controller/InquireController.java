@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.omm.dto.InquireDto;
 import com.omm.dto.PagingSearch;
@@ -93,5 +94,14 @@ public class InquireController {
 		return "redirect:/inquire/"+inquireDto.getInquire_id();
 	}
 	
+	
+	// 문의 삭제
+	@ResponseBody
+	@PostMapping("/inquire/delete")
+	public String inquire_delete(@RequestParam("inquire_id") int inquire_id) {
+		inquireService.deleteInquire(inquire_id);
+		return "asd";
+		
+	}
 
 }

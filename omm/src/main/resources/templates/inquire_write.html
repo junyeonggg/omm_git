@@ -65,16 +65,18 @@
 				<table>
 					<tr>
 						<th>작성자 :</th>
-						<td><input name="user_nickname" class="input_click" type="text"
-							readonly="readonly" th:value="${user_nickname}"></td>
+						<td><input name="user_nickname" class="input_click"
+							type="text" readonly="readonly" th:value="${user_nickname}"></td>
 					</tr>
 					<tr>
 						<th>제목 :</th>
-						<td><input name="inquire_title" class="input_click" type="text" placeholder="제목"></td>
+						<td><input name="inquire_title" class="input_click"
+							type="text" placeholder="제목"></td>
 					</tr>
 					<tr>
 						<th>내용 :</th>
-						<td><textarea name="inquire_content" class="input_click" placeholder="내용"></textarea></td>
+						<td><textarea name="inquire_content" class="input_click"
+								placeholder="내용"></textarea></td>
 					</tr>
 					<tr>
 						<th>첨부파일</th>
@@ -82,7 +84,8 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td colspan="1"><button onclick="sendInquireForm()" style="width: 100%;">작성하기</button></td>
+						<td colspan="1"><button onclick="sendInquireForm()"
+								style="width: 100%;">작성하기</button></td>
 					</tr>
 				</table>
 			</form>
@@ -93,9 +96,10 @@
 			<p class="footer-text">&copy; Your Website 2023</p>
 		</div>
 	</footer>
-	
+
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="/js/inquire.js">
-	
+		
 	</script>
 </body>
 </html>
