@@ -69,10 +69,6 @@
 		<div class="container">
 			<!-- 브랜드명이나 로고 -->
 			<a class="navbar-brand" href="/">Your Brand</a>
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/junyeonggg/omm_git.git
 			<div class="navbar-collapse">
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
@@ -81,14 +77,19 @@
 				</ul>
 				<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
 				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active" th:href="@{/}">홈으로</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+							class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
 					<li sec:authorize="isAnonymous()" class="nav-item"><a
-						class="nav-link active" th:href="@{/login}">로그인</a></li>
+							class="nav-link active" th:href="@{/login}">로그인</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+							class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
 					<li sec:authorize="isAnonymous()" class="nav-item"><a
-						class="nav-link" th:href="@{/join}">회원가입</a></li>
+							class="nav-link active" th:href="@{/join}">회원가입</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/cart}">장바구니</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
 				</ul>
 			</div>
 		</div>

@@ -24,6 +24,7 @@
                 <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
                 <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
                 <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a class="nav-link active" th:href="@{/admin}">회원관리</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/cart}">장바구니</a></li>
             </ul>
         </div>
     </div>
