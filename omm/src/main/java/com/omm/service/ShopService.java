@@ -11,6 +11,7 @@ import com.omm.dto.CartDto;
 import com.omm.dto.CategoryDto;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
+import com.omm.dto.OrderDto;
 
 @Service
 public class ShopService {
@@ -88,17 +89,26 @@ public class ShopService {
 		}
 	}
 
-	
 	public void changeCheck(boolean check, int food_id, String name) {
-		if(check) {
+		if (check) {
 			shopDao.changecheck(1, food_id, name);
-		}else {
+		} else {
 			shopDao.changecheck(0, food_id, name);
 		}
 	}
 
 	public List<HashMap<String, Object>> getCartByUserIdAndCheck(String name) {
 		return shopDao.getCartByUserIdAndCheck(name);
+	}
+
+	public void insertOrder(OrderDto orderDto, List<String> food_id_list) {
+		orderDto.orderDate(orderDto);
+		food_id_list.forEach((food_id) -> {
+			food_id = food_id.replace("[", "");
+			food_id = food_id.replace("]", "");
+			orderDto.setFood_id(Integer.valueOf(food_id));
+			shopDao.insertOrder(orderDto);
+		});
 	}
 
 }

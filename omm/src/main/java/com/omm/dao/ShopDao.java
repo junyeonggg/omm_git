@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Update;
 import com.omm.dto.CartDto;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
+import com.omm.dto.OrderDto;
 
 @Mapper
 public interface ShopDao {
@@ -80,5 +81,8 @@ public interface ShopDao {
 
 	@Select("select * from tbl_cart join tbl_food on tbl_cart.food_id = tbl_food.food_id where user_id =#{user_id} and cart_check=1")
 	List<HashMap<String, Object>> getCartByUserIdAndCheck(String name);
+
+	@Insert("insert into tbl_order values(null,#{order_id}, #{user_id},#{order_date},#{food_id})")
+	void insertOrder(OrderDto orderDto);
 
 }
