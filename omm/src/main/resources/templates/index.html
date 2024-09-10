@@ -6,6 +6,7 @@
     <meta name="description" content="Full Width Pics Landing Page Template" />
     <meta name="author" content="Start Bootstrap" />
     <title th:text="'Full Width Pics - Start Bootstrap Template'">Full Width Pics - Start Bootstrap Template</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- Custom CSS -->
     <link th:href="@{/css/index.css}" rel="stylesheet" />
 </head>
@@ -21,8 +22,8 @@
                 <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link active" th:href="@{/login}">로그인</a></li>
                 <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
                 <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/inquire}">문의하기</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
+                <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a class="nav-link active" th:href="@{/admin}">회원관리</a></li>
             </ul>
         </div>
     </div>

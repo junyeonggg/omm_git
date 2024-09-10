@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script th:src="@{/js/join.js}"></script>
+    <link href="/css/join.css" rel="stylesheet">
+    <script th:src="@{/js/join1.js}"></script>
     <style>
-        .social_login_flex{
-    display : flex;
-    flex-decoration : row;
-}
-.social_login_flex img{
-    width : 50px;
-    height : 50px;
-}
-.social_login_flex img:hover{
-    border : solid 1px;
-    box-shadow : 2px 2px 3px 3px black;
-    border-radius:5px;
-}
+           .social_login_flex{
+            display : flex;
+            flex-decoration : row;
+        }
+        .social_login_flex img{
+            width : 50px;
+            height : 50px;
+        }
+        .social_login_flex img:hover{
+            border : solid 1px;
+            box-shadow : 2px 2px 3px 3px black;
+            border-radius:5px;
+        }
     </style>
 </head>
 <body>
-<h1>회원 가입</h1>
+<header>
+    <a class="navbar-brand" href="/">Your Brand</a>
+    <div class="button-group">
+        <input type="button" value="홈으로" class="header-btn" onclick="location.href='/'">
+        <input type="button" value="로그인" class="header-btn" onclick="location.href='/login'">
+    </div>
+</header>
 <form name="joinForm" id="joinForm" action="/join" th:object="${memberDto}" method="post" >
     <table>
+        <h1>회원 가입</h1>
         <tr>
             <td>
                 <label for="user_id">아이디</label>
@@ -159,9 +167,7 @@
         </tr>
     </table>
     <button type="button" id="submitBtn" onclick="submitForm(this)">회원가입</button>
-    <input type="button" value="로그인" onclick="location.href='/login'">
     <input type="button" value="다시 입력" onclick="resetButton()">
-    <input type="button" value="홈으로" onclick="location.href='/'">
     <!-- 소셜 로그인 div-->
     <div class="social_login_flex">
         <!--구글-->
@@ -178,6 +184,9 @@
         </div>
     </div>
 </form>
+<footer>
+    <div class="container"><p class="m-0 text-center text-white">&copy; Your Website 2023</p></div>
+</footer>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

@@ -1,0 +1,236 @@
+/* 페이지 전체 설정 */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh; /* 페이지 전체가 화면을 채우도록 설정 */
+}
+
+/* 헤더 및 푸터 스타일 */
+.header, .footer {
+    background-color: #333;
+    width: 100%; /* 화면 전체 너비 차지 */
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+}
+
+.header {
+    position: sticky; /* 헤더가 항상 페이지 상단에 고정 */
+    top: 0;
+}
+
+.footer {
+    margin-top: auto;
+    bottom: 0;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    background-color: #333;
+}
+
+.navbar .navbar-brand {
+    color: #fff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar .navbar-content {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .navbar-nav {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar .nav-item {
+    margin-left: 1rem;
+}
+
+.navbar .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #ddd;
+}
+
+/* 메인 컨텐츠 레이아웃 */
+.main-content {
+    max-width: 1200px;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+/* 상품 이미지와 상품 정보 레이아웃 조정 */
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.product-image {
+    flex: 1;
+    max-width: 50%; /* 이미지가 전체의 절반을 차지 */
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 상품 정보 섹션 */
+.product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 50%;
+}
+.product-info input {
+    width: 80px;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 별점 관련 스타일 */
+.rate {
+    display: inline-block;
+    border: 0;
+    margin-right: 15px;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.rate > input {
+    display: none;
+}
+
+.rate > label {
+    float: right;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.rate > label:before {
+    content: "\f005"; /* 별 모양 */
+    font-family: FontAwesome;
+    font-size: 1.5rem;
+    display: inline-block;
+    padding: .3rem .2rem;
+}
+
+.rate .half:before {
+    content: "\f089"; /* 반개 별 모양 */
+    position: absolute;
+    padding-right: 0;
+    font-size: 1.5rem;
+}
+
+.rate input:checked ~ label,
+.rate label:hover,
+.rate label:hover ~ label {
+    color: #f73c32 !important; /* 클릭되었거나 호버 상태의 별 색상 */
+    transition: color 0.3s ease;
+}
+
+/* 버튼 스타일 */
+/* 버튼들을 일렬로 배치 */
+.btn-container {
+    display: flex;
+    gap: 1rem; /* 버튼들 사이에 간격을 추가 */
+}
+
+.btn-container .btn-primary {
+    flex: 1; /* 버튼이 동일한 크기를 차지하게 설정 (선택사항) */
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-container .btn-primary:hover {
+    transform: translateY(-2px);
+}
+.product-info .btn-primary,
+.product-info .btn-secondary {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.product-info .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.product-info .btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #333;
+    width: 100%;
+    padding: 1rem 0;
+    text-align: center;
+    color: #fff;
+    font-size: 0.9rem;
+    height: 50px;
+    border-top: 4px solid #444;
+}
+
+footer p {
+    margin: 0;
+    line-height: 50px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .navbar .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    .product-details {
+        flex-direction: column;
+    }
+
+    footer {
+        height: auto;
+        padding: 1rem;
+    }
+
+    footer p {
+        line-height: normal;
+    }
+}
