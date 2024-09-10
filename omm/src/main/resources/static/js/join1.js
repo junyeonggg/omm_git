@@ -546,7 +546,6 @@ function submitForm(self){
          $("#user_birth").focus()
          return false;
    }
-
    if(isIdChecked && !isIdValidated){
         window.alert("현재 사용중인 아이디입니다.");
         return false;
