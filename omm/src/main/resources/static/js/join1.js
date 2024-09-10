@@ -345,7 +345,6 @@ $(document).ready(function() {
         isIdChecked = false;
         $("#id-area").html("");
     });
-
     $("#user_nickname").on('input', function() {
         isNicknameChecked = false;
         $("#nickname-area").html("");
@@ -397,36 +396,48 @@ function validatePassword(password) {
 
 // 페이지 로드 시 유효성 검사
 document.addEventListener('DOMContentLoaded', function() {
-    validateFields(); // 페이지 로드 시 초기 검사
+    validateIdFeedback(); // 페이지 로드 시 아이디 유효성 검사
+    validateFields(); // 페이지 로드 시 비밀번호 유효성 검사
+
+
+    const userIdField = document.getElementById('user_id');
+    const userPwField = document.getElementById('user_pw');
+
+    if (userIdField) {
+        userIdField.addEventListener('input', function() {
+            validateIdFeedback();
+        });
+    } else {
+        console.error('Element with ID "user_id" not found');
+    }
+
+    if (userPwField) {
+        userPwField.addEventListener('input', function() {
+            validateFields();
+        });
+    } else {
+        console.error('Element with ID "user_pw" not found');
+    }
 });
 
-// 입력 필드 변경 시 유효성 검사
-document.getElementById('user_id').addEventListener('input', function() {
-    validateFields();
-});
-
-document.getElementById('user_pw').addEventListener('input', function() {
-    validateFields();
-});
-
-// 유효성 검사 및 피드백 표시
-function validateFields() {
+// 유효성 검사와 피드백을 분리하여 처리
+function validateIdFeedback() {
     const userId = document.getElementById('user_id').value.trim();
-    const userPw = document.getElementById('user_pw').value.trim();
-
-    const idFeedback = document.getElementById('id-area');
-    const pwFeedback = document.getElementById('pw-area');
+    const idFeedback = document.getElementById('id-area2');
 
     if (!validateId(userId)) {
         idFeedback.textContent = "아이디는 소문자와 숫자만 포함하며, 4~12자 사이여야 합니다.";
     } else {
-        idFeedback.textContent = "";
     }
+}
+
+function validateFields() {
+    const userPw = document.getElementById('user_pw').value.trim();
+    const pwFeedback = document.getElementById('pw-area');
 
     if (!validatePassword(userPw)) {
         pwFeedback.textContent = "비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.";
     } else {
-        pwFeedback.textContent = "";
     }
 }
 function submitForm(self){
@@ -449,11 +460,11 @@ function submitForm(self){
     }
     update_email()
 
-     이메일 인증 상태 확인
-    if (isEmailChecked && !isEmailVerified) {
-        window.alert("이메일 인증을 먼저 완료해 주세요.");
-        return false;
-    }
+    // 이메일 인증 상태 확인
+//    if (isEmailChecked && !isEmailVerified) {
+//        window.alert("이메일 인증을 먼저 완료해 주세요.");
+//        return false;
+//    }
     var currentUserId = $("#user_id").val().trim();
     var currentPassword = $("#user_pw").val().trim();
     var currentUserName = $("#user_name").val().trim();
@@ -463,17 +474,20 @@ function submitForm(self){
     var currentUserDomain = $("#user_email_domain").val().trim();
     var customDomain = $("#custom_domain").val().trim();
     var currentEmail = $("#user_email").val().trim();
+    var currentTelList = $("#tel_list").val().trim();
+    var currentUserTel = $("#user_tel").val().trim();
     var currentAddress = $("#sample6_address").val().trim();
     var currentBirth = $("#user_birth").val().trim();
 
-    var password = 'examplepass1!';
-    var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
 
-    if (!passwordRegex.test(password)) {
-    console.log("비밀번호는 유효하지 않습니다.");
-    } else {
-    console.log("비밀번호는 유효합니다.");
-}
+//    var password = 'examplepass1!';
+//    var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
+//
+//    if (!passwordRegex.test(password)) {
+//    console.log("비밀번호는 유효하지 않습니다.");
+//    } else {
+//    console.log("비밀번호는 유효합니다.");
+//}
 
 
     // 아이디 유효성 검사
@@ -502,11 +516,26 @@ function submitForm(self){
          $("#user_name").focus()
          return false;
    }
+   if(currentNickname === ""){
+            window.alert("닉네임을 입력해주세요.")
+            $("#user_nickname").focus()
+            return false;
+      }
    if(currentAddress === ""){
          window.alert("주소를 입력해주세요.")
          $("#user_addr").focus()
          return false;
    }
+   if(currentTelList == ""){
+       window.alert("전화번호를 입력해주세요.")
+       $("#tel_list").focus()
+       return false;
+   }
+   if(currentUserTel == ""){
+       window.alert("전화번호를 입력해주세요.")
+       $("#user_tel").focus()
+       return false;
+      }
    var gender = $("input[name='user_gender']:checked").val();
       if (!gender) {
           window.alert("성별을 선택해주세요.");
@@ -517,7 +546,6 @@ function submitForm(self){
          $("#user_birth").focus()
          return false;
    }
-
    if(isIdChecked && !isIdValidated){
         window.alert("현재 사용중인 아이디입니다.");
         return false;

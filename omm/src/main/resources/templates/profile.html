@@ -9,7 +9,6 @@
 <h1>마이 페이지</h1>
 <form name="profileForm" id="profileForm" action="/profile" th:object="${member}" method="post">
     <table>
-        <input type="hidden" id="user_id">
         <tr>
             <td>
                 <label for="user_nickname">닉네임</label>
@@ -31,6 +30,9 @@
                 <input type="password" name="user_pw" id="user_pw" placeholder="8~16자로 입력.">
                 <input type="hidden" id="original_pw" th:value="${member.user_pw}">
             </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="pw-area"></td>
         </tr>
         <tr>
             <td>
@@ -126,7 +128,6 @@
         </tr>
     </table>
     <input type="button" value="수정하기" onclick="updateButton()">
-    <input type="button" value="다시 입력" onclick="resetButton()">
     <input type="button" value="홈으로" onclick="location.href='/'">
     <input type="button" value="회원탈퇴" onclick="memberDrop()">
 </form>

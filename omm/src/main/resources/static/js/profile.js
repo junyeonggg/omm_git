@@ -327,6 +327,37 @@ $(document).ready(function() {
     });
 });
 
+// 비밀번호 유효성 검사 함수
+function validatePassword(password) {
+    const passwordRegex = /^(?=.*[!@#$%^&+=])[a-z0-9!@#$%^&+=]{8,16}$/;
+    return passwordRegex.test(password);
+}
+
+function validateFields() {
+    const userPw = document.getElementById('user_pw').value.trim();
+    const pwFeedback = document.getElementById('pw-area');
+
+    if (!validatePassword(userPw)) {
+        pwFeedback.textContent = "비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.";
+    } else {
+    }
+}
+// 페이지 로드 시 유효성 검사
+document.addEventListener('DOMContentLoaded', function() {
+    validateFields(); // 페이지 로드 시 비밀번호 유효성 검사
+
+    const userPwField = document.getElementById('user_pw');
+
+    if (userPwField) {
+        userPwField.addEventListener('input', function() {
+            validateFields();
+        });
+    } else {
+        console.error('Element with ID "user_pw" not found');
+    }
+});
+
+
 // 수정 버튼 클릭 시 폼 제출 함수
 function updateButton() {
     update_email();
@@ -413,6 +444,13 @@ function updateButton() {
         window.alert("전화번호 중복 체크를 먼저 해주세요.");
         return false;
     }
+    // 비밀번호 유효성 검사
+    var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
+    if (!passwordRegex.test(currentPassword)) {
+        window.alert("비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.");
+        $("#user_pw").focus();
+        return false;
+    }
 
     document.querySelector("#user_email").value = currentEmail;
     var form = $('#profileForm');
@@ -438,7 +476,7 @@ function memberDrop() {
         const url = '/unregist';
 
         const data = new URLSearchParams();
-        data.append('user_id', document.getElementById('user_id').value);
+        data.append('user_nickname', document.getElementById('user_nickname').value);
 
         // 서버에 POST 요청을 보내기
         fetch(url, {

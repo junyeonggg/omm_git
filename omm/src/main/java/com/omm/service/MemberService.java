@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -85,13 +86,16 @@ public class MemberService {
         }
         return org;
     }
-    public void unregistUser(String user_id){
-        member_dao.delteUser(user_id);
+    public void unregistUser(String user_nickname){
+        member_dao.deleteUser(user_nickname);
     }
 	public MemberDto getMemberByUserId(String name) {
 		return member_dao.getMemberByUserId(name);
 	}
 
+    public List<MemberDto> getMemberList(){
+        return member_dao.getMemberList();
+    }
 }
 
 
