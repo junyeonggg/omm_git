@@ -61,11 +61,11 @@
 		<tr class="cart_list" th:each="cart : ${cart_list}">
 			<td><input type="checkbox"
 				th:onchange="checkboxclick(this,[[${cart.food_id}]])"
-				th:checked="true"></td>
+				th:checked="${cart.cart_check}"></td>
 			<td><img alt="" width="250px;" th:src="@{${cart.food_img}}"><span
 				class="img_info" th:text="${cart.food_name}"></span></td>
-			<td><input type="number" th:value="${cart.food_quantity}"
-				th:onchange="changeQuantity(this,[[${cart.food_lprice}]])"
+			<td><input type="number" min="1" th:value="${cart.food_quantity}"
+				th:onchange="changeQuantity(this,[[${cart.food_lprice}]],[[${cart.food_id}]])"
 				style="width: 40px;"></td>
 			<td><input type="text"
 				th:value="${#numbers.formatInteger(cart.food_lprice * cart.food_quantity,3,'COMMA')}"

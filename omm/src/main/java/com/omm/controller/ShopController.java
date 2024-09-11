@@ -189,15 +189,25 @@ public class ShopController {
 
 		return "";
 	}
-
+	
 	@ResponseBody
-	@PostMapping("/changeCheck")
+	@PostMapping("/changeCheck") 
 	public String changeCheck(@RequestParam("check") boolean check, @RequestParam("food_id") int food_id,
 			Principal principal) {
 		shopService.changeCheck(check, food_id, principal.getName());
 		return "";
 	}
-
+	
+	@ResponseBody
+	@PostMapping("/changeCnt") 
+	public String changeCnt(@RequestParam("quantity") int quantity, @RequestParam("food_id") int food_id,
+			Principal principal) {
+		shopService.changeCnt(quantity, food_id, principal.getName());
+		return "";
+	}
+	
+	
+	
 	// 장바구니 -> 주문 페이지
 	@GetMapping("/order")
 	public String orderPage(Model model, Principal principal,
@@ -209,9 +219,15 @@ public class ShopController {
 		if (food_id != -1) {
 			cart_list = shopService.getFoodOrder(food_id);
 			cart_list.get(0).put("food_quantity", food_quantity);
-			totPrice = Integer.parseInt((String) cart_list.get(0).get("food_lprice")) * food_quantity;
+			cart_list.get(0).replace("food_lprice",Integer.parseInt((String) cart_list.get(0).get("food_lprice")));
+			totPrice = (int) cart_list.get(0).get("food_lprice") * food_quantity;
 		} else {
-			cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
+			try {
+				cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
+			}catch(Exception e) {
+				System.out.println("비로그인");
+				return "login";
+			}
 			cart_list.forEach((cart) -> {
 				System.out.println(cart);
 				cart.replace("food_lprice", Integer.parseInt(((String) cart.get("food_lprice"))));
