@@ -29,5 +29,8 @@ public class InquireService {
 	public void updateForm(InquireDto inquireDto) {
 		inquireDao.updateForm(inquireDto);
 	}
+	public void deleteInquire(int inquire_id) {
+		inquireDao.deleteInquire(inquire_id);
+	}
 
 }

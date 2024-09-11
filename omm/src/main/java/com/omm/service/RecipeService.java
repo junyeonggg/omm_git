@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.omm.dao.RecipeDao;
 import com.omm.dto.CommentDto;
 import com.omm.dto.CookingSequenceDto;
+import com.omm.dto.ImgDto;
 import com.omm.dto.RecipeDto;
 import com.omm.dto.Recipe_ingre;
 
@@ -90,6 +91,41 @@ public class RecipeService {
 
 	public void decreView(String table_name, String column_name, String target_column, String target_id) {
 		recipeDao.decreView(table_name, column_name, target_column, target_id);
+	}
+
+	public List<String> getMethod() {
+		return recipeDao.getMethod();
+	}
+
+	public List<String> getStatus() {
+		return recipeDao.getStatus();
+	}
+	public List<String> getIngre() {
+		return recipeDao.getIngre();
+	}
+
+	public int getInsertRecipeId(String user_id) {
+		return recipeDao.getInsertRecipeId(user_id);
+	}
+
+	public int getTargetId(CookingSequenceDto cookingSequenceDto) {
+		return recipeDao.getTargetId(cookingSequenceDto);
+	}
+
+	public void insertImg(ImgDto imgDto) {
+		recipeDao.insertImg(imgDto);
+	}
+
+	public int getImgId(ImgDto imgDto) {
+		return recipeDao.getImgId(imgDto);
+	}
+
+	public void updateImgIdAtSequence(int target_id,int img_id) {
+		recipeDao.updateImgIdAtSequence(target_id,img_id);
+	}
+
+	public ImgDto getImg(int img_id) {
+		return recipeDao.getImgByImgId(img_id);
 	}
 
 }

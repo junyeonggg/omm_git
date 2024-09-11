@@ -207,10 +207,10 @@ function socialsubmitForm(){
         window.alert("현재 사용중인 전화번호입니다.");
         return false;
      }
-//     const user_id = document.querySelector("#user_id").value;
+     const user_id = document.querySelector("#user_id").value;
 //     const user_email = document.querySelector("#user_email").value;
 //     const user_name = document.querySelector("#user_name").value;
-//     formJoin.append('user_id', user_id);
+     formJoin.append('user_id', user_id);
 //     formJoin.append('user_email', user_email);
 //     formJoin.append('user_name', user_name);
 

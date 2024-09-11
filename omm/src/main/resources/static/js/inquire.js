@@ -35,6 +35,23 @@ function updateInquire(self) {
 	self.value = "수정완료";
 	self.setAttribute("onclick","sendUpdateInquireForm()")
 }
+function deleteInquire(self){
+	const inquire_id = self;
+	$.ajax({
+		type : "post",
+		url : 'http://localhost:8080/inquire/delete',
+		data : {'inquire_id' : inquire_id},
+		success : ()=>{
+			window.alert("삭제되었습니다.");
+			window.location.href='http://localhost:8080/inquire';
+			}
+		
+	})
+	
+}
+
+
+
 function sendUpdateInquireForm(){
 	const form = document.forms.updateForm;
 	form.submit();

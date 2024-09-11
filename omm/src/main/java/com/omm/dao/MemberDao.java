@@ -67,6 +67,11 @@ public interface MemberDao {
 
     @Update("update tbl_member set user_nickname=#{user_nickname} where user_id=#{user_id}")
     void updateUserNickname(@Param("user_id") String user_id, @Param("user_nickname") String user_nickname) throws DataAccessException;
+    @Delete("delete from tbl_member where user_id=#{user_id}")
+    void delteUser(@Param("user_id") String user_id) throws DataAccessException;
+    
+    @Select("select * from tbl_member where user_id=#{user_id}")
+	public MemberDto getMemberByUserId(String name);
     @Delete("delete from tbl_member where user_nickname=#{user_nickname}")
     void deleteUser(@Param("user_nickname") String user_nickname) throws DataAccessException;
     @Select("select * from tbl_member where user_permit != 9")

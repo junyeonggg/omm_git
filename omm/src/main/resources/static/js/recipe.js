@@ -66,17 +66,125 @@ function increView(table_name, column_name, target_column, target_id) {
 	})
 
 }
-function likeSet(self,reference_type, recipe_id) {
+function likeSet(self, reference_type, recipe_id) {
 	$.ajax({
 		type: "post",
 		url: "/likeSet",
 		data: {
-			'reference_type' : reference_type,
+			'reference_type': reference_type,
 			'target_id': recipe_id,
 			'checked': self.checked
 		}
-
 	})
+}
 
+function insertSequenceTr() {
+	const target = document.querySelector("#step_tbl");
+	var trEl = document.createElement("tr");
+	trEl.innerHTML = `<td class="step_no_td"><input type="text" value="1" readonly="readonly"></td>
+						<td class="step_text_td"><textarea class="sequence_text" cols="140" rows="5" placeholder="김치를 먼저 볶아 주세요."></textarea></td>
+						<td><input class="sequence_img" type="file"></td>
+						<td><input type="button" onclick="deleteSequenceTr(this)" value="X"></td>`
+	target.appendChild(trEl);
 
 }
+
+function deleteSequenceTr(self) {
+	const target = document.querySelector("#step_tbl");
+	target.removeChild(self.parentElement.parentElement)
+}
+
+function insertIngreTr() {
+	const target = document.querySelector("#ingre_tbl");
+	trEl = document.createElement("tr");
+	trEl.innerHTML = `<td><input class="ingre_name" type="text" placeholder="재료 이름"></td>
+					<td><input class="ingre_info" type="text" placeholder="재료 양"></td>
+					<td><input type="button" onclick="deleteIngreTr(this)" value="X"></td>`;
+	target.appendChild(trEl);
+}
+function deleteIngreTr(self) {
+	const target = document.querySelector("#ingre_tbl");
+	target.removeChild(self.parentElement.parentElement)
+}
+
+function insertRecipeForm() {
+	var formRecipe = new FormData();
+
+	// 기본 정보
+	formRecipe.append("recipe_title", document.querySelector("#recipe_title").value);
+	formRecipe.append("recipe_food_name", document.querySelector("#recipe_food_name").value);
+	formRecipe.append("recipe_describe", document.querySelector("#recipe_describe").value);
+	formRecipe.append("recipe_method", document.querySelector("#recipe_method").value);
+	formRecipe.append("recipe_status", document.querySelector("#recipe_status").value);
+	formRecipe.append("recipe_ingredient", document.querySelector("#recipe_ingredient").value);
+	formRecipe.append("recipe_serving", document.querySelector("#recipe_serving").value+"인분");
+	var time_list = document.querySelectorAll(".time")
+	var time = ""
+	time_list.forEach(t=>{
+		time+=t.value;
+	});
+	formRecipe.append('recipe_time',time);
+	formRecipe.append("recipe_level", document.querySelector("#recipe_level").value);
+
+	// 재료 리스트
+	const recipe_ingre_name_list = document.querySelectorAll(".ingre_name");
+	const recipe_ingre_info_list = document.querySelectorAll(".ingre_info");
+	let recipe_ingre = [];
+	for (let i = 0; i < recipe_ingre_name_list.length; i++) {
+		let dic = {
+			ingre_name: recipe_ingre_name_list[i].value,
+			ingre_info: recipe_ingre_info_list[i].value,
+			ingre_type: '[재료]'
+		};
+		recipe_ingre.push(dic);
+	}
+	formRecipe.append('recipe_ingre', JSON.stringify(recipe_ingre));
+
+	// 시퀀스 리스트
+	const sequence_text_list = document.querySelectorAll(".sequence_text");
+	const sequence_img_list = document.querySelectorAll(".sequence_img");
+
+	let cookingSequenceDto = [];
+	for (let i = 0; i < sequence_text_list.length; i++) {
+		let sequenceId = i + 1;  // Sequence ID generation (or retrieve it from the DOM if available)
+		let dic = {
+			sequence_id: sequenceId,
+			sequence_text: sequence_text_list[i].value,
+			img_id: sequence_img_list[i].files.length > 0 ? i : 0, // Assign image ID or 0 if no image
+			recipe_id: 0,  // This would be set dynamically based on your application logic
+			sequence_step_no: i + 1
+		};
+		cookingSequenceDto.push(dic);
+	}
+	formRecipe.append('cookingSequenceDto', JSON.stringify(cookingSequenceDto));
+
+	// 이미지
+	console.log(sequence_img_list.length)
+	for (let i = 0; i < sequence_img_list.length; i++) {
+		const fileInput = sequence_img_list[i];
+		if (fileInput.files.length > 0) {
+			for (let file of fileInput.files) {
+				formRecipe.append(`sequence_img_${i}`, file);  // Append each file with a unique key
+			}
+		}else{
+			formRecipe.append(`sequence_img_${i}`, new Blob([], { type: "application/json" }));
+		}
+	}
+
+	$.ajax({
+		type: "post",
+		url: "/recipe/insert",
+		contentType: false,
+		processData: false,
+		data: formRecipe,
+		success: function(recipe_id) {
+			window.alert("레시피가 생성되었습니다.")
+			window.location.href=`/recipe_list/${recipe_id}`;
+		},
+		error: function(error) {
+			console.error("Error:", error);
+		}
+	});
+}
+
+

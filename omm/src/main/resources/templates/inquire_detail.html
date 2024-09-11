@@ -90,10 +90,12 @@
 			<form name="updateForm" action="/inquire/update" method="post">
 				<table>
 					<tr th:if="${#authentication.name == inquire.user_id}">
-						<td><input type="hidden" name="inquire_id" th:value="${inquire.inquire_id}"></td>
+						<td><input type="hidden" name="inquire_id"
+							th:value="${inquire.inquire_id}"></td>
 						<td class="btnTd"><input id="updateBtn" style="width: auto;"
 							type="button" value="수정하기" onclick="updateInquire(this)"><input
-							id="deleteBtn" style="width: auto;" type="button" value="삭제하기"></td>
+							id="deleteBtn" style="width: auto;" type="button" value="삭제하기"
+							th:onclick="deleteInquire([[${inquire.inquire_id}]])"></td>
 					</tr>
 					<tr>
 						<th>작성자 :</th>
@@ -103,7 +105,8 @@
 					<tr>
 						<th>제목 :</th>
 						<td><input style="pointer-events: none;" class="input_click"
-							type="text" name="inquire_title" placeholder="제목" th:value="${inquire.inquire_title}"></td>
+							type="text" name="inquire_title" placeholder="제목"
+							th:value="${inquire.inquire_title}"></td>
 					</tr>
 					<tr>
 						<th>내용 :</th>
@@ -124,7 +127,7 @@
 			<p class="footer-text">&copy; Your Website 2023</p>
 		</div>
 	</footer>
-
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="/js/inquire.js"></script>
 </body>
 </html>

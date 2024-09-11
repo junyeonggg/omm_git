@@ -3,6 +3,7 @@ package com.omm.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -27,5 +28,8 @@ public interface InquireDao {
 
 	@Update("update tbl_inquire set inquire_title=#{inquire_title}, inquire_content=#{inquire_content}, inquire_create_date = #{inquire_create_date} where inquire_id=#{inquire_id}")
 	public void updateForm(InquireDto inquireDto);
+
+	@Delete("delete from tbl_inquire where inquire_id = #{inquire_id}")
+	public void deleteInquire(int inquire_id);
 
 }
