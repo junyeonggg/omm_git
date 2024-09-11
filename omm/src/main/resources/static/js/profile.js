@@ -369,6 +369,7 @@ function updateButton() {
     var originalAddressZip = $("#original_user_addr_zip").val().trim();
     var originalAddress = $("#original_user_addr").val().trim();
     var originalAddressDetail = $("#original_user_addr_detail").val().trim();
+    console.log("기존 디테일 :",originalAddressDetail)
     var originalPassword = $("#original_pw").val().trim();
 
     // 현재 정보 입력 부분
@@ -384,6 +385,7 @@ function updateButton() {
     var currentAddressZip = $("#sample6_postcode").val().trim();
     var currentAddress = $("#sample6_address").val().trim();
     var currentAddressDetail = $("#sample6_detailAddress").val().trim();
+    console.log("바뀐 :",currentAddressDetail)
     var currentPassword = $("#user_pw").val().trim();
 
     // 도메인 결정
@@ -403,7 +405,8 @@ function updateButton() {
     var telChanged = originalTel !== currentTel;
     var addressZipChanged = originalAddressZip !== currentAddressZip;
     var addressChanged = originalAddress !== currentAddress;
-    var addressDetailChanged = originalAddressDetail !== currentAddressDetail;
+    var addressDetailChanged = originalAddressDetail != currentAddressDetail;
+    console.log("바뀌었는지 "+addressDetailChanged)
     var passwordChanged = originalPassword !== currentPassword && currentPassword !== ""; // 비밀번호가 변경되었거나 새로 입력된 경우
 
     if(isNicknameChecked && !isValidated){
@@ -423,6 +426,10 @@ function updateButton() {
     if (!nicknameChanged && !emailChanged && !telChanged && !addressZipChanged && !addressChanged && !addressDetailChanged && !passwordChanged && !domainChanged) {
         window.alert("수정값이 없습니다!");
         return false;
+    }
+    if (addressDetailChanged) {
+        console.log("들어옴")
+        document.querySelector("#sample6_detailAddress").value = currentAddressDetail;
     }
     // 이메일이 변경된 경우에만 중복 체크 및 인증을 요구
     if (emailChanged && domainChanged || emailIdChanged) {
@@ -446,7 +453,7 @@ function updateButton() {
     }
     // 비밀번호 유효성 검사
     var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
-    if (!passwordRegex.test(currentPassword)) {
+    if (passwordChanged && !passwordRegex.test(currentPassword)) {
         window.alert("비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.");
         $("#user_pw").focus();
         return false;
@@ -464,8 +471,8 @@ function updateButton() {
     var user_email = a+"@"+c;
     document.querySelector("#user_email").value = user_email;
 
-       form.submit();
-        window.alert("회원 정보가 성공적으로 업데이트되었습니다.")
+    form.submit();
+    window.alert("회원 정보가 성공적으로 업데이트되었습니다.")
 }
 
 function memberDrop() {

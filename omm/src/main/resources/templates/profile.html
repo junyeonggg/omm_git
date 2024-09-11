@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>마이 페이지</title>
+    <link href="/css/profile.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script th:src="@{/js/profile.js}"></script>
 </head>
@@ -92,7 +93,7 @@
                 <input type="text" name="user_addr" id="sample6_address" placeholder="주소" th:value="${member.user_addr}"
                        readonly><br>
                 <!-- 상세 주소 -->
-                <input type="hidden" id="original_user_addr_detail" th:value="${member.user_addr_detail}">
+                <input type="text" id="original_user_addr_detail" th:value="${member.user_addr_detail}">
                 <input type="text" name="user_addr_detail" id="sample6_detailAddress" placeholder="상세주소"
                        th:value="${member.user_addr_detail}">
                 <input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
