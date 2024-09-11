@@ -88,6 +88,7 @@ public interface ShopDao {
 	@Select("select * from tbl_food where food_id=#{food_id}")
 	List<HashMap<String, Object>> getFoodOrder(int food_id);
 
+	// db업데이트
 	@Update("update tbl_cart set food_quantity = #{quantity} where user_id=#{user_id} and food_id=#{food_id}")
 	void changeCnt(@Param("quantity")int quantity, @Param("food_id")int food_id, @Param("user_id")String user_id);
 
