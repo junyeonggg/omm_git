@@ -11,12 +11,42 @@
 	th:object="${memberDto}" method="post">
 	<table>
 		<tr>
+			<td><label for="user_name">이름</label></td>
+			<td><input type="text" name="user_name" id="user_name"></td>
+		</tr>
+		<tr>
+			<td>
+				<label for="user_email">이메일</label>
+			</td>
+			<td>
+				<!-- 이메일 아이디 부분을 입력할 필드 -->
+				<input type="text" name="user_email_id" id="user_email_id" placeholder="이메일 아이디" oninput="update_email()">
+				@
+				<!-- 도메인 선택과 직접 입력을 위한 필드 -->
+				<input type="text" name="user_email_domain" id="user_email_domain" placeholder="이메일 도메인" oninput="update_email()" style="display:none;" readonly>
+				<select id="domain_list" onchange="handle_domain_change()">
+					<option value="">도메인 선택</option>
+					<option value="naver.com">naver.com</option>
+					<option value="google.com">google.com</option>
+					<option value="gmail.com">gmail.com</option>
+					<option value="hanmail.net">hanmail.net</option>
+					<option value="nate.com">nate.com</option>
+					<option value="kakao.com">kakao.com</option>
+					<option value="custom">직접 입력</option>
+				</select>
+				<input type="text" id="custom_domain" placeholder="직접 입력" style="display:none;" oninput="update_email()">
+				<!-- 결합된 이메일을 저장할 필드 (hidden) -->
+				<input type="hidden" name="user_email" id="user_email">
+				<input type="button" id=check_email_btn onclick="checkEmail()" value="중복확인">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" id="email-area"></td>
+		</tr>
+		<tr>
 			<td><input type="hidden" id="check_user" th:value="${user}">
-				<input type="hidden" id="user_id" name="user_id"
-				th:value="${user_id}"> <input type="hidden" name="user_name"
-				th:value="${user_name}"> <input type="hidden"
-				name="user_email" th:value="${user_email}"> <label
-				for="user_nickname">닉네임</label></td>
+				<input type="hidden" id="user_id" name="user_id" th:value="${user_id}">
+				<label for="user_nickname">닉네임</label></td>
 			<td><input type="text" name="user_nickname" id="user_nickname">
 				<input type="button" id="check_nickname_btn"
 				onclick="checkNickname()" value="중복확인"></td>

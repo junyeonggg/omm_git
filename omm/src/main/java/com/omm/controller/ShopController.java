@@ -132,7 +132,6 @@ public class ShopController {
 		}
 		model.addAttribute("food", food);
 		model.addAttribute("user_nickname", user_nickname);
-		model.addAttribute("user_id", principal.getName());
 		// 댓글 리스트
 		// 해당 레시피의 댓글
 		List<CommentDto> comment_list = recipeService.getCommentsByTargetIdAndRefType(food.getFoodId(), 2);
@@ -214,14 +213,19 @@ public class ShopController {
 		} else {
 			cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
 			cart_list.forEach((cart) -> {
-				cart.replace("food_lprice", Integer.valueOf((String) cart.get("food_lprice")));
+				System.out.println(cart);
+				cart.replace("food_lprice", Integer.parseInt(((String) cart.get("food_lprice"))));
 			});
 			for (int i = 0; i < cart_list.size(); i++) {
-				int intPrice = Integer.parseInt((String) cart_list.get(i).get("food_lprice"));
-				totPrice += (intPrice * (Integer.parseInt((String) cart_list.get(i).get("food_quantity"))));
+				int intPrice = (int) cart_list.get(i).get("food_lprice");
+				totPrice += (intPrice * (int) cart_list.get(i).get("food_quantity"));
 			}
+		} // 마지막 수정 2024-09-11 10:16
+		MemberDto member = null;
+		if(principal != null) {
+			member = memberService.getMemberByUserId(principal.getName());
 		}
-		MemberDto member = memberService.getMemberByUserId(principal.getName());
+		
 		String uuid = UUID.randomUUID().toString().substring(0, 8);
 		String order_id = principal.getName() + "_" + uuid;
 		model.addAttribute("order_id", order_id);

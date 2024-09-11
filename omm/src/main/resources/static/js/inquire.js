@@ -13,12 +13,9 @@ function check_user(user_id) {
 	} else {
 		document.querySelector("#nlogin_modal").style = 'display:flex';
 	}
-
-
 }
 function close_modal() {
 	document.querySelector("#nlogin_modal").style = 'display:none';
-
 }
 function sendInquireForm() {
 	const form = document.forms.inquireForm;

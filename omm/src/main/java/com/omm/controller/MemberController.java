@@ -137,7 +137,7 @@ public class MemberController {
     @PostMapping("/sendmail")
     public boolean sendmail(@RequestParam("user_email") String user_email) {
         boolean flag = true;
-        String subject = "오늘 뭐먹지 회원가입 이메일 인증 번호 입니다.";
+        String subject = "오늘 뭐먹지 이메일 인증 번호 입니다.";
         String code = UUID.randomUUID().toString().substring(0, 8);
         String text = "인증번호 : " + code;
         try {
@@ -351,10 +351,14 @@ public class MemberController {
             // 사용자 정보 추출
             JSONObject userInfo = new JSONObject(userInfoResponse.getBody());
             JSONObject responseObject = userInfo.getJSONObject("response");
-            System.out.println("User Info Response: " + userInfoResponse.getBody());
+            user_name = responseObject.optString("name");
+            user_email = responseObject.optString("email");
             user_id = responseObject.optString("id");  // 사용자 ID
             user_id = user_id + "_naver";  // "_naver"로 식별자 추가
+            // 데이터 출력
             System.out.println("User ID: " + user_id);
+            System.out.println("Name: " + user_name);
+            System.out.println("Email: " + user_email);
         }
 
         model.addAttribute("user_id", user_id);
