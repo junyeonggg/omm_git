@@ -1,0 +1,132 @@
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 폼 스타일 설정 */
+form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* 테이블 스타일 설정 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+label {
+    font-weight: bold;
+    display: inline-block;
+    width: 150px;
+}
+
+/* 입력 필드 스타일 설정 */
+input[type="text"], input[type="password"], input[type="date"], select {
+    width: calc(100% - 170px);
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="text"][readonly], input[type="password"][readonly] {
+    background-color: #e9ecef;
+}
+
+/* 버튼 스타일 설정 */
+input[type="button"], button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+input[type="button"] {
+    background-color: #007bff;
+    color: white;
+}
+
+input[type="button"]:hover {
+    background-color: #0056b3;
+    opacity: 0.9;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+}
+
+button:hover {
+    background-color: #218838;
+    opacity: 0.9;
+}
+
+/* 인증 메시지 스타일 설정 */
+#verification_message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 주소 입력 필드 스타일 설정 */
+#sample6_postcode, #sample6_address, #sample6_detailAddress, #sample6_extraAddress {
+    width: calc(100% - 170px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 상태 메시지 영역 스타일 설정 */
+#nickname-area, #pw-area, #email-area, #tel-area {
+    color: #d9534f;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 선택 상자 스타일 설정 */
+select {
+    width: calc(100% - 170px);
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 숨겨진 필드와 버튼 스타일 조정 */
+input[type="hidden"] {
+    display: none;
+}
+
+/* 버튼 그룹 스타일 설정 */
+.btn-group {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 마진 및 패딩 조정 */
+input[type="button"] {
+    margin: 5px;
+}

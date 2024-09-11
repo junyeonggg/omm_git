@@ -4,27 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c49b4adb-67f2-4001-8ef1-f6ba693e15ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/omm.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/findIdPw.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/findIdPw.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/findIdPw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/find_id.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/find_id.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/find_pw.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/find_pw.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" afterDir="false" />
+    <list default="true" id="c49b4adb-67f2-4001-8ef1-f6ba693e15ac" name="Changes" comment="09 11(월) 12:43">
+      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/socialjoin.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -366,6 +348,7 @@
     <MESSAGE value="09 09(월) 16:35" />
     <MESSAGE value="09 10(월) 15:50" />
     <MESSAGE value="09 10(월) 17:46" />
-    <option name="LAST_COMMIT_MESSAGE" value="09 10(월) 17:46" />
+    <MESSAGE value="09 11(월) 12:43" />
+    <option name="LAST_COMMIT_MESSAGE" value="09 11(월) 12:43" />
   </component>
 </project>
