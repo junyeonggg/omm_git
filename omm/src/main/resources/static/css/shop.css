@@ -94,7 +94,7 @@ body {
 }
 /* 배너 컨테이너 */
 .banner-container {
-    width: 100%;
+    width: 90%;
     margin: 20px auto;
     text-align: center;
 }
