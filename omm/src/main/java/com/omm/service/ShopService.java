@@ -89,12 +89,15 @@ public class ShopService {
 		}
 	}
 
-	public void changeCheck(boolean check, int food_id, String name) {
+	public void changeCheck(boolean check, int food_id, String user_id) {
 		if (check) {
-			shopDao.changecheck(1, food_id, name);
+			shopDao.changecheck(1, food_id, user_id);
 		} else {
-			shopDao.changecheck(0, food_id, name);
+			shopDao.changecheck(0, food_id, user_id);
 		}
+	}
+	public void changeCnt(int quantity, int food_id, String user_id) {
+		shopDao.changeCnt(quantity,food_id,user_id);
 	}
 
 	public List<HashMap<String, Object>> getCartByUserIdAndCheck(String name) {
@@ -114,5 +117,6 @@ public class ShopService {
 	public List<HashMap<String, Object>> getFoodOrder(int food_id) {
 		return shopDao.getFoodOrder(food_id);
 	}
+
 
 }
