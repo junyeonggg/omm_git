@@ -3,10 +3,10 @@ function resetButton() {
 }
 
 function findid() {
-	window.open('/find_id', '아이디찾기', 'width=420,height=600,scrollbars=no,resizable=no,history=no,status=no,menubar=no');
+	window.open('/find_id', '아이디찾기', 'width=500,height=600,scrollbars=no,resizable=no,history=no,status=no,menubar=no');
 }
 function findpw() {
-	window.open('/find_pw', '비밀번호찾기', 'width=420,height=600,scrollbars=no,resizable=no,history=no,status=no,menubar=no');
+	window.open('/find_pw', '비밀번호찾기', 'width=500,height=600,scrollbars=no,resizable=no,history=no,status=no,menubar=no');
 }
 function loginButton() {
 	const form = document.loginForm;

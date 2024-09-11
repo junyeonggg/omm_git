@@ -3,6 +3,8 @@ var isNicknameChecked = false; // 닉네임 중복 체크 상태
 var isNickValidated = false; // 기본 사용 불가
 var isTelChecked = false; // 전화번호 중복 체크 상태
 var isTelValidated = false; // 기본 사용 불가
+var isEmailChecked = false; // 이메일 중복 체크 상태
+var isEmailValidated = false; // 기본 사용 불가
 
 // 닉네임 중복 체크 함수
 async function checkNickname() {
@@ -40,6 +42,39 @@ async function checkNickname() {
         isNicknameChecked = false;
     }
 }
+// 이메일 중복 체크 함수
+async function checkEmail() {
+update_email()
+
+    var email = $("#user_email").val().trim();
+
+    if (email === "") {
+        $("#email-area").html("<p>이메일을 입력해 주세요.</p>");
+        isEmailChecked = false;
+        isValidated = true;
+        return;
+    }
+    try {
+        const response = await $.ajax({
+            type: "get",
+            dataType: "text",
+            url: "http://localhost:8080/checkEmail",
+            data: { data: email }
+        });
+        if (response.trim() === "true") {
+            $("#email-area").html("<p>사용 가능한 이메일입니다.</p>");
+            isEmailChecked = true;
+            isEmailValidated = true;
+        } else {
+            $("#email-area").html("<p>사용할 수 없는 이메일입니다.</p>");
+            isEmailChecked = true;
+            isEmailValidated = false;
+        }
+    } catch (error) {
+        window.alert("에러가 발생했습니다.");
+        isEmailChecked = false;
+    }
+}
 // 전화번호 중복 체크 함수
 async function checkTel() {
     var telPrefix = $("#tel_list").val().trim(); // 국번
@@ -74,6 +109,48 @@ async function checkTel() {
     } catch (error) {
         window.alert("에러가 발생했습니다.");
         isTelChecked = false;
+    }
+}
+// 이메일 업데이트 함수
+function update_email() {
+    var emailId = $("#user_email_id").val().trim();
+    var emailDomain = $("#user_email_domain").val().trim();
+    var customDomain = $("#custom_domain").val().trim();
+    var domainSelect = $("#domain_list").val();
+    var fullEmail = '';
+
+    if (customDomain) {
+        emailDomain = customDomain;
+    } else if (domainSelect && domainSelect !== 'custom') {
+        emailDomain = domainSelect;
+    }
+
+    if (emailId && emailDomain) {
+        fullEmail = emailId + '@' + emailDomain;
+        $("#user_email").val(fullEmail);
+    }else {
+             $("#user_email").val(""); // 이메일 값이 없으면 빈 값으로 설정
+    }
+}
+
+// 도메인 변경 핸들러
+function handle_domain_change() {
+    var domainSelect = $("#domain_list").val();
+    var customDomainInput = $("#custom_domain");
+    var emailDomainInput = $("#user_email_domain");
+    var email_id_input = document.getElementById('user_email_id');
+
+    // 이메일 영역 초기화
+    isEmailChecked = false;
+    $("#email-area").html(""); // 이메일 메시지 영역 초기화
+
+    if (domainSelect === 'custom') {
+        customDomainInput.show().focus();
+        emailDomainInput.hide();
+    } else {
+        customDomainInput.hide();
+        emailDomainInput.show().val(domainSelect);
+        update_email();
     }
 }
  function handle_tel_change() {
@@ -146,8 +223,29 @@ $("#user_tel").on('input', function() {
         isTelChecked = false;
         $("#tel-area").html("");
     });
+   // 이메일 아이디 입력 필드의 값이 변경될 때
+$("#user_email_id").on('input', function() {
+        isEmailChecked = false;
+        $("#email-area").html(""); // 메시지 영역 초기화
+        update_email(); // 이메일 주소 업데이트
+    });
+    // 사용자 정의 도메인 입력 필드의 값이 변경될 때
+$("#custom_domain").on('input', function() {
+        isEmailChecked = false;
+        $("#email-area").html(""); // 메시지 영역 초기화
+        update_email(); // 이메일 주소 업데이트
+    });
+    // 도메인 리스트가 변경될 때
+$("#domain_list").on('change', function() {
+        handle_domain_change(); // 도메인 처리 함수 호출
+    });
 });
 function socialsubmitForm(){
+    var currentUserName = $("#user_name").val().trim();
+    var currentEmailId = $("#user_email_id").val().trim();
+    var currentDomain = $("#domain_list").val();
+    var currentUserDomain = $("#user_email_domain").val().trim();
+    var customDomain = $("#custom_domain").val().trim();
     var currentNickname = $("#user_nickname").val().trim();
     var currentAddress = $("#sample6_address").val().trim();
     var currentTelList = $("#tel_list").val().trim();
@@ -160,6 +258,21 @@ function socialsubmitForm(){
     // 회원가입 폼
     var formJoin = new FormData();
 
+    if(currentUserName === ""){
+         window.alert("이름을 입력해주세요")
+         $("#user_name").focus()
+         return false;
+    }
+    if (currentDomain === "custom") {
+        if (customDomain === "") {
+            window.alert("이메일 도메인을 입력해주세요.");
+            $("#custom_domain").focus();
+            return false;
+        }
+    } else if (currentEmailId === "" || currentUserDomain === "") {
+        window.alert("이메일 아이디와 도메인을 모두 입력해주세요.");
+        return false;
+    }
     if(currentNickname === ""){
             window.alert("닉네임을 입력해주세요.")
             $("#user_nickname").focus()
@@ -189,6 +302,11 @@ function socialsubmitForm(){
          $("#user_birth").focus()
          return false;
    }
+   if(!isEmailChecked) {
+         window.alert("이메일 중복 체크를 해주세요.");
+         $("#user_email").focus();
+         return false;
+   }
    if(!isNicknameChecked) {
          window.alert("닉네임 중복 체크를 해주세요.");
          $("#user_nickname").focus();
@@ -199,6 +317,10 @@ function socialsubmitForm(){
          $("#user_tel").focus();
          return false;
    }
+    if(isEmailChecked && !isEmailValidated){
+        window.alert("현재 사용중인 이메일입니다.");
+        return false;
+    }
     if(isNicknameChecked && !isNickValidated){
         window.alert("현재 사용중인 닉네임입니다.");
         return false;
@@ -208,11 +330,11 @@ function socialsubmitForm(){
         return false;
      }
      const user_id = document.querySelector("#user_id").value;
-//     const user_email = document.querySelector("#user_email").value;
-//     const user_name = document.querySelector("#user_name").value;
+     const user_email = document.querySelector("#user_email").value;
+     const user_name = document.querySelector("#user_name").value;
      formJoin.append('user_id', user_id);
-//     formJoin.append('user_email', user_email);
-//     formJoin.append('user_name', user_name);
+     formJoin.append('user_email', user_email);
+     formJoin.append('user_name', user_name);
 
     // 닉네임
     const user_nickname = document.querySelector("#user_nickname").value;

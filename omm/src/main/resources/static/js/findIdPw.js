@@ -42,3 +42,44 @@ function validatePwForm(){
         }
     })
 }
+// 이메일 업데이트 함수
+function update_email() {
+    var emailId = $("#user_email_id").val().trim();
+    var emailDomain = $("#user_email_domain").val().trim();
+    var customDomain = $("#custom_domain").val().trim();
+    var domainSelect = $("#domain_list").val();
+    var fullEmail = '';
+
+    if (customDomain) {
+        emailDomain = customDomain;
+    } else if (domainSelect && domainSelect !== 'custom') {
+        emailDomain = domainSelect;
+    }
+
+    if (emailId && emailDomain) {
+        fullEmail = emailId + '@' + emailDomain;
+        $("#user_email").val(fullEmail);
+    }else {
+             $("#user_email").val(""); // 이메일 값이 없으면 빈 값으로 설정
+    }
+}
+// 도메인 변경 핸들러
+function handle_domain_change() {
+    var domainSelect = $("#domain_list").val();
+    var customDomainInput = $("#custom_domain");
+    var emailDomainInput = $("#user_email_domain");
+    var email_id_input = document.getElementById('user_email_id');
+
+    // 이메일 영역 초기화
+    isEmailChecked = false;
+    $("#email-area").html(""); // 이메일 메시지 영역 초기화
+
+    if (domainSelect === 'custom') {
+        customDomainInput.show().focus();
+        emailDomainInput.hide();
+    } else {
+        customDomainInput.hide();
+        emailDomainInput.show().val(domainSelect);
+        update_email();
+    }
+}
