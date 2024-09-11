@@ -291,7 +291,7 @@ public class RecipeController {
 			if (!(sequence_img.get("sequence_img_" + i).getOriginalFilename().equals("blob"))) {
 				System.out.println("이미지가 있다. 작업을 시작한다.");
 				MultipartFile img = sequence_img.get("sequence_img_" + i);
-				String path = "C:\\TeamProject\\omm\\omm_git\\omm\\src\\main\\resources\\static\\img\\";
+				String path = "C:\\TeamProject\\omm_git\\omm\\src\\main\\resources\\static\\img\\";
 				ImgDto imgDto = new ImgDto();
 				String uuid = UUID.randomUUID().toString().substring(0, 8);
 				imgDto.setImg_name(uuid + "_" + img.getOriginalFilename());

@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="24-09-12 14 : 44">
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/NaverShopResponse.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/shop.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/shop.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/product_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +34,17 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="omm" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="omm" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -42,8 +56,8 @@
       <list>
         <option value="AnnotationType" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -327,28 +341,7 @@
       <option name="project" value="LOCAL" />
       <updated>1725957983617</updated>
     </task>
-    <task id="LOCAL-00019" summary="09 11(월) 12:43">
-      <created>1726026274476</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1726026274476</updated>
-    </task>
-    <task id="LOCAL-00020" summary="24-09-12 14 : 44">
-      <created>1726119851447</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1726119851447</updated>
-    </task>
-    <task id="LOCAL-00021" summary="24-09-12 14 : 44">
-      <created>1726119922706</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1726119922706</updated>
-    </task>
-    <option name="localTasksCounter" value="22" />
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -371,8 +364,7 @@
     <MESSAGE value="09 10(월) 15:50" />
     <MESSAGE value="09 10(월) 17:46" />
     <MESSAGE value="." />
-    <MESSAGE value="24-09-12 14 : 44" />
-    <option name="LAST_COMMIT_MESSAGE" value="24-09-12 14 : 44" />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
