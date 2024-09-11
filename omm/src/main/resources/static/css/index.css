@@ -1,0 +1,144 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #212529;
+    background-color: #fff;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.navbar-collapse {
+    display: flex;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    list-style: none;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: #fff;
+}
+
+/* Header Styles */
+.header {
+    position: relative;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.header-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.header-content {
+    position: relative;
+    text-align: center;
+    padding-top: 20vh;
+    z-index: 1;
+}
+
+.header-title {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.header-subtitle {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.rounded-circle {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+/* Content Section */
+.content-section {
+    padding: 50px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.col {
+    flex-basis: 45%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.lead {
+    font-size: 1.25rem;
+}
+
+.btn {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Image Section */
+.image-section {
+    background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800');
+    background-size: cover;
+    background-position: center;
+    padding: 20px 0;
+}
+
+/* Footer */
+.footer {
+    background-color: #343a40;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-text {
+    color: white;
+    margin: 0;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 관리</title>
+    <script th:src="@{/js/admin.js}"></script>
+</head>
+<body>
+<h1>회원 관리</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>닉네임</th>
+        <th>전화번호</th>
+        <th>우편번호</th>
+        <th>주소</th>
+        <th>상세주소</th>
+        <th>성별</th>
+        <th>생년월일</th>
+        <th>회원탈퇴</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${memberList}">
+        <td th:text="${member.user_id}">ID</td>
+        <td th:text="${member.user_name}">이름</td>
+        <td th:text="${member.user_email}">이메일</td>
+        <td th:text="${member.user_nickname}">닉네임</td>
+        <td th:text="${member.user_tel}">전화번호</td>
+        <td th:text="${member.user_addr_zip}">우편번호</td>
+        <td th:text="${member.user_addr}">주소</td>
+        <td th:text="${member.user_addr_detail}">상세주소</td>
+        <td th:text="${member.user_gender}">성별</td>
+        <td th:text="${member.user_birth}">생년월일</td>
+        <td>
+            <button th:data-user_nickname="${member.user_nickname}" th:data-user_id="${member.user_id}" onclick="deleteUser(this)">회원탈퇴</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<input type="button" value="홈으로" class="header-btn" onclick="location.href='/'">
+</body>
+</html>

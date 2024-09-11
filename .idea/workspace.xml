@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="c49b4adb-67f2-4001-8ef1-f6ba693e15ac" name="Changes" comment="09 11(월) 10:17">
       <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
@@ -11,12 +12,33 @@
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules/omm.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+=======
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="09 10(월) 17:46">
+      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/findIdPw.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/findIdPw.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/findIdPw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/find_id.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/find_id.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/find_pw.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/find_pw.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" afterDir="false" />
+>>>>>>> origin/junyeong
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+>>>>>>> origin/junyeong
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/omm">
       <ProjectState />
@@ -25,19 +47,355 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+<<<<<<< HEAD
         <projects_view>
           <tree_state>
             <expand />
+=======
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="omm" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="omm" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
+>>>>>>> origin/junyeong
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
+<<<<<<< HEAD
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="TaskManager">
     <servers />
   </component>
+=======
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Interface" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="yoon" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/omm/.gitignore" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/build.gradle" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/OmmApplication.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/dto/MemberDto.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/java/com/omm/service/MemberService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/application.properties" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/static/js/join1.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/static/js/login.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/static/js/script.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/cart.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/inquire_list.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/inquire_write.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/join.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/login.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/product.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/profile.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/recipe_list.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/omm/src/main/resources/templates/shop.html" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2lH3bY8sDDSeqS1JJBu76qz2vyr" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Gradle.Build omm.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.omm [:OmmApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Moon2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/82103/Documents/omm_git/omm/src/main/resources/templates&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/TeamProject/omm_git/omm/src/main/resources/static/css/product.css&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.omm.client" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\82103\Documents\omm_git\omm\src\main\resources\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\TeamProject\omm\omm_git\omm\src\main\resources\static\img" />
+      <recent name="C:\TeamProject\omm_git\omm\src\main\resources\static\img" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.OmmApplication">
+    <configuration name="NaverShoppingCrawler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.omm.crawler.NaverShoppingCrawler" />
+      <module name="omm.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.omm.crawler.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OmmApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.omm.OmmApplication" />
+      <module name="omm.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.omm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="C:/TeamProject/omm_git [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--warning-mode all" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.C:/TeamProject/omm_git [build]" />
+        <item itemvalue="Application.OmmApplication" />
+        <item itemvalue="Application.NaverShoppingCrawler" />
+        <item itemvalue="Gradle.C:/TeamProject/omm_git [build]" />
+        <item itemvalue="Application.OmmApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="" />
+      <created>1724823247677</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1724823247677</updated>
+    </task>
+    <task id="LOCAL-00001" summary="html추가">
+      <created>1724831109921</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1724831109921</updated>
+    </task>
+    <task id="LOCAL-00002" summary="html추가">
+      <created>1724831679932</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724831679932</updated>
+    </task>
+    <task id="LOCAL-00003" summary="html추가">
+      <created>1724834238512</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724834238512</updated>
+    </task>
+    <task id="LOCAL-00004" summary="html추가">
+      <created>1724907390739</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724907390739</updated>
+    </task>
+    <task id="LOCAL-00005" summary="html추가">
+      <created>1725005484734</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725005484734</updated>
+    </task>
+    <task id="LOCAL-00006" summary="html추가">
+      <created>1725265595857</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1725265595857</updated>
+    </task>
+    <task id="LOCAL-00007" summary="html추가">
+      <created>1725266715857</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1725266715857</updated>
+    </task>
+    <task id="LOCAL-00008" summary="html추가">
+      <created>1725350481924</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1725350481924</updated>
+    </task>
+    <task id="LOCAL-00009" summary="html추가">
+      <created>1725350714165</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1725350714165</updated>
+    </task>
+    <task id="LOCAL-00010" summary="login.html css 진행중">
+      <created>1725524522767</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1725524522767</updated>
+    </task>
+    <task id="LOCAL-00011" summary="login.html css 진행중">
+      <created>1725524647175</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1725524647175</updated>
+    </task>
+    <task id="LOCAL-00012" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592009943</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725592009943</updated>
+    </task>
+    <task id="LOCAL-00013" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592068866</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725592068866</updated>
+    </task>
+    <task id="LOCAL-00014" summary="login.html css 완&#10;09-06 12:06">
+      <created>1725592110856</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725592110856</updated>
+    </task>
+    <task id="LOCAL-00015" summary="회원가입 유효성 완료&#10;정규식(비밀번호) 체크해야함">
+      <created>1725612253624</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1725612253624</updated>
+    </task>
+    <task id="LOCAL-00016" summary="09 09(월) 16:35">
+      <created>1725937420884</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1725937420884</updated>
+    </task>
+    <task id="LOCAL-00017" summary="09 10(월) 15:50">
+      <created>1725951084816</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1725951084816</updated>
+    </task>
+    <task id="LOCAL-00018" summary="09 10(월) 17:46">
+      <created>1725957983617</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1725957983617</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="html추가" />
+    <MESSAGE value="login.html css 진행중" />
+    <MESSAGE value="login.html css 완&#10;09-06 12:06" />
+    <MESSAGE value="회원가입 유효성 완료&#10;정규식(비밀번호) 체크해야함" />
+    <MESSAGE value="09 09(월) 16:35" />
+    <MESSAGE value="09 10(월) 15:50" />
+    <MESSAGE value="09 10(월) 17:46" />
+    <option name="LAST_COMMIT_MESSAGE" value="09 10(월) 17:46" />
+  </component>
+>>>>>>> origin/junyeong
 </project>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/index.css}" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>문의 상세보기</title>
+
+<style>
+.body_div {
+	min-height: 750px;
+}
+
+.inquire_tbl_div {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	display: flex;
+}
+
+.inquire_tbl_div table td input, textarea {
+	width: 800px;
+}
+
+.inquire_tbl_div, textarea {
+	min-height: 500px;
+}
+
+.btnTd input {
+	margin: 12px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#updateBtn {
+	background-color: lightblue;
+	color: white;
+	border: none;
+}
+
+#updateBtn:hover {
+	background-color: blue;
+	box-shadow: 1px 1px 3px 2px lightblue;
+	text-shadow: 1px 1px 1px black;
+}
+
+#deleteBtn {
+	background-color: #FAA0A0;
+	border: none;
+	color: white;
+}
+
+#deleteBtn:hover {
+	background-color: red;
+	box-shadow: 1px 1px 3px 2px #FAA0A0;
+	text-shadow: 1px 1px 1px black;
+}
+</style>
+
+</head>
+<body>
+	<!-- Responsive navbar-->
+	<nav class="navbar">
+		<div class="container">
+			<!-- 브랜드명이나 로고 -->
+			<a class="navbar-brand" href="/">Your Brand</a>
+			<div class="navbar-collapse">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active" th:href="@{/}">홈으로</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link active" th:href="@{/login}">로그인</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+							class="nav-link active" th:href="@{/join}">회원가입</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/cart}">장바구니</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="body_div">
+		<div class="inquire_tbl_div">
+			<form name="updateForm" action="/inquire/update" method="post">
+				<table>
+					<tr th:if="${#authentication.name == inquire.user_id}">
+						<td><input type="hidden" name="inquire_id"
+							th:value="${inquire.inquire_id}"></td>
+						<td class="btnTd"><input id="updateBtn" style="width: auto;"
+							type="button" value="수정하기" onclick="updateInquire(this)"><input
+							id="deleteBtn" style="width: auto;" type="button" value="삭제하기"
+							th:onclick="deleteInquire([[${inquire.inquire_id}]])"></td>
+					</tr>
+					<tr>
+						<th>작성자 :</th>
+						<td><input style="pointer-events: none;" type="text"
+							readonly="readonly" th:value="${inquire.user_nickname}"></td>
+					</tr>
+					<tr>
+						<th>제목 :</th>
+						<td><input style="pointer-events: none;" class="input_click"
+							type="text" name="inquire_title" placeholder="제목"
+							th:value="${inquire.inquire_title}"></td>
+					</tr>
+					<tr>
+						<th>내용 :</th>
+						<td><textarea style="pointer-events: none;"
+								class="input_click" th:text="${inquire.inquire_content}"
+								name="inquire_content" placeholder="내용"></textarea></td>
+					</tr>
+					<tr>
+						<th>첨부파일</th>
+						<td><input type="file"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="footer-text">&copy; Your Website 2023</p>
+		</div>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="/js/inquire.js"></script>
+</body>
+</html>

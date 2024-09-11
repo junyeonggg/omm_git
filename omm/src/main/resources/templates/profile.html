@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이 페이지</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/js/profile.js}"></script>
+</head>
+<h1>마이 페이지</h1>
+<form name="profileForm" id="profileForm" action="/profile" th:object="${member}" method="post">
+    <table>
+        <tr>
+            <td>
+                <label for="user_nickname">닉네임</label>
+            </td>
+            <td>
+                <input type="text" name="user_nickname" id="user_nickname" th:value="${member.user_nickname}">
+                <input type="button" id="check_nickname_btn" onclick="checkNickname()" value="중복확인">
+                <input type="hidden" id="original_nickname" th:value="${member.user_nickname}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="nickname-area"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_pw">비밀번호</label>
+            </td>
+            <td>
+                <input type="password" name="user_pw" id="user_pw" placeholder="8~16자로 입력.">
+                <input type="hidden" id="original_pw" th:value="${member.user_pw}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="pw-area"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_email">이메일</label>
+            </td>
+            <td>
+                <!-- 이메일 아이디 부분을 입력할 필드 -->
+                <input type="text" name="user_email_id" id="user_email_id" placeholder="이메일 아이디"
+                       th:value="${member.user_email.split('@')[0]}" oninput="update_email()">
+                @
+                <!-- 도메인 선택과 직접 입력을 위한 필드 -->
+                <input type="text" name="user_email_domain" id="user_email_domain" placeholder="이메일 도메인" oninput="update_email()" style="display:none;">
+                <select id="domain_list" onchange="handle_domain_change()">
+                    <option value="">도메인 선택</option>
+                    <option value="naver.com" th:selected="${member.user_email.endsWith('naver.com')}">naver.com
+                    </option>
+                    <option value="google.com" th:selected="${member.user_email.endsWith('google.com')}">google.com
+                    </option>
+                    <option value="gmail.com" th:selected="${member.user_email.endsWith('gmail.com')}">gmail.com
+                    </option>
+                    <option value="hanmail.net" th:selected="${member.user_email.endsWith('hanmail.net')}">hanmail.net
+                    </option>
+                    <option value="nate.com" th:selected="${member.user_email.endsWith('nate.com')}">nate.com</option>
+                    <option value="kakao.com" th:selected="${member.user_email.endsWith('kakao.com')}">kakao.com
+                    </option>
+                    <option value="custom" th:selected="${!member.user_email.contains('@')}">직접 입력</option>
+                </select>
+                <input type="hidden" id="original_user_domain" th:value="${member.user_email.split('@')[1]}">
+                <input type="text" id="custom_domain" placeholder="직접 입력" style="display:none;"
+                       oninput="update_email()">
+                <!-- 결합된 이메일을 저장할 필드 (hidden) -->
+                <input type="hidden" name="user_email" id="user_email">
+                <input type="hidden" id="original_email" th:value="${member.user_email}">
+                <input type="button" id=check_email_btn onclick="checkEmail()" value="중복확인">
+                <input type="button" onclick="sendmail()" value="인증 이메일 전송">
+                <input type="text" id="verification_code" placeholder="인증 번호 입력">
+                <input type="button" onclick="verifyEmailCode()" value="인증 확인">
+                <div id="verification_message"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="email-area"></td>
+        </tr>
+        <tr>
+            <td>
+                <label>주소</label>
+            </td>
+            <td>
+                <!-- 우편번호 -->
+                <input type="hidden" id="original_user_addr_zip" th:value="${member.user_addr_zip}">
+                <input type="text" name="user_addr_zip" id="sample6_postcode" placeholder="우편번호"
+                       th:value="${member.user_addr_zip}" readonly>
+                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+
+                <!-- 전체 주소 -->
+                <input type="hidden" id="original_user_addr" th:value="${member.user_addr}">
+                <input type="text" name="user_addr" id="sample6_address" placeholder="주소" th:value="${member.user_addr}"
+                       readonly><br>
+                <!-- 상세 주소 -->
+                <input type="hidden" id="original_user_addr_detail" th:value="${member.user_addr_detail}">
+                <input type="text" name="user_addr_detail" id="sample6_detailAddress" placeholder="상세주소"
+                       th:value="${member.user_addr_detail}">
+                <input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user_tel">전화번호</label>
+            </td>
+            <td>
+                <select id="tel_list" name="tel_front" th:value="${member.user_tel.substring(0, 3)}">
+                    <option value="">국번 선택</option>
+                    <option value="010" th:selected="${member.user_tel.startsWith('010')}">010</option>
+                    <option value="011" th:selected="${member.user_tel.startsWith('011')}">011</option>
+                    <option value="012" th:selected="${member.user_tel.startsWith('012')}">012</option>
+                    <option value="013" th:selected="${member.user_tel.startsWith('013')}">013</option>
+                    <option value="014" th:selected="${member.user_tel.startsWith('014')}">014</option>
+                    <option value="015" th:selected="${member.user_tel.startsWith('015')}">015</option>
+                    <option value="016" th:selected="${member.user_tel.startsWith('016')}">016</option>
+                    <option value="017" th:selected="${member.user_tel.startsWith('017')}">017</option>
+                    <option value="018" th:selected="${member.user_tel.startsWith('018')}">018</option>
+                    <option value="019" th:selected="${member.user_tel.startsWith('019')}">019</option>
+                </select>
+                <!-- 중간번호 -->
+                <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호"
+                       th:value="${member.user_tel.substring(3)}">
+                <input type="button" id=check_tel_btn onclick="checkTel()" value="중복확인">
+                <input type="hidden" id="original_tel" th:value="${member.user_tel}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="tel-area"></td>
+        </tr>
+    </table>
+    <input type="button" value="수정하기" onclick="updateButton()">
+    <input type="button" value="홈으로" onclick="location.href='/'">
+    <input type="button" value="회원탈퇴" onclick="memberDrop()">
+</form>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Full Width Pics Landing Page Template" />
+    <meta name="author" content="Start Bootstrap" />
+    <title th:text="'Full Width Pics - Start Bootstrap Template'">Full Width Pics - Start Bootstrap Template</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- Custom CSS -->
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+</head>
+<body>
+<!-- Responsive navbar-->
+<nav class="navbar">
+    <div class="container">
+        <!-- 브랜드명이나 로고 -->
+        <a class="navbar-brand" href="#">Your Brand</a>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav">
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link active" th:href="@{/login}">로그인</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
+                <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a class="nav-link active" th:href="@{/admin}">회원관리</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active" th:href="@{/cart}">장바구니</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Header with Video Background -->
+<header class="header">
+    <video autoplay muted loop class="header-video">
+        <source th:src="@{/img/background.mp4}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="header-content">
+        <img class="rounded-circle mb-4" th:src="@{'https://dummyimage.com/150x150/6c757d/dee2e6.jpg'}" alt="..." />
+        <h1 class="header-title">Full Width Pics</h1>
+        <p class="header-subtitle">Landing Page Template</p>
+    </div>
+</header>
+
+<!-- Content Section -->
+<section class="content-section">
+    <div class="container">
+        <div class="row">
+            <!-- 쇼핑하기 -->
+            <div class="col text-center">
+                <h2>쇼핑하기</h2>
+                <p class="lead">필요한 식재료를 편리하게 쇼핑하세요.</p>
+                <a th:href="@{/shop}" class="btn">쇼핑하기</a>
+            </div>
+            <!-- 레시피 보러가기 -->
+            <div class="col text-center">
+                <h2>레시피 보러가기</h2>
+                <p class="lead">다양한 레시피를 탐색해보세요.</p>
+                <a th:href="@{'/recipe_list'}" class="btn">레시피 보러가기</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Image Section with Background -->
+<div class="image-section">
+    <div style="height: 20rem;"></div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p class="footer-text">&copy; Your Website 2023</p>
+    </div>
+</footer>
+
+<!-- Custom JS -->
+<script src="js/script.js"></script>
+</body>
+</html>
