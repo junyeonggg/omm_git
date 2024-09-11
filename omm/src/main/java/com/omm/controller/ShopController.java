@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-//github.com/junyeonggg/omm_git.git
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-//github.com/junyeonggg/omm_git.git
-
 import com.omm.dto.CartDto;
 import com.omm.dto.CategoryDto;
 import com.omm.dto.CommentDto;
@@ -28,7 +24,6 @@ import com.omm.dto.FoodDto;
 import com.omm.dto.MemberDto;
 import com.omm.dto.OrderDto;
 import com.omm.dto.PaymentRequest;
-import com.omm.service.CategoryService;
 import com.omm.service.MemberService;
 import com.omm.service.RecipeService;
 import com.omm.service.ShopService;
@@ -43,17 +38,17 @@ public class ShopController {
 //	@Value("${payment.toss.success_url}")
 //	private String successUrl;
 //	@Value("${payment.toss.fail_url}")
-//	private String failUrl;
+	private String failUrl;
 
 	public static final String URL = "https://api.tosspayments.com/v1/payments/";
 	@Autowired
 	private ShopService shopService;
-	@Autowired
-	private MemberService memberService;
-	@Autowired
-	private CategoryService categoryService;
+
 	@Autowired
 	private RecipeService recipeService;
+
+	@Autowired
+	private MemberService memberService;
 
 	@GetMapping("/shop")
 	public String shop(@RequestParam(value = "query", required = false) String query,
@@ -189,25 +184,23 @@ public class ShopController {
 
 		return "";
 	}
-	
+
 	@ResponseBody
-	@PostMapping("/changeCheck") 
+	@PostMapping("/changeCheck")
 	public String changeCheck(@RequestParam("check") boolean check, @RequestParam("food_id") int food_id,
 			Principal principal) {
 		shopService.changeCheck(check, food_id, principal.getName());
 		return "";
 	}
-	
+
 	@ResponseBody
-	@PostMapping("/changeCnt") 
+	@PostMapping("/changeCnt")
 	public String changeCnt(@RequestParam("quantity") int quantity, @RequestParam("food_id") int food_id,
 			Principal principal) {
 		shopService.changeCnt(quantity, food_id, principal.getName());
 		return "";
 	}
-	
-	
-	
+
 	// 장바구니 -> 주문 페이지
 	@GetMapping("/order")
 	public String orderPage(Model model, Principal principal,
@@ -219,12 +212,12 @@ public class ShopController {
 		if (food_id != -1) {
 			cart_list = shopService.getFoodOrder(food_id);
 			cart_list.get(0).put("food_quantity", food_quantity);
-			cart_list.get(0).replace("food_lprice",Integer.parseInt((String) cart_list.get(0).get("food_lprice")));
+			cart_list.get(0).replace("food_lprice", Integer.parseInt((String) cart_list.get(0).get("food_lprice")));
 			totPrice = (int) cart_list.get(0).get("food_lprice") * food_quantity;
 		} else {
 			try {
 				cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
-			}catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println("비로그인");
 				return "login";
 			}
@@ -238,10 +231,10 @@ public class ShopController {
 			}
 		} // 마지막 수정 2024-09-11 10:16
 		MemberDto member = null;
-		if(principal != null) {
+		if (principal != null) {
 			member = memberService.getMemberByUserId(principal.getName());
 		}
-		
+
 		String uuid = UUID.randomUUID().toString().substring(0, 8);
 		String order_id = principal.getName() + "_" + uuid;
 		model.addAttribute("order_id", order_id);
