@@ -1,10 +1,16 @@
 // 전역 변수 선언
-var isIdChecked = false;    // 아이디 중복 체크 상태
 var isNicknameChecked = false; // 닉네임 중복 체크 상태
 var isEmailChecked = false; // 이메일 중복 체크 상태
-var isIdAvailable = false; // 기본값: 사용 불가로 설정
-var isEmailAvailable = false; // 이메일 사용 가능 여부
-var pastId = "";
+var isTelChecked = false; // 전화번호 중복 체크 상태
+var isEmailVerified = false; // 이메일 인증 상태
+var isIdChecked = false;
+var isIdValidated = false; // 기본 사용 불가
+var isNickValidated = false; // 기본 사용 불가
+var isEmailValidated = false; // 기본 사용 불가
+var isTelValidated = false; // 기본 사용 불가
+
+
+
 
 // 아이디 중복 체크 함수
 async function checkId() {
@@ -12,13 +18,13 @@ async function checkId() {
     if (snd_data === "") {
         $("#id-area").html("<p>아이디를 입력해 주세요.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 확인이 필요함
+        isIdValidated = true; // 아이디 확인이 필요함
         return;
     }
     if (snd_data.length < 4 || snd_data.length > 12) {
         $("#id-area").html("<p>아이디는 4~12자로 입력해주세요.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 확인이 필요함
+        isIdValidated = false; // 아이디 확인이 필요함
         return;
     }
     try {
@@ -32,239 +38,433 @@ async function checkId() {
         if (!/^[a-z0-9]+$/.test(snd_data)) {
         $("#id-area").html("<p>아이디는 소문자와 숫자만 포함해야 합니다.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 확인이 필요함
+        isIdValidated = false; // 아이디 확인이 필요함
         return;
         }
         if (data === "true") {
             $("#id-area").html("<p>사용 가능한 아이디입니다.</p>");
             isIdChecked = true; // 중복 체크 완료, 아이디 사용 가능
-            isIdAvailable = true; // 아이디가 사용 가능함
+            isIdValidated = true; // 아이디가 사용 가능함
         } else {
             $("#id-area").html("<p>사용할 수 없는 아이디입니다.</p>");
             isIdChecked = true; // 중복 체크 완료, 아이디 사용 불가
-            isIdAvailable = false; // 아이디가 사용 불가함
+            isIdValidated = false; // 아이디가 사용 불가함
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
         isIdChecked = false; // 에러 발생 시 중복 체크 미완료 상태
-        isIdAvailable = false; // 아이디 상태 확인 불가
+        isIdValidated = false; // 아이디 상태 확인 불가
     }
 }
 
 // 닉네임 중복 체크 함수
 async function checkNickname() {
-    var snd_data = $("#user_nickname").val().trim();
-    if (snd_data === "") {
+    var nickname = $("#user_nickname").val().trim();
+    if (nickname === "") {
         $("#nickname-area").html("<p>닉네임을 입력해 주세요.</p>");
-        isIdChecked = false;
-        isIdAvailable = false;
+        isNicknameChecked = false;
+        isNickValidated = true;
         return;
     }
-    if (snd_data.length < 2 || snd_data.length > 6) {
-        $("#nickname-area").html("<p>닉네임는 2~6자로 입력해주세요.</p>");
-        isIdChecked = false;
-        isIdAvailable = false;
+    if (nickname.length < 2 || nickname.length > 6) {
+        $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
+        isNicknameChecked = false;
+        isNickValidated = false;
         return;
     }
     try {
-        const data = await $.ajax({
+        const response = await $.ajax({
             type: "get",
             dataType: "text",
             url: "http://localhost:8080/checkNickname",
-            data: { data: snd_data }
+            data: { data: nickname }
         });
-        if (data === "true") {
+        if (response.trim() === "true") {
             $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
-            isIdChecked = true;
-            isIdAvailable = true;
+            isNicknameChecked = true;
+            isNickValidated = true;
         } else {
             $("#nickname-area").html("<p>사용할 수 없는 닉네임입니다.</p>");
-            isIdChecked = true;
-            isIdAvailable = false;
+            isNicknameChecked = true;
+            isNickValidated = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
-        isIdChecked = false;
-        isIdAvailable = false;
+        isNicknameChecked = false;
     }
 }
 
 // 이메일 중복 체크 함수
 async function checkEmail() {
-    var snd_data = $("#user_email").val().trim();
-    if (snd_data === "") {
+update_email()
+
+    var email = $("#user_email").val().trim();
+
+    if (email === "") {
         $("#email-area").html("<p>이메일을 입력해 주세요.</p>");
-        isIdChecked = false;
-        isIdAvailable = false;
+        isEmailChecked = false;
+        isValidated = true;
         return;
     }
     try {
-        const data = await $.ajax({
+        const response = await $.ajax({
             type: "get",
             dataType: "text",
             url: "http://localhost:8080/checkEmail",
-            data: { data: snd_data }
+            data: { data: email }
         });
-        if (data === "true") {
+        if (response.trim() === "true") {
             $("#email-area").html("<p>사용 가능한 이메일입니다.</p>");
-            isIdChecked = true;
-            isIdAvailable = true;
+            isEmailChecked = true;
+            isEmailValidated = true;
         } else {
             $("#email-area").html("<p>사용할 수 없는 이메일입니다.</p>");
-            isIdChecked = true;
-            isIdAvailable = false;
+            isEmailChecked = true;
+            isEmailValidated = false;
         }
     } catch (error) {
         window.alert("에러가 발생했습니다.");
-        isIdChecked = false;
-        isIdAvailable = false;
+        isEmailChecked = false;
     }
 }
-function update_email() {
-        var email_id = document.getElementById('user_email_id').value.trim();
-        var email_domain = document.getElementById('user_email_domain').value.trim();
-        var custom_domain = document.getElementById('custom_domain').value.trim();
-        var domain_select = document.getElementById('domain_list').value;
-        var full_email = '';
 
-        // 직접 입력된 도메인이 있으면 그것을 사용
-        if (custom_domain) {
-            email_domain = custom_domain;
-        } else if (domain_select && domain_select !== 'custom') {
-            email_domain = domain_select;
-        }
+// 전화번호 중복 체크 함수
+async function checkTel() {
+    var telPrefix = $("#tel_list").val().trim(); // 국번
+    var telNumber = $("#user_tel").val().trim(); // 중간번호
 
-        // 이메일 아이디와 도메인이 모두 입력되었을 때만 결합
-        if (email_id && email_domain) {
-            full_email = email_id + '@' + email_domain;
-        }
+    if (telPrefix === "" || telNumber === "") {
+        $("#tel-area").html("<p>전화번호를 입력해 주세요.</p>");
+        isTelChecked = false;
+        isTelValidated = true;
+        return;
+    }
+    var fullTel = telPrefix + telNumber;
 
-        document.getElementById('user_email').value = full_email;
- }
+    try {
+        const response = await $.ajax({
+            type: "get",
+            dataType: "text",
+            url: "http://localhost:8080/checkTel",
+            data: { data: fullTel }
+        });
 
-function handle_domain_change() {
-        var domain_select = document.getElementById('domain_list');
-        var custom_domain_input = document.getElementById('custom_domain');
-        var email_domain_input = document.getElementById('user_email_domain');
+        if (response.trim() === "true") {
+            $("#tel-area").html("<p>사용 가능한 전화번호입니다.</p>");
+            isTelChecked = true;
+            isTelValidated = true;
 
-        if (domain_select.value === 'custom') {
-            custom_domain_input.style.display = 'inline';
-            email_domain_input.style.display = 'none';
-            custom_domain_input.focus();
         } else {
-            custom_domain_input.style.display = 'none';
-            email_domain_input.style.display = 'inline';
-            email_domain_input.value = domain_select.value;
-            update_email();
+            $("#tel-area").html("<p>사용할 수 없는 전화번호입니다.</p>");
+            isTelChecked = true;
+            isTelValidated = false;
         }
+    } catch (error) {
+        window.alert("에러가 발생했습니다.");
+        isTelChecked = false;
+    }
 }
- function handle_tel_change() {
-    var tel_list = document.getElementById('tel_list').value;
-    var tel_mid = document.getElementById('tel_mid').value.trim();
-    var tel_end = document.getElementById('tel_end').value.trim();
+// 이메일 업데이트 함수
+function update_email() {
+    var emailId = $("#user_email_id").val().trim();
+    var emailDomain = $("#user_email_domain").val().trim();
+    var customDomain = $("#custom_domain").val().trim();
+    var domainSelect = $("#domain_list").val();
+    var fullEmail = '';
+
+    if (customDomain) {
+        emailDomain = customDomain;
+    } else if (domainSelect && domainSelect !== 'custom') {
+        emailDomain = domainSelect;
+    }
+
+    if (emailId && emailDomain) {
+        fullEmail = emailId + '@' + emailDomain;
+        $("#user_email").val(fullEmail);
+    }else {
+             $("#user_email").val(""); // 이메일 값이 없으면 빈 값으로 설정
+    }
+}
+
+// 도메인 변경 핸들러
+function handle_domain_change() {
+    var domainSelect = $("#domain_list").val();
+    var customDomainInput = $("#custom_domain");
+    var emailDomainInput = $("#user_email_domain");
+    var email_id_input = document.getElementById('user_email_id');
+
+    // 이메일 영역 초기화
+    isEmailChecked = false;
+    $("#email-area").html(""); // 이메일 메시지 영역 초기화
+
+    if (domainSelect === 'custom') {
+        customDomainInput.show().focus();
+        emailDomainInput.hide();
+    } else {
+        customDomainInput.hide();
+        emailDomainInput.show().val(domainSelect);
+        update_email();
+    }
+}
+
+// 전화번호 변경 핸들러
+function handle_tel_change() {
+    var telPrefix = $("#tel_list").val();
+    var telMid = $("#tel_mid").val().trim();
+    var telEnd = $("#tel_end").val().trim();
     var fullPhoneNumber = '';
 
-        // 전화번호가 완성된 경우
-        if (tel_list && tel_mid && tel_end) {
-            fullPhoneNumber = tel_list + '-' + tel_mid + '-' + tel_end;
-        }
-        // 숨겨진 필드에 전화번호 업데이트
-        document.getElementById('user_tel').value = fullPhoneNumber;
+    if (telPrefix && telMid && telEnd) {
+        fullPhoneNumber = telPrefix + '-' + telMid + '-' + telEnd;
+        $("#user_tel").val(fullPhoneNumber);
     }
+}
+
+// 주소 찾기 함수
 function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 주소 변수와 참고항목 변수를 초기화
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = '';
+            var extraAddr = '';
 
-                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우
-                    addr = data.jibunAddress;
-                }
-
-                // 도로명 주소일 때 참고항목을 조합
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 참고항목이 있을 경우 괄호로 감싸서 최종 문자열을 만든다
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 입력
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-                document.getElementById("sample6_extraAddress").value = extraAddr;
-
-                // 전체 주소를 user_addr 필드에 저장
-                var postcode = data.zonecode;
-                var fullAddress = addr + extraAddr;
-
-                // 우편번호를 user_addr_zip 필드에 저장
-                document.getElementById('user_addr_zip').value = postcode;
-
-                // 전체 주소를 user_addr 필드에 저장
-                document.getElementById('user_addr').value = fullAddress;
-
-                // 커서를 상세주소 필드로 이동
-                document.getElementById("sample6_detailAddress").focus();
-
-            }
-        }).open();
-}
-function sendmail(){
-    user_email_id = document.querySelector("#user_email_id").value
-    domain_list = document.querySelector("#domain_list").value
-    user_email = user_email_id+"@"+domain_list;
-    const url = "/sendmail"
-    $.ajax({
-        type:"post",
-        url : url,
-        data : {user_email:user_email},
-        success : data=>{
-            if(data){
-                window.alert("이메일이 발송되었습니다.")
+            if (data.userSelectedType === 'R') {
+                addr = data.roadAddress;
             } else {
-                window.alert("이메일 발송에 실패했습니다.")
+                addr = data.jibunAddress;
             }
-        }
-    })
-}
-function verifyEmailCode(){
-    const code = document.querySelector("#verification_code").value
-    const url = "/checkEmailCode";
-    user_email_id = document.querySelector("#user_email_id").value
-    domain_list = document.querySelector("#domain_list").value
-    user_email = user_email_id+"@"+domain_list;
-    $.ajax({
-        type:"post",
-        url : url,
-        data : {user_email:user_email,code:code},
-        success : data=>{
-            if(data){
-                window.alert("이메일 인증이 확인되었습니다.")
-            }else{
-                window.alert("인증번호를 확인해 주세요.")
+
+            if (data.userSelectedType === 'R') {
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraAddr += data.bname;
+                }
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if (extraAddr !== '') {
+                    extraAddr = ' (' + extraAddr + ')';
+                }
             }
+
+            $("#sample6_postcode").val(data.zonecode);
+            $("#sample6_address").val(addr);
+            $("#sample6_extraAddress").val(extraAddr);
+            $("#sample6_detailAddress").focus().val("");
         }
-    })
+    }).open();
 }
 
-function resetButton() {
-    document.getElementById('joinForm').reset();
+// 이메일 인증 메일 전송 함수
+function sendmail() {
+    var emailId = $("#user_email_id").val().trim();
+    var domainSelect = $("#domain_list").val();
+    var customDomain = $("#custom_domain").val().trim();
+    var userEmail = '';
+
+    // 이메일 입력 값 확인
+    if (!emailId) {
+        window.alert("이메일 아이디를 입력해 주세요.");
+        return;
+    }
+
+    if (domainSelect === 'custom' && !customDomain) {
+        window.alert("이메일 도메인을 입력해 주세요.");
+        return;
+    } else if (domainSelect !== 'custom' && !domainSelect) {
+        window.alert("도메인을 선택해 주세요.");
+        return;
+    }
+
+    // 이메일 주소 생성
+    userEmail = domainSelect === 'custom' ? emailId + "@" + customDomain : emailId + "@" + domainSelect;
+
+    $.ajax({
+        type: "post",
+        url: "/sendmail",
+        data: { 'user_email': userEmail },
+        success: function(data) {
+            if (data) {
+                window.alert("이메일이 발송되었습니다.");
+                isEmailVerified = false; // 인증 대기 상태로 설정
+            } else {
+                window.alert("이메일 발송에 실패했습니다.");
+            }
+        }
+    });
 }
+
+// 이메일 인증 코드 확인 함수
+function verifyEmailCode() {
+    var code = $("#verification_code").val().trim();
+    var emailId = $("#user_email_id").val().trim();
+    var domainSelect = $("#domain_list").val();
+    var customDomain = $("#custom_domain").val().trim();
+    var userEmail = '';
+
+    // 이메일 입력 값 확인
+    if (!emailId) {
+        window.alert("이메일 아이디를 입력해 주세요.");
+        return;
+    }
+
+    if (domainSelect === 'custom' && !customDomain) {
+        window.alert("이메일 도메인을 입력해 주세요.");
+        return;
+    } else if (domainSelect !== 'custom' && !domainSelect) {
+        window.alert("도메인을 선택해 주세요.");
+        return;
+    }
+
+    // 인증 코드 입력 값 확인
+    if (!code) {
+        window.alert("인증 코드를 입력해 주세요.");
+        return;
+    }
+
+    // 이메일 주소 생성
+    userEmail = domainSelect === 'custom' ? emailId + "@" + customDomain : emailId + "@" + domainSelect;
+
+    $.ajax({
+        type: "post",
+        url: "/checkEmailCode",
+        data: { 'user_email': userEmail, 'code': code },
+        success: function(data) {
+            if (data) {
+                window.alert("이메일 인증이 확인되었습니다.");
+                isEmailVerified = true; // 인증 완료 상태로 설정
+            } else {
+                window.alert("인증번호를 확인해 주세요.");
+                isEmailVerified = false; // 인증 실패 상태로 설정
+            }
+        }
+    });
+}
+
+// 입력 필드 변경 시 중복 체크 상태 초기화
+$(document).ready(function() {
+    $("#user_id").on('input', function() {
+        isIdChecked = false;
+        $("#id-area").html("");
+    });
+
+    $("#user_nickname").on('input', function() {
+        isNicknameChecked = false;
+        $("#nickname-area").html("");
+    });
+
+    // 이메일 아이디 입력 필드의 값이 변경될 때
+    $("#user_email_id").on('input', function() {
+        isEmailChecked = false;
+        $("#email-area").html(""); // 메시지 영역 초기화
+        update_email(); // 이메일 주소 업데이트
+    });
+
+    // 이메일 도메인 입력 필드의 값이 변경될 때
+    $("#user_email_domain").on('input', function() {
+        isEmailChecked = false;
+        $("#email-area").html(""); // 메시지 영역 초기화
+        update_email(); // 이메일 주소 업데이트
+    });
+
+    // 사용자 정의 도메인 입력 필드의 값이 변경될 때
+    $("#custom_domain").on('input', function() {
+        isEmailChecked = false;
+        $("#email-area").html(""); // 메시지 영역 초기화
+        update_email(); // 이메일 주소 업데이트
+    });
+
+    // 도메인 리스트가 변경될 때
+    $("#domain_list").on('change', function() {
+        handle_domain_change(); // 도메인 처리 함수 호출
+    });
+
+    $("#user_tel").on('input', function() {
+        isTelChecked = false;
+        $("#tel-area").html("");
+    });
+});
 
 function submitForm(self){
+   // 중복 체크 함수들 호출
+    checkId();
+    checkNickname();
+    checkEmail();
+    checkTel();
+
+   //   각 필드에 대한 피드백 표시
+    var feedbackMessages = [];
+    if (!isIdChecked) feedbackMessages.push("아이디 중복 체크를 먼저 해주세요.");
+    if (!isNicknameChecked) feedbackMessages.push("닉네임 중복 체크를 먼저 해주세요.");
+    if (!isEmailChecked) feedbackMessages.push("이메일 중복 체크를 먼저 해주세요.");
+    if (!isTelChecked) feedbackMessages.push("전화번호 중복 체크를 먼저 해주세요.");
+
+    if (feedbackMessages.length > 0) {
+        window.alert(feedbackMessages.join("\n"));
+        return false; // 중복 체크가 완료되지 않았으므로 폼 제출 중지
+    }
+    update_email()
+
+    // 이메일 인증 상태 확인
+//    if (isEmailChecked && !isEmailVerified) {
+//        window.alert("이메일 인증을 먼저 완료해 주세요.");
+//        return false;
+//    }
+    var currentUserId = $("#user_id").val().trim();
+    var currentPassword = $("#user_pw").val().trim();
+    var currentUserName = $("#user_name").val().trim();
+    var currentNickname = $("#user_nickname").val().trim();
+    var currentEmailId = $("#user_email_id").val().trim();
+    var currentDomain = $("#domain_list").val();
+    var currentUserDomain = $("#user_email_domain").val().trim();
+    var customDomain = $("#custom_domain").val().trim();
+    var currentEmail = $("#user_email").val().trim();
+    var currentAddressZip = $("#sample6_postcode").val().trim();
+    var currentAddress = $("#sample6_address").val().trim();
+    var currentAddressDetail = $("#sample6_detailAddress").val().trim();
+    var currentBirth = $("#user_birth").val().trim();
+
+   if(currentPassword === ""){
+        window.alert("비밀번호 값을 입력해주세요.")
+        $("#user_pw").focus()
+        return false;
+   }
+   if(currentUserName === ""){
+         window.alert("이름을 입력해주세요.")
+         $("#user_name").focus()
+         return false;
+   }
+   if(currentAddress === ""){
+         window.alert("주소를 입력해주세요.")
+         $("#user_addr").focus()
+         return false;
+   }
+   var gender = $("input[name='user_gender']:checked").val();
+      if (!gender) {
+          window.alert("성별을 선택해주세요.");
+          return false;
+   }
+   if(currentBirth === ""){
+         window.alert("생년월일을 입력해주세요.")
+         $("#user_birth").focus()
+         return false;
+   }
+
+   if(isIdChecked && !isIdValidated){
+        window.alert("현재 사용중인 아이디입니다.");
+        return false;
+    }
+    if(isNicknameChecked && !isNickValidated){
+        window.alert("현재 사용중인 닉네임입니다.");
+        return false;
+    }
+     if(isEmailChecked && !isEmailValidated){
+        window.alert("현재 사용중인 이메일입니다.");
+        return false;
+     }
+     if(isTelChecked && !isTelValidated){
+        window.alert("현재 사용중인 전화번호입니다.");
+        return false;
+     }
+
     // 상세주소를 user_addr_detail 필드에 저장
     var detailAddress = document.getElementById("sample6_detailAddress").value;
     var submitBtn = document.getElementById('submitBtn');
@@ -274,20 +474,19 @@ function submitForm(self){
     // 아이디
     const user_id = document.querySelector("#user_id").value;
     formJoin.append('user_id',user_id)
-    console.log("user_id : ",user_id)
 
     //비밀번호
     const user_pw = document.querySelector("#user_pw").value;
     formJoin.append('user_pw',user_pw)
-    console.log("user_pw : ",user_pw)
+
     // 이름
     const user_name = document.querySelector("#user_name").value;
     formJoin.append('user_name',user_name)
-    console.log("user_name : ",user_name)
+
     // 닉네임
     const user_nickname = document.querySelector("#user_nickname").value;
     formJoin.append('user_nickname',user_nickname)
-    console.log("user_nickname : ",user_nickname)
+
     // 이메일
     const user_email_id = document.querySelector("#user_email_id").value;
     const user_email_domain = document.querySelector("#user_email_domain").value;
@@ -298,23 +497,25 @@ function submitForm(self){
     }else{
          user_email = `${user_email_id}@${user_email_domain}`;
     }
-    console.log("user_email : ",user_email)
+    formJoin.append('user_email',user_email)
+
     // 주소 부분
-    const user_addr_zip = document.querySelector("#user_addr_zip").value;
-    const user_addr = document.querySelector("#user_addr").value;
+    const user_addr_zip = document.querySelector("#sample6_postcode").value;
+    const user_addr = document.querySelector("#sample6_address").value;
     const user_addr_detail = document.querySelector("#sample6_detailAddress").value;
     formJoin.append('user_addr_zip',user_addr_zip);
     formJoin.append('user_addr',user_addr);
     formJoin.append('user_addr_detail',user_addr_detail);
-    console.log("user_addr_zip : ",user_addr_zip)
-    console.log("user_addr : ",user_addr)
-    console.log("user_addr_detail : ",user_addr_detail)
+    console.log(user_addr_zip)
+    console.log(user_addr)
+    console.log(user_addr_detail)
+
     //전화번호
     const user_tel_front = document.querySelector("#tel_list").value;
     const user_tel_back = document.querySelector("#user_tel").value;
     const user_tel = user_tel_front+user_tel_back;
     formJoin.append('user_tel',user_tel);
-    console.log("user_tel : ",user_tel)
+
     // 성별
     const gender_radio_list = document.getElementsByName("user_gender");
     var user_gender = "";
@@ -325,11 +526,11 @@ function submitForm(self){
         }
     }
     formJoin.append('user_gender',user_gender)
-    console.log("user_gender : ",user_gender)
+
     // 생년월일
     const user_birth = document.querySelector("#user_birth").value;
     formJoin.append('user_birth',user_birth);
-    console.log("user_birth : ",user_birth)
+
     $.ajax({
         type : "post",
         url : "http://localhost:8080/join",
@@ -347,15 +548,12 @@ function submitForm(self){
                             window.location.replace("http://localhost:8080/")
                             }
                 })
+            }else {
+                window.alert("회원가입에 실패하였습니다.")
             }
-        },
-        error : window.alert("회원가입이 실패 하였습니다..")
+        }
     })
-
-    // 폼 제출
-    // document.getElementById('joinForm').submit()
-    //const form = document.forms.joinForm
-    //form.submit()
 }
+
 
 

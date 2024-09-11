@@ -1,169 +1,144 @@
-@charset "UTF-8";
-
-/* Bootstrap 기본 색상 변수들 */
-:root {
-  --bs-blue: #0d6efd;
-  --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
-  --bs-pink: #d63384;
-  --bs-red: #dc3545;
-  --bs-orange: #fd7e14;
-  --bs-yellow: #ffc107;
-  --bs-green: #198754;
-  --bs-teal: #20c997;
-  --bs-cyan: #0dcaf0;
-  --bs-black: #000;
-  --bs-white: #fff;
-  --bs-gray: #6c757d;
-  --bs-gray-dark: #343a40;
-  --bs-primary: #0d6efd;
-  --bs-secondary: #6c757d;
-  --bs-success: #198754;
-  --bs-info: #0dcaf0;
-  --bs-warning: #ffc107;
-  --bs-danger: #dc3545;
-  --bs-light: #f8f9fa;
-  --bs-dark: #212529;
-}
-
-/* 전역 설정 */
+/* Global Styles */
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #212529;
+    background-color: #fff;
 }
 
-/* Navbar 스타일 (수정 전으로 복구) */
+/* Navbar Styles */
 .navbar {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
+    background-color: #343a40;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.navbar-nav {
-    margin-left: auto; /* 네비게이션 항목을 오른쪽으로 밀어냄 */
-    display: flex; /* 네비게이션 항목을 가로로 정렬 */
-    gap: 10px;
+
+.navbar-brand {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
 }
 
 .navbar-collapse {
-    display: flex; /* 전체 네비게이션 바를 플렉스 컨테이너로 설정 */
-    justify-content: space-between; /* 요소들을 양쪽 끝으로 분배 */
-    align-items: center; /* 요소들을 수직 중앙에 정렬 */
+    display: flex;
 }
 
-.navbar-expand-lg {
-  flex-wrap: nowrap;
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
 }
 
-.navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+.nav-item {
+    list-style: none;
 }
 
-.navbar-dark .navbar-nav .nav-link.active,
-.navbar-dark .navbar-nav .nav-link:hover {
-  color: #fff;
+.nav-link {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
 }
 
-.bg-dark {
-  background-color: #343a40 !important;
+.nav-link.active,
+.nav-link:hover {
+    color: #fff;
 }
 
-.container {
-  width: 100%;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin-right: auto;
-  margin-left: auto;
+/* Header Styles */
+.header {
+    position: relative;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
 }
 
-/* 텍스트와 배경 스타일 */
-.text-center {
-  text-align: center !important;
+.header-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
-.my-5 {
-  margin-top: 3rem !important;
-  margin-bottom: 3rem !important;
+.header-content {
+    position: relative;
+    text-align: center;
+    padding-top: 20vh;
+    z-index: 1;
 }
 
-.img-fluid {
-  max-width: 100%;
-  height: auto;
+.header-title {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.header-subtitle {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .rounded-circle {
-  border-radius: 50% !important;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
 }
 
-.text-white {
-  color: #fff !important;
+/* Content Section */
+.content-section {
+    padding: 50px 0;
 }
 
-.fs-3 {
-  font-size: 1.75rem !important;
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.fw-bolder {
-  font-weight: bolder !important;
-}
-
-.text-white-50 {
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-
-.py-5 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
-}
-
-.bg-image-full {
-  background-position: center center;
-  background-size: cover;
-}
-
-/* Footer 스타일 (수정 전으로 복구) */
-footer {
-  padding: 3rem 0;
-  background-color: #343a40;
-  color: #fff;
-  text-align: center;
-}
-
-footer p {
-  margin: 0;
-}
-
-/* 추가된 스타일 */
 .row {
-  display: flex; /* 행을 플렉스 컨테이너로 설정 */
-  flex-wrap: wrap; /* 아이템이 줄을 넘을 때 자동으로 다음 줄로 감 */
-  justify-content: center; /* 수평 중앙 정렬 */
-  margin: 0; /* 여백 제거 */
+    display: flex;
+    justify-content: space-around;
 }
 
-.col-md-4 {
-  padding: 0 0.5rem; /* 각 열에 수평 패딩 추가 */
-  margin-bottom: 1rem; /* 모바일 화면에서의 하단 여백 */
+.col {
+    flex-basis: 45%;
 }
 
-/* 중앙 정렬 및 높이 조정 */
-section.py-5 {
-  display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
-  flex-direction: column; /* 세로로 정렬 */
-  min-height: 50vh; /* 전체 뷰포트 높이를 차지하도록 설정 */
-  box-sizing: border-box; /* 패딩과 테두리를 높이에 포함 */
+.text-center {
+    text-align: center;
 }
 
+.lead {
+    font-size: 1.25rem;
+}
+
+.btn {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Image Section */
+.image-section {
+    background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800');
+    background-size: cover;
+    background-position: center;
+    padding: 20px 0;
+}
+
+/* Footer */
+.footer {
+    background-color: #343a40;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-text {
+    color: white;
+    margin: 0;
+}

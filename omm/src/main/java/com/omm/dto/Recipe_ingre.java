@@ -16,5 +16,5 @@ public class Recipe_ingre {
 	private String ingre_type;
 	private String ingre_name;
 	private String ingre_info;
-	private String mange_id;
+	private int recipe_id;
 }

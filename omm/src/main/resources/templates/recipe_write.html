@@ -1,10 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/index.css}" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>레시피</title>
+<style>
+
+
+.flex_container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.flex_item {
+	margin: 50px;
+}
+table td{
+	background-color: lightgray;
+}
+
+</style>
+
+
+
 </head>
 <body>
 
+	<!-- Responsive navbar-->
+	<nav class="navbar">
+		<div class="container">
+			<!-- 브랜드명이나 로고 -->
+			<a class="navbar-brand" href="#">Your Brand</a>
+			<div class="navbar-collapse">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
+					<ul class="navbar-nav me-auto">
+						<!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
+					</ul>
+					<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+					<ul class="navbar-nav">
+						<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+						<li sec:authorize="isAnonymous()" class="nav-item"><a
+							class="nav-link active" th:href="@{/login}">로그인</a></li>
+						<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!-- 레시피 -->
+	<div class="flex_container">
+		<!-- 레시피 타이틀 -->
+		<div class="flex_item">
+			<table>
+				<tr>
+					<th>레시피 제목</th>
+					<td><input id="recipe_title" name="recipe_title" type="text" value="레시피 제목"></td>
+				</tr>
+				<tr>
+					<th>요리 이름</th>
+					<td><input id="recipe_food_name" name="recipe_food_name" type="text" placeholder="요리 이름"></td>
+				</tr>
+				<tr>
+					<th>레시피 설명</th>
+					<td><textarea id="recipe_describe" name="recipe_describe" rows="5" cols="120">레시피 짧은 설명</textarea></td>
+				</tr>
+				<tr>
+					<th>Serving</th>
+					<td><input id="recipe_serving" style="width: 40px; text-align: center;"
+						type="number">인분</td>
+				</tr>
+				<tr>
+					<th>난이도</th>
+					<td><select id="recipe_level">
+							<option value="">난이도</option>
+							<option value="초급">초급</option>
+							<option value="중급">중급</option>
+							<option value="고급">고급</option>
+							<option value="아무나">아무나</option>
+					</select>
+				</tr>
+
+
+
+				<tr>
+					<th>요리 시간</th>
+					<td><input class="time"
+						style="width: 40px; text-align: center;" type="number"> <select
+						class="time">
+							<option value="분">분</option>
+							<option value="시간">시간</option>
+					</select> <select class="time">
+							<option>이하</option>
+							<option>이상</option>
+					</select></td>
+
+				</tr>
+
+				<tr>
+					<th>요리 방법</th>
+					<td><select id="recipe_method">
+							<!-- 요리 방법 -->
+							<option>요리방법</option>
+							<option th:each="method : ${method_list}" th:value="${method}"
+								th:text="${method}"></option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>요리 상황</th>
+					<td><select id="recipe_status">
+							<option>요리 상황</option>
+							<option th:each="status : ${status_list}" th:value="${status}"
+								th:text="${status}"></option>
+					</select></td>
+
+				</tr>
+				<tr>
+					<th>요리 메인 재료</th>
+					<td><select id="recipe_ingredient">
+							<option>메인 재료</option>
+							<option th:each="ingre : ${ingre_list}" th:value="${ingre}"
+								th:text="${ingre}"></option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>재료</th>
+					<td>
+						<table id="ingre_tbl">
+							<tr>
+								<td><input type="button" onclick="insertIngreTr()"
+									value="재료 추가"></td>
+							</tr>
+							<tr>
+								<td><input type="text" value="[재료]" readonly="readonly"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<th>레시피 순서</th>
+					<td><table id="step_tbl">
+							<tr>
+								<td><input type="button" onclick="insertSequenceTr()"
+									value="순서 추가"></td>
+							</tr>
+						</table></td>
+				</tr>
+			</table>
+			<input type="button" onclick="insertRecipeForm()" value="레시피 생성 !">
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="footer-text">&copy; Your Website 2023</p>
+		</div>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script th:src="@{/js/recipe.js}"></script>
 </body>
 </html>

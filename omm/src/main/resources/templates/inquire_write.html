@@ -2,23 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>문의</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/index.css}" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>문의 상세보기</title>
+
+<style>
+.input_click {
+	
+}
+
+.body_div {
+	min-height: 750px;
+}
+
+.inquire_tbl_div {
+	margin: 50px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	display: flex;
+}
+
+.inquire_tbl_div table td input, textarea {
+	width: 800px;
+}
+
+.inquire_tbl_div, textarea {
+	min-height: 500px;
+}
+</style>
+
 </head>
 <body>
-	<table>
-		<tr>
-			<th>작성자 : </th>
-			<td><input type="text" th:value="${user_id}"></td>
-		</tr>
-		<tr>
-			<th>제목 : </th>
-			<td><input type="text" placeholder="제목"></td>
-		</tr>
-		<tr>
-			<th>내용 : </th>
-			<td><textarea placeholder="내용"></textarea> </td>
-		</tr>
-	</table>
+	<!-- Responsive navbar-->
+	<nav class="navbar">
+		<div class="container">
+			<!-- 브랜드명이나 로고 -->
+			<a class="navbar-brand" href="/">Your Brand</a>
+			<div class="navbar-collapse">
+				<ul class="navbar-nav">
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link active" th:href="@{/login}">로그인</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="body_div">
+		<div class="inquire_tbl_div">
+			<form name="inquireForm" method="post" action="/inquire/write">
+				<table>
+					<tr>
+						<th>작성자 :</th>
+						<td><input name="user_nickname" class="input_click"
+							type="text" readonly="readonly" th:value="${user_nickname}"></td>
+					</tr>
+					<tr>
+						<th>제목 :</th>
+						<td><input name="inquire_title" class="input_click"
+							type="text" placeholder="제목"></td>
+					</tr>
+					<tr>
+						<th>내용 :</th>
+						<td><textarea name="inquire_content" class="input_click"
+								placeholder="내용"></textarea></td>
+					</tr>
+					<tr>
+						<th>첨부파일</th>
+						<td><input type="file"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="1"><button onclick="sendInquireForm()"
+								style="width: 100%;">작성하기</button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="footer-text">&copy; Your Website 2023</p>
+		</div>
+	</footer>
 
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="/js/inquire.js">
+		
+	</script>
 </body>
 </html>

@@ -2,40 +2,181 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>문의게시판</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/index.css}" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>Title</title>
 <style>
-.inquire_tbl{
-	text-align: center;	
-} 
-.inquire_tbl_tr:hover{
+.inquire_div {
+	min-height: 460px;
+}
+
+.img_div {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	display: flex;
+	display: flex;
+	margin-bottom: 100px;
+}
+
+img {
+	height: 200px;
+	width: 98%;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px 2px black;
+}
+
+.inquire_tbl {
+	text-align: center;
+	width: 100%;
+}
+
+.inquire_tbl th {
+	background-color: gray;
+}
+
+.inquire_tbl_tr:hover {
 	background-color: lightblue;
-	border : solid 1px;
+	border: solid 1px;
 	border-color: blue;
+}
+
+.nlogin_modal {
+	position: absolute;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.nlogin_modal_item {
+	position: relative;
+	bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	width: 500px;
+	height: 200px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px 2px gray;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background-color: white;
+	align-items: center;
+	bottom: 100px;
+}
+.tbl_paging{
+	margin-bottom: 20px;
+}
+.tbl_paging td:hover {
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px 2px gray;
+	font-weight: bolder;
+}
+
+.tbl_paging td {
+	width: 50px;
+	user-select: none;
+	text-align: center;
+}
+
+.paging_list {
+	display: flex;
+	justify-content: center;
 }
 </style>
 </head>
 <body>
-	<div sec:authorize="isAuthenticated()">
-		<button><a href="/inquire/write">작성하기</a></button>
+	<!-- Responsive navbar-->
+	<nav class="navbar">
+		<div class="container">
+			<!-- 브랜드명이나 로고 -->
+			<a class="navbar-brand" href="/">Your Brand</a>
+			<div class="navbar-collapse">
+				<ul class="navbar-nav">
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+					<li sec:authorize="isAnonymous()" class="nav-item"><a
+						class="nav-link active" th:href="@{/login}">로그인</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a
+						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/join}">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- 비 로그인 일 시 -->
+	<div id="nlogin_modal" class="nlogin_modal">
+		<div class="nlogin_modal_item">
+			<h2>로그인이 필요한 서비스 입니다.</h2>
+			<a href="/login" style="margin-bottom: 20px;">로그인 하러가기</a>
+			<button onclick="close_modal()">닫기</button>
+		</div>
 	</div>
+	<div class="img_div">
+		<img alt=""
+			src="https://help.worksmobile.com/wp-content/uploads/2024/04/tips_IMG_31.png">
+	</div>
+	<div class="inquire_div">
+		<div style="float: right">
+			<button th:onclick="check_user([[${user_nickname}]])">작성하기</button>
+		</div>
+		<table class="inquire_tbl">
+			<tr>
+				<th>번호</th>
+				<th>문의 제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+			</tr>
+			<tr class="inquire_tbl_tr" th:each="inquire,info : ${inquire_list}"
+				th:data-inquire-id="${inquire.inquire_id}"
+				onclick="inquire_detail(this)">
+				<td th:text="${info.count}"></td>
+				<td th:text="${inquire.inquire_title}"></td>
+				<td th:text="${inquire.user_id}"></td>
+				<td th:text="${inquire.inquire_create_date}"></td>
+			</tr>
+		</table>
+	</div>
+	<!-- 페이징 영역 -->
+	<div class="paging_list">
+		<table class="tbl_paging">
+			<tr>
+				<td th:if="${paging.prevPage}"
+					th:onclick="|location.href='@{http://localhost:8080/inquire(page=${paging.startPage-1},keyword=${paging.keyword})}'|"
+					th:text="${'<'}"></td>
+				<td
+					th:style="${number == paging.current_page ? 'border-radius: 5px;box-shadow: 1px 1px 2px 2px gray;font-weight: bolder' : ''}"
+					th:each="number : ${#numbers.sequence(paging.startPage,paging.endPage)}"
+					th:text="${number}"
+					th:onclick="|location.href='@{http://localhost:8080/inquire(page=${number},keyword=${paging.keyword})}'|"></td>
+				<td th:if="${paging.nextPage}"
+					th:onclick="|location.href='@{http://localhost:8080/inquire(page=${paging.endPage+1},keyword=${paging.keyword})}'|"
+					th:text="${'>'}"></td>
+			</tr>
+		</table>
 
-	<table class="inquire_tbl">
-		<tr>
-			<th>번호</th>
-			<th>문의 제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-		</tr>
-		<tr class="inquire_tbl_tr" th:each="inquire,info : ${inquire_list}" th:data-inquire-id="${inquire.inquire_id}" onclick="inquire_detail(this)">
-			<td th:text="${info.count}"></td>
-			<td th:text="${inquire.inquire_title}"></td>
-			<td th:text="${inquire.user_id}"></td>
-			<td th:text="${inquire.inquire_create_date}"></td>
-		</tr>
-	</table>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="footer-text">&copy; Your Website 2023</p>
+		</div>
+	</footer>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="js/inquire.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="js/inquire.js"></script>
 
 
 </body>
