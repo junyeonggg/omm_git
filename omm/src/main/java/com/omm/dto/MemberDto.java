@@ -22,7 +22,6 @@ public class MemberDto {
 //    @Size(min = 8, max = 16, message = "비밀번호는 8~16자리여야 합니다.")
 //    @Pattern(regexp = "^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$", message = "비밀번호는 하나의 특수문자를 포함해야 하며, 대문자와 한글은 포함될 수 없습니다.")
     private String user_pw;
-
     private String user_name;
     private String user_nickname;
     private String user_email;
