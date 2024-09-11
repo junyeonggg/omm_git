@@ -199,41 +199,53 @@ public class ShopController {
 		return "";
 	}
 
+	// 장바구니 -> 주문 페이지
 	@GetMapping("/order")
-	public String orderPage(Model model, Principal principal) {
-		List<HashMap<String, Object>> cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
-		cart_list.forEach((cart) -> {
-			cart.replace("food_lprice", Integer.valueOf((String) cart.get("food_lprice")));
-		});
-		MemberDto member = memberService.getMemberByUserId(principal.getName());
+	public String orderPage(Model model, Principal principal,
+			@RequestParam(value = "food_id", defaultValue = "-1") int food_id,
+			@RequestParam(value = "food_quantity", defaultValue = "-1") int food_quantity) {
+		List<HashMap<String, Object>> cart_list = null;
 		// 총 결제 금액
 		int totPrice = 0;
-		for(int i=0; i<cart_list.size();i++) {
-			totPrice += (int) cart_list.get(i).get("food_lprice");
+		if (food_id != -1) {
+			cart_list = shopService.getFoodOrder(food_id);
+			cart_list.get(0).put("food_quantity", food_quantity);
+			totPrice = Integer.parseInt((String) cart_list.get(0).get("food_lprice")) * food_quantity;
+		} else {
+			cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
+			cart_list.forEach((cart) -> {
+				cart.replace("food_lprice", Integer.valueOf((String) cart.get("food_lprice")));
+			});
+			for (int i = 0; i < cart_list.size(); i++) {
+				int intPrice = Integer.parseInt((String) cart_list.get(i).get("food_lprice"));
+				totPrice += (intPrice * (Integer.parseInt((String) cart_list.get(i).get("food_quantity"))));
+			}
 		}
+		MemberDto member = memberService.getMemberByUserId(principal.getName());
 		String uuid = UUID.randomUUID().toString().substring(0, 8);
-		String order_id = principal.getName()+"_"+uuid;
+		String order_id = principal.getName() + "_" + uuid;
 		model.addAttribute("order_id", order_id);
 		model.addAttribute("totPrice", totPrice);
 		model.addAttribute("member", member);
 		model.addAttribute("cart_list", cart_list);
-		
+
 		return "order";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/order")
-	public String orderInsert(OrderDto orderDto ,@RequestParam("food_id_list") List<String> food_id_list,Principal principal) {
+	public String orderInsert(OrderDto orderDto, @RequestParam("food_id_list") List<String> food_id_list,
+			Principal principal) {
 		orderDto.setUser_id(principal.getName());
-		shopService.insertOrder(orderDto,food_id_list);
-		
+		shopService.insertOrder(orderDto, food_id_list);
+
 		return "";
 	}
 
 	@GetMapping("/success")
 	public String paySuccess(@RequestParam(value = "orderId") String orderid,
-			@RequestParam(value = "paymentKey") String paymentKey, @RequestParam(value = "amount") String amount,@RequestParam("food_id_list")List<Integer> food_id_list,
-			Model model) {
+			@RequestParam(value = "paymentKey") String paymentKey, @RequestParam(value = "amount") String amount,
+			@RequestParam("food_id_list") List<Integer> food_id_list, Model model) {
 		model.addAttribute("order_id", orderid);
 		model.addAttribute("food_id_list", food_id_list);
 		return "success";

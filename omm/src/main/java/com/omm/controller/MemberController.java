@@ -1,59 +1,41 @@
 package com.omm.controller;
 
 
-import com.omm.dao.MemberDao;
-import com.omm.dto.MemberDto;
-import com.omm.service.EmailService;
-import com.omm.service.MemberService;
-import com.omm.service.UserSecurityService;
-import jakarta.validation.Valid;
-import org.json.JSONObject;
 import java.security.Principal;
-
-import java.security.Principal;
-import java.util.*;
-
+import java.util.List;
 import java.util.UUID;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.omm.dto.MemberDto;
-import com.omm.service.EmailService;
-import com.omm.service.MemberService;
-import com.omm.service.UserSecurityService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.*;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.omm.dto.MemberDto;
+import com.omm.service.EmailService;
+import com.omm.service.MemberService;
+import com.omm.service.UserSecurityService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
@@ -121,16 +103,8 @@ public class MemberController {
     @ResponseBody
     @PostMapping("/socialjoin")
     public String socialJoinPost(@Valid MemberDto dto, Errors errors, Model model, HttpSession session) {
-        System.out.println("소셜회원가입 들어옴");
-        System.out.println(dto.toString());
-        // 비밀번호가 null일 경우, 소셜 로그인 ID를 비밀번호로 설정
-        if (dto.getUser_pw() == null || dto.getUser_pw().isEmpty()) {
-            dto.setUser_pw(dto.getUser_id());
-        }
         // 회원가입 처리
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(dto.getUser_id());
-        dto.setUser_pw(encodedPassword);
+        dto.setUser_pw(dto.getUser_id());
         user_service.create(dto);
         // 홈 페이지로 리디렉션
         return "true";

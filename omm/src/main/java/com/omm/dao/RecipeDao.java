@@ -64,7 +64,7 @@ public interface RecipeDao {
 	@Update("update ${table_name} set ${column_name} = ${column_name}+1 where ${target_column}=${target_id};")
 	boolean increView(@Param("table_name") String table_name,@Param("column_name") String column_name, @Param("target_column") String target_column, @Param("target_id") String target_id);
 
-	// 조회수, 추천수 감소
+	// 추천수 감소
 	@Update("update ${table_name} set ${column_name} = ${column_name}-1 where ${target_column}=${target_id};")
 	boolean decreView(@Param("table_name") String table_name,@Param("column_name") String column_name, @Param("target_column") String target_column, @Param("target_id") String target_id);
 	

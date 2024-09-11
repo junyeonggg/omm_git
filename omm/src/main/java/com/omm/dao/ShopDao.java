@@ -85,4 +85,7 @@ public interface ShopDao {
 	@Insert("insert into tbl_order values(null,#{order_id}, #{user_id},#{order_date},#{food_id})")
 	void insertOrder(OrderDto orderDto);
 
+	@Select("select * from tbl_food where food_id=#{food_id}")
+	List<HashMap<String, Object>> getFoodOrder(int food_id);
+
 }

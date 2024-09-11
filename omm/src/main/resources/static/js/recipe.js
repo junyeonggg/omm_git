@@ -177,8 +177,9 @@ function insertRecipeForm() {
 		contentType: false,
 		processData: false,
 		data: formRecipe,
-		success: function(response) {
-			console.log("Success:", response);
+		success: function(recipe_id) {
+			window.alert("레시피가 생성되었습니다.")
+			window.location.href=`/recipe_list/${recipe_id}`;
 		},
 		error: function(error) {
 			console.error("Error:", error);
