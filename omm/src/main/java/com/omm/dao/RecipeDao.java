@@ -14,6 +14,9 @@ import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.ImgDto;
 import com.omm.dto.RecipeDto;
 import com.omm.dto.Recipe_ingre;
+import org.springframework.dao.DataAccessException;
+
+import javax.xml.crypto.Data;
 
 @Mapper
 public interface RecipeDao {
@@ -106,5 +109,21 @@ public interface RecipeDao {
 	@Select("select * from tbl_img where img_id=#{img_id}")
 	ImgDto getImgByImgId(int img_id);
 	
-	
+	@Update("update tbl_comment set comment_content=#{newCommentText} where comment_id=#{commentId}")
+	void updateComment(@Param("newCommentText") String newCommentText,
+					   @Param("commentId") int commentId) throws DataAccessException;
+	@Delete("delete from tbl_comment where comment_id=#{commentId}")
+	void deleteComment(@Param("commentId") int commentId) throws DataAccessException;
+	@Select("select ingre_type, ingre_name from tbl_ingre join tbl_recipe on tbl_recipe.recipe_id = tbl_ingre.recipe_id")
+	List<String> joinIngreType() throws DataAccessException;
+
+	@Delete("delete from tbl_recipe where recipe_id=#{recipe_id}")
+	void deleteRecipe(@Param("recipe_id") int recipe_id) throws DataAccessException;
+
+
+	@Select("select * from tbl_ingre where ingre_id=#{ingre_id}")
+	Recipe_ingre selectIngreByIngreId(int ingre_id);
+
+	@Update("update tbl_ingre set ingre_name=#{ingre_name}, ingre_info =#{ingre_info} where ingre_id=#{ingre_id}")
+	void updateIngre(Recipe_ingre db_ingre);
 }

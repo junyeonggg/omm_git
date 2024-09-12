@@ -177,6 +177,10 @@
 	</nav>
 	<!-- 레시피 -->
 	<div class="flex_container">
+		<div th:if="${recipe.user_id != user_id}">
+			<input type="button" th:onclick="replace([[${recipe.recipe_id}]])" value="수정하기">
+			<input type="button" th:onclick="'deleteRecipe(' + ${recipe.recipe_id} + ')'" value="삭제하기">
+		</div>
 		<!-- 레시피 타이틀 -->
 		<div class="flex_item recipe_title">
 			<!-- 돌아가기  -->
@@ -254,6 +258,10 @@
 							</div>
 						</div>
 						<p class="card-text" th:text="${comment.comment_content}"></p>
+						<button type="button" onclick="editReplyBtn(this)"
+								th:data-comment-id="${comment.comment_id}">수정</button>
+						<button type="button" onclick="deleteReplyBtn(this)"
+								th:data-comment-id="${comment.comment_id}">삭제</button>
 					</div>
 					<!-- 답글 출력 -->
 					<br>
