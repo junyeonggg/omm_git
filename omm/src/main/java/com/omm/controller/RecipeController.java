@@ -450,8 +450,6 @@ public class RecipeController {
 	@PostMapping("/updateComment")
 	public String updateComment(@RequestParam("commentId") int commentId,
 								@RequestParam("newCommentText") String newCommentText) {
-		System.out.println("commentId: " + commentId);
-		System.out.println("newCommentText: " + newCommentText);
 		try {
 			boolean updated = recipeService.updateComment(newCommentText, commentId); // 댓글 업데이트
 			if (updated) {

@@ -284,4 +284,35 @@ public class ShopController {
 			@RequestParam(value = "message") String ERROR_MESSAGE, @RequestParam(value = "orderId") String ORDER_ID) {
 		return "fail";
 	}
+
+	@ResponseBody
+	@PostMapping("/editReview")
+	public String editReview(@RequestParam("comment_id") int commentId,
+							@RequestParam("new_content") String newContent) {
+		try {
+			boolean updated = shopService.updateReview(commentId, newContent); // 리뷰 업데이트
+			if (updated) {
+				return "{\"success\": true, \"message\": \"리뷰가 수정되었습니다.\"}"; // 성공 응답
+			} else {
+				return "{\"success\": false, \"message\": \"리뷰 수정에 실패했습니다.\"}"; // 실패 응답
+			}
+		} catch (Exception e) {
+			return "{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}"; // 예외 처리 응답
+		}
+	}
+
+	@ResponseBody
+	@PostMapping("/deleteReview")
+	public String deleteReview(@RequestParam("comment_id") int commentId) {
+		try {
+			boolean deleted = shopService.deleteReview(commentId); // 리뷰 삭제
+			if (deleted) {
+				return "{\"success\": true, \"message\": \"리뷰가 삭제되었습니다.\"}"; // 성공 응답
+			} else {
+				return "{\"success\": false, \"message\": \"리뷰 삭제에 실패했습니다.\"}"; // 실패 응답
+			}
+		} catch (Exception e) {
+			return "{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}"; // 예외 처리 응답
+		}
+	}
 }

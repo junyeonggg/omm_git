@@ -111,48 +111,47 @@ html, body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
 /* 별점 관련 스타일 */
 .rate {
     display: inline-block;
-    border: 0;
-    margin-right: 15px;
     position: relative;
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* 별점의 크기 조정 */
+    font-family: FontAwesome; /* FontAwesome 아이콘 사용 */
 }
 
 .rate > input {
-    display: none;
+    display: none; /* 실제 라디오 버튼 숨김 */
 }
 
 .rate > label {
-    float: right;
     color: #ddd;
     cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-size: 1.5rem;
     transition: color 0.3s ease;
 }
 
 .rate > label:before {
     content: "\f005"; /* 별 모양 */
-    font-family: FontAwesome;
-    font-size: 1.5rem;
-    display: inline-block;
-    padding: .3rem .2rem;
 }
 
 .rate .half:before {
-    content: "\f089"; /* 반개 별 모양 */
+    content: "\f089"; /* 반별 모양 */
     position: absolute;
-    padding-right: 0;
-    font-size: 1.5rem;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
 }
 
 .rate input:checked ~ label,
 .rate label:hover,
 .rate label:hover ~ label {
-    color: #f73c32 !important; /* 클릭되었거나 호버 상태의 별 색상 */
-    transition: color 0.3s ease;
+    color: #f73c32 !important; /* 선택된 별점의 색상 */
 }
+
+
 
 /* 버튼 스타일 */
 /* 버튼들을 일렬로 배치 */

@@ -30,12 +30,15 @@
             </td>
             <td>
                 <input type="text" name="user_id" id="user_id" th:field="*{user_id}" placeholder="아이디를 4~12자로 입력.">
-                <input type="button" id="checkIdBtn" onclick="checkId()" value="중복확인">
+                <input type="button" id="checkIdBtn" onclick="checkId()" class="check-btn" value="중복확인">
                 <div th:if="${#fields.hasErrors('user_id')}" th:errors="*{user_id}"></div>
             </td>
         </tr>
         <tr>
             <td colspan=2 id="id-area"></td>
+        </tr>
+        <tr>
+            <td colspan=2 id="id-area2"></td>
         </tr>
         <tr>
             <td>
@@ -45,6 +48,9 @@
                 <input type="password" name="user_pw" id="user_pw" th:field="*{user_pw}" placeholder="8~16자로 입력.">
                 <div th:if="${#fields.hasErrors('user_pw')}" th:errors="*{user_pw}"></div>
             </td>
+        </tr>
+        <tr>
+            <td colspan=2 id="pw-area"></td>
         </tr>
         <tr>
             <td>
@@ -60,7 +66,7 @@
             </td>
             <td>
                 <input type="text" name="user_nickname" id="user_nickname">
-                <input type="button" id="check_nickname_btn" onclick="checkNickname()" value="중복확인">
+                <input type="button" id="check_nickname_btn" onclick="checkNickname()" class="check-btn" value="중복확인">
             </td>
         </tr>
         <tr>
@@ -89,10 +95,10 @@
                 <input type="text" id="custom_domain" placeholder="직접 입력" style="display:none;" oninput="update_email()">
                 <!-- 결합된 이메일을 저장할 필드 (hidden) -->
                 <input type="hidden" name="user_email" id="user_email">
-                <input type="button" id=check_email_btn onclick="checkEmail()" value="중복확인">
-                <input type="button" onclick="sendmail()" value="인증 이메일 전송">
+                <input type="button" id=check_email_btn onclick="checkEmail()" class="check-btn" value="중복확인">
+                <input type="button" onclick="sendmail()" class="check-btn" value="인증 이메일 전송">
                 <input type="text" id="verification_code" placeholder="인증 번호 입력">
-                <input type="button" onclick="verifyEmailCode()" value="인증 확인">
+                <input type="button" onclick="verifyEmailCode()" class="check-btn" value="인증 확인">
                 <div id="verification_message"></div>
             </td>
         </tr>
@@ -111,7 +117,7 @@
                 <!-- 상세 주소 -->
                 <input type="hidden" name="user_addr_detail" id="user_addr_detail">
                 <input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="button" onclick="sample6_execDaumPostcode()" class="check-btn" value="우편번호 찾기"><br>
                 <input type="text" id="sample6_address" placeholder="주소" readonly><br>
                 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                 <input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
@@ -137,7 +143,7 @@
                 </select>
                 <!-- 중간번호 -->
                 <input type="text" name="user_tel" id="user_tel" maxlength="8" placeholder="전화번호">
-                <input type="button" onclick="checkTel()" value="중복확인"></td>
+                <input type="button" onclick="checkTel()" class="check-btn" value="중복확인"></td>
             </td>
         </tr>
         <tr>
