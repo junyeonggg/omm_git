@@ -1,0 +1,247 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background: #E6E9EE;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+header {
+    background: #3CB371;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: flex-end; /* 자식 요소들을 우측으로 정렬 */
+    align-items: center; /* 수직 방향으로 중앙에 정렬 */
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    list-style: none;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: #fff;
+}
+
+/* 헤더 버튼 그룹 스타일 */
+.button-group {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+/* 헤더 버튼 스타일 */
+.header-btn {
+    background-color: #ffffff;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.header-btn:hover {
+    background-color: #0C964A;
+}
+
+/* 프로필 폼 스타일 */
+form {
+    background-color: #ffffff;
+    border: 1px solid #d2e2d3;
+    border-radius: 10px;
+    padding: 20px;
+    width: 600px;
+    margin: 50px auto;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+label {
+    font-weight: bold;
+    color: #3CB371;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], input[type="password"], input[type="button"], select {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* 닉네임, 이메일 등 검증 영역 */
+#nickname-area, #email-area, #pw-area {
+    text-align: center;
+    font-size: 0.9rem;
+    color: red;
+    margin-bottom: 10px;
+}
+
+/* 폼 버튼 스타일 */
+.form-btn {
+    background-color: #3CB371;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 30%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.form-btn:hover {
+    background-color: #0C964A;
+}
+
+/* 중복확인 버튼 스타일 */
+input[type="button"] {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+input[type="button"]:hover {
+    background-color: #138496;
+}
+
+/* 에러 메시지 스타일 */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* 주소 필드 스타일 */
+input#sample6_postcode, input#sample6_address, input#sample6_detailAddress {
+    width: 80%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+input#sample6_postcode[readonly], input#sample6_address[readonly], input#sample6_extraAddress[readonly] {
+    background-color: #f9f9f9;
+}
+
+ /* 버튼 컨테이너를 중앙 정렬 */
+.button-container {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    gap: 10px; /* 버튼 간의 간격 */
+    margin-top: 20px;
+}
+/* 수정하기 버튼 스타일 (녹색) */
+.edit-btn {
+    background-color: #3CB371 !important; /* 녹색 */
+    color: white !important;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #0C964A !important; /* 진한 녹색 */
+}
+
+/* 회원탈퇴 버튼 스타일 (빨간색) */
+.delete-btn {
+    background-color: #B3413C !important; /* 빨간색 */
+    color: white !important;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #96120C !important; /* 진한 빨간색 */
+}
+/* 푸터 스타일 */
+footer {
+    background: #3CB371;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    form {
+        width: 90%;
+        padding: 15px;
+    }
+
+    input[type="text"], input[type="password"], select, input[type="button"] {
+        padding: 8px;
+    }
+}

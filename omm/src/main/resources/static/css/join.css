@@ -21,11 +21,49 @@ header {
     box-sizing: border-box;
 }
 
-.navbar-brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.navbar-brand {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: flex-end; /* 자식 요소들을 우측으로 정렬 */
+    align-items: center; /* 수직 방향으로 중앙에 정렬 */
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    list-style: none;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: #fff;
+}
+
 
 /* 헤더 버튼 그룹 스타일 */
 .button-group {
