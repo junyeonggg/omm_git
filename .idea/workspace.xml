@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/admin.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_edit.html" afterDir="false" />
+    <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="24-09-12 14 : 44">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/RecipeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/RecipeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/RecipeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/join1.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/join1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/join.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_edit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,7 +334,21 @@
       <option name="project" value="LOCAL" />
       <updated>1726026274476</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="24-09-12 14 : 44">
+      <created>1726119851447</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1726119851447</updated>
+    </task>
+    <task id="LOCAL-00021" summary="24-09-12 14 : 44">
+      <created>1726119922706</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1726119922706</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -366,7 +371,8 @@
     <MESSAGE value="09 10(월) 15:50" />
     <MESSAGE value="09 10(월) 17:46" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="24-09-12 14 : 44" />
+    <option name="LAST_COMMIT_MESSAGE" value="24-09-12 14 : 44" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

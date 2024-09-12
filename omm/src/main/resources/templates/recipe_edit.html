@@ -151,7 +151,7 @@ table td{
                             <td><input type="text" value="[재료]" readonly="readonly"></td>
                         </tr>
                         <tr th:each="ingre : ${recipe_ingre_list}">
-                            <td><input hidden class="org_inger_id" type="text" th:value="${ingre.ingre_id}"></td>
+                            <td hidden><input class="org_inger_id" type="text" th:value="${ingre.ingre_id}"></td>
                             <td><input class="org_inger_name" type="text" th:value="${ingre.ingre_name}"></td>
                             <td><input class="org_inger_info" type="text" th:value="${ingre.ingre_info}"></td>
                             <td><input type="button" onclick="deleteIngreTr(this)" value="X"></td>
