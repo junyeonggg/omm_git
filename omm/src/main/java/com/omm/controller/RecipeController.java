@@ -1,3 +1,4 @@
+// 자바 230(editIngre) 생성
 package com.omm.controller;
 
 import java.io.File;
@@ -234,7 +235,6 @@ public class RecipeController {
 			db_ingre.setIngre_info(ingre.getIngre_info());
 			recipeService.updateIngre(db_ingre);
 		});
-
 		return "";
 	}
 
