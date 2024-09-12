@@ -417,7 +417,7 @@ textarea {
 			<div class="like_section">
 				<div sec:authorize="isAuthenticated()">
 					<input id="like_checkbox" th:checked="${like_checked}" class="like_checkbox" type="checkbox" th:onclick="likeSet(this,1,[[${recipe.recipe_id}]])">
-					<label for="like_checkbox">♥</label>
+					찜 <label for="like_checkbox">♥</label>
 				</div>
 			</div>
 		</div>
