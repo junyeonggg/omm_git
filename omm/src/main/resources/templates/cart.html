@@ -36,46 +36,53 @@
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active" th:href="@{/}">홈으로</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+						class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
 					<li sec:authorize="isAnonymous()" class="nav-item"><a
-							class="nav-link active" th:href="@{/login}">로그인</a></li>
+						class="nav-link active" th:href="@{/login}">로그인</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+						class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
 					<li sec:authorize="isAnonymous()" class="nav-item"><a
-							class="nav-link active" th:href="@{/join}">회원가입</a></li>
+						class="nav-link active" th:href="@{/join}">회원가입</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
+						class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-
-	<table class="tbl_cart">
-		<tr>
-			<th>구매 여부</th>
-			<th>상품</th>
-			<th>수량</th>
-			<th>가격</th>
-		</tr>
-		<tr class="cart_list" th:each="cart : ${cart_list}">
-			<td><input type="checkbox"
-				th:onchange="checkboxclick(this,[[${cart.food_id}]])"
-				th:checked="${cart.cart_check}"></td>
-			<td><img alt="" width="250px;" th:src="@{${cart.food_img}}"><span
-				class="img_info" th:text="${cart.food_name}"></span></td>
-			<td><input type="number" min="1" th:value="${cart.food_quantity}"
-				th:onchange="changeQuantity(this,[[${cart.food_lprice}]],[[${cart.food_id}]])"
-				style="width: 40px;"></td>
-			<td><input type="text"
-				th:value="${#numbers.formatInteger(cart.food_lprice * cart.food_quantity,3,'COMMA')}"
-				readonly="readonly"></td>
-			<td><input type="button"
-				th:onclick="deleteFoodFromCart([[${cart.cart_id}]])" value="X"></td>
-		</tr>
-	</table>
-	<input type="button" th:onclick="location.href='/order'" value="주문하기">
-
+	<!-- 장바구니 비어있을 때 -->
+	<div th:if="${cart_list != null}">
+		<h1>장바구니에 담은 상품이 없습니다.</h1>
+	</div>
+	
+	<!-- 장바구니 있을 때 -->
+	<div th:if="${cart_list == null}">
+		<table class="tbl_cart">
+			<tr>
+				<th>구매 여부</th>
+				<th>상품</th>
+				<th>수량</th>
+				<th>가격</th>
+			</tr>
+			<tr class="cart_list" th:each="cart : ${cart_list}">
+				<td><input type="checkbox"
+					th:onchange="checkboxclick(this,[[${cart.food_id}]])"
+					th:checked="${cart.cart_check}"></td>
+				<td><img alt="" width="250px;" th:src="@{${cart.food_img}}"><span
+					class="img_info" th:text="${cart.food_name}"></span></td>
+				<td><input type="number" min="1"
+					th:value="${cart.food_quantity}"
+					th:onchange="changeQuantity(this,[[${cart.food_lprice}]],[[${cart.food_id}]])"
+					style="width: 40px;"></td>
+				<td><input type="text"
+					th:value="${#numbers.formatInteger(cart.food_lprice * cart.food_quantity,3,'COMMA')}"
+					readonly="readonly"></td>
+				<td><input type="button"
+					th:onclick="deleteFoodFromCart([[${cart.cart_id}]])" value="X"></td>
+			</tr>
+		</table>
+		<input type="button" th:onclick="location.href='/order'" value="주문하기">
+	</div>
 	<footer class="py-5 bg-dark">
 		<div class="container">
 			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>

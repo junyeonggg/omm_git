@@ -1,3 +1,5 @@
+<!-- 2024-09-12 준영 -->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -405,7 +407,7 @@ textarea {
 		<div class="flex_item recipe_title">
 			<!-- 돌아가기  -->
 			<div>
-				<button th:onclick="history.back()" 
+				<button th:onclick="|location.href='@{/recipe_list(page=${page},keyword=${keyword})}'|"
 				 id="backBtn"></button>
 				<label for="backBtn">↩</label>
 			</div>

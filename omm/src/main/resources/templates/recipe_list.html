@@ -217,7 +217,7 @@
 				<td th:text="${recipe.recipe_id}"></td>
 				<!-- 번호 -->
 				<td th:text="${recipe.recipe_food_name}"></td>
-				<td><a th:text="${recipe.recipe_title}" th:href="@{'http://localhost:8080/recipe_list/'+${recipe.recipe_id}}"
+				<td><a th:text="${recipe.recipe_title}" th:href="@{'http://localhost:8080/recipe_list/'+${recipe.recipe_id}}+'?page='+${paging.current_page}+'&'+'keyword='+${paging.keyword}"
 					th:onclick="increView('tbl_recipe','recipe_view','recipe_id',[[${recipe.recipe_id}]])"></a></td>
 				<td th:text="${recipe.user_id}"></td>
 				<td th:text="'조회수 '+${recipe.recipe_view}"></td>
