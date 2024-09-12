@@ -12,6 +12,7 @@ function loginButton() {
 	const form = document.loginForm;
 	const user_id = document.getElementById('user_id').value;
 	const user_pw = document.getElementById('user_pw').value;
+	const user_pw2 = document.getElementById('user_pw')
 //	if (user_id.length < 4 || user_id.length > 12) {
 //		window.alert("아이디는 4~12자로 입력해주세요.");
 //		form.user_id.focus();
