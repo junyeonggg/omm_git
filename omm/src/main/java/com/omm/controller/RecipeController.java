@@ -1,5 +1,6 @@
 // 준영 수정
 
+// 자바 230(editIngre) 생성
 package com.omm.controller;
 
 import java.io.File;
@@ -20,11 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -120,13 +117,13 @@ public class RecipeController {
 //				try{
 //					ingre.setIngre_info(line_list[4]);
 //				}catch(Exception e){
-//					
+//
 //				}
 //				ingre.setIngre_name(line_list[3]);
 //				ingre.setIngre_type(line_list[2]);
 //				ingre.setRecipe_id(Integer.parseInt(line_list[1]));
 //				recipeService.insertIngre(ingre);
-//				
+//
 //				if(line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술") | line_list[0].equals("45767")) {
 //					System.out.println("완");
 //					break;
@@ -195,7 +192,7 @@ public class RecipeController {
 
 	@GetMapping("/recipe_list")
 	public String recipe_list_page(@RequestParam(value = "keyword", defaultValue = "") String keyword,
-			@RequestParam(value = "page", defaultValue = "1") int page_no, Model model) {
+								   @RequestParam(value = "page", defaultValue = "1") int page_no, Model model) {
 		int recipe_list_size = recipeService.selectAll(keyword);
 		PagingSearch pagingSearch = new PagingSearch(recipe_list_size, page_no);
 		pagingSearch.setKeyword(keyword);
@@ -226,11 +223,48 @@ public class RecipeController {
 		return "recipe_write";
 	}
 
+	@GetMapping("/recipe/edit")
+	public String recipe_edit(@RequestParam("recipe_id") int recipe_id, Model model, Principal principal) {
+
+		// 요리방법
+		List<String> method_list = recipeService.getMethod();
+		model.addAttribute("method_list", method_list);
+
+		// 요리 상황
+		List<String> status_list = recipeService.getStatus();
+		model.addAttribute("status_list", status_list);
+
+		// 메인 재료
+		List<String> ingre_list = recipeService.getIngre();
+		model.addAttribute("ingre_list", ingre_list);
+
+		// 레시피 정보
+		RecipeDto recipe = recipeService.findRecipeByRecipe_id(recipe_id);
+		model.addAttribute("recipe", recipe);
+
+		// 레시피 재료 리스트
+		List<Recipe_ingre> recipe_ingre_list = recipeService.selectRecipeIngreByRecipeId(recipe_id);
+		model.addAttribute("recipe_ingre_list",recipe_ingre_list);
+		return "recipe_edit";
+	}
+	@ResponseBody
+	@PostMapping("/recipe/edit/ingre")
+	public String editIngre(@RequestBody List<Recipe_ingre> ingre_list){
+		ingre_list.forEach(d-> System.out.println(d.toString()));
+		ingre_list.forEach((ingre)->{
+			Recipe_ingre db_ingre = recipeService.selectIngreByIngreId(ingre.getIngre_id());
+			db_ingre.setIngre_name(ingre.getIngre_name());
+			db_ingre.setIngre_info(ingre.getIngre_info());
+			recipeService.updateIngre(db_ingre);
+		});
+		return "";
+	}
+
 	@ResponseBody
 	@PostMapping("/recipe/insert")
 	public int recipeInsert(RecipeDto recipeDto, @RequestParam("recipe_ingre") String recipeIng,
-			@RequestParam("cookingSequenceDto") String cookingSequence,
-			@RequestParam Map<String, MultipartFile> sequence_img, Principal principal)
+							@RequestParam("cookingSequenceDto") String cookingSequence,
+							@RequestParam Map<String, MultipartFile> sequence_img, Principal principal)
 			throws IllegalStateException, IOException {
 
 		// 1. 레시피 저장
@@ -375,8 +409,8 @@ public class RecipeController {
 	@ResponseBody
 	@PostMapping("/increView")
 	public boolean increView(@RequestParam("table_name") String table_name,
-			@RequestParam("column_name") String column_name, @RequestParam("target_column") String target_column,
-			@RequestParam("target_id") String target_id) {
+							 @RequestParam("column_name") String column_name, @RequestParam("target_column") String target_column,
+							 @RequestParam("target_id") String target_id) {
 		boolean flag = false;
 		try {
 			flag = recipeService.increView(table_name, column_name, target_column, target_id);
@@ -393,8 +427,8 @@ public class RecipeController {
 	@ResponseBody
 	@PostMapping("/likeSet")
 	public boolean likeSet(@RequestParam("reference_type") int reference_type,
-			@RequestParam("target_id") String target_id, @RequestParam("checked") boolean checked,
-			Principal principal) {
+						   @RequestParam("target_id") String target_id, @RequestParam("checked") boolean checked,
+						   Principal principal) {
 		String user_id = "";
 		try {
 			user_id = principal.getName();
@@ -434,5 +468,52 @@ public class RecipeController {
 //		dao.asdf(encode);
 //		return "redirect:/";
 //	}
+	@ResponseBody
+	@PostMapping("/updateComment")
+	public String updateComment(@RequestParam("commentId") int commentId,
+								@RequestParam("newCommentText") String newCommentText) {
+		System.out.println("commentId: " + commentId);
+		System.out.println("newCommentText: " + newCommentText);
+		try {
+			boolean updated = recipeService.updateComment(newCommentText, commentId); // 댓글 업데이트
+			if (updated) {
+				return "{\"success\": true, \"message\": \"댓글이 수정되었습니다.\"}"; // 성공 응답
+			} else {
+				return "{\"success\": false, \"message\": \"댓글 수정에 실패했습니다.\"}"; // 실패 응답
+			}
+		} catch (Exception e) {
+			return "{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}"; // 예외 처리 응답
+		}
+	}
 
+
+	@ResponseBody
+	@PostMapping("deleteComment")
+	public String deleteComment(@RequestParam("commentId") int commentId) {
+		try {
+			boolean deleted = recipeService.deleteComment(commentId); // 댓글 삭제
+			if (deleted) {
+				return "{\"success\": true, \"message\": \"댓글이 삭제되었습니다.\"}"; // 성공 응답
+			} else {
+				return "{\"success\": false, \"message\": \"댓글 삭제에 실패했습니다.\"}"; // 실패 응답
+			}
+		} catch (Exception e) {
+			return "{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}"; // 예외 처리 응답
+		}
+	}
+
+	@ResponseBody
+	@PostMapping("deleteRecipe")
+	public String deleteRecipe(@RequestParam("recipe_id") int recipe_id) {
+		try {
+			boolean deleted = recipeService.deleteRecipe(recipe_id); // 레시피 삭제
+			if (deleted) {
+				return "{\"success\": true, \"message\": \"레시피가 삭제되었습니다.\"}"; // 성공 응답
+			} else {
+				return "{\"success\": false, \"message\": \"레시피 삭제에 실패했습니다.\"}"; // 실패 응답
+			}
+		} catch (Exception e) {
+			return "{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}"; // 예외 처리 응답
+		}
+	}
 }

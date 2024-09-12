@@ -128,4 +128,49 @@ public class RecipeService {
 		return recipeDao.getImgByImgId(img_id);
 	}
 
+	public boolean updateComment(String newCommentText, int commentId) {
+			try {
+				recipeDao.updateComment(newCommentText, commentId);
+				return true; // 성공적으로 업데이트됨
+			} catch (Exception e) {
+				// 예외 처리
+				e.printStackTrace();
+				return false; // 업데이트 실패
+			}
+    }
+
+	public boolean deleteComment(int commentId) {
+		try {
+			recipeDao.deleteComment(commentId);
+			return true; // 성공적으로 삭제됨
+		} catch (Exception e) {
+			// 예외 처리
+			e.printStackTrace();
+			return false; // 삭제 실패
+		}
+	}
+
+	public List<String> getIngreType() {
+		return recipeDao.joinIngreType();
+	}
+
+	public boolean deleteRecipe(int recipe_id) {
+		try {
+			recipeDao.deleteRecipe(recipe_id);
+			return true; // 성공적으로 삭제됨
+		} catch (Exception e) {
+			// 예외 처리
+			e.printStackTrace();
+			return false; // 삭제 실패
+		}
+	}
+
+	public Recipe_ingre selectIngreByIngreId(int ingre_id) {
+		return recipeDao.selectIngreByIngreId(ingre_id);
+	}
+
+	// 업데이트
+	public void updateIngre(Recipe_ingre db_ingre) {
+		recipeDao.updateIngre(db_ingre);
+	}
 }

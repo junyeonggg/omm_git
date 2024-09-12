@@ -479,17 +479,6 @@ function submitForm(self){
     var currentAddress = $("#sample6_address").val().trim();
     var currentBirth = $("#user_birth").val().trim();
 
-
-//    var password = 'examplepass1!';
-//    var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
-//
-//    if (!passwordRegex.test(password)) {
-//    console.log("비밀번호는 유효하지 않습니다.");
-//    } else {
-//    console.log("비밀번호는 유효합니다.");
-//}
-
-
     // 아이디 유효성 검사
     var idRegex = /^[a-z0-9]{4,12}$/;
     if (!idRegex.test(currentUserId)) {

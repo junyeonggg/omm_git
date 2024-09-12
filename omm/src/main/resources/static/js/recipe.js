@@ -2,10 +2,7 @@
 function searchKeyword() {
 	const keyword = document.querySelector("#keyword").value
 	window.location.href = `http://localhost:8080/recipe_list?keyword=${keyword}`;
-
 }
-
-
 // user_id
 // comment_content
 // comment_create_date
@@ -13,6 +10,61 @@ function searchKeyword() {
 // parent_comment_id
 // comment_rating
 // reference_type
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 댓글 수정 함수
+    window.editReplyBtn = function(button) {
+        var commentId = button.getAttribute('data-comment-id');
+        console.log(commentId)
+        var newCommentText = prompt("수정할 댓글을 입력하세요:", ""); // 사용자가 새 댓글을 입력하도록 합니다
+        if (newCommentText !== null && newCommentText.trim() !== "") {
+            // AJAX 요청을 통해 댓글을 업데이트합니다
+            $.ajax({
+                url: '/updateComment', // 댓글 업데이트를 처리할 서버의 엔드포인트
+                method: 'POST',
+                data: {
+                    'commentId': commentId,
+                    'newCommentText': newCommentText
+                },
+                success: function(response) {
+                    // 성공적으로 댓글이 업데이트된 경우, 페이지를 새로 고침하거나 댓글을 업데이트합니다
+                    alert("댓글이 수정되었습니다.");
+                    location.reload(); // 또는 특정 댓글만 업데이트하려면 해당 부분을 수정하세요
+                },
+                error: function(xhr, status, error) {
+                    alert("댓글 수정에 실패했습니다. 상태 코드: " + xhr.status);
+                    // 에러가 발생한 경우 처리
+                    alert("댓글 수정에 실패했습니다. 다시 시도해 주세요.");
+                }
+            });
+        }
+    };
+
+    // 댓글 삭제 함수
+    window.deleteReplyBtn = function(button) {
+        var commentId = button.getAttribute('data-comment-id');
+        if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+            // AJAX 요청을 통해 댓글을 삭제합니다
+            $.ajax({
+                url: '/deleteComment', // 댓글 삭제를 처리할 서버의 엔드포인트
+                method: 'POST',
+                data: {
+                    commentId: commentId
+                },
+                success: function(response) {
+                    // 성공적으로 댓글이 삭제된 경우, 페이지를 새로 고침하거나 댓글을 제거합니다
+                    alert("댓글이 삭제되었습니다.");
+                    location.reload(); // 또는 특정 댓글만 제거하려면 해당 부분을 수정하세요
+                },
+                error: function(xhr, status, error) {
+                    // 에러가 발생한 경우 처리
+                    alert("댓글 삭제에 실패했습니다. 다시 시도해 주세요.");
+                }
+            });
+        }
+    };
+});
+
 function insertReplyBtn(self, reference_type) {
 	const user_id = self.getAttribute("data-user-id")
 
@@ -103,9 +155,41 @@ function insertIngreTr() {
 	target.appendChild(trEl);
 }
 function deleteIngreTr(self) {
-	const target = document.querySelector("#ingre_tbl");
+	//const target = document.querySelector("#ingre_tbl");
+	const target = self.parentElement.parentElement.parentElement
+	console.log(target)
+	console.log(self)
+	console.log(self.parentElement)
+	console.log(self.parentElement.parentElement)
 	target.removeChild(self.parentElement.parentElement)
 }
+// 레시피 수정 ( 기존 재료 업데이트 )
+function updateRecipeIngre(){
+    const org_inger_id_list = document.querySelectorAll(".org_inger_id");
+	const org_inger_name_list = document.querySelectorAll(".org_inger_name");
+	const org_inger_info_list = document.querySelectorAll(".org_inger_info");
+	let recipe_ingre = [];
+	for (let i = 0; i < org_inger_id_list.length; i++) {
+		let dic = {
+		    ingre_id : org_inger_id_list[i].value,
+			ingre_name: org_inger_name_list[i].value,
+			ingre_info: org_inger_info_list[i].value,
+		};
+		recipe_ingre.push(dic);
+	}
+	$.ajax({
+	    type : "post",
+	    url : "/recipe/edit/ingre",
+	    contentType: "application/json; charset=utf-8",
+	    data: JSON.stringify(recipe_ingre), // 배열을 JSON 문자열로 변환
+        dataType: "json",
+	})
+
+
+	//formRecipe.append('recipe_ingre', JSON.stringify(recipe_ingre));
+}
+
+
 
 function insertRecipeForm() {
 	var formRecipe = new FormData();
@@ -187,4 +271,26 @@ function insertRecipeForm() {
 	});
 }
 
+function replace(recipe_id){
+    window.location.href=`/recipe/edit?recipe_id=${recipe_id}`;
+}
 
+function deleteRecipe(recipeId) {
+    if (confirm("정말로 이 레시피를 삭제하시겠습니까?")) {
+        $.ajax({
+            url: '/deleteRecipe',
+            method: 'POST',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+                recipe_id: recipeId
+            },
+            success: function(response) {
+                alert("레시피가 삭제되었습니다.");
+                window.location.href = '/recipe_list'
+            },
+            error: function(xhr, status, error) {
+                alert("레시피 삭제에 실패했습니다. 상태 코드: " + xhr.status);
+            }
+        });
+    }
+}
