@@ -1,0 +1,101 @@
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        label {
+            font-weight: bold;
+            display: inline-block;
+            width: 120px;
+        }
+
+        input[type="text"], input[type="date"], select {
+            width: calc(100% - 130px);
+            padding: 8px;
+            margin: 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="button"], button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        input[type="button"] {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        input[type="button"]:hover, button:hover {
+            opacity: 0.8;
+        }
+
+        #email-area, #nickname-area, #tel-area {
+            color: #d9534f;
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .form-group input[type="text"], .form-group select {
+            flex: 1;
+        }
+
+        .address-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .address-group input[type="text"] {
+            margin-bottom: 10px;
+        }
+
+        .btn-group {
+            text-align: center;
+            margin-top: 20px;
+        }

@@ -71,7 +71,7 @@ public class MemberService {
         }
 
         // 주소 업데이트
-        if (!dto.getUser_addr().equals(org.getUser_addr())) {
+        if ((!dto.getUser_addr().equals(org.getUser_addr())) | !dto.getUser_addr_detail().equals(org.getUser_addr_detail())) {
             member_dao.updateUserAddress(dto.getUser_id(), dto.getUser_addr(), dto.getUser_addr_zip(), dto.getUser_addr_detail());
         }
 
