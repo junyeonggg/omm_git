@@ -1,3 +1,5 @@
+// 준영 수정
+
 package com.omm.controller;
 
 import java.io.File;
@@ -96,8 +98,8 @@ public class RecipeController {
 //		return "recipe_list";
 //	}
 
-	// 레시피 재료를 넣기위한 메서드
-//	@GetMapping("/insert_ingre2")
+	// 레시피 재료를 넣기위한 메서드  수정 : 2024-09-12
+//	@GetMapping("/insert_ingre")
 //	public String insert_ingre() {
 //		try {
 //			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
@@ -108,17 +110,27 @@ public class RecipeController {
 //			String line = "";
 //			int count = 0;
 //			while ((line = bfReader.readLine()) != null) {
-//				RecipeDto recipe = new RecipeDto();
+////				RecipeDto recipe = new RecipeDto();
+//				Recipe_ingre ingre = new Recipe_ingre();
 //				if (line.startsWith(",")) {
 //					continue;
 //				}
 //				System.out.println(line);
-//				String[] data_list = line.split(",");
-//				String[] ingre_list = data_list[2].replace("|",",").split(",");
-//				String temp_type = "";
-//
-//
-//				// 첫번째 행을 가져오지 않기 위한 코드
+//				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+//				try{
+//					ingre.setIngre_info(line_list[4]);
+//				}catch(Exception e){
+//					
+//				}
+//				ingre.setIngre_name(line_list[3]);
+//				ingre.setIngre_type(line_list[2]);
+//				ingre.setRecipe_id(Integer.parseInt(line_list[1]));
+//				recipeService.insertIngre(ingre);
+//				
+//				if(line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술") | line_list[0].equals("45767")) {
+//					System.out.println("완");
+//					break;
+//				}
 //			}
 //		} catch (Exception e) {
 //			System.out.println();
@@ -127,47 +139,57 @@ public class RecipeController {
 //
 //		return "redirect:/";
 //	}
-
-//	 레시피 step db에 넣기
+	//레시피 sequence  db에 넣기 수정 : 2024-09-12
 //	@GetMapping("/insert_step")
 //	public String insert_step() {
-//		try {
 //		String path = "C:\\Users\\admin\\Desktop\\recipe_sequence.csv";
 //		File recipe_csv = new File(path);
-//		// 입력 스트림
-//		FileReader recipe_list = new FileReader(recipe_csv);
-//		BufferedReader bfReader = new BufferedReader(recipe_list);
-//		String line = "";
-//		int count = 0;
-//		while ((line = bfReader.readLine()) != null) {
-//			if (line.startsWith(",")) {
-//				continue;
-//			}
-//			String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)",-1);
-//			int cnt = 0;
-////			for(String i : line_list) {
-////
-////				System.out.println("cnt "+cnt+" : "+i);
-////				cnt++;
-////			}
-//			CookingSequenceDto sequence = new CookingSequenceDto();
 //
-//			// 레시피 id는 mange_id를 이용해서 가져온다.
-////			System.out.println(line);
-//			int recipe_id = recipeService.findRecipeByMangeId(line_list[1]);
-//			sequence.setRecipe_id(recipe_id);
-//			sequence.setSequence_text(line_list[2]);
-//			sequence.setSequence_step_no(Integer.valueOf(line_list[3]));
-//			recipeService.insertRecipeSequence(sequence);
-//			if(line_list[0].equals("30206")) {
-//				System.out.println("끝");
-//				break;
+//		try (BufferedReader bfReader = new BufferedReader(new FileReader(recipe_csv))) {
+//			String line;
+//			while ((line = bfReader.readLine()) != null) {
+//				// Skip lines that start with a comma
+//				if (line.startsWith(",")) {
+//					System.out.println("건너뜀");
+//					continue;
+//				}
+//
+//				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+//				System.out.println(line);
+//				// Check if line_list has the correct number of elements
+//				if (line_list.length < 4) {
+//					System.out.println("Skipping invalid line: " + line);
+//					continue;
+//				}
+//
+//				// Create and populate CookingSequenceDto
+//				CookingSequenceDto sequence = new CookingSequenceDto();
+//				int recipe_id = recipeService.findRecipeIdByMangeId(line_list[1]);
+//				sequence.setRecipe_id(recipe_id);
+//				sequence.setSequence_text(line_list[2]);
+//				sequence.setSequence_step_no(Integer.valueOf(line_list[3]));
+//
+//				// Insert sequence into database
+//				recipeService.insertRecipeSequence(sequence);
+//
+//				// Break if specific condition is met
+//				if (line_list[0].equals("30206") || line.equals(
+//						"30206,1751398,버터를 바른틀에 반죽을 80~90%정도 채워지게 붓습니다. 아몬드 슬라이스를 넣은후 180도씨 예열오븐에 25~30분간 굽습니다.오븐,4")) {
+//					System.out.println("끝");
+//					break;
+//				}
 //			}
+//		} catch (IOException e) {
+//			System.out.println("Error reading file");
+//			e.printStackTrace();
+//		} catch (NumberFormatException e) {
+//			System.out.println("Error parsing number");
+//			e.printStackTrace();
+//		} catch (Exception e) {
+//			System.out.println("Unexpected error");
+//			e.printStackTrace();
 //		}
-//	} catch (Exception e) {
-//		System.out.println();
-//		e.printStackTrace();
-//	}
+//
 //		return "redirect:/";
 //	}
 
