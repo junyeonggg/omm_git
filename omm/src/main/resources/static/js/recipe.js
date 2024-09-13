@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 댓글 수정 함수
     window.editReplyBtn = function(button) {
         var commentId = button.getAttribute('data-comment-id');
-        console.log(commentId)
         var newCommentText = prompt("수정할 댓글을 입력하세요:", ""); // 사용자가 새 댓글을 입력하도록 합니다
         if (newCommentText !== null && newCommentText.trim() !== "") {
             // AJAX 요청을 통해 댓글을 업데이트합니다
@@ -70,11 +69,16 @@ function insertReplyBtn(self, reference_type) {
 
 	// 댓글인지 대댓글인지 판별 (댓글이면 댓글textarea, 대댓글이면 대댓글textarea의 값을 가져옴)
 	const type = self.getAttribute("data-type")
-	const comment_content = document.querySelector(`#${type}`).value;
+	const comment_content = document.querySelector(`#${type}`).value.trim();
 	const user_nickname = self.getAttribute("data-user-nickname");
 	const comment_parent_id = self.getAttribute("data-parent-comment-id")
 	const target_id = self.getAttribute("data-target-id");
 
+    // 댓글 내용이 빈 칸 또는 공백만으로 이루어진 경우 확인
+        if (comment_content.length === 0) {
+            alert("댓글을 작성해주세요.");
+            return;
+        }
 	var rating = 0;
 	const rating_radio_list = document.getElementsByName("rating")
 	for (radio of rating_radio_list) {

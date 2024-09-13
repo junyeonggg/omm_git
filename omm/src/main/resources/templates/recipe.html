@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<!-- Core theme CSS (includes Bootstrap)-->
-<link th:href="@{/css/index.css}" rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<title>레시피</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>레시피</title>
+    <style>
 
 /* 레이팅 영역 */
 .rate {
@@ -359,212 +359,215 @@ textarea {
 	margin: 0;
 }
 
-</style>
 
+
+
+    </style>
 
 
 </head>
 <body>
 
-	<!-- Responsive navbar-->
-	<nav class="navbar">
-		<div class="container">
-			<!-- 브랜드명이나 로고 -->
-			<a class="navbar-brand" href="/">Your Brand</a>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
-				<ul class="navbar-nav me-auto">
-					<!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
-				</ul>
-				<!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active" th:href="@{/}">홈으로</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
-					<li sec:authorize="isAnonymous()" class="nav-item"><a
-							class="nav-link active" th:href="@{/login}">로그인</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
-					<li sec:authorize="isAnonymous()" class="nav-item"><a
-							class="nav-link active" th:href="@{/join}">회원가입</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/cart}">장바구니</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- 레시피 -->
-	<div class="flex_container">
-		<div th:if="${recipe.user_id != user_id}">
-			<input type="button" th:onclick="replace([[${recipe.recipe_id}]])" value="수정하기">
-			<input type="button" th:onclick="'deleteRecipe(' + ${recipe.recipe_id} + ')'" value="삭제하기">
-		</div>
-		<!-- 레시피 타이틀 -->
-		<div class="flex_item recipe_title">
-			<!-- 돌아가기  -->
-			<div>
-				<button th:onclick="history.back()" 
-				 id="backBtn"></button>
-				<label for="backBtn">↩</label>
-			</div>
-			<!-- 레시피 title -->
-			<div>
-				<h2 th:text="${recipe.recipe_title}"></h2>
-			</div>
-			<!-- 찜하기 버튼 (로그인 상태에 따라 표시) -->
-			<div class="like_section">
-				<div sec:authorize="isAuthenticated()">
-					<input id="like_checkbox" th:checked="${like_checked}" class="like_checkbox" type="checkbox" th:onclick="likeSet(this,1,[[${recipe.recipe_id}]])">
-					<label for="like_checkbox">♥</label>
-				</div>
-			</div>
-		</div>
-		<span class="recipe_describe" th:text="${recipe.recipe_describe}"></span>
+<!-- Responsive navbar-->
+<nav class="navbar">
+    <div class="container">
+        <!-- 브랜드명이나 로고 -->
+        <a class="navbar-brand" href="/">Your Brand</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
+            <ul class="navbar-nav me-auto">
+                <!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
+            </ul>
+            <!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active" th:href="@{/}">홈으로</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a
+                        class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a
+                        class="nav-link active" th:href="@{/login}">로그인</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a
+                        class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a
+                        class="nav-link active" th:href="@{/join}">회원가입</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a
+                        class="nav-link active" th:href="@{/cart}">장바구니</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a
+                        class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- 레시피 -->
+<div class="flex_container">
+    <div th:if="${recipe.user_id != user_id}">
+        <input type="button" th:onclick="replace([[${recipe.recipe_id}]])" value="수정하기">
+        <input type="button" th:onclick="'deleteRecipe(' + ${recipe.recipe_id} + ')'" value="삭제하기">
+    </div>
+    <!-- 레시피 타이틀 -->
+    <div class="flex_item recipe_title">
+        <!-- 돌아가기  -->
+        <div>
+            <button th:onclick="history.back()"
+                    id="backBtn"></button>
+            <label for="backBtn">↩</label>
+        </div>
+        <!-- 레시피 title -->
+        <div>
+            <h2 th:text="${recipe.recipe_title}"></h2>
+        </div>
+        <!-- 찜하기 버튼 (로그인 상태에 따라 표시) -->
+        <div class="like_section">
+            <div sec:authorize="isAuthenticated()">
+                <input id="like_checkbox" th:checked="${like_checked}" class="like_checkbox" type="checkbox"
+                       th:onclick="likeSet(this,1,[[${recipe.recipe_id}]])">
+                <label for="like_checkbox">♥</label>
+            </div>
+        </div>
+    </div>
+    <span class="recipe_describe" th:text="${recipe.recipe_describe}"></span>
 
 
-		<!-- 레시피 재료 -->
-		<div class="flex_item ingre_tbl_div">
-			<table class="ingre_tbl" th:each="ingre_type : ${ingre_type_list}">
-				<tr>
-					<th th:text="${ingre_type}"></th>
-				</tr>
-				<tr th:each="ingre : ${ingre_list}"
-					th:if="${ingre.ingre_type==ingre_type}">
-					<td th:text="${ingre.ingre_name}"></td>
-					<td th:text="${ingre.ingre_info}"></td>
-				</tr>
-			</table>
-		</div>
+    <!-- 레시피 재료 -->
+    <div class="flex_item ingre_tbl_div">
+        <table class="ingre_tbl" th:each="ingre_type : ${ingre_type_list}">
+            <tr>
+                <th th:text="${ingre_type}"></th>
+            </tr>
+            <tr th:each="ingre : ${ingre_list}"
+                th:if="${ingre.ingre_type==ingre_type}">
+                <td th:text="${ingre.ingre_name}"></td>
+                <td th:text="${ingre.ingre_info}"></td>
+            </tr>
+        </table>
+    </div>
 
-		<div class="recipe-info">
-			<div class="recipe-info-item">
-				<span class="icon">👥</span> <!-- 아이콘 추가 -->
-				<span th:text="${recipe.recipe_serving}"></span>
-			</div>
-			<div class="recipe-info-item">
-				<span class="icon">⏰</span> <!-- 아이콘 추가 -->
-				<span th:text="${recipe.recipe_time}"></span>
-			</div>
-			<div class="recipe-info-item">
-				<span class="icon">🔪 </span> <!-- 아이콘 추가 -->
-				<span th:text="${recipe.recipe_level}"></span>
-			</div>
-		</div>
-		<!-- 레시피 순서 -->
-		<div class="flex_item">
-			<div class="sequence_step_div" th:each="s : ${recipe_sequence}">
-				<table>
-					<tr>
-						<td class="step_no_td" th:text="${s.sequence_step_no}"></td>
-						<td style="width: auto" class="step_text_td" th:text="${s.sequence_text}"></td>
-						<td th:if="${s.img_id != null}"><img width="500px" alt="" th:src="@{'/img?img_id='+${s.img_id}}"></td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
+    <div class="recipe-info">
+        <div class="recipe-info-item">
+            <span class="icon">👥</span> <!-- 아이콘 추가 -->
+            <span th:text="${recipe.recipe_serving}"></span>
+        </div>
+        <div class="recipe-info-item">
+            <span class="icon">⏰</span> <!-- 아이콘 추가 -->
+            <span th:text="${recipe.recipe_time}"></span>
+        </div>
+        <div class="recipe-info-item">
+            <span class="icon">🔪 </span> <!-- 아이콘 추가 -->
+            <span th:text="${recipe.recipe_level}"></span>
+        </div>
+    </div>
+    <!-- 레시피 순서 -->
+    <div class="flex_item">
+        <div class="sequence_step_div" th:each="s : ${recipe_sequence}">
+            <table>
+                <tr>
+                    <td class="step_no_td" th:text="${s.sequence_step_no}"></td>
+                    <td style="width: auto" class="step_text_td" th:text="${s.sequence_text}"></td>
+                    <td th:if="${s.img_id != null}"><img width="500px" alt="" th:src="@{'/img?img_id='+${s.img_id}}">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 
 
-	<!-- 댓글 -->
-
-	<div class="mt-5">
-		<h3>리뷰</h3>
-		<!-- 리뷰 리스트 -->
-		<div th:each="comment : ${comment_list}">
-			<div class="card my-3" th:if="${comment.parent_comment_id == 0}">
-				<div class="card-body">
-					<!-- 리뷰 작성자와 별점 표시 -->
-					<div>
-						<div class="d-flex justify-content-between">
-							<h5 class="card-title" th:text="${comment.user_id}"></h5>
-							<div class="rating">
+<!-- 댓글 -->
+<div class="mt-5">
+    <h3>리뷰</h3>
+    <!-- 리뷰 리스트 -->
+    <div th:each="comment : ${comment_list}">
+        <div class="card my-3" th:if="${comment.parent_comment_id == 0}">
+            <div class="card-body">
+                <!-- 리뷰 작성자와 별점 표시 -->
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title" th:text="${comment.user_id}"></h5>
+                        <div class="rating">
 								<span th:each="i : ${#numbers.sequence(1, comment.comment_rating)}"
-									class="fa fa-star checked" style="color: gold;"></span>
-								<span th:each="i : ${#numbers.sequence(comment.comment_rating + 1, 5)}"
-									class="fa fa-star"></span>
-							</div>
-						</div>
-						<p class="card-text" th:text="${comment.comment_content}"></p>
-						<button type="button" onclick="editReplyBtn(this)"
-								th:data-comment-id="${comment.comment_id}">수정</button>
-						<button type="button" onclick="deleteReplyBtn(this)"
-								th:data-comment-id="${comment.comment_id}">삭제</button>
-					</div>
-					<!-- 답글 출력 -->
-					<br>
-					<div class="c_comment" th:each="c_comment : ${comment_list}"
-						th:if="${c_comment.parent_comment_id == comment.comment_id}">
-						<b th:text="'답글 작성자 :'+ ${c_comment.user_id}"></b><br>
-						<span th:text="${c_comment.comment_content}"></span><br>
-						<small th:text="${c_comment.comment_create_date}"></small>
-					</div>
+                                      class="fa fa-star checked" style="color: gold;"></span>
+                            <span th:each="i : ${#numbers.sequence(comment.comment_rating + 1, 5)}"
+                                  class="fa fa-star"></span>
+                        </div>
+                    </div>
+                    <p class="card-text" th:text="${comment.comment_content}"></p>
+                    <button type="button" onclick="editReplyBtn(this)"
+                            th:data-comment-id="${comment.comment_id}">수정</button>
+                    <button type="button" onclick="deleteReplyBtn(this)"
+                            th:data-comment-id="${comment.comment_id}">삭제</button>
+                </div>
+                <!-- 답글 출력 -->
+                <br>
+                <div class="c_comment" th:each="c_comment : ${comment_list}"
+                     th:if="${c_comment.parent_comment_id == comment.comment_id}">
+                    <b th:text="'답글 작성자 :'+ ${c_comment.user_id}"></b><br>
+                    <span th:text="${c_comment.comment_content}"></span><br>
+                    <small th:text="${c_comment.comment_create_date}"></small>
+                </div>
 
 
 
-					<!-- 답글 폼 -->
-					<div th:if="${user_nickname != 'Null'}">
-						<div class="input-container">
-							<textarea class="form-control" id="replyContent" name="replyContent" rows="2"></textarea>
-							<button type="button" onclick="insertReplyBtn(this,1)"
-									th:data-user-id="${user_id}"
-									th:data-target-id="${recipe.recipe_id}"
-									th:data-user-nickname="${user_nickname}"
-									th:data-parent-comment-id="${comment.comment_id}"
-									th:data-type="replyContent" class="btn btn-secondary">답글 달기</button>
-						</div>
-					</div>
-					<!-- 2024-0905 12:33 업데이트  -->
-				</div>
-			</div>
-		</div>
+                <!-- 답글 폼 -->
+                <div th:if="${user_nickname != 'Null'}">
+                    <div class="input-container">
+                        <textarea class="form-control" id="replyContent" name="replyContent" rows="2"></textarea>
+                        <button type="button" onclick="insertReplyBtn(this,1)"
+                                th:data-user-id="${user_id}"
+                                th:data-target-id="${recipe.recipe_id}"
+                                th:data-user-nickname="${user_nickname}"
+                                th:data-parent-comment-id="${comment.comment_id}"
+                                th:data-type="replyContent" class="btn btn-secondary">답글 달기</button>
+                    </div>
+                </div>
+                <!-- 2024-0905 12:33 업데이트  -->
+            </div>
+        </div>
+    </div>
 
-		<!-- 리뷰 작성 폼 -->
-		<div th:if="${user_nickname != 'Null'}">
-			<h4>리뷰 작성</h4>
-			<!-- 별점 -->
-			<div class="rate">
-				<input type="radio" id="star5" name="rating" value="5">
-				<label for="star5" title="5 stars"> </label>
-				<input type="radio" id="star4half" name="rating" value="4.5">
-				<label for="star4half" class="half" title="4.5 stars"></label>
-				<input type="radio" id="star4" name="rating" value="4">
-				<label for="star4" title="4 stars"></label>
-				<input type="radio" id="star3half" name="rating" value="3.5">
-				<label for="star3half" class="half" title="3.5 stars"></label>
-				<input type="radio" id="star3" name="rating" value="3">
-				<label for="star3" title="3 stars"></label>
-				<input type="radio" id="star2half" name="rating" value="2.5">
-				<label for="star2half" class="half" title="2.5 stars"></label>
-				<input type="radio" id="star2" name="rating" value="2">
-				<label for="star2" title="2 stars"></label>
-				<input type="radio" id="star1half" name="rating" value="1.5">
-				<label for="star1half" class="half" title="1.5 stars"></label>
-				<input type="radio" id="star1" name="rating" value="1">
-				<label for="star1" title="1 star"></label>
-				<input type="radio" id="starhalf" name="rating" value="0.5">
-				<label for="starhalf" class="half" title="0.5 stars"></label>
-			</div>
-			<div class="input-container">
+    <!-- 리뷰 작성 폼 -->
+    <div th:if="${user_nickname != 'Null'}">
+        <h4>리뷰 작성</h4>
+        <!-- 별점 -->
+        <div class="rate">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5" title="5 stars"> </label>
+            <input type="radio" id="star4half" name="rating" value="4.5">
+            <label for="star4half" class="half" title="4.5 stars"></label>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4" title="4 stars"></label>
+            <input type="radio" id="star3half" name="rating" value="3.5">
+            <label for="star3half" class="half" title="3.5 stars"></label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" title="3 stars"></label>
+            <input type="radio" id="star2half" name="rating" value="2.5">
+            <label for="star2half" class="half" title="2.5 stars"></label>
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2" title="2 stars"></label>
+            <input type="radio" id="star1half" name="rating" value="1.5">
+            <label for="star1half" class="half" title="1.5 stars"></label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1" title="1 star"></label>
+            <input type="radio" id="starhalf" name="rating" value="0.5">
+            <label for="starhalf" class="half" title="0.5 stars"></label>
+        </div>
+        <div class="input-container">
 				<textarea class="form-control" id="comment_content"
-						  name="reviewContent" rows="3" required></textarea>
-				<button type="button" onclick="insertReplyBtn(this,1)"
-						th:data-user-id="${user_id}" th:data-target-id="${recipe.recipe_id}"
-						th:data-user-nickname="${user_nickname}" data-parent-comment-id="0"
-						th:data-type="comment_content" class="btn btn-primary mt-3">리뷰
-					작성</button>
-			</div>
-		</div>
-	</div>
+                          name="reviewContent" rows="3" required></textarea>
+            <button type="button" onclick="insertReplyBtn(this,1)"
+                    th:data-user-id="${user_id}" th:data-target-id="${recipe.recipe_id}"
+                    th:data-user-nickname="${user_nickname}" data-parent-comment-id="0"
+                    th:data-type="comment_content" class="btn btn-primary mt-3">리뷰
+                작성</button>
+        </div>
+    </div>
+</div>
 
 
-	<footer class="footer">
-		<div class="container">
-			<p class="footer-text">&copy; Your Website 2023</p>
-		</div>
-	</footer>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script th:src="@{/js/recipe.js}"></script>
+<footer class="footer">
+    <div class="container">
+        <p class="footer-text">&copy; Your Website 2023</p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script th:src="@{/js/recipe.js}"></script>
 </body>
 </html>

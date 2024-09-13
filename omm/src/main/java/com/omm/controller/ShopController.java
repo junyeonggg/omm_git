@@ -30,17 +30,6 @@ import com.omm.service.ShopService;
 
 @Controller
 public class ShopController {
-
-//	@Value("${payment.toss.test_client_api_key}")
-//	private String testClientApiKey;
-//	@Value("${payment.toss.test_secrete_api_key}")
-//	private String testSecretKey;
-//	@Value("${payment.toss.success_url}")
-//	private String successUrl;
-//	@Value("${payment.toss.fail_url}")
-	private String failUrl;
-
-	public static final String URL = "https://api.tosspayments.com/v1/payments/";
 	@Autowired
 	private ShopService shopService;
 
@@ -107,19 +96,13 @@ public class ShopController {
 	@GetMapping("/product/{foodProductId}")
 	public String productDetail(@PathVariable("foodProductId") String foodProductId, Model model, Principal principal) {
 		FoodDto food = shopService.getFoodById(foodProductId);
-		System.out.println(food.toString());
 		if (food == null) {
 			model.addAttribute("errorMessage", "해당 상품을 찾을 수 없습니다.");
 			return "error"; // 오류 페이지로 리다이렉트
 		}
-		// Debug 로그 추가
-		System.out.println("Food Name: " + food.getFoodName());
-		System.out.println("Food Price: " + food.getFoodLprice());
-		System.out.println("Food Image: " + food.getFoodImg());
 		String user_nickname = "";
 		try {
 			user_nickname = recipeService.getUserNicknameByUserId(principal.getName());
-//			System.out.println("user_nickname : "+user_nickname);
 			model.addAttribute("user_nickname", user_nickname);
 			model.addAttribute("user_id", principal.getName());
 		} catch (Exception e) {
@@ -144,7 +127,6 @@ public class ShopController {
 		// parent_comment_id
 		// comment_rating
 		// reference_type
-		System.out.println(comment.toString());
 
 		shopService.insertReply(comment);
 
@@ -165,7 +147,6 @@ public class ShopController {
 	@ResponseBody
 	@PostMapping("/cart/insert")
 	public boolean insertCart(CartDto cartDto) {
-		System.out.println(cartDto.toString());
 		boolean check = shopService.checkCartByUserIdAndFoodId(cartDto);
 		if (check) {
 			// 이미 있으면
@@ -218,11 +199,9 @@ public class ShopController {
 			try {
 				cart_list = shopService.getCartByUserIdAndCheck(principal.getName());
 			} catch (Exception e) {
-				System.out.println("비로그인");
 				return "login";
 			}
 			cart_list.forEach((cart) -> {
-				System.out.println(cart);
 				cart.replace("food_lprice", Integer.parseInt(((String) cart.get("food_lprice"))));
 			});
 			for (int i = 0; i < cart_list.size(); i++) {
