@@ -1,3 +1,4 @@
+<!--2024-09-12 병윤-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>쇼핑몰</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="/css/shop.css" rel="stylesheet">
 </head>
 <body>
@@ -12,15 +14,43 @@
     <div class="container">
         <!-- 브랜드명이나 로고 -->
         <a class="navbar-brand" href="/">Your Brand</a>
-        <div class="navbar-links">
-            <ul>
-                <li class="nav-item"><a class="nav-link active" th:href="@{/}">홈으로</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/profile">마이페이지</a></li>
-                <li sec:authorize="isAnonymous()"><a href="/login">로그인</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/logout">로그아웃</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/inquire">문의하기</a></li>
-                <li sec:authorize="isAnonymous()"><a href="/join">회원가입</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/cart">장바구니</a></li>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav">
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/profile}">
+                        <i class="fas fa-user"></i> 마이페이지
+                    </a>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/login}">
+                        <i class="fas fa-sign-in-alt"></i> 로그인
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/logout}">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/inquire}">
+                        <i class="fas fa-envelope"></i> 문의하기
+                    </a>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="nav-link" th:href="@{/join}">
+                        <i class="fas fa-user-plus"></i> 회원가입
+                    </a>
+                </li>
+                <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="nav-item">
+                    <a class="nav-link active" th:href="@{/admin}">
+                        <i class="fas fa-users-cog"></i> 회원관리
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/cart}">
+                        <i class="fas fa-shopping-cart"></i> 장바구니
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -65,7 +95,7 @@
         <div class="sidebar">
             <form method="get" action="/shop">
                 <div class="category-btn-group">
-                    <button type="submit" name="searchCategory" value="" class="category-btn">전체</button>
+                    <button type="submit" name="searchCategory" value="" class="category-btn" onclick="resetCategories()">전체</button>
                     <!-- 상위 카테고리 버튼들 -->
                     <div th:each="category : ${categories}">
                         <button type="button" class="category-btn"
@@ -73,12 +103,11 @@
                                 th:onclick="'toggleSubcategories(' + ${category.categoryId} + ')'"
                                 th:text="${category.categoryName}"></button>
                         <!-- 하위 카테고리 버튼 -->
-                        <div th:if="${category.children != null}"
-                             th:id="'subcategories-' + ${category.categoryId}"
-                             class="subcategories">
+                        <div th:if="${category.children != null}" th:id="'subcategories-' + ${category.categoryId}" class="subcategories">
                             <button type="submit" th:each="child : ${category.children}"
                                     name="searchCategory"
                                     th:value="${child.categoryId}"
+                                    th:onclick="'selectSubcategory(' + ${child.categoryId} + ',' + ${category.categoryId} + ')'"
                                     th:text="${child.categoryName}"
                                     class="subcategory-btn"></button>
                         </div>
@@ -128,49 +157,97 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- JavaScript to handle subcategories toggle and save category state -->
 <script>
+    // 서브 카테고리 토글 함수
     function toggleSubcategories(categoryId) {
         const subcategoryContainer = document.getElementById(`subcategories-${categoryId}`);
+        const categoryButton = document.getElementById(`category-${categoryId}`);
 
+        // 하위 카테고리 토글
         if (subcategoryContainer.style.height === '0px' || !subcategoryContainer.style.height) {
-            // 높이가 0이거나 아직 설정되지 않았으면, 하위 카테고리 높이를 동적으로 계산
+            // 높이가 0이거나 설정되지 않았으면 열기
             const subcategoryHeight = subcategoryContainer.scrollHeight;
-            subcategoryContainer.style.height = `${subcategoryHeight}px`; // 실제 높이로 전환
+            subcategoryContainer.style.height = `${subcategoryHeight}px`;
             subcategoryContainer.classList.add('show');
-            localStorage.setItem('selectedCategoryId', categoryId);
+            categoryButton.classList.add('selected');
         } else {
-            // 높이를 다시 0으로 설정하여 숨기기
+            // 높이를 다시 0으로 설정하여 닫기
             subcategoryContainer.style.height = '0px';
             subcategoryContainer.classList.remove('show');
-            localStorage.removeItem('selectedCategoryId');
+            categoryButton.classList.remove('selected');
         }
+
+        // 로컬 스토리지에 상위 카테고리 저장
+        localStorage.setItem('selectedCategoryId', categoryId);
+        // 선택된 하위 카테고리를 지워서 상위 카테고리만 저장
+        localStorage.removeItem('selectedSubcategory');
     }
 
+    // 하위 카테고리 선택 시 호출되는 함수
+    function selectSubcategory(subcategoryId, categoryId) {
+        // 모든 하위 카테고리 버튼을 초기화 (선택 해제)
+        document.querySelectorAll('.subcategory-btn').forEach(button => {
+            button.classList.remove('selected');
+        });
+
+        // 선택된 하위 카테고리 버튼에 선택 스타일 적용
+        const selectedButton = document.querySelector(`button[value='${subcategoryId}']`);
+        if (selectedButton) {
+            selectedButton.classList.add('selected');
+        }
+
+        // 로컬 스토리지에 선택된 하위 카테고리와 상위 카테고리 저장
+        localStorage.setItem('selectedSubcategory', subcategoryId);
+        localStorage.setItem('selectedCategoryId', categoryId);
+    }
+
+    // 전체 버튼 클릭 시 카테고리 초기화
+    function resetCategories() {
+        localStorage.removeItem('selectedCategoryId');
+        localStorage.removeItem('selectedSubcategory');
+
+        // 모든 카테고리 스타일 초기화
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.classList.remove('selected');
+        });
+        document.querySelectorAll('.subcategory-btn').forEach(button => {
+            button.classList.remove('selected');
+        });
+
+        // 모든 하위 카테고리 접기
+        document.querySelectorAll('.subcategories').forEach(container => {
+            container.style.height = '0px';
+            container.classList.remove('show');
+        });
+    }
+
+    // 페이지 로드 시 선택된 하위 카테고리 유지
     window.onload = function() {
+        const selectedSubcategoryId = localStorage.getItem('selectedSubcategory');
         const selectedCategoryId = localStorage.getItem('selectedCategoryId');
 
         if (selectedCategoryId) {
-            // 저장된 카테고리 ID의 하위 카테고리를 보여줌
+            // 상위 카테고리 열기
             const subcategoryContainer = document.getElementById(`subcategories-${selectedCategoryId}`);
+            const categoryButton = document.getElementById(`category-${selectedCategoryId}`);
             if (subcategoryContainer) {
                 subcategoryContainer.style.height = `${subcategoryContainer.scrollHeight}px`;
                 subcategoryContainer.classList.add('show');
             }
-
-            // 상위 카테고리 버튼의 스타일을 선택된 것처럼 표시
-            const categoryButton = document.getElementById(`category-${selectedCategoryId}`);
             if (categoryButton) {
-                categoryButton.classList.add('active');
+                categoryButton.classList.add('selected');
+            }
+        }
+
+        if (selectedSubcategoryId) {
+            // 선택된 하위 카테고리 강조
+            const selectedButton = document.querySelector(`button[value='${selectedSubcategoryId}']`);
+            if (selectedButton) {
+                selectedButton.classList.add('selected');
             }
         }
     };
-
-    // 배너 슬라이드 자동 전환 설정
-    var myCarousel = document.querySelector('#bannerCarousel');
-    var carousel = new bootstrap.Carousel(myCarousel, {
-        interval: 3000, // 3초마다 슬라이드 전환
-        wrap: true // 마지막 슬라이드 후 첫 슬라이드로 돌아감
-    });
 </script>
+
 
 </body>
 </html>
