@@ -16,13 +16,13 @@ var isTelValidated = false; // 기본 사용 불가
 async function checkId() {
     var snd_data = $("#user_id").val().trim();
     if (snd_data === "") {
-        $("#id-area").html("<p>아이디를 입력해 주세요.</p>");
+        $("#id-area").html("<p style='color :blue'>아이디를 입력해 주세요.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
         isIdValidated = true; // 아이디 확인이 필요함
         return;
     }
     if (snd_data.length < 4 || snd_data.length > 12) {
-        $("#id-area").html("<p>아이디는 4~12자로 입력해주세요.</p>");
+        $("#id-area").html("<p style='color :blue'>아이디는 4~12자로 입력해주세요.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
         isIdValidated = false; // 아이디 확인이 필요함
         return;
@@ -36,17 +36,17 @@ async function checkId() {
         });
     // 유효성 검사 추가
         if (!/^[a-z0-9]+$/.test(snd_data)) {
-        $("#id-area").html("<p>아이디는 소문자와 숫자만 포함해야 합니다.</p>");
+        $("#id-area").html("<p style='color :blue'>아이디는 소문자와 숫자만 포함해야 합니다.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
         isIdValidated = false; // 아이디 확인이 필요함
         return;
         }
         if (data === "true") {
-            $("#id-area").html("<p>사용 가능한 아이디입니다.</p>");
+            $("#id-area").html("<p style='color :blue'>사용 가능한 아이디입니다.</p>");
             isIdChecked = true; // 중복 체크 완료, 아이디 사용 가능
             isIdValidated = true; // 아이디가 사용 가능함
         } else {
-            $("#id-area").html("<p>사용할 수 없는 아이디입니다.</p>");
+            $("#id-area").html("<p style='color :blue'>사용할 수 없는 아이디입니다.</p>");
             isIdChecked = true; // 중복 체크 완료, 아이디 사용 불가
             isIdValidated = false; // 아이디가 사용 불가함
         }
@@ -61,13 +61,13 @@ async function checkId() {
 async function checkNickname() {
     var nickname = $("#user_nickname").val().trim();
     if (nickname === "") {
-        $("#nickname-area").html("<p>닉네임을 입력해 주세요.</p>");
+        $("#nickname-area").html("<p style='color :blue'>닉네임을 입력해 주세요.</p>");
         isNicknameChecked = false;
         isNickValidated = true;
         return;
     }
-    if (nickname.length < 2 || nickname.length > 6) {
-        $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
+    if (nickname.length < 2 || nickname.length > 12) {
+        $("#nickname-area").html("<p style='color :blue'>닉네임은 2~12자로 입력해주세요.</p>");
         isNicknameChecked = false;
         isNickValidated = false;
         return;
@@ -80,11 +80,11 @@ async function checkNickname() {
             data: { data: nickname }
         });
         if (response.trim() === "true") {
-            $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
+            $("#nickname-area").html("<p style='color :blue'>사용 가능한 닉네임입니다.</p>");
             isNicknameChecked = true;
             isNickValidated = true;
         } else {
-            $("#nickname-area").html("<p>사용할 수 없는 닉네임입니다.</p>");
+            $("#nickname-area").html("<p style='color :blue'>사용할 수 없는 닉네임입니다.</p>");
             isNicknameChecked = true;
             isNickValidated = false;
         }
@@ -101,7 +101,7 @@ update_email()
     var email = $("#user_email").val().trim();
 
     if (email === "") {
-        $("#email-area").html("<p>이메일을 입력해 주세요.</p>");
+        $("#email-area").html("<p style='color :blue'>이메일을 입력해 주세요.</p>");
         isEmailChecked = false;
         isValidated = true;
         return;
@@ -114,11 +114,11 @@ update_email()
             data: { data: email }
         });
         if (response.trim() === "true") {
-            $("#email-area").html("<p>사용 가능한 이메일입니다.</p>");
+            $("#email-area").html("<p style='color :blue'>사용 가능한 이메일입니다.</p>");
             isEmailChecked = true;
             isEmailValidated = true;
         } else {
-            $("#email-area").html("<p>사용할 수 없는 이메일입니다.</p>");
+            $("#email-area").html("<p style='color :blue'>사용할 수 없는 이메일입니다.</p>");
             isEmailChecked = true;
             isEmailValidated = false;
         }
@@ -134,7 +134,7 @@ async function checkTel() {
     var telNumber = $("#user_tel").val().trim(); // 중간번호
 
     if (telPrefix === "" || telNumber === "") {
-        $("#tel-area").html("<p>전화번호를 입력해 주세요.</p>");
+        $("#tel-area").html("<p style='color :blue'>전화번호를 입력해 주세요.</p>");
         isTelChecked = false;
         isTelValidated = true;
         return;
@@ -150,12 +150,12 @@ async function checkTel() {
         });
 
         if (response.trim() === "true") {
-            $("#tel-area").html("<p>사용 가능한 전화번호입니다.</p>");
+            $("#tel-area").html("<p style='color :blue'>사용 가능한 전화번호입니다.</p>");
             isTelChecked = true;
             isTelValidated = true;
 
         } else {
-            $("#tel-area").html("<p>사용할 수 없는 전화번호입니다.</p>");
+            $("#tel-area").html("<p style='color :blue'>사용할 수 없는 전화번호입니다.</p>");
             isTelChecked = true;
             isTelValidated = false;
         }
@@ -426,7 +426,7 @@ function validateIdFeedback() {
     const idFeedback = document.getElementById('id-area2');
 
     if (!validateId(userId)) {
-        idFeedback.textContent = "아이디는 소문자와 숫자만 포함하며, 4~12자 사이여야 합니다.";
+        idFeedback.innerHTML = "<small style='color :red'>아이디는 소문자와 숫자만 포함하며, 4~12자 사이여야 합니다.</small>";
     } else {
     }
 }
@@ -436,7 +436,7 @@ function validateFields() {
     const pwFeedback = document.getElementById('pw-area');
 
     if (!validatePassword(userPw)) {
-        pwFeedback.textContent = "비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.";
+        pwFeedback.innerHTML = "<small style='color :red'>비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.</small>";
     } else {
     }
 }

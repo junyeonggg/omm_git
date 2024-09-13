@@ -119,4 +119,25 @@ public class ShopService {
 	}
 
 
+	public boolean updateReview(int commentId, String newContent) {
+		try {
+			shopDao.updateReview(newContent, commentId);
+			return true; // 성공적으로 업데이트됨
+		} catch (Exception e) {
+			// 예외 처리
+			e.printStackTrace();
+			return false; // 업데이트 실패
+		}
+	}
+
+	public boolean deleteReview(int commentId) {
+		try {
+			shopDao.deleteReview(commentId);
+			return true; // 성공적으로 삭제됨
+		} catch (Exception e) {
+			// 예외 처리
+			e.printStackTrace();
+			return false; // 삭제 실패
+		}
+	}
 }
