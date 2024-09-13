@@ -265,9 +265,6 @@ function updateRecipeIngre() {
 		success: recipe_id => {
 			window.alert("레시피가 수정되었습니다..")
 			window.location.href = `/recipe_list/${recipe_id}`;
-		},
-		error: recipe_id => {
-			console.error("Error:", error);
 		}
 	});
 }
