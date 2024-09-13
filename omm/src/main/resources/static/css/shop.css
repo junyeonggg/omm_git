@@ -5,20 +5,22 @@ body {
     margin: 0;
     padding: 0;
 }
-
 .container {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
 }
+
 /* Navbar 스타일 */
 .navbar {
     background-color: #343a40; /* 어두운 배경색 */
-    padding: 5px 20px;
+    padding: 10px;
     display: flex !important; /* Flex를 강제로 사용 */
     justify-content: space-between !important; /* 브랜드명과 메뉴를 좌우로 배치 */
     align-items: center !important;
     border-bottom: 2px solid #007bff; /* 경계선 추가 */
+    flex-wrap: nowrap !important; /* 줄바꿈 방지 */
 }
+
 
 .navbar-brand {
     color: white;
@@ -32,6 +34,7 @@ body {
     justify-content: flex-end !important; /* 오른쪽 정렬 강제 적용 */
     align-items: center !important;
     width: 100% !important;
+    flex-wrap: nowrap !important; /* 줄바꿈 방지 */
 }
 
 .navbar-nav {
@@ -41,6 +44,7 @@ body {
     padding: 0;
     margin: 0;
     gap: 20px !important; /* 버튼 간 간격 */
+    flex-wrap: nowrap !important; /* 줄바꿈 방지 */
 }
 
 .nav-item {
