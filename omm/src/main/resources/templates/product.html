@@ -146,7 +146,7 @@
 }
 
 .rate2 input:checked ~ label {
-	color: gold;
+	color: gold; !important;
 }
 </style>
 </head>
@@ -262,26 +262,6 @@
 										<input th:if="${comment.comment_rating != 0.5}" readonly class="radio_rating_list" type="radio"  value="0.5">
 										<label class="half" title="0.5 stars"></label>
 									</div>
-<<<<<<< HEAD
-                                    <div>
-                                        <input th:class="'text_rating'+${comment.comment_id}" readonly type="radio" value="5">
-                                        <input class="text_rating" readonly type="radio" value="4.5">
-                                        <input class="text_rating" readonly type="radio" value="4">
-                                        <input class="text_rating" readonly type="radio" value="3.5">
-                                        <input class="text_rating" readonly type="radio" value="3">
-                                        <input class="text_rating" readonly type="radio" value="2.5">
-                                        <input class="text_rating" readonly type="radio" value="2">
-                                        <input class="text_rating" readonly type="radio" value="1.5">
-                                        <input class="text_rating" readonly type="radio" value="1">
-                                        <input class="text_rating" readonly type="radio" value="0.5">
-                                    </div>
-<script>
-const ra_list = document.querySelectorAll(".text_rating");
-//const rating_value
-//2024-09-12 수정할 부분
-</script>
-=======
->>>>>>> branch 'master' of https://github.com/junyeonggg/omm_git.git
 								</div>
 								<p class="card-text" th:text="${comment.comment_content}"></p>
 							</div>
