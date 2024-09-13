@@ -75,11 +75,11 @@ function insertReplyBtn(self, reference_type) {
 	const comment_parent_id = self.getAttribute("data-parent-comment-id")
 	const target_id = self.getAttribute("data-target-id");
 
-    // 댓글 내용이 빈 칸 또는 공백만으로 이루어진 경우 확인
-        if (comment_content.length === 0) {
-            alert("댓글을 작성해주세요.");
-            return;
-        }
+	// 댓글 내용이 빈 칸 또는 공백만으로 이루어진 경우 확인
+	if (comment_content.length === 0) {
+		alert("댓글을 작성해주세요.");
+		return;
+	}
 	var rating = 0;
 	const rating_radio_list = document.getElementsByName("rating")
 	for (radio of rating_radio_list) {
@@ -392,3 +392,45 @@ function deleteRecipe(recipeId) {
 		});
 	}
 }
+
+function selectFilter(self) {
+	// 클릭하면 해당 필터링
+	const method_list = document.querySelectorAll(".method_list");
+	const status_list = document.querySelectorAll(".status_list");
+	const ingre_list = document.querySelectorAll(".ingre_list");
+	
+	let method = "";
+	for (i of method_list) {
+		if (i.checked) {
+			method = i.value;
+		}
+	}
+
+	let status = "";
+	for (i of status_list) {
+		if (i.checked) {
+			status = i.value;
+		}
+	}
+
+	let ingre = "";
+	for (i of ingre_list) {
+		if (i.checked) {
+			ingre = i.value;
+		}
+	}
+	
+	
+	window.location.href = `/recipe_list?method=${method}&status=${status}&ingre=${ingre}`
+	
+/*	$.ajax({
+		type:"get",
+		url : "/recipe_list/filter",
+		data : {'status_check_list':status_check_list,
+				'method_check_list':method_check_list,
+				'ingre_check_list':ingre_check_list},
+		success : data => console.log(data)
+		
+	})*/
+}
+
