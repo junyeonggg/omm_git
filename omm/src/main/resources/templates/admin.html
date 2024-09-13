@@ -7,6 +7,33 @@
     <script th:src="@{/js/admin.js}"></script>
 </head>
 <body>
+<header>
+<nav class="navbar">
+    <div class="container">
+        <!-- 브랜드명이나 로고 -->
+        <a class="navbar-brand" href="/">Your Brand</a>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav">
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/login}">
+                        <i class="fas fa-sign-in-alt"></i> 로그인
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/logout}">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/inquire}">
+                        <i class="fas fa-envelope"></i> 문의하기
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
 <h1>회원 관리</h1>
 <table border="1">
     <thead>
@@ -42,6 +69,8 @@
     </tr>
     </tbody>
 </table>
-<input type="button" value="홈으로" class="header-btn" onclick="location.href='/'">
+<footer>
+    <div class="container"><p class="m-0 text-center text-white">&copy; Your Website 2023</p></div>
+</footer>
 </body>
 </html>
