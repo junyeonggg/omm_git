@@ -136,4 +136,17 @@ public interface RecipeDao {
 
 	@Select("SELECT cs.sequence_text, cs.sequence_step_no FROM tbl_cooking_sequence cs JOIN tbl_recipe r ON cs.recipe_id = r.recipe_id WHERE r.recipe_id = #{recipe_id} ORDER BY cs.sequence_step_no;\n")
 	List<CookingSequenceDto> selectRecipeSequenceAndTextByRecipeId(@Param("recipe_id") int recipe_id);
+
+	@Update("update tbl_recipe set recipe_title=#{recipe_title}, recipe_food_name=#{recipe_food_name}, recipe_method=#{recipe_method}, recipe_status=#{recipe_status}, recipe_ingredient=#{recipe_ingredient}, recipe_serving=#{recipe_serving}, recipe_level=#{recipe_level}, recipe_time=#{recipe_time}, recipe_describe=#{recipe_describe} where recipe_id = #{recipe_id}")
+	int updateRecipeByRecipeId(RecipeDto recipeDto);
+
+	@Select("select * from tbl_recipe where recipe_id=#{recipe_id}")
+	RecipeDto selectRecipeById(int recipe_id);
+
+	@Delete("delete from tbl_ingre where recipe_id =#{recipe_id}")
+	void deleteIngreByRecipeId(int recipe_id);
+
+
+	@Delete("delete from tbl_cooking_sequence where recipe_id = #{recipe_id}")
+	void deleteSequenceImgByRecipeId(int recipe_id);
 }

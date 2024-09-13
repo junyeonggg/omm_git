@@ -112,6 +112,42 @@
 	background-color: white;
 	align-items: center;
 }
+.rate2 {
+	display: inline-block;
+	margin-right: 15px;
+	padding: 10px; /* 여백 추가 */
+	border-radius: 5px; /* 모서리 둥글게 */
+}
+
+.rate2>input {
+	display: none;
+}
+
+.rate2>label {
+	float: right;
+	color: #ddd;
+	font-size: 1.5rem;
+}
+
+.rate2>label:before {
+	display: inline-block;
+	font-size: 1.5rem;
+	padding: .3rem .2rem;
+	margin: 0;
+	cursor: pointer;
+	font-family: FontAwesome;
+	content: "\f005"; /* 별 모양 */
+}
+
+.rate2 .half:before {
+	content: "\f089"; /* 반개 별 모양 */
+	position: absolute;
+	padding-right: 0;
+}
+
+.rate2 input:checked ~ label {
+	color: gold; !important;
+}
 </style>
 </head>
 <body>
@@ -194,31 +230,38 @@
 							<div>
 								<div class="d-flex justify-content-between">
 									<h5 class="card-title" th:text="${comment.user_id}"></h5>
-									<div class="rating">
-										<span th:each="i : ${#numbers.sequence(1, comment.comment_rating)}"
-											class="fa fa-star checked" style="color: gold;">
-                                        </span>
-                                        <span th:each="i : ${#numbers.sequence(comment.comment_rating + 1, 5)}"
-											class="fa fa-star" th:text="${i}">
-                                        </span>
+									<div class="rate2">
+										<input th:if="${comment.comment_rating == 5.0}" readonly checked class="radio_rating_list" type="radio" value="5">
+										<input th:if="${comment.comment_rating != 5.0}" readonly class="radio_rating_list" type="radio" value="5">
+										<label title="5 stars"> </label>
+										<input th:if="${comment.comment_rating == 4.5}" readonly checked class="radio_rating_list" type="radio"  value="4.5">
+										<input th:if="${comment.comment_rating != 4.5}" readonly class="radio_rating_list" type="radio"  value="4.5">
+										<label class="half" title="4.5 stars"></label>
+										<input th:if="${comment.comment_rating == 4.0}" readonly checked class="radio_rating_list" type="radio"  value="4.0">
+										<input th:if="${comment.comment_rating != 4.0}" readonly class="radio_rating_list" type="radio"  value="4.0">
+										<label title="4 stars"></label>
+										<input th:if="${comment.comment_rating == 3.5}" readonly checked class="radio_rating_list" type="radio"  value="3.5">
+										<input th:if="${comment.comment_rating != 3.5}" readonly class="radio_rating_list" type="radio"  value="3.5">
+										<label class="half" title="3.5 stars"></label>
+										<input th:if="${comment.comment_rating == 3.0}" readonly checked class="radio_rating_list" type="radio"  value="3.0">
+										<input th:if="${comment.comment_rating != 3.0}" readonly class="radio_rating_list" type="radio"  value="3.0">
+										<label title="3 stars"></label>
+										<input th:if="${comment.comment_rating == 2.5}"readonly checked class="radio_rating_list" type="radio"  value="2.5">
+										<input th:if="${comment.comment_rating != 2.5}" readonly class="radio_rating_list" type="radio"  value="2.5">
+										<label class="half" title="2.5 stars"></label>
+										<input th:if="${comment.comment_rating == 2.0}" readonly checked class="radio_rating_list" type="radio"  value="2.0">
+										<input th:if="${comment.comment_rating != 2.0}" readonly class="radio_rating_list" type="radio"  value="2.0">
+										<label title="2 stars"></label>
+										<input th:if="${comment.comment_rating == 1.5}" readonly checked class="radio_rating_list" type="radio"  value="1.5">
+										<input th:if="${comment.comment_rating != 1.5}" readonly class="radio_rating_list" type="radio"  value="1.5">
+										<label class="half" title="1.5 stars"></label>
+										<input th:if="${comment.comment_rating == 1.0}" readonly checked class="radio_rating_list" type="radio"  value="1.0">
+										<input th:if="${comment.comment_rating != 1.0}" readonly class="radio_rating_list" type="radio"  value="1.0">
+										<label title="1 star"></label>
+										<input th:if="${comment.comment_rating == 0.5}" readonly checked class="radio_rating_list" type="radio"  value="0.5">
+										<input th:if="${comment.comment_rating != 0.5}" readonly class="radio_rating_list" type="radio"  value="0.5">
+										<label class="half" title="0.5 stars"></label>
 									</div>
-                                    <div>
-                                        <input th:class="'text_rating'+${comment.comment_id}" readonly type="radio" value="5">
-                                        <input class="text_rating" readonly type="radio" value="4.5">
-                                        <input class="text_rating" readonly type="radio" value="4">
-                                        <input class="text_rating" readonly type="radio" value="3.5">
-                                        <input class="text_rating" readonly type="radio" value="3">
-                                        <input class="text_rating" readonly type="radio" value="2.5">
-                                        <input class="text_rating" readonly type="radio" value="2">
-                                        <input class="text_rating" readonly type="radio" value="1.5">
-                                        <input class="text_rating" readonly type="radio" value="1">
-                                        <input class="text_rating" readonly type="radio" value="0.5">
-                                    </div>
-<script>
-const ra_list = document.querySelectorAll(".text_rating");
-const rating_value
-2024-09-12 수정할 부분
-</script>
 								</div>
 								<p class="card-text" th:text="${comment.comment_content}"></p>
 							</div>
