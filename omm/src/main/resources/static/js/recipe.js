@@ -138,7 +138,18 @@ function likeSet(self, reference_type, recipe_id) {
 function insertSequenceTr() {
 	const target = document.querySelector("#step_tbl");
 	var trEl = document.createElement("tr");
-	trEl.innerHTML = `<td class="step_no_td"><input type="text" value="1" readonly="readonly"></td>
+	const no_list = document.querySelectorAll(".org_step_no")
+	let num = 0;
+	if(no_list.length == 0){
+	    num = 1;
+	}else{
+	    let last_no = no_list[no_list.length - 1].value
+        num = Number(last_no) + 1;
+	}
+
+
+
+	trEl.innerHTML = `<td class="step_no_td"><input class="org_step_no" type="text" value="${num}" readonly="readonly"></td>
 						<td class="step_text_td"><textarea class="sequence_text" cols="140" rows="5" placeholder="김치를 먼저 볶아 주세요."></textarea></td>
 						<td><input class="sequence_img" type="file"></td>
 						<td><input type="button" onclick="deleteSequenceTr(this)" value="X"></td>`

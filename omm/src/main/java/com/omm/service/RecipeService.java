@@ -183,4 +183,8 @@ public class RecipeService {
 	public int selectLikeRecipeAll(String keyword, String user_id) {
 		return recipeDao.selectLikeRecipeAll(keyword,user_id);
 	}
+
+	public List<CookingSequenceDto> selectRecipeSequenceAndTextByRecipeId(int recipe_id) {
+		return recipeDao.selectRecipeSequenceAndTextByRecipeId(recipe_id);
+	}
 }

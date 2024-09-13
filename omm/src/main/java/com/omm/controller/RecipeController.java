@@ -220,6 +220,7 @@ public class RecipeController {
 		// 메인 재료
 		List<String> ingre_list = recipeService.getIngre();
 		model.addAttribute("ingre_list", ingre_list);
+
 		return "recipe_write";
 	}
 
@@ -245,6 +246,10 @@ public class RecipeController {
 		// 레시피 재료 리스트
 		List<Recipe_ingre> recipe_ingre_list = recipeService.selectRecipeIngreByRecipeId(recipe_id);
 		model.addAttribute("recipe_ingre_list",recipe_ingre_list);
+
+		// 요리 순서 및 내용
+		List<CookingSequenceDto> cook_sequence_list = recipeService.selectRecipeSequenceAndTextByRecipeId(recipe_id);
+		model.addAttribute("cook_sequence_list", cook_sequence_list);
 		return "recipe_edit";
 	}
 	@ResponseBody

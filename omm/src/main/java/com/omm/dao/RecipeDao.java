@@ -133,4 +133,7 @@ public interface RecipeDao {
 
 	@Select("SELECT count(*) FROM omm.tbl_like join tbl_recipe on tbl_recipe.recipe_id = tbl_like.target_id where reference_type=1  and tbl_like.user_id=#{user_id} and recipe_food_name like concat('%',#{keyword},'%');")
 	int selectLikeRecipeAll(@Param("keyword")String keyword, @Param("user_id")String user_id);
+
+	@Select("SELECT cs.sequence_text, cs.sequence_step_no FROM tbl_cooking_sequence cs JOIN tbl_recipe r ON cs.recipe_id = r.recipe_id WHERE r.recipe_id = #{recipe_id} ORDER BY cs.sequence_step_no;\n")
+	List<CookingSequenceDto> selectRecipeSequenceAndTextByRecipeId(@Param("recipe_id") int recipe_id);
 }
