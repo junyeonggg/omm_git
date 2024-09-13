@@ -95,6 +95,7 @@
 	justify-content: center;
 	width: 90%; /* 레시피 섹션의 너비를 조정하여 중앙에 배치 */
 	margin: 0 auto;
+	width: 90%;
 }
 /* 레시피 만들기 버튼을 우측으로 배치 */
 .create_recipe_btn {
@@ -157,6 +158,64 @@
 	color: #333; /* 기본 텍스트 색상 */
 	user-select: none;
 }
+
+.filterDiv {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	height: 100px;
+	align-self: center;
+	width: 80%;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.filterDiv_item {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.filterDiv_item2 {
+	margin-right: 5px;
+	margin-left: 5px;
+	border-radius: 5px;
+	user-select: none;
+	color: black;
+	box-shadow: 2px 2px 2px 2px gray;
+	font-size: 15px;
+	padding: 2px;
+}
+
+.filterDiv_item2:hover {
+	background-color: #FFA500;
+	color: white;
+}
+
+.filterDiv_checkbox {
+	display: none;
+}
+
+.filterDiv_checkbox+label {
+	margin-right: 5px;
+	margin-left: 5px;
+	border-radius: 5px;
+	user-select: none;
+	color: black;
+	box-shadow: 2px 2px 2px 2px gray;
+	font-size: 15px;
+	padding: 2px;
+}
+
+.filterDiv_checkbox+label:hover {
+	background-color: #FFA500;
+	color: white;
+}
+
+.filterDiv_checkbox:checked+label {
+	background-color: #FFA500;
+	color: white;
+}
 </style>
 
 </head>
@@ -200,6 +259,48 @@
 	<!-- 레시피 리스트 -->
 	<div class="recipe_section">
 		<h1>레시피</h1>
+
+		<!-- 필터링 -->
+		<div class="filterDiv">
+			<div><button onclick="resetFilter()">초기화</button></div>
+			<div class="filterDiv_item">
+				방법 :
+				<div th:if="${method != ''}" th:each="method,info : ${method_list}">
+					<input th:id="method+${info.count}" type="radio" name="radio_method"
+						class="filterDiv_checkbox method_list" th:value="${method}"
+						onclick="selectFilter(this)"> <label
+						class="filterDiv_checkbox_label" th:for="method+${info.count}"
+						th:text="${method}"></label>
+				</div>
+			</div>
+
+
+			<div class="filterDiv_item">
+				상황 :
+				<div th:if="${status != ''}" th:each="status,info : ${status_list}">
+					<input th:id="status+${info.count}" type="radio" name="radio_status"
+						class="filterDiv_checkbox status_list" th:value="${status}"
+						onclick="selectFilter(this)"> <label
+						class="filterDiv_checkbox_label" th:for="status+${info.count}"
+						th:text="${status}"></label>
+				</div>
+			</div>
+
+
+			<div class="filterDiv_item">
+				메인재료 :
+				<div th:if="${ingre != ''}" th:each="ingre,info : ${ingre_list}">
+					<input th:id="ingre+${info.count}" type="radio" name="radio_ingre"
+						class="filterDiv_checkbox ingre_list" th:value="${ingre}"
+						onclick="selectFilter(this)"> <label
+						class="filterDiv_checkbox_label" th:for="ingre+${info.count}"
+						th:text="${ingre}"></label>
+				</div>
+			</div>
+		</div>
+
+
+
 		<div class="search_div">
 			<span><strong>제목 검색 : </strong></span> <input type="text"
 				id="keyword"> <input id="searchBtn" type="button" value="검색"
@@ -211,7 +312,8 @@
 				value="레시피 만들기">
 		</div>
 		<div>
-			<input type="button" onclick="location.href='/recipe/like'" value="찜 목록 보기">
+			<input type="button" onclick="location.href='/recipe/like'"
+				value="찜 목록 보기">
 		</div>
 
 		<table class="recipe_tbl">
@@ -242,22 +344,21 @@
 			<table class="tbl_paging">
 				<tr>
 					<td th:if="${paging.prevPage}"
-						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.startPage-1},keyword=${paging.keyword})}'|"
+						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.startPage-1},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"
 						th:text="${'<'}"></td>
 					<td
 						th:style="${number == paging.current_page ? 'border-radius: 5px;box-shadow: 1px 1px 2px 2px gray;font-weight: bolder' : ''}"
 						th:each="number : ${#numbers.sequence(paging.startPage,paging.endPage)}"
 						th:text="${number}"
-						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${number},keyword=${paging.keyword})}'|"></td>
+						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${number},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"></td>
 					<td th:if="${paging.nextPage}"
-						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.endPage+1},keyword=${paging.keyword})}'|"
+						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.endPage+1},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"
 						th:text="${'>'}"></td>
 				</tr>
 			</table>
 
 		</div>
 	</div>
-
 	<footer class="footer">
 		<div class="container">
 			<p class="footer-text">&copy; Your Website 2023</p>
@@ -265,5 +366,32 @@
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="/js/recipe.js"></script>
+	<script>
+window.onload = () => {
+	const checkbox_list = document.querySelectorAll(".filterDiv_checkbox");
+	const method = `[[${paging.method}]]`;
+	const status = `[[${paging.status}]]`;
+	const ingre = `[[${paging.ingre}]]`;
+	checkbox_list.forEach(checkbox => {
+	    if (checkbox.value == method & checkbox.value != "") {
+	        checkbox.checked = true;
+        }
+	    if (checkbox.value == status & checkbox.value != "") {
+	        checkbox.checked = true;
+        }
+	    if (checkbox.value == ingre & checkbox.value != "") {
+	        checkbox.checked = true;
+        }
+    });	
+}
+function resetFilter(){
+	const checkbox_list = document.querySelectorAll(".filterDiv_checkbox");
+	checkbox_list.forEach(checkbox => {
+		checkbox.checked = false;
+	});
+	window.location.href='/recipe_list';
+}
+
+</script>
 </body>
 </html>

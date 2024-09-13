@@ -23,6 +23,12 @@ public class PagingSearch {
 	// 검색기능
 	private String keyword;
 	
+	// 필터링
+	private String method;
+	private String status;
+	private String ingre;
+
+	
 	public PagingSearch(int totDataCnt,int current_page){
 		this.totDataCnt = totDataCnt;
 		this.totPageCnt = ((totDataCnt-1)/recordSize)+1;

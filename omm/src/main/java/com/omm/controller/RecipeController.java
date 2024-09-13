@@ -1,7 +1,7 @@
-// 준영 수정
 
-// 자바 230(editIngre) 생성
+// 2024-09-13 금 16:11
 package com.omm.controller;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -9,9 +9,11 @@ import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -21,7 +23,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -95,7 +102,7 @@ public class RecipeController {
 //		return "recipe_list";
 //	}
 
-	// 레시피 재료를 넣기위한 메서드  수정 : 2024-09-12
+	// 레시피 재료를 넣기위한 메서드 수정 : 2024-09-12
 //	@GetMapping("/insert_ingre")
 //	public String insert_ingre() {
 //		try {
@@ -136,7 +143,7 @@ public class RecipeController {
 //
 //		return "redirect:/";
 //	}
-	//레시피 sequence  db에 넣기 수정 : 2024-09-12
+	// 레시피 sequence db에 넣기 수정 : 2024-09-12
 //	@GetMapping("/insert_step")
 //	public String insert_step() {
 //		String path = "C:\\Users\\admin\\Desktop\\recipe_sequence.csv";
@@ -192,18 +199,35 @@ public class RecipeController {
 
 	@GetMapping("/recipe_list")
 	public String recipe_list_page(@RequestParam(value = "keyword", defaultValue = "") String keyword,
-								   @RequestParam(value = "page", defaultValue = "1") int page_no, Model model) {
-		int recipe_list_size = recipeService.selectAll(keyword);
+			@RequestParam(value = "page", defaultValue = "1") int page_no, Model model,
+			@RequestParam(value = "method", defaultValue = "") String method,
+			@RequestParam(value = "status", defaultValue = "") String status,
+			@RequestParam(value = "ingre", defaultValue = "") String ingre) {
+
+		int recipe_list_size = recipeService.selectAll(keyword,method,status,ingre);
 		PagingSearch pagingSearch = new PagingSearch(recipe_list_size, page_no);
 		pagingSearch.setKeyword(keyword);
-		List<RecipeDto> recipe_list = recipeService.selectRecipeByPagingSearch(pagingSearch.getStartRecord(),
-				pagingSearch.getRecordSize(), pagingSearch.getKeyword());
-//		System.out.println(pagingSearch.toString());
+		pagingSearch.setMethod(method);
+		pagingSearch.setIngre(ingre);
+		pagingSearch.setStatus(status);
+		List<RecipeDto> recipe_list = recipeService.selectRecipeByPagingSearch(pagingSearch);
+
 		model.addAttribute("paging", pagingSearch);
 		model.addAttribute("recipe_list", recipe_list);
+		// 필터링
+		List<String> ingre_list = recipeService.getIngre();
+		model.addAttribute("ingre_list", ingre_list);
+
+		List<String> method_list = recipeService.getMethod();
+		model.addAttribute("method_list", method_list);
+
+		List<String> status_list = recipeService.getStatus();
+		model.addAttribute("status_list", status_list);
+
 		return "recipe_list";
 	}
 	// 가장 최근 수정 2024-09-04
+	// 2024 - 09- 13 필터링 기능 추가
 
 	// 레시피 작성
 	@GetMapping("/recipe/write")
@@ -244,14 +268,15 @@ public class RecipeController {
 
 		// 레시피 재료 리스트
 		List<Recipe_ingre> recipe_ingre_list = recipeService.selectRecipeIngreByRecipeId(recipe_id);
-		model.addAttribute("recipe_ingre_list",recipe_ingre_list);
+		model.addAttribute("recipe_ingre_list", recipe_ingre_list);
 		return "recipe_edit";
 	}
+
 	@ResponseBody
 	@PostMapping("/recipe/edit/ingre")
-	public String editIngre(@RequestBody List<Recipe_ingre> ingre_list){
-		ingre_list.forEach(d-> System.out.println(d.toString()));
-		ingre_list.forEach((ingre)->{
+	public String editIngre(@RequestBody List<Recipe_ingre> ingre_list) {
+		ingre_list.forEach(d -> System.out.println(d.toString()));
+		ingre_list.forEach((ingre) -> {
 			Recipe_ingre db_ingre = recipeService.selectIngreByIngreId(ingre.getIngre_id());
 			db_ingre.setIngre_name(ingre.getIngre_name());
 			db_ingre.setIngre_info(ingre.getIngre_info());
@@ -263,8 +288,8 @@ public class RecipeController {
 	@ResponseBody
 	@PostMapping("/recipe/insert")
 	public int recipeInsert(RecipeDto recipeDto, @RequestParam("recipe_ingre") String recipeIng,
-							@RequestParam("cookingSequenceDto") String cookingSequence,
-							@RequestParam Map<String, MultipartFile> sequence_img, Principal principal)
+			@RequestParam("cookingSequenceDto") String cookingSequence,
+			@RequestParam Map<String, MultipartFile> sequence_img, Principal principal)
 			throws IllegalStateException, IOException {
 
 		// 1. 레시피 저장
@@ -313,7 +338,7 @@ public class RecipeController {
 			if (!(sequence_img.get("sequence_img_" + i).getOriginalFilename().equals("blob"))) {
 				System.out.println("이미지가 있다. 작업을 시작한다.");
 				MultipartFile img = sequence_img.get("sequence_img_" + i);
-				String path = "C:\\TeamProject\\name\\omm_git\\omm\\src\\main\\resources\\static\\img\\"; //C:\\TeamProject\\omm_git\\omm\\src\\main\\resources\\static\\img\\
+				String path = "C:\\TeamProject\\name\\omm_git\\omm\\src\\main\\resources\\static\\img\\"; // C:\\TeamProject\\omm_git\\omm\\src\\main\\resources\\static\\img\\
 				ImgDto imgDto = new ImgDto();
 				String uuid = UUID.randomUUID().toString().substring(0, 8);
 				imgDto.setImg_name(uuid + "_" + img.getOriginalFilename());
@@ -338,7 +363,9 @@ public class RecipeController {
 
 	// 레시피 detail
 	@GetMapping("/recipe_list/{recipe_id}")
-	public String recipe_detail(@PathVariable("recipe_id") int recipe_id,@RequestParam(value = "page",defaultValue = "1") int page_no, @RequestParam(value = "keyword",defaultValue = "") String keyword, Model model, Principal principal) {
+	public String recipe_detail(@PathVariable("recipe_id") int recipe_id,
+			@RequestParam(value = "page", defaultValue = "1") int page_no,
+			@RequestParam(value = "keyword", defaultValue = "") String keyword, Model model, Principal principal) {
 		model.addAttribute("page", page_no);
 		model.addAttribute("keyword", keyword);
 		// 해당 레시피 정보
@@ -410,8 +437,8 @@ public class RecipeController {
 	@ResponseBody
 	@PostMapping("/increView")
 	public boolean increView(@RequestParam("table_name") String table_name,
-							 @RequestParam("column_name") String column_name, @RequestParam("target_column") String target_column,
-							 @RequestParam("target_id") String target_id) {
+			@RequestParam("column_name") String column_name, @RequestParam("target_column") String target_column,
+			@RequestParam("target_id") String target_id) {
 		boolean flag = false;
 		try {
 			flag = recipeService.increView(table_name, column_name, target_column, target_id);
@@ -428,8 +455,8 @@ public class RecipeController {
 	@ResponseBody
 	@PostMapping("/likeSet")
 	public boolean likeSet(@RequestParam("reference_type") int reference_type,
-						   @RequestParam("target_id") String target_id, @RequestParam("checked") boolean checked,
-						   Principal principal) {
+			@RequestParam("target_id") String target_id, @RequestParam("checked") boolean checked,
+			Principal principal) {
 		String user_id = "";
 		try {
 			user_id = principal.getName();
@@ -459,20 +486,22 @@ public class RecipeController {
 		}
 		return flag;
 	}
+
 	// 찜 목록 보기
 	@GetMapping("/recipe/like")
-	public String likePage(Model model, Principal principal,@RequestParam(value = "keyword",defaultValue = "") String keyword,@RequestParam(value="page",defaultValue = "1") int page_no) {
+	public String likePage(Model model, Principal principal,
+			@RequestParam(value = "keyword", defaultValue = "") String keyword,
+			@RequestParam(value = "page", defaultValue = "1") int page_no) {
 		String user_id = principal.getName();
-		int recipe_list_size = recipeService.selectLikeRecipeAll(keyword,user_id);
+		int recipe_list_size = recipeService.selectLikeRecipeAll(keyword, user_id);
 		PagingSearch pagingSearch = new PagingSearch(recipe_list_size, page_no);
 		pagingSearch.setKeyword(keyword);
-		
-		
-		List<RecipeDto> recipe_list = recipeService.selectLikeRecipe(user_id,pagingSearch);
-		
+
+		List<RecipeDto> recipe_list = recipeService.selectLikeRecipe(user_id, pagingSearch);
+
 		model.addAttribute("paging", pagingSearch);
 		model.addAttribute("recipe_list", recipe_list);
-		
+
 		return "recipe_list";
 	}
 
@@ -486,7 +515,7 @@ public class RecipeController {
 	@ResponseBody
 	@PostMapping("/updateComment")
 	public String updateComment(@RequestParam("commentId") int commentId,
-								@RequestParam("newCommentText") String newCommentText) {
+			@RequestParam("newCommentText") String newCommentText) {
 		try {
 			boolean updated = recipeService.updateComment(newCommentText, commentId); // 댓글 업데이트
 			if (updated) {
@@ -498,7 +527,6 @@ public class RecipeController {
 			return "{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}"; // 예외 처리 응답
 		}
 	}
-
 
 	@ResponseBody
 	@PostMapping("deleteComment")
