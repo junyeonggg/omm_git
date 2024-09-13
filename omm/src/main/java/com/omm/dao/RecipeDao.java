@@ -25,11 +25,12 @@ public interface RecipeDao {
 	@Insert("insert into tbl_recipe values(null,#{recipe_title},#{recipe_food_name},#{user_id},0,0,#{recipe_method},#{recipe_status},#{recipe_ingredient},#{recipe_serving},#{recipe_level},#{recipe_time},#{recipe_describe},#{recipe_create_date},#{mange_id})")
 	void insertRecipe(RecipeDto recipe);
 
-	@Select("select count(*) from tbl_recipe where recipe_food_name like concat('%',#{keyword},'%');")
-	int selectAll(String keyword);
+//	@Select("select count(*) from tbl_recipe where recipe_food_name like concat('%',#{keyword},'%') ${query};")
+	@Select("select count(*) from tbl_recipe where recipe_food_name like concat('%',#{keyword},'%') and recipe_method like concat('%',#{method},'%') and recipe_status like concat('%',#{status},'%') and recipe_ingredient like concat('%',#{ingre},'%')")
+	int selectAll(@Param("keyword")String keyword,@Param("method") String method,@Param("status") String status, @Param("ingre")String ingre);
 
-	@Select("select recipe_id,recipe_title,recipe_food_name,user_nickname as user_id, recipe_view,recipe_recommend_cnt,recipe_method,recipe_status,recipe_ingredient,recipe_serving,recipe_time,recipe_level,recipe_describe,recipe_create_date from tbl_recipe join tbl_member on tbl_member.user_id = tbl_recipe.user_id where recipe_food_name like concat('%',#{keyword},'%') order by recipe_id desc limit #{start_record},#{record_size};")
-	List<RecipeDto> selectRecipeByPagingSearch(@Param("start_record") int start_record, @Param("record_size") int record_size,@Param("keyword") String keyword);
+	@Select("select recipe_id,recipe_title,recipe_food_name,user_nickname as user_id, recipe_view,recipe_recommend_cnt,recipe_method,recipe_status,recipe_ingredient,recipe_serving,recipe_time,recipe_level,recipe_describe,recipe_create_date from tbl_recipe join tbl_member on tbl_member.user_id = tbl_recipe.user_id where recipe_food_name like concat('%',#{keyword},'%') and recipe_method like concat('%',#{method},'%') and recipe_status like concat('%',#{status},'%') and recipe_ingredient like concat('%',#{ingre},'%')  order by recipe_id desc limit #{startRecord},#{recordSize};")
+	List<RecipeDto> selectRecipeByPagingSearch(PagingSearch paging);
 
 	@Insert("insert into tbl_ingre values(null,#{ingre_type},#{ingre_name},#{ingre_info},#{recipe_id})")
 	void insertIngre(Recipe_ingre ingre);

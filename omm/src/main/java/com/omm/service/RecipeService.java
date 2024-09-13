@@ -22,12 +22,12 @@ public class RecipeService {
 		recipeDao.insertRecipe(recipe);
 	}
 
-	public int selectAll(String keyword) {
-		return recipeDao.selectAll(keyword);
+	public int selectAll(String keyword, String method, String status, String ingre) {
+		return recipeDao.selectAll(keyword,method, status,ingre);
 	}
 
-	public List<RecipeDto> selectRecipeByPagingSearch(int startRecord, int recordSize, String keyword) {
-		return recipeDao.selectRecipeByPagingSearch(startRecord, recordSize, keyword);
+	public List<RecipeDto> selectRecipeByPagingSearch(PagingSearch paging) {
+		return recipeDao.selectRecipeByPagingSearch(paging);
 	}
 
 	public void insertIngre(Recipe_ingre ingre) {
