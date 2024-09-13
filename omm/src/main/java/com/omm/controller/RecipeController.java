@@ -457,9 +457,23 @@ public class RecipeController {
 			recipeService.likeUnSet(user_id, reference_type, target_id);
 			recipeService.decreView(table_name, column_name, target_column, target_id); // 추천 수 감소
 		}
-
 		return flag;
-
+	}
+	// 찜 목록 보기
+	@GetMapping("/recipe/like")
+	public String likePage(Model model, Principal principal,@RequestParam(value = "keyword",defaultValue = "") String keyword,@RequestParam(value="page",defaultValue = "1") int page_no) {
+		String user_id = principal.getName();
+		int recipe_list_size = recipeService.selectLikeRecipeAll(keyword,user_id);
+		PagingSearch pagingSearch = new PagingSearch(recipe_list_size, page_no);
+		pagingSearch.setKeyword(keyword);
+		
+		
+		List<RecipeDto> recipe_list = recipeService.selectLikeRecipe(user_id,pagingSearch);
+		
+		model.addAttribute("paging", pagingSearch);
+		model.addAttribute("recipe_list", recipe_list);
+		
+		return "recipe_list";
 	}
 
 	// 임시로 비번 업데이트
