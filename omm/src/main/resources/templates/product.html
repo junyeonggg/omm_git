@@ -9,6 +9,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<script th:src="@{/js/product.js}"></script>
 <style>
 .rate {
 	display: inline-block;
@@ -194,12 +195,30 @@
 								<div class="d-flex justify-content-between">
 									<h5 class="card-title" th:text="${comment.user_id}"></h5>
 									<div class="rating">
-										<span
-											th:each="i : ${#numbers.sequence(1, comment.comment_rating)}"
-											class="fa fa-star checked" style="color: gold;"></span> <span
-											th:each="i : ${#numbers.sequence(comment.comment_rating + 1, 5)}"
-											class="fa fa-star"></span>
+										<span th:each="i : ${#numbers.sequence(1, comment.comment_rating)}"
+											class="fa fa-star checked" style="color: gold;">
+                                        </span>
+                                        <span th:each="i : ${#numbers.sequence(comment.comment_rating + 1, 5)}"
+											class="fa fa-star" th:text="${i}">
+                                        </span>
 									</div>
+                                    <div>
+                                        <input th:class="'text_rating'+${comment.comment_id}" readonly type="radio" value="5">
+                                        <input class="text_rating" readonly type="radio" value="4.5">
+                                        <input class="text_rating" readonly type="radio" value="4">
+                                        <input class="text_rating" readonly type="radio" value="3.5">
+                                        <input class="text_rating" readonly type="radio" value="3">
+                                        <input class="text_rating" readonly type="radio" value="2.5">
+                                        <input class="text_rating" readonly type="radio" value="2">
+                                        <input class="text_rating" readonly type="radio" value="1.5">
+                                        <input class="text_rating" readonly type="radio" value="1">
+                                        <input class="text_rating" readonly type="radio" value="0.5">
+                                    </div>
+<script>
+const ra_list = document.querySelectorAll(".text_rating");
+const rating_value
+2024-09-12 수정할 부분
+</script>
 								</div>
 								<p class="card-text" th:text="${comment.comment_content}"></p>
 							</div>
@@ -225,6 +244,10 @@
 								th:data-parent-comment-id="${comment.comment_id}"
 								th:data-type="replyContent" class="btn btn-secondary">답글
 								달기</button>
+							<button type="button" onclick="editReview(this)"
+									th:data-comment-id="${comment.comment_id}" class="btn btn-warning">수정하기</button>
+							<button type="button" onclick="deleteReview(this)"
+									th:data-comment-id="${comment.comment_id}" class="btn btn-danger">삭제하기</button>
 						</div>
 					</div>
 				</div>
@@ -239,26 +262,16 @@
 					</div>
 					<!-- 별점 -->
 					<div class="rate">
-						<input type="radio" id="star5" name="rating" value="5"> <label
-							for="star5" title="5 stars"> </label> <input type="radio"
-							id="star4half" name="rating" value="4.5"> <label
-							for="star4half" class="half" title="4.5 stars"></label> <input
-							type="radio" id="star4" name="rating" value="4"> <label
-							for="star4" title="4 stars"></label> <input type="radio"
-							id="star3half" name="rating" value="3.5"> <label
-							for="star3half" class="half" title="3.5 stars"></label> <input
-							type="radio" id="star3" name="rating" value="3"> <label
-							for="star3" title="3 stars"></label> <input type="radio"
-							id="star2half" name="rating" value="2.5"> <label
-							for="star2half" class="half" title="2.5 stars"></label> <input
-							type="radio" id="star2" name="rating" value="2"> <label
-							for="star2" title="2 stars"></label> <input type="radio"
-							id="star1half" name="rating" value="1.5"> <label
-							for="star1half" class="half" title="1.5 stars"></label> <input
-							type="radio" id="star1" name="rating" value="1"> <label
-							for="star1" title="1 star"></label> <input type="radio"
-							id="starhalf" name="rating" value="0.5"> <label
-							for="starhalf" class="half" title="0.5 stars"></label>
+						<input type="radio" id="star5" name="rating" value="5"> <label for="star5" title="5 stars"></label>
+						<input type="radio" id="star4half" name="rating" value="4.5"> <label for="star4half" class="half" title="4.5 stars"></label>
+						<input type="radio" id="star4" name="rating" value="4"> <label for="star4" title="4 stars"></label>
+						<input type="radio" id="star3half" name="rating" value="3.5"> <label for="star3half" class="half" title="3.5 stars"></label>
+						<input type="radio" id="star3" name="rating" value="3"> <label for="star3" title="3 stars"></label>
+						<input type="radio" id="star2half" name="rating" value="2.5"> <label for="star2half" class="half" title="2.5 stars"></label>
+						<input type="radio" id="star2" name="rating" value="2"> <label for="star2" title="2 stars"></label>
+						<input type="radio" id="star1half" name="rating" value="1.5"> <label for="star1half" class="half" title="1.5 stars"></label>
+						<input type="radio" id="star1" name="rating" value="1"> <label for="star1" title="1 star"></label>
+						<input type="radio" id="starhalf" name="rating" value="0.5"> <label for="starhalf" class="half" title="0.5 stars"></label>
 					</div>
 					<button type="button" onclick="insertReplyBtn(this,2)"
 						th:data-user-id="${user_id}" th:data-target-id="${food.foodId}"
@@ -320,18 +333,26 @@
 
 	// 댓글인지 대댓글인지 판별 (댓글이면 댓글textarea, 대댓글이면 대댓글textarea의 값을 가져옴)
 	const type = self.getAttribute("data-type")
-	const comment_content = document.querySelector(`#${type}`).value;
+	const comment_content = document.querySelector(`#${type}`).value.trim();
 	const user_nickname = self.getAttribute("data-user-nickname");
 	const comment_parent_id = self.getAttribute("data-parent-comment-id")
 	const target_id = self.getAttribute("data-target-id");
     console.log(target_id)
+
+    // 댓글 내용이 빈 칸 또는 공백만으로 이루어진 경우 확인
+    if (comment_content.length === 0) {
+        alert("댓글을 작성해주세요.");
+        return;
+    }
 	var rating = 0;
 	const rating_radio_list = document.getElementsByName("rating")
 	for(radio of rating_radio_list){
-		if(radio.checked & radio.value > rating){
-			rating = radio.value
+		if(radio.checked){
+			rating = parseFloat(radio.value); // 선택된 별점 값
+			break;
 		}
 	}
+	console.log(rating); // 선택된 별점 값 확인용
 	$.ajax({
 		type:"post",
 		url : "/addreply",

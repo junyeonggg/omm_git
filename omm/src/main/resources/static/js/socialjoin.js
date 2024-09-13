@@ -15,8 +15,8 @@ async function checkNickname() {
         isNickValidated = true;
         return;
     }
-    if (nickname.length < 2 || nickname.length > 6) {
-        $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
+    if (nickname.length < 2 || nickname.length > 12) {
+        $("#nickname-area").html("<p>닉네임은 2~12자로 입력해주세요.</p>");
         isNicknameChecked = false;
         isNickValidated = false;
         return;

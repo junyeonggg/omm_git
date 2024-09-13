@@ -313,7 +313,7 @@ public class RecipeController {
 			if (!(sequence_img.get("sequence_img_" + i).getOriginalFilename().equals("blob"))) {
 				System.out.println("이미지가 있다. 작업을 시작한다.");
 				MultipartFile img = sequence_img.get("sequence_img_" + i);
-				String path = "C:\\TeamProject\\omm_git\\omm\\src\\main\\resources\\static\\img\\";
+				String path = "C:\\TeamProject\\name\\omm_git\\omm\\src\\main\\resources\\static\\img\\"; //C:\\TeamProject\\omm_git\\omm\\src\\main\\resources\\static\\img\\
 				ImgDto imgDto = new ImgDto();
 				String uuid = UUID.randomUUID().toString().substring(0, 8);
 				imgDto.setImg_name(uuid + "_" + img.getOriginalFilename());
@@ -338,8 +338,9 @@ public class RecipeController {
 
 	// 레시피 detail
 	@GetMapping("/recipe_list/{recipe_id}")
-	public String recipe_detail(@PathVariable("recipe_id") int recipe_id, Model model, Principal principal) {
-
+	public String recipe_detail(@PathVariable("recipe_id") int recipe_id,@RequestParam(value = "page",defaultValue = "1") int page_no, @RequestParam(value = "keyword",defaultValue = "") String keyword, Model model, Principal principal) {
+		model.addAttribute("page", page_no);
+		model.addAttribute("keyword", keyword);
 		// 해당 레시피 정보
 		RecipeDto recipe = recipeService.findRecipeByRecipe_id(recipe_id);
 		model.addAttribute("recipe", recipe);
@@ -456,9 +457,23 @@ public class RecipeController {
 			recipeService.likeUnSet(user_id, reference_type, target_id);
 			recipeService.decreView(table_name, column_name, target_column, target_id); // 추천 수 감소
 		}
-
 		return flag;
-
+	}
+	// 찜 목록 보기
+	@GetMapping("/recipe/like")
+	public String likePage(Model model, Principal principal,@RequestParam(value = "keyword",defaultValue = "") String keyword,@RequestParam(value="page",defaultValue = "1") int page_no) {
+		String user_id = principal.getName();
+		int recipe_list_size = recipeService.selectLikeRecipeAll(keyword,user_id);
+		PagingSearch pagingSearch = new PagingSearch(recipe_list_size, page_no);
+		pagingSearch.setKeyword(keyword);
+		
+		
+		List<RecipeDto> recipe_list = recipeService.selectLikeRecipe(user_id,pagingSearch);
+		
+		model.addAttribute("paging", pagingSearch);
+		model.addAttribute("recipe_list", recipe_list);
+		
+		return "recipe_list";
 	}
 
 	// 임시로 비번 업데이트
@@ -472,8 +487,6 @@ public class RecipeController {
 	@PostMapping("/updateComment")
 	public String updateComment(@RequestParam("commentId") int commentId,
 								@RequestParam("newCommentText") String newCommentText) {
-		System.out.println("commentId: " + commentId);
-		System.out.println("newCommentText: " + newCommentText);
 		try {
 			boolean updated = recipeService.updateComment(newCommentText, commentId); // 댓글 업데이트
 			if (updated) {

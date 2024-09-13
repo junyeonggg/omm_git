@@ -9,6 +9,7 @@ import com.omm.dao.RecipeDao;
 import com.omm.dto.CommentDto;
 import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.ImgDto;
+import com.omm.dto.PagingSearch;
 import com.omm.dto.RecipeDto;
 import com.omm.dto.Recipe_ingre;
 
@@ -172,5 +173,14 @@ public class RecipeService {
 	// 업데이트
 	public void updateIngre(Recipe_ingre db_ingre) {
 		recipeDao.updateIngre(db_ingre);
+	}
+
+	public List<RecipeDto> selectLikeRecipe(String user_id, PagingSearch pagingSearch) {
+		
+		return recipeDao.selectLikeRecipe(user_id,pagingSearch);
+	}
+
+	public int selectLikeRecipeAll(String keyword, String user_id) {
+		return recipeDao.selectLikeRecipeAll(keyword,user_id);
 	}
 }

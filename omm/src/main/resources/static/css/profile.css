@@ -127,7 +127,7 @@ input[type="text"], input[type="password"], input[type="button"], select {
 }
 
 /* 닉네임, 이메일 등 검증 영역 */
-#nickname-area, #email-area, #pw-area {
+#nickname-area, #email-area, #pw-area, #tel-area{
     text-align: center;
     font-size: 0.9rem;
     color: red;

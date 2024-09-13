@@ -16,6 +16,7 @@ import com.omm.dto.CartDto;
 import com.omm.dto.CommentDto;
 import com.omm.dto.FoodDto;
 import com.omm.dto.OrderDto;
+import org.springframework.dao.DataAccessException;
 
 @Mapper
 public interface ShopDao {
@@ -91,5 +92,10 @@ public interface ShopDao {
 	// db업데이트
 	@Update("update tbl_cart set food_quantity = #{quantity} where user_id=#{user_id} and food_id=#{food_id}")
 	void changeCnt(@Param("quantity")int quantity, @Param("food_id")int food_id, @Param("user_id")String user_id);
+
+	@Update("update tbl_comment set comment_content=#{newContent} where comment_id=#{commentId}")
+	void updateReview(@Param("newContent") String newContent, @Param("commentId")int commentId) throws DataAccessException;
+	@Delete("delete from tbl_comment where comment_id=#{commentId}")
+    void deleteReview(@Param("commentId")int commentId) throws DataAccessException;
 
 }

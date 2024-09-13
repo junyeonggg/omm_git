@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="css수정중">
 =======
-
+<<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="4ca7c84d-7572-43f1-a4c6-aa71f73d0f0b" name="Changes" comment="09 10(월) 17:46">
       <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/findIdPw.css" afterDir="false" />
 =======

@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import com.omm.dto.CommentDto;
 import com.omm.dto.CookingSequenceDto;
 import com.omm.dto.ImgDto;
+import com.omm.dto.PagingSearch;
 import com.omm.dto.RecipeDto;
 import com.omm.dto.Recipe_ingre;
 import org.springframework.dao.DataAccessException;
@@ -126,4 +127,10 @@ public interface RecipeDao {
 
 	@Update("update tbl_ingre set ingre_name=#{ingre_name}, ingre_info =#{ingre_info} where ingre_id=#{ingre_id}")
 	void updateIngre(Recipe_ingre db_ingre);
+
+	@Select("SELECT recipe_id, recipe_title, recipe_food_name, tbl_recipe.user_id, recipe_view, recipe_recommend_cnt, recipe_method, recipe_status, recipe_ingredient, recipe_serving, recipe_level, recipe_time, recipe_describe, recipe_create_date, mange_id FROM omm.tbl_like join tbl_recipe on tbl_recipe.recipe_id = tbl_like.target_id where reference_type=1  and tbl_like.user_id=#{user_id} and recipe_food_name like concat('%',#{pagingSearch.keyword},'%') order by recipe_id desc limit #{pagingSearch.startRecord},#{pagingSearch.recordSize};")
+	List<RecipeDto> selectLikeRecipe(@Param("user_id")String user_id,@Param("pagingSearch") PagingSearch pagingSearch);
+
+	@Select("SELECT count(*) FROM omm.tbl_like join tbl_recipe on tbl_recipe.recipe_id = tbl_like.target_id where reference_type=1  and tbl_like.user_id=#{user_id} and recipe_food_name like concat('%',#{keyword},'%');")
+	int selectLikeRecipeAll(@Param("keyword")String keyword, @Param("user_id")String user_id);
 }
