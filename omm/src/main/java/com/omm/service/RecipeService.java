@@ -183,4 +183,24 @@ public class RecipeService {
 	public int selectLikeRecipeAll(String keyword, String user_id) {
 		return recipeDao.selectLikeRecipeAll(keyword,user_id);
 	}
+
+	public List<CookingSequenceDto> selectRecipeSequenceAndTextByRecipeId(int recipe_id) {
+		return recipeDao.selectRecipeSequenceAndTextByRecipeId(recipe_id);
+	}
+
+	public RecipeDto selectRecipeById(int recipe_id) {
+			return recipeDao.selectRecipeById(recipe_id);
+		}
+
+	public void updateRecipe(RecipeDto recipeDto) {
+		recipeDao.updateRecipeByRecipeId(recipeDto);
+	}
+
+	public void deleteIngreByRecipeId(int recipe_id) {
+		recipeDao.deleteIngreByRecipeId(recipe_id);
+	}
+
+	public void deleteSequenceImgByRecipeId(int recipe_id) {
+		recipeDao.deleteSequenceImgByRecipeId(recipe_id);
+	}
 }

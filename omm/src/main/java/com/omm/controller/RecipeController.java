@@ -220,6 +220,7 @@ public class RecipeController {
 		// 메인 재료
 		List<String> ingre_list = recipeService.getIngre();
 		model.addAttribute("ingre_list", ingre_list);
+
 		return "recipe_write";
 	}
 
@@ -245,20 +246,102 @@ public class RecipeController {
 		// 레시피 재료 리스트
 		List<Recipe_ingre> recipe_ingre_list = recipeService.selectRecipeIngreByRecipeId(recipe_id);
 		model.addAttribute("recipe_ingre_list",recipe_ingre_list);
+
+		// 요리 순서 및 내용
+		List<CookingSequenceDto> cook_sequence_list = recipeService.selectRecipeSequenceAndTextByRecipeId(recipe_id);
+		model.addAttribute("cook_sequence_list", cook_sequence_list);
 		return "recipe_edit";
 	}
 	@ResponseBody
-	@PostMapping("/recipe/edit/ingre")
-	public String editIngre(@RequestBody List<Recipe_ingre> ingre_list){
-		ingre_list.forEach(d-> System.out.println(d.toString()));
-		ingre_list.forEach((ingre)->{
-			Recipe_ingre db_ingre = recipeService.selectIngreByIngreId(ingre.getIngre_id());
-			db_ingre.setIngre_name(ingre.getIngre_name());
-			db_ingre.setIngre_info(ingre.getIngre_info());
-			recipeService.updateIngre(db_ingre);
-		});
-		return "";
+	@PostMapping("/recipe/edit")
+	public String editRecipe(RecipeDto recipeDto, @RequestParam("recipe_ingre") String recipeIng,
+							 @RequestParam("cookingSequenceDto") String cookingSequence,
+							 @RequestParam Map<String, MultipartFile> sequence_img, Principal principal) throws IOException {
+
+		System.out.println(recipeDto.toString());
+		System.out.println(recipeIng.toString());
+		System.out.println(cookingSequence.toString());
+		System.out.println(sequence_img.toString());
+		recipeService.updateRecipe(recipeDto);
+
+		// 2. 저장한 레시피 id 가져오기
+		int recipe_id = recipeDto.getRecipe_id();
+
+		// 기존 재료 삭제
+		recipeService.deleteIngreByRecipeId(recipe_id);
+		// 기존 조리 순서 삭제
+		recipeService.deleteSequenceImgByRecipeId(recipe_id);
+
+		System.out.println("저장한 레시피의 id를 가져옵니다.");
+		System.out.println("id : " + recipe_id);
+		// Parsing JSON data
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			List<Recipe_ingre> recipe_ingre = mapper.readValue(recipeIng, new TypeReference<List<Recipe_ingre>>() {
+			});
+			recipe_ingre.forEach(d -> {
+				d.setRecipe_id(recipe_id);
+				System.out.println("위에서 가져온 id를 ingre에 저장하여 db에 넣는다.");
+				System.out.println("넣을 ingre : " + d.toString());
+				recipeService.insertIngre(d);
+				System.out.println("저장 완");
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<CookingSequenceDto> cookingSequenceDtos = null;
+		try {
+			cookingSequenceDtos = mapper.readValue(cookingSequence, new TypeReference<List<CookingSequenceDto>>() {
+			});
+//			cookingSequenceDtos.forEach(d -> System.out.println(d.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("레시피 조리 순서 저장을 시작합니다.");
+		for (int i = 0; i < cookingSequenceDtos.size(); i++) {
+			cookingSequenceDtos.get(i).setRecipe_id(recipe_id);
+			System.out.println("레시피 id를 먼저 set한다.");
+			System.out.println("결과 : " + cookingSequenceDtos.get(i).toString());
+			recipeService.insertRecipeSequence(cookingSequenceDtos.get(i));
+			System.out.println("db에 저장 완료");
+			int target_id = recipeService.getTargetId(cookingSequenceDtos.get(i));
+			System.out.println("방금 저장한 시퀀스의 id를 가져온다.");
+			System.out.println(sequence_img.get("sequence_img_" + i));
+			if (!(sequence_img.get("sequence_img_" + i).getOriginalFilename().equals("blob"))) {
+				System.out.println("이미지가 있다. 작업을 시작한다.");
+				MultipartFile img = sequence_img.get("sequence_img_" + i);
+				String path = "C:\\TeamProject\\omm\\omm_git\\omm\\src\\main\\resources\\static\\img\\"; //C:\\TeamProject\\omm_git\\omm\\src\\main\\resources\\static\\img\\
+				ImgDto imgDto = new ImgDto();
+				String uuid = UUID.randomUUID().toString().substring(0, 8);
+				imgDto.setImg_name(uuid + "_" + img.getOriginalFilename());
+				imgDto.setImg_path(path);
+				imgDto.setReference_type(4);
+				imgDto.setTarget_id(target_id);
+				imgDto.setImg_org_name(img.getOriginalFilename());
+				System.out.println("이미지 DTO : " + imgDto.toString());
+				img.transferTo(new File(imgDto.getImg_path() + imgDto.getImg_name()));
+				recipeService.insertImg(imgDto);
+				System.out.println("이미지 저장 완료..");
+
+				int img_id = recipeService.getImgId(imgDto);
+				System.out.println("저장한 이미지의 id를 가져옴 : " + img_id);
+				recipeService.updateImgIdAtSequence(target_id, img_id);
+				System.out.println("시퀀스 테이블의 img_id를 set 했다.");
+			}
+			System.out.println(sequence_img.get("sequence_img_" + i));
+		}
+		return String.valueOf(recipe_id);
 	}
+//	public String editIngre(@RequestBody List<Recipe_ingre> ingre_list){
+//		ingre_list.forEach(d-> System.out.println(d.toString()));
+//		ingre_list.forEach((ingre)->{
+//			Recipe_ingre db_ingre = recipeService.selectIngreByIngreId(ingre.getIngre_id());
+//			db_ingre.setIngre_name(ingre.getIngre_name());
+//			db_ingre.setIngre_info(ingre.getIngre_info());
+//			recipeService.updateIngre(db_ingre);
+//		});
+//		return "";
+//	}
 
 	@ResponseBody
 	@PostMapping("/recipe/insert")
