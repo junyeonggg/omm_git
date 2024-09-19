@@ -162,7 +162,8 @@ button:hover {
 						</a>
 					</li>
 					<li sec:authorize="isAuthenticated()" class="nav-item">
-						<a class="nav-link active" th:href="@{/cart}">장바구니
+						<a class="nav-link active" th:href="@{/cart}">
+							<i class="fas fa-shopping-cart"></i>장바구니
 						</a>
 					</li>
 					<li sec:authorize="isAuthenticated()" class="nav-item">
