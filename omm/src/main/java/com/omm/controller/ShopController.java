@@ -136,10 +136,10 @@ public class ShopController {
 	@GetMapping("/cart")
 	public String cartPage(Principal principal, Model model) {
 		List<HashMap<String, Object>> cart_list = shopService.getCartByUserId(principal.getName());
+		System.out.println(cart_list);
 		cart_list.forEach((cart) -> {
 			cart.replace("food_lprice", Integer.valueOf((String) cart.get("food_lprice")));
 		});
-
 		model.addAttribute("cart_list", cart_list);
 		return "cart";
 	}

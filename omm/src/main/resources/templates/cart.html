@@ -51,12 +51,12 @@
 	</nav>
 
 	<!-- 장바구니 비어있을 때 -->
-	<div th:if="${cart_list != null}">
+	<div th:if="${#lists.size(cart_list) == 0}">
 		<h1>장바구니에 담은 상품이 없습니다.</h1>
 	</div>
 	
 	<!-- 장바구니 있을 때 -->
-	<div th:if="${cart_list == null}">
+	<div th:if="${#lists.size(cart_list) != 0}">
 		<table class="tbl_cart">
 			<tr>
 				<th>구매 여부</th>
