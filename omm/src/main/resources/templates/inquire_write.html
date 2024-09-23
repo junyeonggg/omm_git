@@ -8,35 +8,170 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link th:href="@{/css/index.css}" rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <title>문의 상세보기</title>
 
 <style>
-.input_click {
-	
+/* 전체 박스 사이징 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* 기본적으로 페이지 전체 높이를 차지하도록 설정 */
+html, body {
+    height: 100%;
+    overflow-x: hidden; /* 가로 스크롤바 제거 */
 }
 
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* 전체 너비를 사용 */
+}
+
+.navbar-brand {
+    flex-grow: 1; /* 브랜드를 왼쪽에 고정 */
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: flex-end; /* 메뉴 항목을 우측으로 정렬 */
+    flex-grow: 1; /* 브랜드와 네비게이션 사이에 공간을 확보 */
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    list-style: none;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: #fff;
+}
+
+/* 본문 영역 설정 */
 .body_div {
-	min-height: 750px;
+    min-height: calc(100vh - 60px); /* 푸터 높이를 제외한 화면 크기 (푸터가 60px일 때) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* 문의 폼 테이블 스타일 */
 .inquire_tbl_div {
-	margin: 50px;
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	display: flex;
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
 }
 
-.inquire_tbl_div table td input, textarea {
-	width: 800px;
+.inquire_tbl_div table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.inquire_tbl_div, textarea {
-	min-height: 500px;
+.inquire_tbl_div table th {
+    text-align: left;
+    padding: 10px;
+    background-color: #f8f9fa;
+    width: 150px;
+    font-weight: bold;
 }
+
+.inquire_tbl_div table td {
+    padding: 10px;
+}
+
+.inquire_tbl_div table input, .inquire_tbl_div table textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.inquire_tbl_div table textarea {
+    min-height: 200px;
+    resize: vertical;
+}
+
+.inquire_tbl_div table input[type="file"] {
+    padding: 5px;
+}
+
+.inquire_tbl_div table button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.inquire_tbl_div table button:hover {
+    background-color: #0056b3;
+}
+
+/* 푸터 고정 설정 */
+.footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-text {
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+
 </style>
 
 </head>
@@ -48,19 +183,36 @@
 			<a class="navbar-brand" href="/">Your Brand</a>
 			<div class="navbar-collapse">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active" th:href="@{/}">홈으로</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/profile}">마이페이지</a></li>
-					<li sec:authorize="isAnonymous()" class="nav-item"><a
-							class="nav-link active" th:href="@{/login}">로그인</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/logout}">로그아웃</a></li>
-					<li sec:authorize="isAnonymous()" class="nav-item"><a
-							class="nav-link active" th:href="@{/join}">회원가입</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/cart}">장바구니</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a
-							class="nav-link active" th:href="@{/inquire}">문의하기</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item">
+						<a class="nav-link active" th:href="@{/profile}">
+							<i class="fas fa-user"></i>마이페이지
+						</a>
+					</li>
+					<li sec:authorize="isAnonymous()" class="nav-item">
+						<a class="nav-link active" th:href="@{/login}">
+							<i class="fas fa-sign-in-alt"></i> 로그인
+						</a>
+					</li>
+					<li sec:authorize="isAuthenticated()" class="nav-item">
+						<a class="nav-link active" th:href="@{/logout}">
+							<i class="fas fa-sign-out-alt"></i> 로그아웃
+						</a>
+					</li>
+					<li sec:authorize="isAnonymous()" class="nav-item">
+						<a class="nav-link" th:href="@{/join}">
+							<i class="fas fa-user-plus"></i> 회원가입
+						</a>
+					</li>
+					<li sec:authorize="isAuthenticated()" class="nav-item">
+						<a class="nav-link active" th:href="@{/cart}">
+							<i class="fas fa-shopping-cart"></i> 장바구니
+						</a>
+					</li>
+					<li sec:authorize="isAuthenticated()" class="nav-item">
+						<a class="nav-link active" th:href="@{/inquire}">
+							<i class="fas fa-envelope"></i> 문의하기
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
