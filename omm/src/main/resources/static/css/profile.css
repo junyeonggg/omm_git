@@ -114,6 +114,7 @@ td {
 
 label {
     font-weight: bold;
+    white-space: nowrap; /* 줄바꿈 방지 */
     color: #3CB371;
 }
 
