@@ -59,24 +59,32 @@
 	</nav>
 	<table>
 		<tr>
-			<th>재료입력 1</th>
-			<th><input type="text"></th>
+			<th>입력1</th>
+			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
-			<th>재료입력 2</th>
-			<th><input type="text"></th>
+			<th>입력1</th>
+			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
-			<th>재료입력 3</th>
-			<th><input type="text"></th>
+			<th>입력1</th>
+			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
-			<th>재료입력 4</th>
-			<th><input type="text"></th>
+			<th>입력1</th>
+			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
-			<td colspan="2"><a href="http://localhost:5000/recipeRecommend">입력</a></td>
+			<td><input type="button" onclick="sendPy()" value="입력">
+			</td>
 		</tr>
+	</table>
+
+	<table id="recommend_recipe_list">
+		<tr>
+			<td>레시피 아이디</td>
+		</tr>
+		
 
 	</table>
 
@@ -88,6 +96,6 @@
 	</footer>
 
 	<!-- Custom JS -->
-	<script src="js/script.js"></script>
+	<script src="js/recipe.js"></script>
 </body>
 </html>
