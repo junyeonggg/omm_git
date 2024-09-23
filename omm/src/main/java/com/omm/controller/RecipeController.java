@@ -641,4 +641,10 @@ public class RecipeController {
 			return "{\"success\": false, \"message\": \"서버 오류가 발생했습니다.\"}"; // 예외 처리 응답
 		}
 	}
+	
+	@GetMapping("/recipe_recommend")
+	public String recipe_recommend(){
+		return "recipe_recommend";
+	}
+
 }
