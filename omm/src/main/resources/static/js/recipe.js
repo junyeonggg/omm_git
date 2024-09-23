@@ -140,11 +140,11 @@ function insertSequenceTr() {
 	var trEl = document.createElement("tr");
 	const no_list = document.querySelectorAll(".org_step_no")
 	let num = 0;
-	if(no_list.length == 0){
-	    num = 1;
-	}else{
-	    let last_no = no_list[no_list.length - 1].value
-        num = Number(last_no) + 1;
+	if (no_list.length == 0) {
+		num = 1;
+	} else {
+		let last_no = no_list[no_list.length - 1].value
+		num = Number(last_no) + 1;
 	}
 
 
@@ -183,7 +183,7 @@ function deleteIngreTr(self) {
 function updateRecipeIngre() {
 	var formRecipe = new FormData();
 	// 기본 정보
-	formRecipe.append("recipe_id",document.querySelector("#recipe_id").value);
+	formRecipe.append("recipe_id", document.querySelector("#recipe_id").value);
 	formRecipe.append("recipe_title", document.querySelector("#recipe_title").value);
 	formRecipe.append("recipe_food_name", document.querySelector("#recipe_food_name").value);
 	formRecipe.append("recipe_describe", document.querySelector("#recipe_describe").value);
@@ -270,7 +270,7 @@ function updateRecipeIngre() {
 }
 
 
-	//formRecipe.append('recipe_ingre', JSON.stringify(recipe_ingre));
+//formRecipe.append('recipe_ingre', JSON.stringify(recipe_ingre));
 
 
 
@@ -395,7 +395,7 @@ function selectFilter(self) {
 	const method_list = document.querySelectorAll(".method_list");
 	const status_list = document.querySelectorAll(".status_list");
 	const ingre_list = document.querySelectorAll(".ingre_list");
-	
+
 	let method = "";
 	for (i of method_list) {
 		if (i.checked) {
@@ -416,18 +416,80 @@ function selectFilter(self) {
 			ingre = i.value;
 		}
 	}
-	
-	
+
+
 	window.location.href = `/recipe_list?method=${method}&status=${status}&ingre=${ingre}`
-	
-/*	$.ajax({
-		type:"get",
-		url : "/recipe_list/filter",
-		data : {'status_check_list':status_check_list,
-				'method_check_list':method_check_list,
-				'ingre_check_list':ingre_check_list},
-		success : data => console.log(data)
-		
-	})*/
+
+	/*	$.ajax({
+			type:"get",
+			url : "/recipe_list/filter",
+			data : {'status_check_list':status_check_list,
+					'method_check_list':method_check_list,
+					'ingre_check_list':ingre_check_list},
+			success : data => console.log(data)
+			
+		})*/
 }
 
+
+// 그냥 recipe_id만 추가하기
+/*function sendPy() {
+	// 추가될 테이블
+	const target = document.querySelector("#recommend_recipe_list");
+
+
+	const ingredients = document.querySelectorAll(".ingre");
+	let ingredients_list = []
+	ingredients.forEach(ingre => ingredients_list.push(ingre.value));
+	console.log(ingredients_list)
+	$.ajax({
+		type: 'POST',
+		url: 'http://127.0.0.1:5000/recipeRecommend',
+		data: JSON.stringify({
+			ingredients: ingredients_list  // 사용자 입력 재료 ID 배열
+		}),
+		dataType: 'json',  // 'JSON' 대신 'json'으로 소문자로
+		contentType: "application/json",
+		success: function(data) {
+			alert('성공! 데이터 값: ' + JSON.stringify(data));  // 데이터 확인
+			for (recipe of data) {
+				let trEl = document.createElement("tr");
+				trEl.innerHTML = `<td>${recipe}</td>`
+				target.appendChild(trEl)
+			}
+		},
+		error: function(request, status, error) {
+			alert('ajax 통신 실패');
+			alert(error);
+		}
+	});
+}*/
+
+// recipe_id를 가지고 recipe_list로 넘어가서 레시피들 보여주기
+function sendPy() {
+	// 추가될 테이블
+	const target = document.querySelector("#recommend_recipe_list");
+
+
+	const ingredients = document.querySelectorAll(".ingre");
+	let ingredients_list = []
+	ingredients.forEach(ingre => ingredients_list.push(ingre.value));
+	console.log(ingredients_list)
+	$.ajax({
+		type: 'POST',
+		url: 'http://127.0.0.1:5000/recipeRecommend',
+		data: JSON.stringify({
+			ingredients: ingredients_list  // 사용자 입력 재료 ID 배열
+		}),
+		dataType: 'json',  // 'JSON' 대신 'json'으로 소문자로
+		contentType: "application/json",
+		success: function(data) {
+			alert('성공! 데이터 값: ' + JSON.stringify(data));  // 데이터 확인
+			$.ajax
+		},
+		error: function(request, status, error) {
+			alert('ajax 통신 실패');
+			alert(error);
+		}
+	});
+}
