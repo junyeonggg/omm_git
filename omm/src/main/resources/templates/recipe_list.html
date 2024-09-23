@@ -1,3 +1,4 @@
+<!--09-23 병윤-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,9 +8,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link th:href="@{/css/index.css}" rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link th:href="@{/css/index.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <title>Title</title>
 <style>
 html, body {
@@ -174,61 +175,96 @@ body {
 }
 
 .filterDiv {
-	display: flex;
-	flex-direction: column;
-	width: 80%;
-	height: 100px;
-	align-self: center;
-	width: 80%;
-	align-items: flex-start;
-	justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* 최대 너비를 늘려서 화면에 더 많은 버튼 표시 */
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
-
+/* 초기화 버튼을 왼쪽으로 정렬 */
+.filterDiv .reset-btn-container {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    width: 100%;
+    margin-bottom: 10px;
+}
 .filterDiv_item {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-
-.filterDiv_item2 {
-	margin-right: 5px;
-	margin-left: 5px;
-	border-radius: 5px;
-	user-select: none;
-	color: black;
-	box-shadow: 2px 2px 2px 2px gray;
-	font-size: 15px;
-	padding: 2px;
-}
-
-.filterDiv_item2:hover {
-	background-color: #FFA500;
-	color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px; /* 버튼 간 간격을 설정 */
+    margin: 10px 0;
+    width: 100%;
 }
 
 .filterDiv_checkbox {
-	display: none;
+    display: none; /* 체크박스 숨기기 */
 }
 
 .filterDiv_checkbox+label {
-	margin-right: 5px;
-	margin-left: 5px;
-	border-radius: 5px;
-	user-select: none;
-	color: black;
-	box-shadow: 2px 2px 2px 2px gray;
-	font-size: 15px;
-	padding: 2px;
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #eee;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-basis: calc(12.5% - 10px); /* 한 줄에 8개의 버튼이 들어가도록 설정 */
+    text-align: center;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
-
+/* 메인 재료 섹션의 버튼에 다른 배치를 적용 */
+.filterDiv_item.main-ingredients label {
+    flex-basis: calc(20% - 10px); /* 한 줄에 5개의 버튼이 들어가도록 설정 */
+}
 .filterDiv_checkbox+label:hover {
-	background-color: #FFA500;
-	color: white;
+    background-color: #ff7043;
+    color: white;
 }
 
 .filterDiv_checkbox:checked+label {
-	background-color: #FFA500;
-	color: white;
+    background-color: #ff5722;
+    color: white;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/* 찜 목록 보기 버튼 스타일 */
+input[type="button"][value="찜 목록 보기"] {
+    background-color: #28a745; /* 초록색 배경 */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+input[type="button"][value="찜 목록 보기"]:hover {
+    background-color: #218838; /* 호버 시 더 짙은 초록색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 추가 */
 }
 footer {
   position: relative;
@@ -304,7 +340,9 @@ footer p {
 
 		<!-- 필터링 -->
 		<div class="filterDiv">
-			<div><button onclick="resetFilter()">초기화</button></div>
+			<div class="reset-btn-container">
+				<button onclick="resetFilter()">초기화</button>
+			</div>
 			<div class="filterDiv_item">
 				방법 :
 				<div th:if="${method != ''}" th:each="method,info : ${method_list}">
@@ -329,7 +367,7 @@ footer p {
 			</div>
 
 
-			<div class="filterDiv_item">
+			<div class="filterDiv_item main-ingredients">
 				메인재료 :
 				<div th:if="${ingre != ''}" th:each="ingre,info : ${ingre_list}">
 					<input th:id="ingre+${info.count}" type="radio" name="radio_ingre"

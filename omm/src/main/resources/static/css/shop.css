@@ -1,6 +1,8 @@
 /* 기본 스타일 */
-body {
-    font-family: Arial, sans-serif;
+body,html {
+    font-family: "Orbit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;

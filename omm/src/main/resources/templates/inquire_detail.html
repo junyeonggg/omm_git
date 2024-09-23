@@ -9,11 +9,19 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 <title>문의 상세보기</title>
 
 <style>
+body,html {
+    font-family: "Orbit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
 /* 부모 요소에 Flexbox로 중앙 정렬 설정 */
 .body_div {
     display: flex;
@@ -27,21 +35,24 @@
 /* Navbar Styles */
 .navbar {
     background-color: #343a40;
+    margin: 0;
     padding: 10px;
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box; /* 경계 포함하여 계산 */
 }
 
 .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* 전체 너비를 사용 */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .navbar-brand {
-    flex-grow: 1; /* 브랜드를 왼쪽에 고정 */
+    flex-grow: 0; /* 브랜드를 왼쪽에 고정 */
     text-decoration: none;
     color: white;
     font-size: 20px;
