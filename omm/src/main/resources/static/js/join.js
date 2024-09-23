@@ -8,6 +8,8 @@ var isIdValidated = false; // 기본 사용 불가
 var isNickValidated = false; // 기본 사용 불가
 var isEmailValidated = false; // 기본 사용 불가
 var isTelValidated = false; // 기본 사용 불가
+var isValidated = false; // 기본 사용 불가
+
 
 
 
@@ -273,7 +275,7 @@ function sendmail() {
         window.alert("도메인을 선택해 주세요.");
         return;
     }
-    if(isEmailChecked && !isValidated){
+    if(isEmailChecked && !isEmailValidated){
         window.alert("현재 사용중인 이메일입니다.")
         return;
     }
@@ -463,7 +465,7 @@ function submitForm(self){
     }
     update_email()
 
-     이메일 인증 상태 확인
+    // 이메일 인증 상태 확인
     if (isEmailChecked && !isEmailVerified) {
         window.alert("이메일 인증을 먼저 완료해 주세요.");
         return false;
