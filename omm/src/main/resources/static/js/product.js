@@ -26,6 +26,7 @@ function editReview(button) {
     }
 }
 
+
 // 리뷰 삭제 함수
 function deleteReview(button) {
     // 리뷰를 삭제할 데이터를 추출

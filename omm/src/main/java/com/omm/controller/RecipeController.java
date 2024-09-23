@@ -7,7 +7,9 @@
 package com.omm.controller;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -53,56 +55,56 @@ public class RecipeController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	// 레시피를 db에 넣기 위한 메서드
-//	@GetMapping("/insert_recipe")
-//	public String insert_recipe() {
-//		try {
-////			String path = "C:\\Users\\admin\\Desktop\\city";
-//			String path = "C:\\Users\\admin\\Desktop\\recipe.csv";
-//			File recipe_csv = new File(path);
-//			// 입력 스트림
-//			FileReader recipe_list = new FileReader(recipe_csv);
-//			BufferedReader bfReader = new BufferedReader(recipe_list);
-//			String line = "";
-//			int count = 0;
-//			while ((line = bfReader.readLine()) != null) {
-//				RecipeDto recipe = new RecipeDto();
-//				line = line.replace(",", "-,-");
-//				String[] data_list = line.split(",");
-//				if (data_list.length != 13) {
-////					System.out.println("length : " + data_list.length);
-//					for(String d : data_list) {
-////						System.out.print(d+" ");
-////						System.out.println("line : "+line);
-//					}
-////					System.out.println();
-//
-//				}
-//				recipe.setMange_id(data_list[1]);
-//				recipe.setRecipe_title(data_list[2]);
-//				recipe.setRecipe_food_name(data_list[3]);
-//				recipe.setUser_id(data_list[4]);
-//				recipe.setRecipe_method(data_list[5]);
-//				recipe.setRecipe_status(data_list[6]);
-//				recipe.setRecipe_ingredient(data_list[7]);
-//				recipe.setRecipe_serving(data_list[9]);
-//				recipe.setRecipe_level(data_list[10]);
-//				recipe.setRecipe_time(data_list[11]);
-//				recipe.setRecipe_describe(data_list[12]);
-//				recipe = recipe.reRe(recipe);
-//
-//				recipeService.insertRecipe(recipe);
-//				System.out.println(recipe.toString());
-//
-//
-//				// 첫번째 행을 가져오지 않기 위한 코드
-//			}
-//		} catch (Exception e) {
-//			System.out.println();
-//			e.printStackTrace();
-//		}
-//
-//		return "recipe_list";
-//	}
+	@GetMapping("/insert_recipe")
+	public String insert_recipe() {
+		try {
+//			String path = "C:\\Users\\admin\\Desktop\\city";
+			String path = "C:\\Users\\admin\\Desktop\\recipe.csv";
+			File recipe_csv = new File(path);
+			// 입력 스트림
+			FileReader recipe_list = new FileReader(recipe_csv);
+			BufferedReader bfReader = new BufferedReader(recipe_list);
+			String line = "";
+			int count = 0;
+			while ((line = bfReader.readLine()) != null) {
+				RecipeDto recipe = new RecipeDto();
+				line = line.replace(",", "-,-");
+				String[] data_list = line.split(",");
+				if (data_list.length != 13) {
+//					System.out.println("length : " + data_list.length);
+					for(String d : data_list) {
+//						System.out.print(d+" ");
+//						System.out.println("line : "+line);
+					}
+//					System.out.println();
+
+				}
+				recipe.setMange_id(data_list[1]);
+				recipe.setRecipe_title(data_list[2]);
+				recipe.setRecipe_food_name(data_list[3]);
+				recipe.setUser_id("admin");
+				recipe.setRecipe_method(data_list[5]);
+				recipe.setRecipe_status(data_list[6]);
+				recipe.setRecipe_ingredient(data_list[7]);
+				recipe.setRecipe_serving(data_list[9]);
+				recipe.setRecipe_level(data_list[10]);
+				recipe.setRecipe_time(data_list[11]);
+				recipe.setRecipe_describe(data_list[12]);
+				recipe = recipe.reRe(recipe);
+
+				recipeService.insertRecipe(recipe);
+				System.out.println(recipe.toString());
+
+
+				// 첫번째 행을 가져오지 않기 위한 코드
+			}
+		} catch (Exception e) {
+			System.out.println();
+			e.printStackTrace();
+		}
+
+		return "recipe_list";
+	}
 
 	// 레시피 재료를 넣기위한 메서드 수정 : 2024-09-12
 //	@GetMapping("/insert_ingre")
