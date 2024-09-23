@@ -1,5 +1,9 @@
+body,html {
+    font-family: "Orbit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 body {
-    font-family: Arial, sans-serif;
     background: #E6E9EE;
     color: #333;
     margin: 0;
