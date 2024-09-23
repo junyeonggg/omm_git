@@ -16,13 +16,13 @@ var isTelValidated = false; // 기본 사용 불가
 async function checkId() {
     var snd_data = $("#user_id").val().trim();
     if (snd_data === "") {
-        $("#id-area").html("<p>아이디를 입력해 주세요.</p>");
+        $("#id-area").html("<p style='color :blue'>아이디를 입력해 주세요.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
         isIdValidated = true; // 아이디 확인이 필요함
         return;
     }
     if (snd_data.length < 4 || snd_data.length > 12) {
-        $("#id-area").html("<p>아이디는 4~12자로 입력해주세요.</p>");
+        $("#id-area").html("<p style='color :blue'>아이디는 4~12자로 입력해주세요.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
         isIdValidated = false; // 아이디 확인이 필요함
         return;
@@ -36,17 +36,17 @@ async function checkId() {
         });
     // 유효성 검사 추가
         if (!/^[a-z0-9]+$/.test(snd_data)) {
-        $("#id-area").html("<p>아이디는 소문자와 숫자만 포함해야 합니다.</p>");
+        $("#id-area").html("<p style='color :blue'>아이디는 소문자와 숫자만 포함해야 합니다.</p>");
         isIdChecked = false; // 아이디 입력이 없으므로 중복 체크 미완료 상태
         isIdValidated = false; // 아이디 확인이 필요함
         return;
         }
         if (data === "true") {
-            $("#id-area").html("<p>사용 가능한 아이디입니다.</p>");
+            $("#id-area").html("<p style='color :blue'>사용 가능한 아이디입니다.</p>");
             isIdChecked = true; // 중복 체크 완료, 아이디 사용 가능
             isIdValidated = true; // 아이디가 사용 가능함
         } else {
-            $("#id-area").html("<p>사용할 수 없는 아이디입니다.</p>");
+            $("#id-area").html("<p style='color :blue'>사용할 수 없는 아이디입니다.</p>");
             isIdChecked = true; // 중복 체크 완료, 아이디 사용 불가
             isIdValidated = false; // 아이디가 사용 불가함
         }
@@ -61,13 +61,13 @@ async function checkId() {
 async function checkNickname() {
     var nickname = $("#user_nickname").val().trim();
     if (nickname === "") {
-        $("#nickname-area").html("<p>닉네임을 입력해 주세요.</p>");
+        $("#nickname-area").html("<p style='color :blue'>닉네임을 입력해 주세요.</p>");
         isNicknameChecked = false;
         isNickValidated = true;
         return;
     }
-    if (nickname.length < 2 || nickname.length > 6) {
-        $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
+    if (nickname.length < 2 || nickname.length > 12) {
+        $("#nickname-area").html("<p style='color :blue'>닉네임은 2~12자로 입력해주세요.</p>");
         isNicknameChecked = false;
         isNickValidated = false;
         return;
@@ -80,11 +80,11 @@ async function checkNickname() {
             data: { data: nickname }
         });
         if (response.trim() === "true") {
-            $("#nickname-area").html("<p>사용 가능한 닉네임입니다.</p>");
+            $("#nickname-area").html("<p style='color :blue'>사용 가능한 닉네임입니다.</p>");
             isNicknameChecked = true;
             isNickValidated = true;
         } else {
-            $("#nickname-area").html("<p>사용할 수 없는 닉네임입니다.</p>");
+            $("#nickname-area").html("<p style='color :blue'>사용할 수 없는 닉네임입니다.</p>");
             isNicknameChecked = true;
             isNickValidated = false;
         }
@@ -101,7 +101,7 @@ update_email()
     var email = $("#user_email").val().trim();
 
     if (email === "") {
-        $("#email-area").html("<p>이메일을 입력해 주세요.</p>");
+        $("#email-area").html("<p style='color :blue'>이메일을 입력해 주세요.</p>");
         isEmailChecked = false;
         isValidated = true;
         return;
@@ -114,11 +114,11 @@ update_email()
             data: { data: email }
         });
         if (response.trim() === "true") {
-            $("#email-area").html("<p>사용 가능한 이메일입니다.</p>");
+            $("#email-area").html("<p style='color :blue'>사용 가능한 이메일입니다.</p>");
             isEmailChecked = true;
             isEmailValidated = true;
         } else {
-            $("#email-area").html("<p>사용할 수 없는 이메일입니다.</p>");
+            $("#email-area").html("<p style='color :blue'>사용할 수 없는 이메일입니다.</p>");
             isEmailChecked = true;
             isEmailValidated = false;
         }
@@ -134,7 +134,7 @@ async function checkTel() {
     var telNumber = $("#user_tel").val().trim(); // 중간번호
 
     if (telPrefix === "" || telNumber === "") {
-        $("#tel-area").html("<p>전화번호를 입력해 주세요.</p>");
+        $("#tel-area").html("<p style='color :blue'>전화번호를 입력해 주세요.</p>");
         isTelChecked = false;
         isTelValidated = true;
         return;
@@ -150,12 +150,12 @@ async function checkTel() {
         });
 
         if (response.trim() === "true") {
-            $("#tel-area").html("<p>사용 가능한 전화번호입니다.</p>");
+            $("#tel-area").html("<p style='color :blue'>사용 가능한 전화번호입니다.</p>");
             isTelChecked = true;
             isTelValidated = true;
 
         } else {
-            $("#tel-area").html("<p>사용할 수 없는 전화번호입니다.</p>");
+            $("#tel-area").html("<p style='color :blue'>사용할 수 없는 전화번호입니다.</p>");
             isTelChecked = true;
             isTelValidated = false;
         }
@@ -273,7 +273,10 @@ function sendmail() {
         window.alert("도메인을 선택해 주세요.");
         return;
     }
-
+    if(isEmailChecked && !isValidated){
+        window.alert("현재 사용중인 이메일입니다.")
+        return;
+    }
     // 이메일 주소 생성
     userEmail = domainSelect === 'custom' ? emailId + "@" + customDomain : emailId + "@" + domainSelect;
 
@@ -345,7 +348,6 @@ $(document).ready(function() {
         isIdChecked = false;
         $("#id-area").html("");
     });
-
     $("#user_nickname").on('input', function() {
         isNicknameChecked = false;
         $("#nickname-area").html("");
@@ -383,8 +385,66 @@ $(document).ready(function() {
     });
 });
 
+// 아이디 유효성 검사 함수
+function validateId(id) {
+    const idRegex = /^[a-z0-9]{4,12}$/;
+    return idRegex.test(id);
+}
+
+// 비밀번호 유효성 검사 함수
+function validatePassword(password) {
+    const passwordRegex = /^(?=.*[!@#$%^&+=])[a-z0-9!@#$%^&+=]{8,16}$/;
+    return passwordRegex.test(password);
+}
+
+// 페이지 로드 시 유효성 검사
+document.addEventListener('DOMContentLoaded', function() {
+    validateIdFeedback(); // 페이지 로드 시 아이디 유효성 검사
+    validateFields(); // 페이지 로드 시 비밀번호 유효성 검사
+
+
+    const userIdField = document.getElementById('user_id');
+    const userPwField = document.getElementById('user_pw');
+
+    if (userIdField) {
+        userIdField.addEventListener('input', function() {
+            validateIdFeedback();
+        });
+    } else {
+        console.error('Element with ID "user_id" not found');
+    }
+
+    if (userPwField) {
+        userPwField.addEventListener('input', function() {
+            validateFields();
+        });
+    } else {
+        console.error('Element with ID "user_pw" not found');
+    }
+});
+
+// 유효성 검사와 피드백을 분리하여 처리
+function validateIdFeedback() {
+    const userId = document.getElementById('user_id').value.trim();
+    const idFeedback = document.getElementById('id-area2');
+
+    if (!validateId(userId)) {
+        idFeedback.innerHTML = "<small style='color :red'>아이디는 소문자와 숫자만 포함하며, 4~12자 사이여야 합니다.</small>";
+    } else {
+    }
+}
+
+function validateFields() {
+    const userPw = document.getElementById('user_pw').value.trim();
+    const pwFeedback = document.getElementById('pw-area');
+
+    if (!validatePassword(userPw)) {
+        pwFeedback.innerHTML = "<small style='color :red'>비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.</small>";
+    } else {
+    }
+}
 function submitForm(self){
-   // 중복 체크 함수들 호출
+// 중복 체크 함수들 호출
     checkId();
     checkNickname();
     checkEmail();
@@ -403,11 +463,11 @@ function submitForm(self){
     }
     update_email()
 
-    // 이메일 인증 상태 확인
-//    if (isEmailChecked && !isEmailVerified) {
-//        window.alert("이메일 인증을 먼저 완료해 주세요.");
-//        return false;
-//    }
+     이메일 인증 상태 확인
+    if (isEmailChecked && !isEmailVerified) {
+        window.alert("이메일 인증을 먼저 완료해 주세요.");
+        return false;
+    }
     var currentUserId = $("#user_id").val().trim();
     var currentPassword = $("#user_pw").val().trim();
     var currentUserName = $("#user_name").val().trim();
@@ -417,10 +477,26 @@ function submitForm(self){
     var currentUserDomain = $("#user_email_domain").val().trim();
     var customDomain = $("#custom_domain").val().trim();
     var currentEmail = $("#user_email").val().trim();
-    var currentAddressZip = $("#sample6_postcode").val().trim();
+    var currentTelList = $("#tel_list").val().trim();
+    var currentUserTel = $("#user_tel").val().trim();
     var currentAddress = $("#sample6_address").val().trim();
-    var currentAddressDetail = $("#sample6_detailAddress").val().trim();
     var currentBirth = $("#user_birth").val().trim();
+
+    // 아이디 유효성 검사
+    var idRegex = /^[a-z0-9]{4,12}$/;
+    if (!idRegex.test(currentUserId)) {
+        window.alert("아이디는 소문자와 숫자만 포함하며, 4~12자 사이여야 합니다.");
+        $("#user_id").focus();
+        return false;
+    }
+
+    // 비밀번호 유효성 검사
+    var passwordRegex = /^(?=.*[!@#$%^&+=])(?=.*[a-z0-9])[a-z0-9!@#$%^&+=]{8,16}$/;
+    if (!passwordRegex.test(currentPassword)) {
+        window.alert("비밀번호는 8~16자 사이이며, 하나의 특수문자를 포함해야 하고, 대문자와 한글은 포함될 수 없습니다.");
+        $("#user_pw").focus();
+        return false;
+    }
 
    if(currentPassword === ""){
         window.alert("비밀번호 값을 입력해주세요.")
@@ -432,11 +508,26 @@ function submitForm(self){
          $("#user_name").focus()
          return false;
    }
+   if(currentNickname === ""){
+            window.alert("닉네임을 입력해주세요.")
+            $("#user_nickname").focus()
+            return false;
+      }
    if(currentAddress === ""){
          window.alert("주소를 입력해주세요.")
          $("#user_addr").focus()
          return false;
    }
+   if(currentTelList == ""){
+       window.alert("전화번호를 입력해주세요.")
+       $("#tel_list").focus()
+       return false;
+   }
+   if(currentUserTel == ""){
+       window.alert("전화번호를 입력해주세요.")
+       $("#user_tel").focus()
+       return false;
+      }
    var gender = $("input[name='user_gender']:checked").val();
       if (!gender) {
           window.alert("성별을 선택해주세요.");
@@ -447,7 +538,6 @@ function submitForm(self){
          $("#user_birth").focus()
          return false;
    }
-
    if(isIdChecked && !isIdValidated){
         window.alert("현재 사용중인 아이디입니다.");
         return false;
@@ -506,9 +596,6 @@ function submitForm(self){
     formJoin.append('user_addr_zip',user_addr_zip);
     formJoin.append('user_addr',user_addr);
     formJoin.append('user_addr_detail',user_addr_detail);
-    console.log(user_addr_zip)
-    console.log(user_addr)
-    console.log(user_addr_detail)
 
     //전화번호
     const user_tel_front = document.querySelector("#tel_list").value;

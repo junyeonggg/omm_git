@@ -273,7 +273,10 @@ function sendmail() {
         window.alert("도메인을 선택해 주세요.");
         return;
     }
-
+    if(isEmailChecked && !isValidated){
+        window.alert("현재 사용중인 이메일입니다.")
+        return;
+    }
     // 이메일 주소 생성
     userEmail = domainSelect === 'custom' ? emailId + "@" + customDomain : emailId + "@" + domainSelect;
 

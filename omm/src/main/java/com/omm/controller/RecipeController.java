@@ -136,12 +136,10 @@ public class RecipeController {
 				recipeService.insertIngre(ingre);
 
 				if(line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술") | line_list[0].equals("45767")) {
-					System.out.println("완");
 					break;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println();
 			e.printStackTrace();
 		}
 

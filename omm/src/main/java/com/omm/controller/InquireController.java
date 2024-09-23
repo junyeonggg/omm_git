@@ -46,7 +46,6 @@ public class InquireController {
 			user_nickname = recipeService.getUserNicknameByUserId(user_id);
 		}
 		model.addAttribute("user_nickname", user_nickname);
-		System.out.println(paging.toString());
 		List<InquireDto> inquire_list = inquireService.selectAll(paging);
 		model.addAttribute("inquire_list", inquire_list);
 		
@@ -88,7 +87,6 @@ public class InquireController {
 	}
 	@PostMapping("/inquire/update")
 	public String inquire_update(InquireDto inquireDto, Principal principal) {
-		System.out.println(inquireDto.toString());
 		inquireDto.setUser_id(principal.getName());
 		inquireService.updateForm(inquireDto);
 		return "redirect:/inquire/"+inquireDto.getInquire_id();

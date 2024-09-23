@@ -15,8 +15,8 @@ async function checkNickname() {
         isValidated = true;
         return;
     }
-    if (nickname.length < 2 || nickname.length > 6) {
-        $("#nickname-area").html("<p>닉네임은 2~6자로 입력해주세요.</p>");
+    if (nickname.length < 2 || nickname.length > 12) {
+        $("#nickname-area").html("<p>닉네임은 2~12자로 입력해주세요.</p>");
         isNicknameChecked = false;
         isValidated = false;
         return;
@@ -220,6 +220,10 @@ function sendmail() {
         return;
     } else if (domainSelect !== 'custom' && !domainSelect) {
         window.alert("도메인을 선택해 주세요.");
+        return;
+    }
+    if(isEmailChecked && !isValidated){
+        window.alert("현재 사용중인 이메일입니다.")
         return;
     }
 

@@ -140,6 +140,42 @@ footer p {
   font-size: 0.9rem;
   color: #fff;
 }
+/* 주문자 정보 및 결제 정보 테이블 스타일 */
+.order-info-table, .payment-info-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.order-info-table th, .payment-info-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.order-info-table td, .payment-info-table td {
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  color: #333;
+}
+
+/* 호버 효과 */
+.order-info-table tr:hover, .payment-info-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* 제목 스타일 */
+h3 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
 </style>
 </head>
 <body>
@@ -214,7 +250,7 @@ footer p {
 		<!-- 주문자 정보 -->
 		<div>
 			<h3>주문자 정보</h3>
-			<table>
+			<table class="order-info-table">
 				<tr>
 					<th>이름</th>
 					<td th:text="${member.user_nickname}"></td>
@@ -238,7 +274,7 @@ footer p {
 		<!-- 결제 정보  -->
 		<div>
 			<h3>결제 정보</h3>
-			<table>
+			<table class="payment-info-table">
 				<tr>
 					<th>총상품결제금액</th>
 					<td th:text="${#numbers.formatInteger(totPrice,3,'COMMA')}+'원'"></td>

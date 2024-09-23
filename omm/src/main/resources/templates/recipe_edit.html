@@ -13,27 +13,70 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>레시피</title>
     <style>
-
-
+/* flex_container 스타일 */
 .flex_container {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 20px; /* 전체 컨테이너의 마진 */
+  padding: 20px; /* 패딩 추가 */
+  background-color: #f9f9f9; /* 배경색 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
+/* flex_item 스타일 */
 .flex_item {
-	margin: 50px;
-}
-table td{
-	background-color: lightgray;
+  width: 100%; /* 가로 폭을 100%로 설정 */
 }
 
+/* 테이블 스타일 */
+table {
+  width: 100%; /* 테이블 너비를 100%로 설정 */
+  border-collapse: collapse; /* 테두리 중복 제거 */
+}
 
+table th {
+  background-color: #6c757d; /* 헤더 배경색 */
+  color: white; /* 헤더 글자색 */
+  padding: 10px; /* 패딩 추가 */
+  text-align: left; /* 왼쪽 정렬 */
+}
 
+table td {
+  padding: 10px; /* 패딩 추가 */
+  background-color: lightgray; /* 기본 배경색 */
+  border: 1px solid #dee2e6; /* 테두리 추가 */
+}
+
+/* 입력 필드 스타일 */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: calc(100% - 20px); /* 너비 설정 */
+  padding: 10px; /* 패딩 추가 */
+  border: 1px solid #ced4da; /* 테두리 추가 */
+  border-radius: 4px; /* 모서리 둥글게 */
+  margin-top: 5px; /* 위쪽 마진 */
+}
+
+/* 버튼 스타일 */
+input[type="button"] {
+  background-color: #28a745; /* 버튼 배경색 */
+  color: white; /* 버튼 글자색 */
+  border: none; /* 테두리 제거 */
+  padding: 10px 15px; /* 패딩 추가 */
+  border-radius: 4px; /* 모서리 둥글게 */
+  cursor: pointer; /* 커서 모양 변경 */
+  transition: background-color 0.3s; /* 배경색 변화 효과 */
+}
+
+input[type="button"]:hover {
+  background-color: #218838; /* 호버 시 배경색 변화 */
+}
     </style>
-
-
 </head>
 <body>
 
