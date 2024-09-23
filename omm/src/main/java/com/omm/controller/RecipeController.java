@@ -107,46 +107,46 @@ public class RecipeController {
 	}
 
 	// 레시피 재료를 넣기위한 메서드 수정 : 2024-09-12
-//	@GetMapping("/insert_ingre")
-//	public String insert_ingre() {
-//		try {
-//			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
-//			File recipe_csv = new File(path);
-//			// 입력 스트림
-//			FileReader recipe_list = new FileReader(recipe_csv);
-//			BufferedReader bfReader = new BufferedReader(recipe_list);
-//			String line = "";
-//			int count = 0;
-//			while ((line = bfReader.readLine()) != null) {
-////				RecipeDto recipe = new RecipeDto();
-//				Recipe_ingre ingre = new Recipe_ingre();
-//				if (line.startsWith(",")) {
-//					continue;
-//				}
-//				System.out.println(line);
-//				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-//				try{
-//					ingre.setIngre_info(line_list[4]);
-//				}catch(Exception e){
-//
-//				}
-//				ingre.setIngre_name(line_list[3]);
-//				ingre.setIngre_type(line_list[2]);
-//				ingre.setRecipe_id(Integer.parseInt(line_list[1]));
-//				recipeService.insertIngre(ingre);
-//
-//				if(line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술") | line_list[0].equals("45767")) {
-//					System.out.println("완");
-//					break;
-//				}
-//			}
-//		} catch (Exception e) {
-//			System.out.println();
-//			e.printStackTrace();
-//		}
-//
-//		return "redirect:/";
-//	}
+	@GetMapping("/insert_ingre")
+	public String insert_ingre() {
+		try {
+			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
+			File recipe_csv = new File(path);
+			// 입력 스트림
+			FileReader recipe_list = new FileReader(recipe_csv);
+			BufferedReader bfReader = new BufferedReader(recipe_list);
+			String line = "";
+			int count = 0;
+			while ((line = bfReader.readLine()) != null) {
+//				RecipeDto recipe = new RecipeDto();
+				Recipe_ingre ingre = new Recipe_ingre();
+				if (line.startsWith(",")) {
+					continue;
+				}
+				System.out.println(line);
+				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+				try{
+					ingre.setIngre_info(line_list[4]);
+				}catch(Exception e){
+
+				}
+				ingre.setIngre_name(line_list[3]);
+				ingre.setIngre_type(line_list[2]);
+				ingre.setRecipe_id(Integer.parseInt(line_list[1]));
+				recipeService.insertIngre(ingre);
+
+				if(line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술") | line_list[0].equals("45767")) {
+					System.out.println("완");
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println();
+			e.printStackTrace();
+		}
+
+		return "redirect:/";
+	}
 	// 레시피 sequence db에 넣기 수정 : 2024-09-12
 //	@GetMapping("/insert_step")
 //	public String insert_step() {
