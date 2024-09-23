@@ -434,6 +434,25 @@ footer p {
 .btn-style:hover {
     background-color: #0056b3; /* 호버 시 색상 어두워짐 */
 }
+.btn-warning {
+    background-color: #ffc107; /* 주황색 */
+    border: none;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545; /* 빨간색 */
+    border: none;
+    color: white;
+}
+
+.btn-warning:hover, .btn-danger:hover {
+    opacity: 0.8; /* 마우스 오버 시 약간 투명해짐 */
+}
+
+.card-text {
+    flex: 1; /* 버튼과의 간격을 조정하기 위해 */
+}
 
 </style>
 
@@ -606,11 +625,11 @@ footer p {
 							</div>
 
 						</div>
-						<p class="card-text" th:text="${comment.comment_content}"></p>
-						<button type="button" onclick="editReplyBtn(this)"
-								th:data-comment-id="${comment.comment_id}">수정</button>
-						<button type="button" onclick="deleteReplyBtn(this)"
-								th:data-comment-id="${comment.comment_id}">삭제</button>
+						<div th:if="${comment.user_id == user_nickname}" class="d-flex align-items-center">
+							<p class="card-text me-3" th:text="${comment.comment_content}"></p>
+							<button type="button" onclick="editReplyBtn(this)" th:data-comment-id="${comment.comment_id}" class="btn btn-warning me-2">수정</button>
+							<button type="button" onclick="deleteReplyBtn(this)" th:data-comment-id="${comment.comment_id}" class="btn btn-danger">삭제</button>
+						</div>
 					</div>
 					<!-- 답글 출력 -->
 					<br>
