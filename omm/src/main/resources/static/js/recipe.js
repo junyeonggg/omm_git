@@ -430,7 +430,7 @@ function selectFilter(self) {
 			
 		})*/
 }
-function addIngre(){
+/*function addIngre(){
     const target_tbl = document.querySelector("#input_ingre_tbl");
     let trEl = document.createElement("tr");
     trEl.innerHTML = `<th>재료</th>`
@@ -439,22 +439,47 @@ function addIngre(){
                     +`<input type="button" onclick="deleteIngreTr(this)" value="X">`
                     +`</th>`
     target_tbl.append(trEl);
+}*/
+function addIngre() {
+    const target_tbl = document.querySelector("#input_ingre_tbl");
+    let trEl = document.createElement("tr");
+    trEl.innerHTML = `<th>재료</th>`
+                   + `<th><input type="text">`
+                   + `<input type="button" onclick="getIngreList(this)" value="검색">`
+                   + `<select></select>` // '검색' 버튼과 'X' 버튼 사이에 select 추가
+                   + `<input type="button" onclick="deleteIngreTr(this)" value="X">`
+                   + `</th>`;
+    target_tbl.append(trEl);
 }
-function deleteIngreTr(self){
+
+
+
+/*function deleteIngreTr(self){
     self.parentElement.parentElement.parentElement.removeChild(self.parentElement.parentElement)
+}*/
+function deleteIngreTr(button) {
+    const trEl = button.closest("tr"); // 클릭한 버튼의 부모 tr 찾기
+    trEl.remove(); // 해당 행 삭제
 }
 
 
-function getIngreList(self){
+
+/*function getIngreList(self){
     if(self.previousElementSibling.value==""){
         alert("재료를 입력해 주세요.")
         return self.focus();
     }
+
     $.ajax({
         type:"post",
         url : '/recipe_recommend',
         data : {ingre:self.previousElementSibling.value},
         success : data=>{
+            const existingSelect = self.parentElement.parentElement.querySelector('select');
+            if (existingSelect) {
+                existingSelect.remove(); // 기존 select 태그 삭제
+            }
+
             let selectEl = document.createElement("select");
             selectEl.setAttribute("class","ingre")
             for(let i =0; i<data.length; i++){
@@ -466,7 +491,37 @@ function getIngreList(self){
 
         }
     })
+}*/
+function getIngreList(self) {
+    const inputElement = self.previousElementSibling; // 텍스트 입력 필드
+    if (inputElement.value == "") {
+        alert("재료를 입력해 주세요.");
+        return inputElement.focus();
+    }
+
+    $.ajax({
+        type: "post",
+        url: '/recipe_recommend',
+        data: { ingre: inputElement.value },
+        success: data => {
+            const existingSelect = self.parentElement.querySelector('select');
+            if (existingSelect) {
+                existingSelect.innerHTML = ''; // 기존 select 태그의 옵션 초기화
+            } else {
+                // 만약 select가 없으면 새로 생성
+                const selectEl = document.createElement("select");
+                selectEl.setAttribute("class", "ingre");
+                self.parentElement.append(selectEl);
+            }
+
+            const selectEl = self.parentElement.querySelector('select'); // select 태그 가져오기
+            for (let i = 0; i < data.length; i++) {
+                selectEl.innerHTML += `<option value="${data[i]['ingre_name']}">${data[i]['ingre_name']}</option>`;
+            }
+        }
+    });
 }
+
 // 그냥 recipe_id만 추가하기
 function sendPy() {
 
