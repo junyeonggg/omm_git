@@ -431,7 +431,24 @@ function selectFilter(self) {
 		})*/
 }
 
+function getIngreList(self){
+    $.ajax({
+        type:"post",
+        url : '/recipe_recommend',
+        data : {ingre:self.previousElementSibling.value},
+        success : data=>{
+            let selectEl = document.createElement("select");
+            selectEl.setAttribute("class","ingre")
+            for(let i =0; i<data.length; i++){
+                console.log(data[i]['ingre_name'])
+                selectEl.innerHTML += `<option value="${data[i]['ingre_name']}">${data[i]['ingre_name']}</option>`
+            }
+            self.parentElement.append(selectEl)
 
+
+        }
+    })
+}
 // 그냥 recipe_id만 추가하기
 function sendPy() {
 	// 추가될 테이블
@@ -439,30 +456,42 @@ function sendPy() {
 
 
 	const ingredients = document.querySelectorAll(".ingre");
+	let ingredients_list2 = []
+	ingredients.forEach(ingre => ingredients_list2.push(ingre.value));
 	let ingredients_list = []
-	ingredients.forEach(ingre => ingredients_list.push(ingre.value));
-	console.log(ingredients_list)
-	$.ajax({
-		type: 'POST',
-		url: 'http://127.0.0.1:5000/recipeRecommend',
-		data: JSON.stringify({
-			ingredients: ingredients_list  // 사용자 입력 재료 ID 배열
-		}),
-		dataType: 'json',  // 'JSON' 대신 'json'으로 소문자로
-		contentType: "application/json",
-		success: function(data) {
-			alert('성공! 데이터 값: ' + JSON.stringify(data));  // 데이터 확인
-			for (recipe of data) {
-				let trEl = document.createElement("tr");
-				trEl.innerHTML = `<td>${recipe}</td>`
-				target.appendChild(trEl)
-			}
-		},
-		error: function(request, status, error) {
-			alert('ajax 통신 실패');
-			alert(error);
-		}
-	});
+    $.ajax({
+        type:"post",
+        url : '/getIngreIdByIngreName',
+        data : {ingres : ingredients_list2},
+        success : data=>{
+            data.forEach(ingre_id => {
+                console.log("ingre id : "+ingre_id)
+                ingredients_list.push(ingre_id)
+                console.log("ingredients_list : "+ingredients_list)
+            })
+            	$.ajax({
+            		type: 'POST',
+            		url: 'http://127.0.0.1:5000/recipeRecommend',
+            		data: JSON.stringify({
+            			ingredients: ingredients_list  // 사용자 입력 재료 ID 배열
+            		}),
+            		dataType: 'json',  // 'JSON' 대신 'json'으로 소문자로
+            		contentType: "application/json",
+            		success: function(data) {
+            			alert('성공! 데이터 값: ' + JSON.stringify(data));  // 데이터 확인
+            			for (recipe of data) {
+            				let trEl = document.createElement("tr");
+            				trEl.innerHTML = `<td>${recipe}</td>`
+            				target.appendChild(trEl)
+            			}
+            		},
+            		error: function(request, status, error) {
+            			alert('ajax 통신 실패');
+            			alert(error);
+            		}
+            	});
+        }
+    })
 }
 
 // recipe_id를 가지고 recipe_list로 넘어가서 레시피들 보여주기

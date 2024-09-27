@@ -150,4 +150,10 @@ public interface RecipeDao {
 
 	@Delete("delete from tbl_cooking_sequence where recipe_id = #{recipe_id}")
 	void deleteSequenceImgByRecipeId(int recipe_id);
+
+	@Select("SELECT distinct ingre_name FROM omm.tbl_ingre where ingre_name like concat('%',#{ingre},'%')")
+    List<Recipe_ingre> getIngreList(String ingre);
+
+	@Select("select ingre_id from tbl_ingre where ingre_name like concat('%',#{ingre_name},'%') limit 1")
+	int getIngreIdByIngreName(String ingre) throws Exception;
 }

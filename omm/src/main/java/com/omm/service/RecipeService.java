@@ -203,4 +203,18 @@ public class RecipeService {
 	public void deleteSequenceImgByRecipeId(int recipe_id) {
 		recipeDao.deleteSequenceImgByRecipeId(recipe_id);
 	}
+
+    public List<Recipe_ingre> getIngreList(String ingre) {
+		return recipeDao.getIngreList(ingre);
+    }
+
+	public int getIngreIdByIngreName(String ingre) {
+		int recipe_id = 0;
+		try{
+			recipe_id = recipeDao.getIngreIdByIngreName(ingre);
+		}catch (Exception e){
+			System.out.println("일치하는 데이터 없음");
+		}
+		return recipe_id;
+	}
 }
