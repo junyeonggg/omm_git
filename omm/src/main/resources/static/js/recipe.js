@@ -433,7 +433,7 @@ function selectFilter(self) {
 
 
 // 그냥 recipe_id만 추가하기
-/*function sendPy() {
+function sendPy() {
 	// 추가될 테이블
 	const target = document.querySelector("#recommend_recipe_list");
 
@@ -463,10 +463,10 @@ function selectFilter(self) {
 			alert(error);
 		}
 	});
-}*/
+}
 
 // recipe_id를 가지고 recipe_list로 넘어가서 레시피들 보여주기
-function sendPy() {
+/*function sendPy() {
 	// 추가될 테이블
 	const target = document.querySelector("#recommend_recipe_list");
 
@@ -492,4 +492,4 @@ function sendPy() {
 			alert(error);
 		}
 	});
-}
+}*/

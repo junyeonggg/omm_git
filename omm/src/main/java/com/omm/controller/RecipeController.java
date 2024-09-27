@@ -55,149 +55,143 @@ public class RecipeController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	// 레시피를 db에 넣기 위한 메서드
-	@GetMapping("/insert_recipe")
-	public String insert_recipe() {
-		try {
-//			String path = "C:\\Users\\admin\\Desktop\\city";
-			String path = "C:\\Users\\admin\\Desktop\\recipe.csv";
-			File recipe_csv = new File(path);
-			// 입력 스트림
-			FileReader recipe_list = new FileReader(recipe_csv);
-			BufferedReader bfReader = new BufferedReader(recipe_list);
-			String line = "";
-			int count = 0;
-			while ((line = bfReader.readLine()) != null) {
-				RecipeDto recipe = new RecipeDto();
-				line = line.replace(",", "-,-");
-				String[] data_list = line.split(",");
-				if (data_list.length != 13) {
-//					System.out.println("length : " + data_list.length);
-					for(String d : data_list) {
-//						System.out.print(d+" ");
-//						System.out.println("line : "+line);
-					}
-//					System.out.println();
-
-				}
-				recipe.setMange_id(data_list[1]);
-				recipe.setRecipe_title(data_list[2]);
-				recipe.setRecipe_food_name(data_list[3]);
-				recipe.setUser_id("admin");
-				recipe.setRecipe_method(data_list[5]);
-				recipe.setRecipe_status(data_list[6]);
-				recipe.setRecipe_ingredient(data_list[7]);
-				recipe.setRecipe_serving(data_list[9]);
-				recipe.setRecipe_level(data_list[10]);
-				recipe.setRecipe_time(data_list[11]);
-				recipe.setRecipe_describe(data_list[12]);
-				recipe = recipe.reRe(recipe);
-
-				recipeService.insertRecipe(recipe);
-				System.out.println(recipe.toString());
-
-
-				// 첫번째 행을 가져오지 않기 위한 코드
-			}
-		} catch (Exception e) {
-			System.out.println();
-			e.printStackTrace();
-		}
-
-		return "recipe_list";
-	}
-
-	// 레시피 재료를 넣기위한 메서드 수정 : 2024-09-12
-	@GetMapping("/insert_ingre")
-	public String insert_ingre() {
-		try {
-			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
-			File recipe_csv = new File(path);
-			// 입력 스트림
-			FileReader recipe_list = new FileReader(recipe_csv);
-			BufferedReader bfReader = new BufferedReader(recipe_list);
-			String line = "";
-			int count = 0;
-			while ((line = bfReader.readLine()) != null) {
-//				RecipeDto recipe = new RecipeDto();
-				Recipe_ingre ingre = new Recipe_ingre();
-				if (line.startsWith(",")) {
-					continue;
-				}
-				System.out.println(line);
-				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-				try{
-					ingre.setIngre_info(line_list[4]);
-				}catch(Exception e){
-
-				}
-				ingre.setIngre_name(line_list[3]);
-				ingre.setIngre_type(line_list[2]);
-				ingre.setRecipe_id(Integer.parseInt(line_list[1]));
-				recipeService.insertIngre(ingre);
-
-				if(line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술") | line_list[0].equals("45767")) {
-					break;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "redirect:/";
-	}
-	// 레시피 sequence db에 넣기 수정 : 2024-09-12
-//	@GetMapping("/insert_step")
-//	public String insert_step() {
-//		String path = "C:\\Users\\admin\\Desktop\\recipe_sequence.csv";
+//	@GetMapping("/insert_recipe")
+//	public String insert_recipe() {
+//		String path = "C:\\Users\\admin\\Desktop\\recipe.csv";
 //		File recipe_csv = new File(path);
-//
+//		int cnt = 0;
 //		try (BufferedReader bfReader = new BufferedReader(new FileReader(recipe_csv))) {
 //			String line;
+//
 //			while ((line = bfReader.readLine()) != null) {
-//				// Skip lines that start with a comma
+//				if(cnt == 184990){
+//					break;
+//				}
+//				String[] lineItems = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+//
+//				// 데이터 유효성 검사
+//				if (lineItems.length < 13) {
+//					System.out.println("Invalid data line: " + line);
+//					continue; // 데이터가 부족한 경우 건너뜁니다.
+//				}
+//
+//				RecipeDto recipe = new RecipeDto();
+//				recipe.setMange_id(lineItems[1]);
+//				recipe.setRecipe_title(lineItems[2]);
+//				recipe.setRecipe_food_name(lineItems[3]);
+//				recipe.setUser_id("admin");
+//				recipe.setRecipe_method(lineItems[5]);
+//				recipe.setRecipe_status(lineItems[6]);
+//				recipe.setRecipe_ingredient(lineItems[7]);
+//				recipe.setRecipe_serving(lineItems[9]);
+//				recipe.setRecipe_level(lineItems[10]);
+//				recipe.setRecipe_time(lineItems[11]);
+//				recipe.setRecipe_describe(lineItems[12]);
+//
+//				recipeService.insertRecipe(recipe);
+//				cnt++;
+//				System.out.println("cnt : "+cnt);
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace(); // IOException만 잡아 처리
+//		}
+//
+//		return "recipe_list";
+//	}
+
+
+	// 레시피 재료를 넣기위한 메서드 수정 : 2024-09-12
+//	@GetMapping("/insert_ingre")
+//	public String insert_ingre() {
+//		try {
+//			String path = "C:\\Users\\admin\\Desktop\\recipe_ingre.csv";
+//			File recipe_csv = new File(path);
+//			// 입력 스트림
+//			FileReader recipe_list = new FileReader(recipe_csv);
+//			BufferedReader bfReader = new BufferedReader(recipe_list);
+//			String line = "";
+//			int count = 0;
+//			while ((line = bfReader.readLine()) != null) {
+////				RecipeDto recipe = new RecipeDto();
+//				Recipe_ingre ingre = new Recipe_ingre();
 //				if (line.startsWith(",")) {
-//					System.out.println("건너뜀");
 //					continue;
 //				}
-//
-//				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 //				System.out.println(line);
-//				// Check if line_list has the correct number of elements
-//				if (line_list.length < 4) {
-//					System.out.println("Skipping invalid line: " + line);
-//					continue;
+//				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+//				try{
+//					ingre.setIngre_info(line_list[4]);
+//				}catch(Exception e){
+//
 //				}
+//				ingre.setIngre_name(line_list[3]);
+//				ingre.setIngre_type(line_list[2]);
+//				ingre.setRecipe_id(Integer.parseInt(line_list[1]));
+//				recipeService.insertIngre(ingre);
 //
-//				// Create and populate CookingSequenceDto
-//				CookingSequenceDto sequence = new CookingSequenceDto();
-//				int recipe_id = recipeService.findRecipeIdByMangeId(line_list[1]);
-//				sequence.setRecipe_id(recipe_id);
-//				sequence.setSequence_text(line_list[2]);
-//				sequence.setSequence_step_no(Integer.valueOf(line_list[3]));
-//
-//				// Insert sequence into database
-//				recipeService.insertRecipeSequence(sequence);
-//
-//				// Break if specific condition is met
-//				if (line_list[0].equals("30206") || line.equals(
-//						"30206,1751398,버터를 바른틀에 반죽을 80~90%정도 채워지게 붓습니다. 아몬드 슬라이스를 넣은후 180도씨 예열오븐에 25~30분간 굽습니다.오븐,4")) {
-//					System.out.println("끝");
+//				if(line.equals("45767,1751398,[양자택일],인스턴트커피,1큰술") | line_list[0].equals("45767")) {
 //					break;
 //				}
 //			}
-//		} catch (IOException e) {
-//			System.out.println("Error reading file");
-//			e.printStackTrace();
-//		} catch (NumberFormatException e) {
-//			System.out.println("Error parsing number");
-//			e.printStackTrace();
 //		} catch (Exception e) {
-//			System.out.println("Unexpected error");
 //			e.printStackTrace();
 //		}
 //
 //		return "redirect:/";
 //	}
+	// 레시피 sequence db에 넣기 수정 : 2024-09-12
+	@GetMapping("/insert_step")
+	public String insert_step() {
+		String path = "C:\\Users\\admin\\Desktop\\recipe_sequence.csv";
+		File recipe_csv = new File(path);
+
+		try (BufferedReader bfReader = new BufferedReader(new FileReader(recipe_csv))) {
+			String line;
+			while ((line = bfReader.readLine()) != null) {
+				// Skip lines that start with a comma
+				if (line.startsWith(",")) {
+					System.out.println("건너뜀");
+					continue;
+				}
+
+				String[] line_list = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+				System.out.println(line);
+				// Check if line_list has the correct number of elements
+				if (line_list.length < 4) {
+					System.out.println("Skipping invalid line: " + line);
+					continue;
+				}
+
+				// Create and populate CookingSequenceDto
+				CookingSequenceDto sequence = new CookingSequenceDto();
+				int recipe_id = recipeService.findRecipeIdByMangeId(line_list[1]);
+				sequence.setRecipe_id(recipe_id);
+				sequence.setSequence_text(line_list[2]);
+				sequence.setSequence_step_no(Integer.valueOf(line_list[3]));
+
+				// Insert sequence into database
+				recipeService.insertRecipeSequence(sequence);
+
+				// Break if specific condition is met
+				if (line_list[0].equals("30206") || line.equals(
+						"30206,1751398,버터를 바른틀에 반죽을 80~90%정도 채워지게 붓습니다. 아몬드 슬라이스를 넣은후 180도씨 예열오븐에 25~30분간 굽습니다.오븐,4")) {
+					System.out.println("끝");
+					break;
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Error reading file");
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			System.out.println("Error parsing number");
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Unexpected error");
+			e.printStackTrace();
+		}
+
+		return "redirect:/";
+	}
 
 	@GetMapping("/recipe_list")
 	public String recipe_list_page(@RequestParam(value = "keyword", defaultValue = "") String keyword,
