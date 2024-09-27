@@ -33,8 +33,12 @@ header {
 }
 
 .navbar-brand {
-    color: white;
-    font-size: 20px;
+    font-family: 'Orbit', sans-serif;
+    font-size: 20px; /* 더 큰 크기 */
+    font-weight: bold; /* 두껍게 설정 */
+    color: #fff; /* 흰색으로 설정 */
+    text-transform: uppercase; /* 대문자로 변경 */
+    letter-spacing: 1px; /* 자간 조절 */
     text-decoration: none;
 }
 

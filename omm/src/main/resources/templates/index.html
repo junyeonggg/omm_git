@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Full Width Pics Landing Page Template" />
     <meta name="author" content="Start Bootstrap" />
-    <title th:text="'Full Width Pics - Start Bootstrap Template'">Full Width Pics - Start Bootstrap Template</title>
+    <title th:text="'Full Width Pics - Start Bootstrap Template'">오늘 뭐 먹지?</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- Custom CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link th:href="@{/css/index.css}" rel="stylesheet" />
 </head>
-<body>
+<body class="homepage">
 <!-- Responsive navbar-->
 <nav class="navbar">
     <div class="container">
         <!-- 브랜드명이나 로고 -->
-        <a class="navbar-brand" href="/">Your Brand</a>
+        <a class="navbar-brand" href="/">오늘 뭐 먹지?</a>
         <div class="navbar-collapse">
             <ul class="navbar-nav">
                 <li sec:authorize="isAuthenticated()" class="nav-item">
@@ -68,42 +68,36 @@
         Your browser does not support the video tag.
     </video>
     <div class="header-content">
-        <img class="rounded-circle mb-4" th:src="@{'https://dummyimage.com/150x150/6c757d/dee2e6.jpg'}" alt="..." />
-        <h1 class="header-title">Full Width Pics</h1>
-        <p class="header-subtitle">Landing Page Template</p>
+        <img class="rounded-circle mb-4" th:src="@{/img/오늘 뭐 먹지.png}" alt="..." />
     </div>
-</header>
-
-<!-- Content Section -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <!-- 쇼핑하기 -->
-            <div class="col text-center">
-                <h2>쇼핑하기</h2>
-                <p class="lead">필요한 식재료를 편리하게 쇼핑하세요.</p>
-                <a th:href="@{/shop}" class="btn">쇼핑하기</a>
-            </div>
-            <!-- 레시피 보러가기 -->
-            <div class="col text-center">
-                <h2>레시피 보러가기</h2>
-                <p class="lead">다양한 레시피를 탐색해보세요.</p>
-                <a th:href="@{'/recipe_list'}" class="btn">레시피 보러가기</a>
-            </div>
-            <!-- 레시피 보러가기 -->
-            <div class="col text-center">
-                <h2>레시피 추천받기</h2>
-                <p class="lead">재료를 입력해서 원하는 레시피를 추천받아보세요.</p>
-                <a th:href="@{'/recipe_recommend'}" class="btn">레시피 추천받기</a>
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="row">
+                <!-- 쇼핑하기 -->
+                <div class="col text-center">
+                    <h2>쇼핑하기</h2>
+                    <p class="lead">필요한 식재료를 편리하게 쇼핑하세요.</p>
+                    <a th:href="@{/shop}" class="btn">쇼핑하기</a>
+                </div>
+                <!-- 레시피 보러가기 -->
+                <div class="col text-center">
+                    <h2>레시피 보러가기</h2>
+                    <p class="lead">다양한 레시피를 탐색해보세요.</p>
+                    <a th:href="@{'/recipe_list'}" class="btn">레시피 보러가기</a>
+                </div>
+                <!-- 레시피 보러가기 -->
+                <div class="col text-center">
+                    <h2>레시피 추천받기</h2>
+                    <p class="lead">재료를 입력해서 원하는 레시피를 추천받아보세요.</p>
+                    <a th:href="@{'/recipe_recommend'}" class="btn">레시피 추천받기</a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</header>
 
-<!-- Image Section with Background -->
-<div class="image-section">
-    <div style="height: 20rem;"></div>
-</div>
+
 
 <!-- Footer -->
 <footer class="footer">
