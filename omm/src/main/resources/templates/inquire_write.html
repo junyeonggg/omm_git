@@ -46,10 +46,14 @@ html, body {
 }
 
 .navbar-brand {
-    flex-grow: 1; /* 브랜드를 왼쪽에 고정 */
+	flex-grow: 1;
+    font-family: 'Orbit', sans-serif;
+    font-size: 20px; /* 더 큰 크기 */
+    font-weight: bold; /* 두껍게 설정 */
+    color: #fff; /* 흰색으로 설정 */
+    text-transform: uppercase; /* 대문자로 변경 */
+    letter-spacing: 1px; /* 자간 조절 */
     text-decoration: none;
-    color: white;
-    font-size: 20px;
 }
 
 .navbar-collapse {
@@ -183,7 +187,7 @@ html, body {
 	<nav class="navbar">
 		<div class="container">
 			<!-- 브랜드명이나 로고 -->
-			<a class="navbar-brand" href="/">Your Brand</a>
+			<a class="navbar-brand" href="/">오늘 뭐 먹지?</a>
 			<div class="navbar-collapse">
 				<ul class="navbar-nav">
 					<li sec:authorize="isAuthenticated()" class="nav-item">
