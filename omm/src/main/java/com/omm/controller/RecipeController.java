@@ -664,4 +664,15 @@ public class RecipeController {
         return ingre_list;
     }
 
+
+    @ResponseBody
+    @PostMapping("/getRecipeByRecommend")
+    public List<RecipeDto> getRecipeByRecommend(@RequestParam("recommend_list") List<Integer> recommend_list) {
+        List<RecipeDto> recipe_list = new ArrayList<RecipeDto>();
+        recommend_list.forEach(recommend->{
+            recipe_list.add(recipeService.selectRecipeById(recommend));
+        });
+        return recipe_list;
+    }
+
 }

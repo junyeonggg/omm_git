@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.23 17:15">
+    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.27 추천 완">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/RecipeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/RecipeDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1727058805670</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="09.27 추천 완">
+      <created>1727411469869</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727411469869</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -122,6 +129,7 @@
     <MESSAGE value="09.23 10:24" />
     <MESSAGE value="09.23 10:38" />
     <MESSAGE value="09.23 11:33" />
-    <option name="LAST_COMMIT_MESSAGE" value="09.23 11:33" />
+    <MESSAGE value="09.27 추천 완" />
+    <option name="LAST_COMMIT_MESSAGE" value="09.27 추천 완" />
   </component>
 </project>

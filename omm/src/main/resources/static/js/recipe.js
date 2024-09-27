@@ -430,8 +430,26 @@ function selectFilter(self) {
 			
 		})*/
 }
+function addIngre(){
+    const target_tbl = document.querySelector("#input_ingre_tbl");
+    let trEl = document.createElement("tr");
+    trEl.innerHTML = `<th>재료</th>`
+                    +`<th><input type="text">`
+                    +`<input type="button" onclick="getIngreList(this)" value="검색">`
+                    +`<input type="button" onclick="deleteIngreTr(this)" value="X">`
+                    +`</th>`
+    target_tbl.append(trEl);
+}
+function deleteIngreTr(self){
+    self.parentElement.parentElement.parentElement.removeChild(self.parentElement.parentElement)
+}
+
 
 function getIngreList(self){
+    if(self.previousElementSibling.value==""){
+        alert("재료를 입력해 주세요.")
+        return self.focus();
+    }
     $.ajax({
         type:"post",
         url : '/recipe_recommend',
@@ -451,13 +469,20 @@ function getIngreList(self){
 }
 // 그냥 recipe_id만 추가하기
 function sendPy() {
+
 	// 추가될 테이블
 	const target = document.querySelector("#recommend_recipe_list");
 
 
 	const ingredients = document.querySelectorAll(".ingre");
+	if(ingredients.length == 0){
+	    alert("재료를 입력해 주세요.")
+	    return;
+	}
 	let ingredients_list2 = []
-	ingredients.forEach(ingre => ingredients_list2.push(ingre.value));
+	ingredients.forEach(ingre => {
+	    ingredients_list2.push(ingre.value);
+	});
 	let ingredients_list = []
     $.ajax({
         type:"post",
@@ -465,9 +490,7 @@ function sendPy() {
         data : {ingres : ingredients_list2},
         success : data=>{
             data.forEach(ingre_id => {
-                console.log("ingre id : "+ingre_id)
                 ingredients_list.push(ingre_id)
-                console.log("ingredients_list : "+ingredients_list)
             })
             	$.ajax({
             		type: 'POST',
@@ -477,13 +500,24 @@ function sendPy() {
             		}),
             		dataType: 'json',  // 'JSON' 대신 'json'으로 소문자로
             		contentType: "application/json",
-            		success: function(data) {
-            			alert('성공! 데이터 값: ' + JSON.stringify(data));  // 데이터 확인
-            			for (recipe of data) {
-            				let trEl = document.createElement("tr");
-            				trEl.innerHTML = `<td>${recipe}</td>`
-            				target.appendChild(trEl)
-            			}
+            		success: function(recipe_id_list) {
+            			alert('성공! 데이터 값: ' + recipe_id_list);  // 데이터 확인
+            			$.ajax({
+            			    type : "post",
+            			    url : "/getRecipeByRecommend",
+            			    data : {recommend_list : recipe_id_list},
+            			    success : recipe_list => {
+                                for (recipe of recipe_list) {
+                                    let trEl = document.createElement("tr");
+                                    trEl.innerHTML = `<td>${recipe['recipe_id']}</td>`
+                                                    +`<td>${recipe['recipe_food_name']}</td>`
+                                                    +`<td><a href="/recipe_list/${recipe['recipe_id']}" target="_blank" onclick="increView('tbl_recipe','recipe_view','recipe_id',${recipe['recipe_id']})">${recipe['recipe_title']}</a></td>`
+                                                    +`<td>${recipe['user_id']}</td>`
+                                                    +`<td>${recipe['recipe_view']}</td>`
+                                    target.appendChild(trEl)
+                                }
+            			    }
+            			})
             		},
             		error: function(request, status, error) {
             			alert('ajax 통신 실패');
