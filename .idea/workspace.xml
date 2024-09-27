@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.23 10:38">
+    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.23 14:09">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/css/findIdPw.css" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/css/findIdPw.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/find_id.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/find_id.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/find_pw.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/find_pw.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Moon2" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,9 +36,19 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/admin/Downloads/searchmusic-master&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\TeamProject\omm_git\omm\src\main\resources\static\css" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="OmmApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.omm.OmmApplication" />
@@ -89,7 +101,21 @@
       <option name="project" value="LOCAL" />
       <updated>1727055507774</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="09.23 12:38">
+      <created>1727062654112</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727062654112</updated>
+    </task>
+    <task id="LOCAL-00005" summary="09.23 14:09">
+      <created>1727068169669</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727068169669</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,6 +133,8 @@
     <MESSAGE value="09.23 09:10" />
     <MESSAGE value="09.23 10:24" />
     <MESSAGE value="09.23 10:38" />
-    <option name="LAST_COMMIT_MESSAGE" value="09.23 10:38" />
+    <MESSAGE value="09.23 12:38" />
+    <MESSAGE value="09.23 14:09" />
+    <option name="LAST_COMMIT_MESSAGE" value="09.23 14:09" />
   </component>
 </project>

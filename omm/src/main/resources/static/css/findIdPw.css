@@ -95,3 +95,81 @@ body {
             width: auto;
             margin-right: 10px;
         }
+/* Responsive Design */
+@media (max-width: 600px) {
+    form {
+        width: 100%;
+        padding: 10px;
+    }
+    table, td {
+        display: block;
+        width: 100%;
+    }
+    label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    input[type="text"], select {
+        width: 100%;
+    }
+}
+/* 이메일 입력칸과 도메인 선택창을 같은 줄에 배치 */
+.email-group {
+    display: flex;
+    align-items: center;
+}
+
+.email-group input[type="text"] {
+    flex: 2;
+    margin-right: 10px;
+}
+
+.email-group select {
+    flex: 1;
+}
+/* Button Style Enhancements */
+input[type="submit"], input[type="button"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Field Focus Styling */
+input[type="text"]:focus, select:focus {
+    border-color: #5cb85c;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(92, 184, 92, 0.5);
+}
+
+/* Message Styling */
+#msg {
+    color: #d9534f;
+    font-weight: bold;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333;
+        color: #f4f4f4;
+    }
+    form {
+        background-color: #444;
+        color: #fff;
+    }
+    input[type="text"], select {
+        background-color: #555;
+        color: #fff;
+    }
+}

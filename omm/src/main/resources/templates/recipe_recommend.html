@@ -5,10 +5,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="Full Width Pics Landing Page Template" />
-<meta name="author" content="Start Bootstrap" />
-<title th:text="'Full Width Pics - Start Bootstrap Template'">Full
-	Width Pics - Start Bootstrap Template</title>
+<title>레시피 추천받기</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Custom CSS -->
 <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
@@ -17,6 +14,29 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link th:href="@{/css/index.css}" rel="stylesheet" />
 </head>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+}
+
+footer {
+  width: 100%;
+  background-color: #343a40;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+</style>
 <body>
 	<!-- Responsive navbar-->
 	<nav class="navbar">
@@ -59,19 +79,19 @@
 	</nav>
 	<table>
 		<tr>
-			<th>입력1</th>
+			<th>재료1</th>
 			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
-			<th>입력1</th>
+			<th>재료2</th>
 			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
-			<th>입력1</th>
+			<th>재료3</th>
 			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
-			<th>입력1</th>
+			<th>재료4</th>
 			<th><input class="ingre" type="text"></th>
 		</tr>
 		<tr>
@@ -80,7 +100,7 @@
 		</tr>
 	</table>
 
-	<table id="recommend_recipe_list">
+	<table id="recommend_recipe_list" class="container">
 		<tr>
 			<td>레시피 아이디</td>
 		</tr>

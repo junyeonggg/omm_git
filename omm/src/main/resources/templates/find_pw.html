@@ -27,6 +27,7 @@
                 <label for="user_email">이메일</label>
             </td>
             <td>
+                <div class="email-group">
                 <!-- 이메일 아이디 부분을 입력할 필드 -->
                 <input type="text" name="user_email_id" id="user_email_id" placeholder="이메일 아이디" oninput="update_email()">
                 @
@@ -42,6 +43,7 @@
                     <option value="kakao.com">kakao.com</option>
                     <option value="custom">직접 입력</option>
                 </select>
+                </div>
                 <input type="text" id="custom_domain" placeholder="직접 입력" style="display:none;" oninput="update_email()">
                 <!-- 결합된 이메일을 저장할 필드 (hidden) -->
                 <input type="hidden" name="user_email" id="user_email">
