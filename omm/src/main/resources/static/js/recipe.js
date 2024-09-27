@@ -562,6 +562,12 @@ function sendPy() {
             			    url : "/getRecipeByRecommend",
             			    data : {recommend_list : recipe_id_list},
             			    success : recipe_list => {
+            			        const rowCount = target.rows.length;
+
+            			        for (let i = rowCount - 1; i > 0; i--) {
+                                    target.deleteRow(i);
+                                }
+
                                 for (recipe of recipe_list) {
                                     let trEl = document.createElement("tr");
                                     trEl.innerHTML = `<td>${recipe['recipe_id']}</td>`

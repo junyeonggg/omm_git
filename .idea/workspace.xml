@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.27 추천 완2">
+    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.27 추천 완3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1727414687468</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="09.27 추천 완3">
+      <created>1727416391724</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1727416391724</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -136,6 +144,7 @@
     <MESSAGE value="09.23 11:33" />
     <MESSAGE value="09.27 추천 완" />
     <MESSAGE value="09.27 추천 완2" />
-    <option name="LAST_COMMIT_MESSAGE" value="09.27 추천 완2" />
+    <MESSAGE value="09.27 추천 완3" />
+    <option name="LAST_COMMIT_MESSAGE" value="09.27 추천 완3" />
   </component>
 </project>
