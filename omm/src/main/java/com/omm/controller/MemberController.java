@@ -183,7 +183,7 @@ public class MemberController {
         } else if (social.equals("naver")) {
             return new RedirectView(naverAuthorizationUri + "?client_id=" + naverClientId + "&redirect_uri=" + naverRedirectUri + "&response_type=code");
         } else {
-            return new RedirectView("http://localhost:8080/login");
+            return new RedirectView("https://403b-1-245-252-171.ngrok-free.app");
         }
     }
 

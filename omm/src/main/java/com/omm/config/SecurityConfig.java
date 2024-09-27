@@ -17,6 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+
+import java.util.Arrays;
 
 @Configuration // 설정관련
 @EnableWebSecurity
@@ -24,6 +31,18 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://403b-1-245-252-171.ngrok-free.app"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -34,11 +53,11 @@ public class SecurityConfig {
                 .formLogin((formLogin) ->
                         formLogin.loginPage("/login").defaultSuccessUrl("/", true))
                 .logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/").invalidateHttpSession(true))
-        ;
+                        .logoutSuccessUrl("/").invalidateHttpSession(true));
+        // CORS 설정 추가
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
-
     @Bean
         // UserSecurityService에 있는 껍데기 PasswordEncoder를 객체를 주입시켜준다.
     PasswordEncoder passwordEncoder() {

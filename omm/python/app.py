@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)  # 모든 도메인 허용
 
 # 모델 로드
-model = joblib.load('C:\\TeamProject\\name\\omm_git\\omm\\python\\models\\knn_recommend.h5')  # 미리 저장한 KNN 모델
+model = joblib.load('C:\\TeamProject\\omm\\omm_git\\omm\\python\\models\\knn_recommend.h5')  # 미리 저장한 KNN 모델
 
 # 최대 재료 ID (수동 설정, 필요 시 변경)
 max_ingredient_id = 45768  # 예: 최대 재료 ID 값 설정
