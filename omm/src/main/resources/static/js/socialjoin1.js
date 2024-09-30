@@ -25,7 +25,7 @@ async function checkNickname() {
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "https://da49-1-245-252-171.ngrok-free.app/checkNickname",
+            url: "https://e335-1-245-252-171.ngrok-free.app/checkNickname",
             data: { data: nickname }
         });
         if (response.trim() === "true") {
@@ -58,7 +58,7 @@ update_email()
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "https://da49-1-245-252-171.ngrok-free.app/checkEmail",
+            url: "https://e335-1-245-252-171.ngrok-free.app/checkEmail",
             data: { data: email }
         });
         if (response.trim() === "true") {
@@ -92,7 +92,7 @@ async function checkTel() {
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "https://da49-1-245-252-171.ngrok-free.app/checkTel",
+            url: "https://e335-1-245-252-171.ngrok-free.app/checkTel",
             data: { data: fullTel }
         });
 
@@ -371,7 +371,7 @@ function socialsubmitForm(){
 
     $.ajax({
         type : "post",
-        url : "https://da49-1-245-252-171.ngrok-free.app/socialjoin",
+        url : "https://e335-1-245-252-171.ngrok-free.app/socialjoin",
         contentType: false,
         processData: false,
         data: formJoin,
@@ -380,10 +380,10 @@ function socialsubmitForm(){
             if(data=='true'){
                 $.ajax({
                     type : "post",
-                    url : "https://da49-1-245-252-171.ngrok-free.app/login",
+                    url : "https://e335-1-245-252-171.ngrok-free.app/login",
                     data: {'username':user_id,'password':user_id},
                     success : data=>{
-                            window.location.replace("https://da49-1-245-252-171.ngrok-free.app")
+                            window.location.replace("https://e335-1-245-252-171.ngrok-free.app")
                             }
                 })
             }

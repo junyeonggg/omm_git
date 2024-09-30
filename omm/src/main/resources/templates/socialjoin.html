@@ -2,7 +2,7 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
 	<!-- http 요청을 https 로 바꾸는 meta -->
-	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	<meta  content="upgrade-insecure-requests"> <!--http-equiv="Content-Security-Policy"-->
 <title>Title</title>
 	<link href="/css/socialjoin.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -116,10 +116,10 @@
             const user_id = document.querySelector("#user_id").value
             $.ajax({
                     type : "post",
-                    url : "https://da49-1-245-252-171.ngrok-free.app/login",
+                    url : "https://e335-1-245-252-171.ngrok-free.app/login",
                     data: {'username':user_id,'password':user_id},
                     success : data=>{
-                        window.location.replace("https://da49-1-245-252-171.ngrok-free.app")
+                        window.location.replace("https://e335-1-245-252-171.ngrok-free.app")
                         }
             })
          }
