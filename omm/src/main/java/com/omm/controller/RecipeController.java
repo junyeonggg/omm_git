@@ -644,7 +644,7 @@ public class RecipeController {
 
     @ResponseBody
     @PostMapping("/recipe_recommend")
-    public List<Recipe_ingre> getIngreList(Model model, String ingre) {
+    public List<Recipe_ingre> getIngreList(Model model,@RequestParam("ingre") String ingre) {
         List<Recipe_ingre> ingre_list = recipeService.getIngreList(ingre);
         ingre_list.forEach(d -> System.out.println(d.toString()));
         return ingre_list;
