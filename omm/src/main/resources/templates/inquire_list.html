@@ -212,15 +212,15 @@ button:hover {
 		<table class="tbl_paging">
 			<tr>
 				<td th:if="${paging.prevPage}"
-					th:onclick="|location.href='@{http://localhost:8080/inquire(page=${paging.startPage-1},keyword=${paging.keyword})}'|"
+					th:onclick="|location.href='@{/inquire(page=${paging.startPage-1},keyword=${paging.keyword})}'|"
 					th:text="${'<'}"></td>
 				<td
 					th:style="${number == paging.current_page ? 'border-radius: 5px;box-shadow: 1px 1px 2px 2px gray;font-weight: bolder' : ''}"
 					th:each="number : ${#numbers.sequence(paging.startPage,paging.endPage)}"
 					th:text="${number}"
-					th:onclick="|location.href='@{http://localhost:8080/inquire(page=${number},keyword=${paging.keyword})}'|"></td>
+					th:onclick="|location.href='@{/inquire(page=${number},keyword=${paging.keyword})}'|"></td>
 				<td th:if="${paging.nextPage}"
-					th:onclick="|location.href='@{http://localhost:8080/inquire(page=${paging.endPage+1},keyword=${paging.keyword})}'|"
+					th:onclick="|location.href='@{/inquire(page=${paging.endPage+1},keyword=${paging.keyword})}'|"
 					th:text="${'>'}"></td>
 			</tr>
 		</table>
