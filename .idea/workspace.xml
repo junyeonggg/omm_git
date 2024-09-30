@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09-30 10 : 35">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/WebConfig.java" afterDir="false" />
+    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09-30 11 : 16">
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin1.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1727660119640</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="09-30 11 : 16">
+      <created>1727662603629</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1727662603629</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,6 +180,7 @@
     <MESSAGE value="09.27 추천 완4" />
     <MESSAGE value="09-30 10 : 31" />
     <MESSAGE value="09-30 10 : 35" />
-    <option name="LAST_COMMIT_MESSAGE" value="09-30 10 : 35" />
+    <MESSAGE value="09-30 11 : 16" />
+    <option name="LAST_COMMIT_MESSAGE" value="09-30 11 : 16" />
   </component>
 </project>
