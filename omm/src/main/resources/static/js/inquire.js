@@ -36,11 +36,11 @@ function deleteInquire(self){
 	const inquire_id = self;
 	$.ajax({
 		type : "post",
-		url : 'http://localhost:8080/inquire/delete',
+		url : '/inquire/delete',
 		data : {'inquire_id' : inquire_id},
 		success : ()=>{
 			window.alert("삭제되었습니다.");
-			window.location.href='http://localhost:8080/inquire';
+			window.location.href='/inquire';
 			}
 		
 	})

@@ -33,7 +33,7 @@ async function checkId() {
         const data = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "http://localhost:8080/checkId",
+            url: "/checkId",
             data: { data: snd_data }
         });
     // 유효성 검사 추가
@@ -78,7 +78,7 @@ async function checkNickname() {
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "http://localhost:8080/checkNickname",
+            url: "/checkNickname",
             data: { data: nickname }
         });
         if (response.trim() === "true") {
@@ -112,7 +112,7 @@ update_email()
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "http://localhost:8080/checkEmail",
+            url: "/checkEmail",
             data: { data: email }
         });
         if (response.trim() === "true") {
@@ -147,7 +147,7 @@ async function checkTel() {
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "http://localhost:8080/checkTel",
+            url: "/checkTel",
             data: { data: fullTel }
         });
 
@@ -622,7 +622,7 @@ function submitForm(self){
 
     $.ajax({
         type : "post",
-        url : "http://localhost:8080/join",
+        url : "/join",
         contentType: false,
         processData: false,
         data: formJoin,
@@ -631,10 +631,10 @@ function submitForm(self){
             if(data=='true'){
                 $.ajax({
                     type : "post",
-                    url : "http://localhost:8080/login",
+                    url : "/login",
                     data: {'username':user_id,'password':user_pw},
                     success : data=>{
-                            window.location.replace("http://localhost:8080/")
+                            window.location.replace("/")
                             }
                 })
             }else {

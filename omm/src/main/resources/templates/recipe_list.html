@@ -410,7 +410,7 @@ footer p {
 				<!-- 번호 -->
 				<td th:text="${recipe.recipe_food_name}"></td>
 				<td><a th:text="${recipe.recipe_title}"
-					th:href="@{'http://localhost:8080/recipe_list/'+${recipe.recipe_id}}+'?page='+${paging.current_page}+'&'+'keyword='+${paging.keyword}"
+					th:href="@{'/recipe_list/'+${recipe.recipe_id}}+'?page='+${paging.current_page}+'&'+'keyword='+${paging.keyword}"
 					th:onclick="increView('tbl_recipe','recipe_view','recipe_id',[[${recipe.recipe_id}]])"></a></td>
 				<td th:text="${recipe.user_id}"></td>
 				<td th:text="'조회수 '+${recipe.recipe_view}"></td>
@@ -424,15 +424,15 @@ footer p {
 			<table class="tbl_paging">
 				<tr>
 					<td th:if="${paging.prevPage}"
-						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.startPage-1},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"
+						th:onclick="|location.href='@{/recipe_list(page=${paging.startPage-1},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"
 						th:text="${'<'}"></td>
 					<td
 						th:style="${number == paging.current_page ? 'border-radius: 5px;box-shadow: 1px 1px 2px 2px gray;font-weight: bolder' : ''}"
 						th:each="number : ${#numbers.sequence(paging.startPage,paging.endPage)}"
 						th:text="${number}"
-						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${number},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"></td>
+						th:onclick="|location.href='@{/recipe_list(page=${number},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"></td>
 					<td th:if="${paging.nextPage}"
-						th:onclick="|location.href='@{http://localhost:8080/recipe_list(page=${paging.endPage+1},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"
+						th:onclick="|location.href='@{/recipe_list(page=${paging.endPage+1},keyword=${paging.keyword},method=${paging.method},status=${paging.status},ingre=${paging.ingre})}'|"
 						th:text="${'>'}"></td>
 				</tr>
 			</table>
