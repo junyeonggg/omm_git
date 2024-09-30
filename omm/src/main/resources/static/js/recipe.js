@@ -549,7 +549,7 @@ function sendPy() {
             })
             	$.ajax({
             		type: 'POST',
-            		url: 'http://127.0.0.1:5000/recipeRecommend',
+            		url: 'http://192.168.1.5:5000/recipeRecommend',
             		data: JSON.stringify({
             			ingredients: ingredients_list  // 사용자 입력 재료 ID 배열
             		}),
@@ -559,7 +559,7 @@ function sendPy() {
             			alert('성공! 데이터 값: ' + recipe_id_list);  // 데이터 확인
             			$.ajax({
             			    type : "post",
-            			    url : "/getRecipeByRecommend",
+            			    url : "http://192.168.1.5:8080/getRecipeByRecommend",
             			    data : {recommend_list : recipe_id_list},
             			    success : recipe_list => {
             			        const rowCount = target.rows.length;
