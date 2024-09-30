@@ -672,6 +672,7 @@ public class RecipeController {
         recommend_list.forEach(recommend->{
             recipe_list.add(recipeService.selectRecipeById(recommend));
         });
+
         return recipe_list;
     }
 

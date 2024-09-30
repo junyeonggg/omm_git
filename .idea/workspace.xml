@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.27 추천 완3">
+    <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09.27 추천 완4">
+      <change afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/python/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/omm/python/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/RecipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin1.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/recipe_recommend.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +26,13 @@
     <projectState path="$PROJECT_DIR$/omm">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -123,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1727416391724</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="09.27 추천 완4">
+      <created>1727416919192</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1727416919192</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -145,6 +166,7 @@
     <MESSAGE value="09.27 추천 완" />
     <MESSAGE value="09.27 추천 완2" />
     <MESSAGE value="09.27 추천 완3" />
-    <option name="LAST_COMMIT_MESSAGE" value="09.27 추천 완3" />
+    <MESSAGE value="09.27 추천 완4" />
+    <option name="LAST_COMMIT_MESSAGE" value="09.27 추천 완4" />
   </component>
 </project>
