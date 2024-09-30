@@ -21,7 +21,6 @@ function deleteFoodFromCart(cart_id){
 		complete : window.location.reload()
 		
 	})
-	
 }
 
 function modalUp(){

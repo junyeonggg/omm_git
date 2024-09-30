@@ -25,7 +25,7 @@ async function checkNickname() {
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "http://localhost:8080/checkNickname",
+            url: "/checkNickname",
             data: { data: nickname }
         });
         if (response.trim() === "true") {
@@ -59,7 +59,7 @@ update_email()
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "http://localhost:8080/checkEmail",
+            url: "/checkEmail",
             data: { data: email }
         });
         if (response.trim() === "true") {
@@ -94,7 +94,7 @@ async function checkTel() {
         const response = await $.ajax({
             type: "get",
             dataType: "text",
-            url: "http://localhost:8080/checkTel",
+            url: "/checkTel",
             data: { data: fullTel }
         });
 

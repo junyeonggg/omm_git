@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-security-policy" content="upgrade-insecure-requests">
+    <title>상품 상세</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+body,html {
+    font-family: "Orbit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+/* 네비게이션 바 스타일 */
+.navbar {
+  background-color: #343a40 !important; /* 푸터와 동일한 배경색 */
+  padding: 15px 0; /* 네비게이션 바의 상하 패딩 */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 네비게이션 바에 그림자 추가 */
+}
+
+.navbar-brand {
+    font-family: 'Orbit', sans-serif;
+    font-size: 20px; /* 더 큰 크기 */
+    font-weight: bold; /* 두껍게 설정 */
+    color: #fff; /* 흰색으로 설정 */
+    text-transform: uppercase; /* 대문자로 변경 */
+    letter-spacing: 1px; /* 자간 조절 */
+    text-decoration: none;
+}
+
+.navbar .nav-link {
+  color: white !important;
+  padding: 10px 15px; /* 링크 간 간격을 더 넓게 설정 */
+  font-size: 1.1rem;
+}
+/* 테이블 스타일 */
+.tbl_cart, .order-info-table, .payment-info-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  text-align: left;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 테이블 그림자 추가 */
+}
+
+.tbl_cart th, .tbl_cart td, .order-info-table th, .order-info-table td, .payment-info-table th, .payment-info-table td {
+  padding: 15px;
+  border: 1px solid #dee2e6;
+}
+
+.tbl_cart th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.tbl_cart td img {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.img_info {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* 주문자 정보, 결제 정보 스타일 */
+.order-info-table th, .payment-info-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  text-align: left;
+}
+
+.order-info-table, .payment-info-table {
+  margin-top: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.order-info-table td, .payment-info-table td {
+  color: #333;
+}
+
+/* 결제 버튼 스타일 */
+#payment-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#payment-button:hover {
+  background-color: #218838;
+}
+
+/* 결제 섹션 레이아웃 */
+.container {
+  margin-bottom: 30px;
+}
+
+h3 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#payment-method, #agreement {
+  margin-top: 20px;
+}
+/* 푸터 스타일 */
+footer {
+  background-color: #343a40;
+  padding: 20px 0; /* 푸터의 상하 패딩을 적절하게 조정 */
+  color: white;
+  text-align: center;
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-text {
+  margin: 0;
+}
+
+footer p {
+  font-size: 0.9rem;
+  color: #fff;
+}
+/* 주문자 정보 및 결제 정보 테이블 스타일 */
+.order-info-table, .payment-info-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.order-info-table th, .payment-info-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.order-info-table td, .payment-info-table td {
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  color: #333;
+}
+
+/* 호버 효과 */
+.order-info-table tr:hover, .payment-info-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* 제목 스타일 */
+h3 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- 브랜드명이나 로고 -->
+        <a class="navbar-brand" href="/">Your Brand</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- 중앙에 위치한 항목 (예: 네비게이션 링크) -->
+            <ul class="navbar-nav me-auto">
+                <!-- 여기에 다른 네비게이션 항목이 있을 수 있습니다 -->
+            </ul>
+            <!-- 오른쪽에 위치한 로그인/회원가입 버튼 -->
+            <ul class="navbar-nav">
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/profile}">
+                        <i class="fas fa-user"></i>마이페이지
+                    </a>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/login}">
+                        <i class="fas fa-sign-in-alt"></i>로그인
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/logout}">
+                        <i class="fas fa-sign-out-alt"></i>로그아웃
+                    </a>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/join}">
+                        <i class="fas fa-user-plus"></i>회원가입
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/cart}">
+                        <i class="fas fa-shopping-cart"></i>장바구니
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/inquire}">
+                        <i class="fas fa-envelope"></i>문의하기
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="container my-5">
+        <!-- 주문 상품 리스트 -->
+        <h3>주문 내역</h3>
+        <table class="tbl_cart">
+            <tr>
+                <th>상품</th>
+                <th>가격</th>
+                <th>주문날짜</th>
+            </tr>
+            <tr class="cart_list" th:each="cart : ${cart_list}">
+                <td hidden=""><input class=food_id_list type="hidden" th:value="${cart.food_id}"></td>
+                <td><img alt="" width="250px;" th:src="@{${cart.food_img}}"><span class="img_info" th:text="${cart.food_name}"></span></td>
+                <td th:text="${#numbers.formatInteger(cart.food_lprice,3,'COMMA')}+'원'">가격</td>
+                <td th:text="${cart.order_date}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p class="m-0 text-center text-white">&copy; Your Website 2023</p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://js.tosspayments.com/v1/payment-widget"></script>
+<script src="/js/cart.js"></script>
+<script th:src="@{/js/order.js}"></script>
+<script>
+
+</script>
+</body>
+</html>

@@ -83,7 +83,7 @@ public interface ShopDao {
 	@Select("select * from tbl_cart join tbl_food on tbl_cart.food_id = tbl_food.food_id where user_id =#{user_id} and cart_check=1")
 	List<HashMap<String, Object>> getCartByUserIdAndCheck(String name);
 
-	@Insert("insert into tbl_order values(null,#{order_id}, #{user_id},#{order_date},#{food_id})")
+	@Insert("insert into tbl_order values(null,#{order_id}, #{user_id},#{order_date},#{food_id},#{food_quantity})")
 	void insertOrder(OrderDto orderDto);
 
 	@Select("select * from tbl_food where food_id=#{food_id}")
@@ -98,4 +98,9 @@ public interface ShopDao {
 	@Delete("delete from tbl_comment where comment_id=#{commentId}")
     void deleteReview(@Param("commentId")int commentId) throws DataAccessException;
 
+	@Delete("delete from tbl_cart where user_id=#{user_id}")
+    void resetCartByUserId(String user_id);
+
+	@Select("SELECT * FROM tbl_order join tbl_food on tbl_order.food_id = tbl_food.food_id where user_id=#{user_id} order by tbl_order.order_no desc")
+	List<HashMap<String, Object>> selectOrderHisByUserId(String user_id);
 }

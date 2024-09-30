@@ -1,7 +1,7 @@
 /* 키워드 검색시 실행*/
 function searchKeyword() {
 	const keyword = document.querySelector("#keyword").value
-	window.location.href = `http://192.168.1.5:8080/recipe_list?keyword=${keyword}`;
+	window.location.href = `/recipe_list?keyword=${keyword}`;
 }
 // user_id
 // comment_content
@@ -559,7 +559,7 @@ function sendPy() {
             			alert('성공! 데이터 값: ' + recipe_id_list);  // 데이터 확인
             			$.ajax({
             			    type : "post",
-            			    url : "http://192.168.1.5:8080/getRecipeByRecommend",
+            			    url : "/getRecipeByRecommend",
             			    data : {recommend_list : recipe_id_list},
             			    success : recipe_list => {
             			        const rowCount = target.rows.length;

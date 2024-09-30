@@ -183,7 +183,7 @@ public class MemberController {
         } else if (social.equals("naver")) {
             return new RedirectView(naverAuthorizationUri + "?client_id=" + naverClientId + "&redirect_uri=" + naverRedirectUri + "&response_type=code");
         } else {
-            return new RedirectView("https://403b-1-245-252-171.ngrok-free.app");
+            return new RedirectView("/");
         }
     }
 
@@ -367,7 +367,8 @@ public class MemberController {
 
         boolean user = !(member_service.check_id(user_id));
         model.addAttribute("user", user);
-        return "socialjoin";
+//        return "socialjoin";
+        return "index";
     }
 
     @GetMapping("/find_id")

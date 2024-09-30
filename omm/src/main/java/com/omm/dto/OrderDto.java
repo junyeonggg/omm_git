@@ -18,6 +18,7 @@ public class OrderDto {
 	private String user_id;
 	private String order_date;
 	private int food_id;
+	private int food_quantity;
 
 	public void orderDate(OrderDto orderDto) {
 		LocalDateTime now = LocalDateTime.now();

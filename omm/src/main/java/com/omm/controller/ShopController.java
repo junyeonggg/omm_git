@@ -228,15 +228,25 @@ public class ShopController {
 	public String orderInsert(OrderDto orderDto, @RequestParam("food_id_list") List<String> food_id_list,
 			Principal principal) {
 		orderDto.setUser_id(principal.getName());
+		System.out.println("quantity추가 : "+orderDto.toString());
 		shopService.insertOrder(orderDto, food_id_list);
-
+		//장바구니 초기화
+		shopService.resetCartByUserId(principal.getName());
 		return "";
+	}
+	@GetMapping("/order/history")
+	public String orderHistory(Model model,Principal principal) {
+		String user_id = principal.getName();
+		List<HashMap<String, Object>> orderFoodList = shopService.selectOrderHisByUserId(user_id);
+		orderFoodList.forEach(d-> System.out.println(d.toString()));
+		model.addAttribute("cart_list",orderFoodList);
+		return "orderHis";
 	}
 
 	@GetMapping("/success")
-	public String paySuccess(@RequestParam(value = "orderId") String orderid,
-			@RequestParam(value = "paymentKey") String paymentKey, @RequestParam(value = "amount") String amount,
-			@RequestParam("food_id_list") List<Integer> food_id_list, Model model) {
+	public String paySuccess(@RequestParam(value = "orderId", required = false) String orderid,
+			@RequestParam(value = "paymentKey",required = false) String paymentKey, @RequestParam(value = "amount",required = false) String amount,
+			@RequestParam(value="food_id_list",required = false) List<Integer> food_id_list, Model model) {
 		model.addAttribute("order_id", orderid);
 		model.addAttribute("food_id_list", food_id_list);
 		return "success";

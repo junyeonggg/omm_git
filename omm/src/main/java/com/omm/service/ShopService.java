@@ -140,4 +140,20 @@ public class ShopService {
 			return false; // 삭제 실패
 		}
 	}
+
+    public void resetCartByUserId(String user_id) {
+		shopDao.resetCartByUserId(user_id);
+    }
+
+	public List<HashMap<String, Object>> selectOrderHisByUserId(String user_id) {
+		List<HashMap<String, Object>> orderHistList = shopDao.selectOrderHisByUserId(user_id);
+		orderHistList.forEach(d->{
+			System.out.println("수정전 : "+d.get("order_date"));
+			String time =d.get("order_date").toString();
+			time = time.replace("T"," ");
+			d.put("order_date",time);
+			System.out.println("수정 후 : "+d.get("order_date"));
+		});
+		return orderHistList;
+	}
 }

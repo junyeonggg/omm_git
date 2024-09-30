@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="430a33e2-d4cf-4edf-abeb-35768d92018f" name="Changes" comment="09-30 11 : 16">
+      <change afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/orderHis.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/controller/ShopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/ShopDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dao/ShopDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/dto/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/ShopService.java" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/java/com/omm/service/ShopService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/profile1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/recipe.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin1.js" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/static/js/socialjoin1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/socialjoin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/omm/src/main/resources/templates/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/omm/src/main/resources/templates/success.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +41,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -40,12 +61,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="OmmApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.omm.OmmApplication" />
@@ -162,7 +184,14 @@
       <option name="project" value="LOCAL" />
       <updated>1727662795037</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="09-30 11 : 16">
+      <created>1727662822671</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1727662822671</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

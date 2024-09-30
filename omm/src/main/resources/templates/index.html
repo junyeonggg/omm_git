@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta content="upgrade-insecure-requests">
+    <meta http-equiv="content-security-policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Full Width Pics Landing Page Template" />
     <meta name="author" content="Start Bootstrap" />
@@ -91,13 +91,14 @@
                     <h2>레시피 추천받기</h2>
                     <p class="lead">재료를 입력해서 원하는 레시피를 추천받아보세요.</p>
                     <a th:href="@{'/recipe_recommend'}" class="btn">레시피 추천받기</a>
+
                 </div>
             </div>
         </div>
     </section>
 </header>
-
-
+<input type="hidden" id="user_id" name="user_id" th:value="${user_id}">
+<input type="hidden" id="check_user" th:value="${user}">
 
 <!-- Footer -->
 <footer class="footer">
@@ -107,6 +108,21 @@
 </footer>
 
 <!-- Custom JS -->
-<script src="js/script.js"></script>
+<script>
+    window.onload = ()=>{
+
+         if(document.querySelector("#check_user").value=='true'){
+            const user_id = document.querySelector("#user_id").value
+            $.ajax({
+                    type : "post",
+                    url : "/login",
+                    data: {'username':user_id,'password':user_id},
+                    success : data=>{
+                        window.location.replace("/")
+                        }
+            })
+         }
+    }
+</script>
 </body>
 </html>

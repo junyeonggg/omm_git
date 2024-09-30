@@ -176,7 +176,7 @@ footer p {
 		<h1>장바구니에 담은 상품이 없습니다.</h1>
 		<a class= "link" th:href="@{/shop}">쇼핑하러 가기</a>
 	</div>
-	
+
 	<!-- 장바구니 있을 때 -->
 	<div th:if="${#lists.size(cart_list) != 0}">
 		<!-- 주문하기 버튼을 테이블의 우측 상단에 배치 -->
@@ -208,6 +208,10 @@ footer p {
 			</tr>
 		</table>
 	</div>
+	<div>
+		<input type="button" class="order-btn" th:onclick="location.href='/order/history'" value="주문목록">
+
+	</div>
 	<footer>
 		<div class="container">
 			<p class="m-0 text-center text-white">&copy; Your Website 2023</p>
@@ -215,7 +219,7 @@ footer p {
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="/js/cart.js">
-		
+
 	</script>
 </body>
 </html>

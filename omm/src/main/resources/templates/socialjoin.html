@@ -2,11 +2,11 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
 	<!-- http 요청을 https 로 바꾸는 meta -->
-	<meta  content="upgrade-insecure-requests"> <!--http-equiv="Content-Security-Policy"-->
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> <!--http-equiv="Content-Security-Policy"-->
 <title>Title</title>
 	<link href="/css/socialjoin.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script th:src="@{/js/socialjoin1.js}"></script>
+	<script th:src="@{/js/socialjoin	1.js}"></script>
 </head>
 <h1>추가 정보 입력</h1>
 <form name="joinForm" id="joinForm" action="/socialjoin"
@@ -116,10 +116,10 @@
             const user_id = document.querySelector("#user_id").value
             $.ajax({
                     type : "post",
-                    url : "https://e335-1-245-252-171.ngrok-free.app/login",
+                    url : "/login",
                     data: {'username':user_id,'password':user_id},
                     success : data=>{
-                        window.location.replace("https://e335-1-245-252-171.ngrok-free.app")
+                        window.location.replace("/")
                         }
             })
          }
