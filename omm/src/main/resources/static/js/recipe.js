@@ -446,7 +446,7 @@ function addIngre() {
     trEl.innerHTML = `<th>재료</th>`
                    + `<th><input type="text">`
                    + `<input type="button" onclick="getIngreList(this)" value="검색">`
-                   + `<select></select>` // '검색' 버튼과 'X' 버튼 사이에 select 추가
+                   + `<select class="ingre"></select>` // '검색' 버튼과 'X' 버튼 사이에 select 추가
                    + `<input type="button" onclick="deleteIngreTr(this)" value="X">`
                    + `</th>`;
     target_tbl.append(trEl);
@@ -549,7 +549,7 @@ function sendPy() {
             })
             	$.ajax({
             		type: 'POST',
-            		url: 'http://192.168.1.5:5000/recipeRecommend',
+            		url: 'https://81b3-1-245-252-171.ngrok-free.app/recipeRecommend',
             		data: JSON.stringify({
             			ingredients: ingredients_list  // 사용자 입력 재료 ID 배열
             		}),

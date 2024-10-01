@@ -172,6 +172,8 @@ public class MemberController {
         return "login";
     }
 
+    
+
     @GetMapping("/login/{social}")
     public RedirectView loginPage(Model model, @PathVariable("social") String social) {
 
