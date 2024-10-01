@@ -625,10 +625,10 @@ footer p {
 							</div>
 
 						</div>
-						<div th:if="${comment.user_id == user_nickname}" class="d-flex align-items-center">
+						<div class="d-flex align-items-center">
 							<p class="card-text me-3" th:text="${comment.comment_content}"></p>
-							<button type="button" onclick="editReplyBtn(this)" th:data-comment-id="${comment.comment_id}" class="btn btn-warning me-2">수정</button>
-							<button type="button" onclick="deleteReplyBtn(this)" th:data-comment-id="${comment.comment_id}" class="btn btn-danger">삭제</button>
+							<button th:if="${comment.user_id == user_nickname}" type="button" onclick="editReplyBtn(this)" th:data-comment-id="${comment.comment_id}" class="btn btn-warning me-2">수정</button>
+							<button th:if="${comment.user_id == user_nickname}" type="button" onclick="deleteReplyBtn(this)" th:data-comment-id="${comment.comment_id}" class="btn btn-danger">삭제</button>
 						</div>
 					</div>
 					<!-- 답글 출력 -->

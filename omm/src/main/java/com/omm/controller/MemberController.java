@@ -172,7 +172,7 @@ public class MemberController {
         return "login";
     }
 
-    
+
 
     @GetMapping("/login/{social}")
     public RedirectView loginPage(Model model, @PathVariable("social") String social) {
@@ -180,10 +180,10 @@ public class MemberController {
         if (social.equals("google")) {
             return new RedirectView(googleAuthorizationUri + "?client_id=" + googleClientId + "&redirect_uri=" + googleRedirectUri + "&response_type=code&scope=email profile");
         } else if (social.equals("kakao")) {
-            return new RedirectView(kakaoAuthorizationUri + "?client_id=" + kakaoClientId + "&redirect_uri=" + kakaoRedirectUri + "&response_type=code");
+            return new RedirectView(kakaoAuthorizationUri + "?client_id=" + kakaoClientId + "&redirect_uri=" + kakaoRedirectUri + "&response_type=code&prompt=login");
 
         } else if (social.equals("naver")) {
-            return new RedirectView(naverAuthorizationUri + "?client_id=" + naverClientId + "&redirect_uri=" + naverRedirectUri + "&response_type=code");
+            return new RedirectView(naverAuthorizationUri + "?client_id=" + naverClientId + "&redirect_uri=" + naverRedirectUri + "&response_type=code&prompt=login");
         } else {
             return new RedirectView("/");
         }
@@ -200,6 +200,8 @@ public class MemberController {
         String user_id = "";
         String user_name = "";
         String user_email = "";
+        String accessToken ="";
+
         // 인가코드 -> 엑세스 토큰
         if (social.equals("google")) {
             tokenUrl = "";
@@ -228,7 +230,7 @@ public class MemberController {
 
             // 액세스 토큰 추출
             JSONObject jsonResponse = new JSONObject(response.getBody());
-            String accessToken = jsonResponse.getString("access_token");
+            accessToken = jsonResponse.getString("access_token");
 
             // 사용자 정보 요청
             String userInfoUrl = "https://www.googleapis.com/oauth2/v3/userinfo";
@@ -284,7 +286,7 @@ public class MemberController {
 
             // 액세스 토큰 추출
             JSONObject jsonResponse = new JSONObject(response.getBody());
-            String accessToken = jsonResponse.getString("access_token");
+            accessToken = jsonResponse.getString("access_token");
 
             // 사용자 정보 요청
             String userInfoUrl = "https://kapi.kakao.com/v2/user/me";
@@ -335,7 +337,7 @@ public class MemberController {
 
             // 액세스 토큰 추출
             JSONObject jsonResponse = new JSONObject(response.getBody());
-            String accessToken = jsonResponse.getString("access_token");
+            accessToken = jsonResponse.getString("access_token");
 
             // 사용자 정보 요청
             String userInfoUrl = "https://openapi.naver.com/v1/nid/me";
@@ -370,8 +372,13 @@ public class MemberController {
         boolean user = !(member_service.check_id(user_id));
         model.addAttribute("user", user);
 //        return "socialjoin";
-        return "index";
+        if(user){
+            return "index";
+        }else{
+            return "socialjoin";
+        }
     }
+
 
     @GetMapping("/find_id")
     public String findId() {

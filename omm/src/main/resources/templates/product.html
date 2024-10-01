@@ -233,6 +233,7 @@ footer p {
 }
 
 
+
     </style>
 </head>
 <body>
@@ -386,39 +387,13 @@ footer p {
                             </div>
                         </div>
                         <p class="card-text" th:text="${comment.comment_content}"></p>
-                    </div>
-                    <!-- 리뷰 수정 모달 (여기에 추가) -->
-                    <div id="editReviewModal" style="display:none;">
-                        <h4>리뷰 수정</h4>
-                        <div class="mb-3">
-                            <label for="editCommentContent">새로운 리뷰 내용</label>
-                            <textarea class="form-control" id="editCommentContent" rows="3" required></textarea>
-                        </div>
-                        <!-- 별점 선택 UI -->
-                        <label>새로운 별점을 선택하세요:</label>
-                        <div class="rate">
-                            <input type="radio" id="editStar5" name="editRating" value="5"> <label for="editStar5"
-                                                                                                   title="5 stars"></label>
-                            <input type="radio" id="editStar4half" name="editRating" value="4.5"> <label
-                                for="editStar4half" class="half" title="4.5 stars"></label>
-                            <input type="radio" id="editStar4" name="editRating" value="4"> <label for="editStar4"
-                                                                                                   title="4 stars"></label>
-                            <input type="radio" id="editStar3half" name="editRating" value="3.5"> <label
-                                for="editStar3half" class="half" title="3.5 stars"></label>
-                            <input type="radio" id="editStar3" name="editRating" value="3"> <label for="editStar3"
-                                                                                                   title="3 stars"></label>
-                            <input type="radio" id="editStar2half" name="editRating" value="2.5"> <label
-                                for="editStar2half" class="half" title="2.5 stars"></label>
-                            <input type="radio" id="editStar2" name="editRating" value="2"> <label for="editStar2"
-                                                                                                   title="2 stars"></label>
-                            <input type="radio" id="editStar1half" name="editRating" value="1.5"> <label
-                                for="editStar1half" class="half" title="1.5 stars"></label>
-                            <input type="radio" id="editStar1" name="editRating" value="1"> <label for="editStar1"
-                                                                                                   title="1 star"></label>
-                            <input type="radio" id="editStarhalf" name="editRating" value="0.5"> <label
-                                for="editStarhalf" class="half" title="0.5 stars"></label>
-                        </div>
-                        <button type="button" id="saveEditReviewBtn" class="btn btn-primary mt-3">수정하기</button>
+                        <button th:if="${comment.user_id == user_nickname}" type="button" onclick="editReview(this)"
+                                th:data-comment-id="${comment.comment_id}" class="btn btn-warning">수정하기
+                        </button>
+                        <button th:if="${comment.user_id == user_nickname}" type="button"
+                                onclick="deleteReview(this)"
+                                th:data-comment-id="${comment.comment_id}" class="btn btn-danger">삭제하기
+                        </button>
                     </div>
 
                     <!-- 답글 출력 -->
@@ -436,8 +411,6 @@ footer p {
                         <label for="replyContent" class="form-label">답글</label>
                         <textarea class="form-control" id="replyContent"
                                   name="replyContent" rows="2"></textarea>
-                    </div>
-                    <div class="d-flex justify-content-between">
                         <button type="button" onclick="insertReplyBtn(this,2)"
                                 th:data-user-id="${user_id}" th:data-target-id="${food.foodId}"
                                 th:data-user-nickname="${user_nickname}"
@@ -445,14 +418,6 @@ footer p {
                                 th:data-type="replyContent" class="btn btn-secondary">답글
                             달기
                         </button>
-                        <div th:if="${comment.user_id == user_nickname}">
-                            <button type="button" onclick="editReview(this)"
-                                    th:data-comment-id="${comment.comment_id}" class="btn btn-warning">수정하기
-                            </button>
-                            <button type="button" onclick="deleteReview(this)"
-                                    th:data-comment-id="${comment.comment_id}" class="btn btn-danger">삭제하기
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -544,7 +509,7 @@ footer p {
 
 	// 댓글인지 대댓글인지 판별 (댓글이면 댓글textarea, 대댓글이면 대댓글textarea의 값을 가져옴)
 	const type = self.getAttribute("data-type")
-	const comment_content = document.querySelector(`#${type}`).value.trim();
+	const comment_content = self.previousElementSibling.value.trim();
 	const user_nickname = self.getAttribute("data-user-nickname");
 	const comment_parent_id = self.getAttribute("data-parent-comment-id")
 	const target_id = self.getAttribute("data-target-id");
@@ -622,6 +587,7 @@ function check_user(user_id,i) {
 			}
 		}
 }
+
 
 
 </script>

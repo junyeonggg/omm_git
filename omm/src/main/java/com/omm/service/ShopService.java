@@ -66,6 +66,7 @@ public class ShopService {
 
 	public void insertReply(CommentDto comment) {
 		shopDao.insertReply(comment);
+
 	}
 
 	public void insertCart(CartDto cartDto) {

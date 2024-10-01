@@ -70,7 +70,8 @@ function insertReplyBtn(self, reference_type) {
 
 	// 댓글인지 대댓글인지 판별 (댓글이면 댓글textarea, 대댓글이면 대댓글textarea의 값을 가져옴)
 	const type = self.getAttribute("data-type")
-	const comment_content = document.querySelector(`#${type}`).value.trim();
+	//const comment_content = document.querySelector(`#${type}`).value.trim();
+	const comment_content = self.previousElementSibling.value.trim();
 	const user_nickname = self.getAttribute("data-user-nickname");
 	const comment_parent_id = self.getAttribute("data-parent-comment-id")
 	const target_id = self.getAttribute("data-target-id");
@@ -556,7 +557,8 @@ function sendPy() {
             		dataType: 'json',  // 'JSON' 대신 'json'으로 소문자로
             		contentType: "application/json",
             		success: function(recipe_id_list) {
-            			alert('성공! 데이터 값: ' + recipe_id_list);  // 데이터 확인
+            			//alert('성공! 데이터 값: ' + recipe_id_list);  // 데이터 확인
+            			alert('추천 레시피를 불러옵니다.');  // 데이터 확인
             			$.ajax({
             			    type : "post",
             			    url : "/getRecipeByRecommend",

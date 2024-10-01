@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <script src="/js/script.js"></script>
 </head>
 <body class="homepage">
 <!-- Responsive navbar-->
@@ -32,7 +33,7 @@
                     </a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a class="nav-link active" th:href="@{/logout}">
+                    <a class="nav-link active" href="/logout">
                         <i class="fas fa-sign-out-alt"></i> 로그아웃
                     </a>
                 </li>
@@ -110,7 +111,6 @@
 <!-- Custom JS -->
 <script>
     window.onload = ()=>{
-
          if(document.querySelector("#check_user").value=='true'){
             const user_id = document.querySelector("#user_id").value
             $.ajax({

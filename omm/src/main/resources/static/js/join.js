@@ -466,10 +466,10 @@ function submitForm(self){
     update_email()
 
     // 이메일 인증 상태 확인
-    if (isEmailChecked && !isEmailVerified) {
-        window.alert("이메일 인증을 먼저 완료해 주세요.");
-        return false;
-    }
+    //if (isEmailChecked && !isEmailVerified) {
+    //    window.alert("이메일 인증을 먼저 완료해 주세요.");
+    //    return false;
+    //}
     var currentUserId = $("#user_id").val().trim();
     var currentPassword = $("#user_pw").val().trim();
     var currentUserName = $("#user_name").val().trim();
