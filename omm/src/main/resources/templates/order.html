@@ -200,32 +200,32 @@ h3 {
 				<ul class="navbar-nav">
 					<li sec:authorize="isAuthenticated()" class="nav-item">
 						<a class="nav-link active" th:href="@{/profile}">
-							<i class="fas fa-user"></i>마이페이지
+							<i class="fas fa-user"></i> 마이페이지
 						</a>
 					</li>
 					<li sec:authorize="isAnonymous()" class="nav-item">
 						<a class="nav-link active" th:href="@{/login}">
-							<i class="fas fa-sign-in-alt"></i>로그인
+							<i class="fas fa-sign-in-alt"></i> 로그인
 						</a>
 					</li>
 					<li sec:authorize="isAuthenticated()" class="nav-item">
 						<a class="nav-link active" th:href="@{/logout}">
-							<i class="fas fa-sign-out-alt"></i>로그아웃
+							<i class="fas fa-sign-out-alt"></i> 로그아웃
 						</a>
 					</li>
 					<li sec:authorize="isAnonymous()" class="nav-item">
 						<a class="nav-link active" th:href="@{/join}">
-							<i class="fas fa-user-plus"></i>회원가입
+							<i class="fas fa-user-plus"></i> 회원가입
 						</a>
 					</li>
 					<li sec:authorize="isAuthenticated()" class="nav-item">
 						<a class="nav-link active" th:href="@{/cart}">
-							<i class="fas fa-shopping-cart"></i>장바구니
+							<i class="fas fa-shopping-cart"></i> 장바구니
 						</a>
 					</li>
 					<li sec:authorize="isAuthenticated()" class="nav-item">
 						<a class="nav-link active" th:href="@{/inquire}">
-							<i class="fas fa-envelope"></i>문의하기
+							<i class="fas fa-envelope"></i> 문의하기
 						</a>
 					</li>
 				</ul>

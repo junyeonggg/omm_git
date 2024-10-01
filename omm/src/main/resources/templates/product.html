@@ -59,65 +59,83 @@ body,html {
 	 ~ label {
 	color: #f73c32 !important; /* 호버 상태의 별 색상 */
 }
-
 .nlogin_modal {
-	position: fixed;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	height: 100%;
-	width: 100%;
-	left: 0;
-	top: 0;
-	background-color: rgba(0, 0, 0, 0.1);
+    position: fixed;
+    display: none; /* 모달이 처음에는 보이지 않도록 설정 */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 배경 어둡게 */
 }
 
-.nlogin_modal_item {
-	position: relative;
-	bottom: 100px;
-	display: flex;
-	flex-direction: column;
-	width: 500px;
-	height: 200px;
-	border-radius: 5px;
-	box-shadow: 2px 2px 3px 2px gray;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	background-color: white;
-	align-items: center;
-	bottom: 100px;
+/* 모달 배경을 조금 더 어둡게 조정 */
+.nlogin_modal, .nlogin_modal2 {
+    background-color: rgba(0, 0, 0, 0.5); /* 배경을 더 어둡게 */
 }
 
-.nlogin_modal2 {
-	position: fixed;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	height: 100%;
-	width: 100%;
-	left: 0;
-	top: 0;
-	background-color: rgba(0, 0, 0, 0);
+/* 모달 아이템 스타일 */
+.nlogin_modal_item, .nlogin_modal_item2 {
+    background-color: #fff; /* 모달 배경 흰색 */
+    padding: 20px; /* 안쪽 여백 추가 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
+    max-width: 500px; /* 최대 너비 */
+    width: 100%; /* 화면 크기에 따라 자동 조정 */
+    animation: fadeIn 0.4s ease-out; /* 모달 애니메이션 추가 */
 }
 
-.nlogin_modal_item2 {
-	position: relative;
-	bottom: 100px;
-	display: flex;
-	flex-direction: column;
-	width: 300px;
-	height: 100px;
-	border-radius: 5px;
-	box-shadow: 2px 2px 3px 2px gray;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	background-color: white;
-	align-items: center;
+/* 모달 내부 텍스트 및 버튼 스타일 */
+.nlogin_modal_item h2, .nlogin_modal_item2 h4 {
+    font-size: 1.5rem; /* 제목 크기 조정 */
+    font-weight: bold; /* 굵은 텍스트 */
+    margin-bottom: 20px; /* 제목 하단에 여백 추가 */
+    color: #343a40; /* 제목 색상 */
 }
+
+.nlogin_modal_item a, .nlogin_modal_item2 a {
+    background-color: #007bff; /* 버튼 색상 */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.nlogin_modal_item a:hover, .nlogin_modal_item2 a:hover {
+    background-color: #0056b3; /* 호버 시 버튼 색상 */
+}
+
+/* 닫기 버튼 스타일 */
+.nlogin_modal_item button, .nlogin_modal_item2 button {
+    background-color: #dc3545; /* 빨간색 닫기 버튼 */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.nlogin_modal_item button:hover, .nlogin_modal_item2 button:hover {
+    background-color: #c82333; /* 닫기 버튼 호버 시 색상 */
+}
+
+/* 모달에 간단한 페이드 인 효과 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .rate2 {
 	display: inline-block;
 	margin-right: 15px;
@@ -277,11 +295,22 @@ footer p {
                         <i class="fas fa-shopping-cart"></i> 장바구니
                     </a>
                 </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/order/history}">
+                        <i class="fas fa-receipt"></i> 주문내역
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container my-5">
+    <div class="container my-3">
+        <!-- 페이지 상단의 빈 공간에 뒤로가기 버튼 추가 -->
+        <button class="btn btn-secondary" th:onclick="|window.location.href='@{/shop}'|">
+            <i class="fas fa-arrow-left"></i> 뒤로가기
+        </button>
+    </div>
     <!-- 상품 상세 정보 -->
     <div class="row">
         <div class="col-md-6">
@@ -507,11 +536,10 @@ footer p {
         <h4>장바구니에 담았습니다.</h4>
         <span><a href="#" onclick="close_modal2()" style="margin-bottom: 20px;">쇼핑계속하기</a>
 				<a href="/cart" style="margin-bottom: 20px;">장바구니 이동</a></span>
-        <button onclick="close_modal2()">닫기</button>
     </div>
 </div>
 
-
+</body>
 <footer>
     <div class="container">
         <p class="m-0 text-center text-white">&copy; Your Website 2023</p>

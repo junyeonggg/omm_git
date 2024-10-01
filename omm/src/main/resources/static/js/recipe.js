@@ -149,10 +149,19 @@ function insertSequenceTr() {
 
 
 
-	trEl.innerHTML = `<td class="step_no_td"><input class="org_step_no" type="text" value="${num}" readonly="readonly"></td>
-						<td class="step_text_td"><textarea class="sequence_text" cols="140" rows="5" placeholder="김치를 먼저 볶아 주세요."></textarea></td>
-						<td><input class="sequence_img" type="file"></td>
-						<td><input type="button" onclick="deleteSequenceTr(this)" value="X"></td>`
+	trEl.innerHTML = `
+	        <td class="step_no_td">
+                <input class="org_step_no" type="text" value="${num}" readonly="readonly" style="width: 50px; text-align: center;">
+            </td>
+            <td class="step_text_td">
+                <textarea class="sequence_text" cols="80" rows="5" placeholder="김치를 먼저 볶아 주세요." style="width: 600px;"></textarea>
+            </td>
+            <td>
+                <input class="sequence_img" type="file">
+            </td>
+            <td>
+                <input type="button" onclick="deleteSequenceTr(this)" value="X">
+            </td>`
 	target.appendChild(trEl);
 
 }
@@ -444,12 +453,11 @@ function addIngre() {
     const target_tbl = document.querySelector("#input_ingre_tbl");
     let trEl = document.createElement("tr");
     trEl.innerHTML = `<th>재료</th>`
-                   + `<th><input type="text">`
-                   + `<input type="button" onclick="getIngreList(this)" value="검색">`
-                   + `<select class="ingre"></select>` // '검색' 버튼과 'X' 버튼 사이에 select 추가
-                   + `<input type="button" onclick="deleteIngreTr(this)" value="X">`
+                   + `<th class="th_left"><input type="text" style="width: 200px; padding: 5px; margin-right: 10px;" placeholder="재료 입력">`
+                   + `<input type="button" style="padding: 5px 10px; margin-right: 10px; background-color: #0d6efd; color: white; border: none; border-radius: 4px;" onclick="getIngreList(this)" value="검색">`
+                   + `<input class="x_btn"  type="button" style="padding: 5px 10px; background-color: #0d6efd; color: white; border: none; border-radius: 4px;"onclick="deleteIngreTr(this)" value="X">`
                    + `</th>`;
-    target_tbl.append(trEl);
+    target_tbl.firstElementChild.append(trEl);
 }
 
 
