@@ -57,6 +57,11 @@
                         <i class="fas fa-shopping-cart"></i> 장바구니
                     </a>
                 </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link active" th:href="@{/order/history}">
+                        <i class="fas fa-receipt"></i> 주문내역
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

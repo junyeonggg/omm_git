@@ -13,6 +13,18 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <title>레시피</title>
 <style>
+html, body {
+  height: 100%; /* 페이지 전체 높이를 100%로 설정 */
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh; /* Viewport height만큼 최소 높이 설정 */
+}
+
 /* flex_container 스타일 */
 .flex_container {
   display: flex;
@@ -31,37 +43,49 @@
   width: 100%; /* 가로 폭을 100%로 설정 */
 }
 
-/* 테이블 스타일 */
+/* 테이블 크기 및 셀 패딩 조정 */
 table {
-  width: 100%; /* 테이블 너비를 100%로 설정 */
+  width: 80%; /* 테이블 너비를 80%로 설정 */
+  max-width: 800px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 테이블을 중앙에 정렬 */
   border-collapse: collapse; /* 테두리 중복 제거 */
+  font-size: 14px; /* 글자 크기를 작게 설정 */
+}
+
+table th, table td {
+  padding: 5px; /* 셀 패딩을 줄여 크기를 작게 */
 }
 
 table th {
   background-color: #6c757d; /* 헤더 배경색 */
   color: white; /* 헤더 글자색 */
-  padding: 10px; /* 패딩 추가 */
-  text-align: left; /* 왼쪽 정렬 */
 }
 
 table td {
-  padding: 10px; /* 패딩 추가 */
-  background-color: lightgray; /* 기본 배경색 */
+  background-color: lightgray; /* 셀 배경색 */
   border: 1px solid #dee2e6; /* 테두리 추가 */
 }
 
-/* 입력 필드 스타일 */
+/* 입력 필드 너비 조정 */
 input[type="text"],
 input[type="number"],
 select,
 textarea {
-  width: calc(100% - 20px); /* 너비 설정 */
-  padding: 10px; /* 패딩 추가 */
-  border: 1px solid #ced4da; /* 테두리 추가 */
-  border-radius: 4px; /* 모서리 둥글게 */
-  margin-top: 5px; /* 위쪽 마진 */
+  width: calc(100% - 10px); /* 입력 필드의 너비를 줄임 */
+  padding: 5px; /* 패딩을 줄여 더 컴팩트하게 */
+  font-size: 14px; /* 글자 크기 축소 */
+}
+/* 시간 선택 영역을 한 줄에 배치하기 위한 스타일 */
+.time-container {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 10px; /* 요소 간 간격 */
 }
 
+.time {
+  width: auto;
+  padding: 5px;
+}
 /* 버튼 스타일 */
 input[type="button"] {
   background-color: #28a745; /* 버튼 배경색 */
@@ -75,6 +99,34 @@ input[type="button"] {
 
 input[type="button"]:hover {
   background-color: #218838; /* 호버 시 배경색 변화 */
+}
+.recipe-button-container {
+  text-align: center; /* 버튼을 중앙에 정렬 */
+  margin-top: 20px; /* 버튼과 위 요소 사이에 여백 추가 */
+}
+
+.recipe-button-container input[type="button"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.recipe-button-container input[type="button"]:hover {
+  background-color: #218838;
+}
+.content {
+  flex: 1; /* 콘텐츠가 남은 공간을 차지하게 함 */
+}
+
+.footer {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
 }
 </style>
 
@@ -168,16 +220,19 @@ input[type="button"]:hover {
 
 				<tr>
 					<th>요리 시간</th>
-					<td><input class="time"
-						style="width: 40px; text-align: center;" type="number"> <select
-						class="time">
-							<option value="분">분</option>
-							<option value="시간">시간</option>
-					</select> <select class="time">
-							<option>이하</option>
-							<option>이상</option>
-					</select></td>
-
+					<td>
+						<div class="time-container">
+							<input class="time" style="width: 40px; text-align: center;" type="number">
+							<select class="time">
+								<option value="분">분</option>
+								<option value="시간">시간</option>
+							</select>
+							<select class="time">
+								<option>이하</option>
+								<option>이상</option>
+							</select>
+						</div>
+					</td>
 				</tr>
 
 				<tr>
@@ -211,11 +266,7 @@ input[type="button"]:hover {
 					<td>
 						<table id="ingre_tbl">
 							<tr>
-								<td><input type="button" onclick="insertIngreTr()"
-									value="재료 추가"></td>
-							</tr>
-							<tr>
-								<td><input type="text" value="[재료]" readonly="readonly"></td>
+								<td><input type="button" onclick="insertIngreTr()" value="재료 추가"></td>
 							</tr>
 						</table>
 					</td>
@@ -230,7 +281,9 @@ input[type="button"]:hover {
 						</table></td>
 				</tr>
 			</table>
-			<input type="button" onclick="insertRecipeForm()" value="레시피 생성 !">
+			<div class="recipe-button-container">
+				<input type="button" onclick="insertRecipeForm()" value="레시피 작성하기">
+			</div>
 		</div>
 	</div>
 	<footer class="footer">

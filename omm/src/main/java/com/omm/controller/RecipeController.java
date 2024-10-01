@@ -581,6 +581,16 @@ public class RecipeController {
         model.addAttribute("paging", pagingSearch);
         model.addAttribute("recipe_list", recipe_list);
 
+        // 필터링
+        List<String> ingre_list = recipeService.getIngre();
+        model.addAttribute("ingre_list", ingre_list);
+
+        List<String> method_list = recipeService.getMethod();
+        model.addAttribute("method_list", method_list);
+
+        List<String> status_list = recipeService.getStatus();
+        model.addAttribute("status_list", status_list);
+
         return "recipe_list";
     }
 
