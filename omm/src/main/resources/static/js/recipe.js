@@ -558,7 +558,7 @@ function sendPy() {
             })
             	$.ajax({
             		type: 'POST',
-            		url: 'https://81b3-1-245-252-171.ngrok-free.app/recipeRecommend',
+            		url: 'https://4a8a-1-245-252-171.ngrok-free.app/recipeRecommend',
             		data: JSON.stringify({
             			ingredients: ingredients_list  // 사용자 입력 재료 ID 배열
             		}),

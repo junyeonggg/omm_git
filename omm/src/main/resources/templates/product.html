@@ -458,6 +458,12 @@ footer p {
                 <span th:text="${user_nickname}">작성자 : </span>
                 <textarea class="form-control" id="comment_content"
                           name="reviewContent" rows="3" required></textarea>
+                <button type="button" onclick="insertReplyBtn(this,2)"
+                        th:data-user-id="${user_id}" th:data-target-id="${food.foodId}"
+                        th:data-user-nickname="${user_nickname}"
+                        data-parent-comment-id="0" th:data-type="comment_content"
+                        class="btn btn-primary mt-3">리뷰 작성
+                </button>
             </div>
             <!-- 별점 -->
             <div class="rate">
@@ -477,12 +483,7 @@ footer p {
                 <input type="radio" id="starhalf" name="rating" value="0.5"> <label for="starhalf" class="half"
                                                                                     title="0.5 stars"></label>
             </div>
-            <button type="button" onclick="insertReplyBtn(this,2)"
-                    th:data-user-id="${user_id}" th:data-target-id="${food.foodId}"
-                    th:data-user-nickname="${user_nickname}"
-                    data-parent-comment-id="0" th:data-type="comment_content"
-                    class="btn btn-primary mt-3">리뷰 작성
-            </button>
+
         </div>
     </div>
 </div>
@@ -537,11 +538,10 @@ footer p {
 
 	// 댓글인지 대댓글인지 판별 (댓글이면 댓글textarea, 대댓글이면 대댓글textarea의 값을 가져옴)
 	const type = self.getAttribute("data-type")
-	const comment_content = self.previousElementSibling.value.trim();
+	const comment_content = self.previousElementSibling.value;
 	const user_nickname = self.getAttribute("data-user-nickname");
 	const comment_parent_id = self.getAttribute("data-parent-comment-id")
 	const target_id = self.getAttribute("data-target-id");
-    console.log(target_id)
 
     // 댓글 내용이 빈 칸 또는 공백만으로 이루어진 경우 확인
     if (comment_content.length === 0) {
